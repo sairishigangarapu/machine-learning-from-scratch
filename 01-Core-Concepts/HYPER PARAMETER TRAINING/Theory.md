@@ -3,7 +3,7 @@
 ## 1. The Challenge of Tuning
 Machine Learning models are governed by **Hyperparameters**—settings that are not learned from data but must be defined *before* training (e.g., `learning_rate` in Gradient Descent, `k` in KNN).
 
-Finding the optimal combination manually using nested loops ("The Normal Way") is inefficient and computationally expensive. We use specialized algorithms to automate this search.
+Finding the optimal combination manually using nested loops is inefficient and computationally expensive. We use specialized algorithms to automate this search.
 
 ---
 
@@ -40,7 +40,9 @@ Randomized Search samples a fixed number of parameter settings from specified pr
 ---
 
 ## 4. Hyperparameter Reference Guide 📖
-*Copy-paste these distributions when defining your search spaces.*
+## 5. Algorithm-Specific Parameter Grids 🎛️
+
+Use these `param_dist` dictionaries when configuring your `RandomizedSearchCV`.
 
 ### 🤖 Logistic Regression
 ```python
@@ -50,3 +52,45 @@ param_dist = {
     'solver': ['liblinear', 'saga'], # 'saga' handles all penalties
     'max_iter': [100, 200, 500]
 }
+```
+
+### 🧠 Support Vector Machine (SVM) 
+```python
+param_dist = {
+    'C': uniform(0.1, 100),       # Penalty parameter of the error term
+    'kernel': ['linear', 'rbf', 'poly'],
+    'gamma': ['scale', 'auto'],   # Kernel coefficient
+    'degree': [2, 3, 4]           # Only for 'poly' kernel
+}
+```
+
+### 🌳 Random Forest
+```python
+param_dist = {
+    'n_estimators': randint(50, 300),    # Number of trees
+    'max_depth': randint(3, 20),         # Pruning depth
+    'min_samples_split': randint(2, 10), # Prevent overfitting
+    'min_samples_leaf': randint(1, 5),   # Smooth predictions
+    'bootstrap': [True, False],
+    'criterion': ['gini', 'entropy']
+}
+```
+
+### 📈 K-Nearest Neighbors (KNN)
+```python
+param_dist = {
+    'n_neighbors': randint(1, 30),
+    'weights': ['uniform', 'distance'],  # 'distance' gives weight to closer neighbors
+    'metric': ['euclidean', 'manhattan']
+}
+```
+
+### 🚀 Gradient Boosting (XGBoost / GBM)
+```python
+param_dist = {
+    'learning_rate': uniform(0.01, 0.3), # Step size shrinkage
+    'n_estimators': randint(100, 1000),  # Boosting rounds
+    'max_depth': randint(3, 10),         # Tree complexity
+    'subsample': uniform(0.6, 0.4)       # Stochastic boosting
+}
+```
