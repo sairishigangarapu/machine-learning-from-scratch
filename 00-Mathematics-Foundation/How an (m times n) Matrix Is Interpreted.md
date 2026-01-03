@@ -139,27 +139,27 @@ $$is a point in **(mn)-dimensional space**.
 
 ### 🧭 Example: geometric view
 
-If  
-[  
-A =  
+If
 $$
-\begin{bmatrix}  
-1 & 2\\  
-3 & 4  
+A =
+\begin{bmatrix}
+1 & 2\\
+3 & 4
 \end{bmatrix}
 $$
-then  
+then
 $$
-[  
-\text{vec}(A) = (1,,3,,2,,4)^{T}  
-]
+\text{vec}(A) =
+\begin{bmatrix}
+1 \\ 3 \\ 2 \\ 4
+\end{bmatrix}
+= (1, 3, 2, 4)^{T}
 $$
-So the matrix corresponds to the point  
+So the matrix corresponds to the point
 $$
-[  
-(1,3,2,4)  
-] 
+(1, 3, 2, 4)
 $$
+
 in **4-dimensional space**.
 
 ----
