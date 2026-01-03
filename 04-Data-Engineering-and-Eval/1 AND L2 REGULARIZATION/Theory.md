@@ -51,4 +51,5 @@ $$
 ---
 <img width="1241" height="493" alt="image" src="https://github.com/user-attachments/assets/79b8ade5-4979-42d7-9678-69d14fd22b14" />
 ---
+
 **External Exercise:** [Codebasics L1/L2 Regularization Lab](https://github.com/codebasics/py/blob/master/ML/16_regularization/16_regularization.ipynb)
