@@ -106,13 +106,6 @@ A symmetric matrix is PD (or PSD) iff all its eigenvalues are positive (or non-n
 
 Check the determinants of the upper-left sub-matrices (principal minors).
 
-For $$A = \begin{bmatrix} 2 & -1 & 0 \\ -1 & 2 & -1 \\ 0 & -1 & 2 \end{bmatrix}$$:
-
-1. **$1 \times 1$:** $\det([2]) = 2 > 0$
-2. **$2 \times 2$:** $\det \begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix} = 4 - 1 = 3 > 0$
-3. **$3 \times 3$:** $\det(A) = 4 > 0$
-
-All determinants are positive $\implies A$ is Positive Definite.
 
 ### Parameter Example
 
