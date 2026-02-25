@@ -19,9 +19,8 @@ $$Ax = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ 1 \end{
 Here, the output is just $3$ times the input. The direction remains the same.
 
 - **Eigenvector ($v$):** A non-zero vector whose direction does not change when a linear transformation is applied.
-    
+
 - **Eigenvalue ($\lambda$):** The scalar factor by which the eigenvector is scaled.
-    
 
 ---
 
@@ -60,19 +59,18 @@ For each $\lambda$, solve the system $(A - \lambda I)v = 0$ to find the correspo
 Given $A = \begin{pmatrix} 2 & -2 & 3 \\ 1 & 1 & 1 \\ 1 & 3 & -1 \end{pmatrix}$:
 
 1. Find Eigenvalues:
-    
-    $$\det \begin{pmatrix} 2-\lambda & -2 & 3 \\ 1 & 1-\lambda & 1 \\ 1 & 3 & -1-\lambda \end{pmatrix} = 0$$
-    
-    Solving this cubic polynomial gives roots: $\lambda = 3, 1, -2$.
-    
+
+   $$\det \begin{pmatrix} 2-\lambda & -2 & 3 \\ 1 & 1-\lambda & 1 \\ 1 & 3 & -1-\lambda \end{pmatrix} = 0$$
+
+   Solving this cubic polynomial gives roots: $\lambda = 3, 1, -2$.
+
 2. Find Eigenvector for $\lambda = 3$:
-    
-    Solve $(A - 3I)v = 0$:
-    
-    $$\begin{pmatrix} -1 & -2 & 3 \\ 1 & -2 & 1 \\ 1 & 3 & -4 \end{pmatrix} \begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$$
-    
-    Solution: $v_1 = v_2 = v_3$. One solution is $v = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$.
-    
+
+   Solve $(A - 3I)v = 0$:
+
+   $$\begin{pmatrix} -1 & -2 & 3 \\ 1 & -2 & 1 \\ 1 & 3 & -4 \end{pmatrix} \begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$$
+
+   Solution: $v_1 = v_2 = v_3$. One solution is $v = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$.
 
 ---
 
@@ -81,50 +79,48 @@ Given $A = \begin{pmatrix} 2 & -2 & 3 \\ 1 & 1 & 1 \\ 1 & 3 & -1 \end{pmatrix}$:
 Eigenvalues characterize the transformation applied to an object:
 
 - **Diagonal Matrix:** A matrix like $\begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}$ scales the x-axis by 2 and leaves the y-axis unchanged. The basis vectors are the eigenvectors.
-    
+
 - **Shear/Rotation:** If an object (like a square) is transformed into a parallelogram, the eigenvectors represent the axes along which the shape is merely stretched, not rotated.
-    
 
 ---
 
 ## 5. Properties
 
 1. Invertibility:
-    
-    If $Av = \lambda v$ and $A$ is invertible, then:
-    
-    $$A^{-1} v = \frac{1}{\lambda} v$$
-    
-    (The eigenvectors are the same, eigenvalues are reciprocals).
-    
+
+   If $Av = \lambda v$ and $A$ is invertible, then:
+
+   $$A^{-1} v = \frac{1}{\lambda} v$$
+
+   (The eigenvectors are the same, eigenvalues are reciprocals).
+
 2. Powers:
-    
-    If $Av = \lambda v$, then for any integer $k$:
-    
-    $$A^k v = \lambda^k v$$
-    
+
+   If $Av = \lambda v$, then for any integer $k$:
+
+   $$A^k v = \lambda^k v$$
+
 3. Trace:
-    
-    The sum of the diagonal elements (Trace) equals the sum of eigenvalues:
-    
-    $$\text{tr}(A) = \sum_{i=1}^n \lambda_i$$
-    
+
+   The sum of the diagonal elements (Trace) equals the sum of eigenvalues:
+
+   $$\text{tr}(A) = \sum_{i=1}^n \lambda_i$$
+
 4. Determinant:
-    
-    The determinant of $A$ equals the product of eigenvalues:
-    
-    $$\det(A) = \prod_{i=1}^n \lambda_i$$
-    
-    Note: If any $\lambda = 0$, the matrix is singular.
-    
+
+   The determinant of $A$ equals the product of eigenvalues:
+
+   $$\det(A) = \prod_{i=1}^n \lambda_i$$
+
+   Note: If any $\lambda = 0$, the matrix is singular.
+
 5. Algebraic Multiplicity:
-    
-    If a root of the characteristic polynomial repeats $k$ times, the algebraic multiplicity of that eigenvalue is $k$.
-    
+
+   If a root of the characteristic polynomial repeats $k$ times, the algebraic multiplicity of that eigenvalue is $k$.
+
 6. Symmetric Matrices:
-    
-    For real symmetric matrices, eigenvectors corresponding to distinct eigenvalues are always orthogonal.
-    
+
+   For real symmetric matrices, eigenvectors corresponding to distinct eigenvalues are always orthogonal.
 
 ---
 
@@ -138,8 +134,8 @@ Python
 import numpy as np
 
 # Define the matrix A
-A = np.array([[2, -2, 3], 
-              [1, 1, 1], 
+A = np.array([[2, -2, 3],
+              [1, 1, 1],
               [1, 3, -1]])
 
 # Calculate eigenvalues and eigenvectors
@@ -162,7 +158,7 @@ Python
 D = np.array([[2, 0, 0],
               [0, 1, 0],
               [0, 0, -1]])
-              
+
 vals, vecs = np.linalg.eig(D)
 # Output vals: [2., 1., -1.]
 # Output vecs: Standard basis vectors (columns of Identity matrix)
