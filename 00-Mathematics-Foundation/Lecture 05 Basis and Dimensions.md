@@ -1,406 +1,114 @@
-## 🎵 Introduction
+## Basis and Dimension
 
-In many ML algorithms, we represent **feature vectors** as **linear combinations** of certain vectors.  
-These special vectors form a **basis** of the feature space.
-
-We need a basis for tasks like:
-
-- Dimensionality reduction
-    
-- Dictionary learning
-    
-- Wavelet transforms / orthonormal expansions
-    
-- PCA & SVD
-    
-- Sparse coding
-    
-
-So today we cover:
-
-- What a **basis** is
-    
-- Finite & infinite dimensional vector spaces
-    
-- Examples
-    
-- Dimension
-    
-- Key theorems
-    
+*Essential Mathematics for ML — Structured Notes*
 
 ---
 
-# 1️⃣ Definition of a Basis
+## 1. Definition of a Basis
 
-Let $V$ be a vector space over a field $F$.
+In Machine Learning, we often decompose complex data into a weighted sum of simpler components (e.g., PCA or Wavelet transforms). A **basis** is the set of vectors that allows for this unique representation.
 
-A set $B = {v_1, v_2, \dots, v_n} \subseteq V$ is a **basis** of $V$ if:
+A set $B = \{v_1, v_2, \dots, v_n\} \subseteq V$ is a basis of a vector space $V$ if it satisfies two conditions:
 
-### ✔ 1. The vectors are **linearly independent**
+1. **Linear Independence:** No vector in $B$ can be expressed as a linear combination of the other vectors in $B$.
+2. **Spanning Property:** Every vector $\mathbf{v} \in V$ can be written as a linear combination of the vectors in $B$:
 
-No vector can be written as a combination of the others.
+$$\mathbf{v} = \alpha_1 \mathbf{v}_1 + \alpha_2 \mathbf{v}_2 + \dots + \alpha_n \mathbf{v}_n$$
 
-### ✔ 2. The vectors **span** the space
 
-Every $v \in V$ can be written as:
-
-$$  
-v = \alpha_1 v_1 + \alpha_2 v_2 + \dots + \alpha_n v_n,  
-\quad \alpha_i \in F  
-$$
-
-If both conditions hold → this set is a **basis**.
 
 ---
 
-# 2️⃣ Finite vs Infinite Dimensional Vector Spaces
+## 2. Finite vs. Infinite Dimensional Spaces
 
-### **Finite-dimensional**
+The "size" of a vector space is determined by its basis:
 
-If the basis has a **finite** number of vectors.
+* **Finite-dimensional:** The basis contains a finite number of vectors.
+* *Example:* $\mathbb{R}^n$ has dimension $n$.
 
-Example:
 
-- $\mathbb{R}^2$ has dimension 2
-    
-- $\mathbb{R}^n$ has dimension $n$
-    
+* **Infinite-dimensional:** The basis requires an infinite set of vectors.
+* *Example:* The space of all continuous functions or the space of all polynomials.
 
-### **Infinite-dimensional**
 
-If basis uses **infinitely many vectors**.
-
-Example:
-
-- Space of all polynomials
-    
-- Space of continuous functions
-    
 
 ---
 
-# 3️⃣ Examples of Bases
+## 3. Standard and Custom Bases
 
-## Example 1 — Basis of $\mathbb{R}^2$
+### Standard Bases
 
-$$  
-(1,0),\ (0,1)  
-$$
+These are the most intuitive bases used in computation:
 
-Linearly independent and span $\mathbb{R}^2$.
+* **In $\mathbb{R}^2$:** $e_1 = (1,0), e_2 = (0,1)$.
+* **In $\mathbb{R}^n$:** $e_1 = (1,0,\dots,0), \dots, e_n = (0,0,\dots,1)$.
+* **In Matrices ($M_{2 \times 2}$):**
 
----
+$$\begin{bmatrix}1 & 0 \\ 0 & 0\end{bmatrix}, \begin{bmatrix}0 & 1 \\ 0 & 0\end{bmatrix}, \begin{bmatrix}0 & 0 \\ 1 & 0\end{bmatrix}, \begin{bmatrix}0 & 0 \\ 0 & 1\end{bmatrix}$$
 
-## Example 2 — Basis of $\mathbb{R}^3$
 
-Standard basis:  
-$$  
-(1,0,0),\ (0,1,0),\ (0,0,1)  
-$$
 
----
+The dimension here is $mn$ (for a $2 \times 2$, $\dim = 4$).
 
-## Example 3 — Basis of $\mathbb{R}^n$
+### Symmetric Matrix Basis
 
-Standard basis:  
-$$  
-e_1 = (1,0,\dots,0), ;  
-e_2 = (0,1,\dots,0), \dots, ;  
-e_n = (0,0,\dots,1)  
-$$
+For a $2 \times 2$ symmetric matrix $\begin{bmatrix} a & b \\ b & c \end{bmatrix}$, the basis is:
+
+
+$$\begin{bmatrix}1&0\\0&0\end{bmatrix}, \begin{bmatrix}0&1\\1&0\end{bmatrix}, \begin{bmatrix}0&0\\0&1\end{bmatrix}$$
+
+
+The dimension is 3, reflecting the 3 degrees of freedom ($a, b, c$).
 
 ---
 
-## Example 4 — Basis of $M_{2 \times 2}(\mathbb{R})$
+## 4. Fundamental Theorems
 
-One possible basis:  
-$$
-\begin{pmatrix}1 & 0 \\ 0 & 0\end{pmatrix},\;
-\begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix},\;
-\begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix},\;
-\begin{pmatrix}0 & 0 \\ 0 & 1\end{pmatrix}
+* **Theorem 1:** In an $n$-dimensional space, any set with more than $n$ vectors is **linearly dependent**.
+* **Theorem 2:** Any linearly independent set can be **extended** to form a basis.
+* **Theorem 3:** All bases for a specific vector space have the **same number of vectors**.
+* **Theorem 4 (Dimension Theorem):** For subspaces $S_1$ and $S_2$:
+
+$$\dim(S_1) + \dim(S_2) = \dim(S_1 + S_2) + \dim(S_1 \cap S_2)$$
 
 
-$$
-
-Dimension = 4.
 
 ---
 
-## Example 5 — Basis of $2 \times 2$ symmetric matrices
+## 5. Worked Examples: Finding Basis and Dimension
 
-A symmetric matrix has the form:  
-$$  
-\begin{pmatrix}  
-a & b \  
-b & c  
-\end{pmatrix}  
-$$
+### Example A: A Plane in $\mathbb{R}^3$
 
-Basis can be:  
-$$  
-\begin{pmatrix}1&0\\0&0\end{pmatrix},  
-\begin{pmatrix}0&1\\1&0\end{pmatrix},  
-\begin{pmatrix}0&0\\0&1\end{pmatrix}  
-$$
+**Given:** $S = \{(x_1, x_2, x_3) \in \mathbb{R}^3 : x_1 + x_2 - x_3 = 0\}$.
 
-Dimension = 3.
+1. **Constraint:** $x_3 = x_1 + x_2$.
+2. **Vector Form:** $(x_1, x_2, x_1 + x_2) = x_1(1,0,1) + x_2(0,1,1)$.
+3. **Basis:** $\{(1,0,1), (0,1,1)\}$.
+4. **Dimension:** $\dim(S) = 2$.
 
----
+### Example B: Intersection of Subspaces
 
-# 4️⃣ Dimension of a Vector Space
+**Given:** $S$ (from above) and $W = \{(x,x,x) : x \in \mathbb{R}\}$.
 
-**Definition:**  
-The dimension of $V$ = number of vectors in **any** basis of $V$.
+1. **Solve simultaneously:** $x + x - x = 0 \Rightarrow x = 0$.
+2. **Intersection:** Only the zero vector $(0,0,0)$.
+3. **Dimension:** $\dim(S \cap W) = 0$.
 
-### Examples:
+### Example C: Subspaces in $\mathbb{R}^4$
 
-- $\dim(\mathbb{R}^2) = 2$
-    
-- $\dim(\mathbb{R}^n) = n$
-    
-- $\dim(M_{m \times n}(\mathbb{R})) = mn$
-    
-- $\dim(\text{polynomials of degree }\le n) = n+1$
-    
-- $\dim(\text{all polynomials}) = \infty$
-    
+**Given:** $S_1$ defined by $x_1+x_2-x_3+x_4=0$ and $x_1+x_2+x_3+x_4=0$.
+
+1. Subtracting equations gives $2x_3 = 0 \Rightarrow x_3 = 0$.
+2. Then $x_1 + x_2 + x_4 = 0 \Rightarrow x_4 = -(x_1 + x_2)$.
+3. **Vector Form:** $(x_1, x_2, 0, -x_1 - x_2) = x_1(1,0,0,-1) + x_2(0,1,0,-1)$.
+4. **Basis:** $\{(1,0,0,-1), (0,1,0,-1)\}$. $\dim(S_1) = 2$.
 
 ---
 
-# 5️⃣ Important Theorems About Basis & Dimension
-
-## ✔ Theorem 1 — “More than n vectors ⇒ dependent”
-
-In an $n$-dimensional vector space:
-
-> Any set of more than $n$ vectors is **linearly dependent**.
-
-Explanation:  
-You cannot fit more than $n$ linearly independent directions into an $n$-dimensional space.
-
----
-
-## ✔ Theorem 2 — “You can extend LI sets to a basis”
-
-If:
-
-- $V$ is $n$-dimensional
-    
-- You have $k < n$ linearly independent vectors
-    
-
-Then:
-
-> You can always add $(n-k)$ more independent vectors to form a basis.
-
-Example:  
-3 LI vectors in $\mathbb{R}^5$ → extend by 2 more vectors to get a basis.
-
----
-
-## ✔ Theorem 3 — “All bases have the same size”
-
-A finite-dimensional vector space:
-
-> **Every basis has the SAME number of vectors**  
-> (this number = the dimension)
-
----
-
-## ✔ Theorem 4 — Dimension formula for subspaces
-
-Let $S_1$ and $S_2$ be subspaces of $V$. Then:
-
-$$  
-\dim(S_1) + \dim(S_2)  
-= \dim(S_1 + S_2) + \dim(S_1 \cap S_2)  
-$$
-
-This is the famous **dimension theorem** for subspaces.
-
----
-
-# 6️⃣ Examples: Finding Basis & Dimension
-
-## 💡 Example:
-
-$$  
-S = {(x_1,x_2,x_3) \in \mathbb{R}^3 : x_1 + x_2 - x_3 = 0}  
-$$
-
-Rewrite constraint:  
-$$  
-x_3 = x_1 + x_2  
-$$
-
-So vectors in $S$ look like:  
-$$  
-(x_1, x_2, x_1 + x_2)  
-= x_1(1,0,1) + x_2(0,1,1)  
-$$
-
-Thus:
-
-### Basis:
-
-$$  
-(1,0,1),\ (0,1,1)  
-$$
-
-### Dimension:
-
-$$  
-\dim(S) = 2  
-$$
-
----
-
-## 💡 Example:
-
-$$  
-W = {(x,x,x) : x \in \mathbb{R}}  
-$$
-
-All components equal → multiples of $(1,1,1)$.
-
-### Basis:
-
-$$  
-(1,1,1)  
-$$
-
-### Dimension:
-
-$$  
-1  
-$$
-
----
-
-## 💡 Intersection Example
-
-Find $\dim(S \cap W)$ for previous $S$ and $W$.
-
-Solve simultaneously:
-
-1. $x_1 + x_2 - x_3 = 0$
-    
-2. $x_1 = x_2 = x_3$
-    
-
-Substituting:
-
-$x_1 + x_1 - x_1 = x_1 = 0$
-
-Thus only solution:  
-$$  
-(0,0,0)  
-$$
-
-### Basis:
-
-Empty set (because only zero vector)
-
-### Dimension:
-
-$$  
-0  
-$$
-
----
-
-## 💡 Bigger Example — Subspaces in $\mathbb{R}^4$
-
-Given:  
-$$  
-S_1 = {x \in \mathbb{R}^4 :  
-\begin{cases}  
-x_1 + x_2 - x_3 + x_4 = 0 \  
-x_1 + x_2 + x_3 + x_4 = 0  
-\end{cases}  
-}  
-$$
-
-
- $$
- S_{2}
-= 
-\left\{
-(x_{1}, x_{2}, x_{3}, x_{4}) \in \mathbb{R}^{4}
-\;\middle|\;
-x_{1} - x_{2} - x_{3} + x_{4} = 0,\;
-x_{1} + 2x_{2} - x_{4} = 0
-\right\}
-
-$$
-
-Add equations → find $x_4$  
-Subtract → find $x_3$  
-Express vector as free variables → find basis.
-
-Result:
-
-### Basis of $S_1$:
-
-$$  
-(1,0,0,-1),\ (0,1,0,-1)  
-$$
-
-### Dimension:
-
-$$  
-2  
-$$
-
-Similarly,
-
-### Basis of $S_2$:
-
-$$  
-(1,2,1,0),\ (1,1,1,2)  
-$$
-
-### Dimension:
-
-$$  
-2  
-$$
-
-Since:  
-$$  
-\dim(S_1) + \dim(S_2) = 4 = \dim(\mathbb{R}^4)  
-$$
-
-We get:  
-$$  
-\dim(S_1 \cap S_2) = 0  
-$$
-
-Meaning intersection contains only the zero vector.
-
----
-
-# 🎤 Outro
-
-In this lecture we covered:
-
-- Basis
-    
-- Dimension
-    
-- Finite vs infinite dimensional spaces
-    
-- Standard bases
-    
-- Basis of matrices & symmetric matrices
-    
-- Subspace dimension theorem
-    
-- Multiple worked examples
-    
-
-Next lecture: **Linear Transformations**.
+## 6. Significance in Machine Learning
+
+* **PCA (Principal Component Analysis):** Finds an orthonormal basis where the first few vectors (principal components) capture the most variance.
+* **Latent Spaces:** In Autoencoders, the bottleneck layer represents a lower-dimensional basis for the input data.
+* **Sparsity:** Basis Pursuit algorithms try to represent data using as few basis vectors as possible.
 
 ---
