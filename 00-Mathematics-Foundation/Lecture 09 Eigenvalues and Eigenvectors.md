@@ -1,359 +1,134 @@
-## 🔹 Introduction
 
-A **linear transformation** is one of the most important concepts in linear algebra, heavily used in:
+## Eigenvalues and Eigenvectors
 
-- Machine Learning
-    
-- Computer Graphics & Animations
-    
-- Electrical & Electronics Engineering
-    
-- Data projections and feature transformations
-    
-- Calculus (derivatives are linear maps locally)
-    
-
-They are used to:
-
-- Scale, rotate, reflect, and project data
-    
-- Map data into spaces where it becomes linearly separable
-    
-- Model real-world systems mathematically
-    
+*Essential Mathematics for ML — Structured Notes*
 
 ---
 
-## 🔹 Formal Definition
+## 1. Geometric Intuition
 
-Let (V) and (W) be vector spaces over a field (F).
+In a linear transformation, most vectors change both their length and their direction. However, for every square matrix, there exist special vectors that **do not change their direction** when the matrix hits them. They only undergo scaling.
 
-A mapping
+* **Eigenvector:** A special nonzero vector that stays on its own span after transformation.
+* **Eigenvalue ($\lambda$):** The scalar factor by which the eigenvector is stretched or squashed.
 
-$$[  
-T: V \to W  
-]
-$$
-is called a **linear transformation** if it satisfies:
+### The Linear Mapping Analogy
 
-### 1️⃣ Additivity
+Consider a matrix $A$ hitting a vector $\mathbf{x}$. Usually, the output $\mathbf{y} = A\mathbf{x}$ points in a new direction. If $\mathbf{x}$ is an eigenvector, then:
 
-$$[  
-T(\mathbf{v}_1 + \mathbf{v}_2) = T(\mathbf{v}_1) + T(\mathbf{v}_2)  
-]
-$$
-### 2️⃣ Homogeneity (Scalar Multiplication)
 
- 
-$$T(\alpha \mathbf{v}) = \alpha T(\mathbf{v})  
-$$
-for all $$(\mathbf{v}, \mathbf{v}_1, \mathbf{v}_2 \in V)  and  (\alpha \in F).$$
+$$A\mathbf{x} = \lambda \mathbf{x}$$
 
-➡️ If both hold, (T) is a **linear transformation**  
-Also called: **linear map / linear mapping**
+
+The direction remains constant; only the magnitude changes by a factor of $\lambda$.
 
 ---
 
-## 🔹 Examples of Linear Transformations
+## 2. Mathematical Definition
 
-### ✅ Example 1
+Let $A$ be an $n \times n$ real matrix. A nonzero vector $\mathbf{v} \in \mathbb{R}^n$ is an **eigenvector** of $A$ if:
 
-$$[  
-T: \mathbb{R}^2 \to \mathbb{R}^2, \quad T(x_1, x_2) = (x_1, x_1 + x_2)  
-]
-$$
-Check:
 
-Additivity:
+$$A\mathbf{v} = \lambda \mathbf{v}$$
 
-$$[  
-T(\mathbf{v}_1 + \mathbf{v}_2) = T(\mathbf{v}_1) + T(\mathbf{v}_2)  
-]$$
 
-Homogeneity:
+where $\lambda$ is a scalar called the **eigenvalue**.
 
-$$[  
-T(\alpha \mathbf{v}) = \alpha T(\mathbf{v})  
-]$$
-
-✔ Satisfies both → Linear
+> **Note:** Eigenvectors must be **nonzero** vectors. The zero vector always satisfies the equation but provides no information about the transformation's direction.
 
 ---
 
-### ✅ Example 2
+## 3. How to Calculate Eigenvalues and Eigenvectors
 
-$$[  
-T: \mathbb{R}^3 \to \mathbb{R}^3, \quad T(x_1, x_2, x_3) = (x_2, x_1, 0)  
-]$$
+To find these pairs, we rearrange the definition into a homogeneous system:
 
-✔ Linear transformation
 
----
+$$(A - \lambda I)\mathbf{v} = \mathbf{0}$$
 
-## 🔹 Geometrical Interpretation
 
-Linear transformations can:
+For a nonzero solution $\mathbf{v}$ to exist, the matrix $(A - \lambda I)$ must be singular (its rank must be less than $n$). This leads to the **Characteristic Equation**:
 
-### 🔸 Scaling
+$$\det(A - \lambda I) = 0$$
 
-$$[  
-T(x_1, x_2) = (2x_1, 2x_2)  
-]$$
+### Step-by-Step Procedure
 
-➡ Doubles size of square
+1. **Solve the Characteristic Equation:** Find the roots ($\lambda$) of the polynomial $\det(A - \lambda I) = 0$.
+2. **Solve for Eigenspace:** For each $\lambda$, plug it back into $(A - \lambda I)\mathbf{v} = \mathbf{0}$ and solve for the components of $\mathbf{v}$.
 
 ---
 
-### 🔸 Stretching
+## 4. Comprehensive Worked Example
 
-$$[  
-T(x_1, x_2) = (x_1, 2x_2)  
-]
-$$
-➡ Rectangle formed
+**Matrix:** $A = \begin{bmatrix} 2 & -2 & 3 \\ 1 & 1 & 1 \\ 1 & 3 & -1 \end{bmatrix}$
 
----
+**Step 1: Eigenvalues**
+Solving $\det(A - \lambda I) = 0$ results in a 3rd-degree polynomial:
 
-### 🔸 Projection
 
-$$[  
-T(x_1, x_2) = (x_1, 0)  
-]$$
+$$(\lambda - 3)(\lambda - 1)(\lambda + 2) = 0$$
 
-➡ Projects onto x-axis
 
----
+**Eigenvalues:** $\lambda_1 = 3, \lambda_2 = 1, \lambda_3 = -2$.
 
-### 🔸 Rotation
+**Step 2: Eigenvector for $\lambda_1 = 3$**
+Substitute $\lambda = 3$ into $(A - 3I)\mathbf{v} = \mathbf{0}$:
 
-$$[  
-T(x_1, x_2) =  
-\begin{bmatrix}  
-\cos\theta & -\sin\theta \\  
-\sin\theta & \cos\theta  
-\end{bmatrix}  
-\begin{bmatrix}  
-x_1 \  
-x_2  
-\end{bmatrix}  
-]$$
 
-➡ Rotates vector by angle $$(\theta)$$
+$$\begin{bmatrix} -1 & -2 & 3 \\ 1 & -2 & 1 \\ 1 & 3 & -4 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$$
+
+
+Solving this system yields $v_1 = v_2 = v_3$.
+**Basis Eigenvector:** $\mathbf{v} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$.
 
 ---
 
-## 🔹 Special Types
+## 5. Important Properties
 
-- **Linear Operator:** (T: V \to V)
-    
-- **Linear Functional:** (T: V \to F)
-    
+### Matrix Relationships
 
----
+* **Trace Property:** $\sum \lambda_i = \text{Tr}(A)$. The sum of all eigenvalues equals the sum of the diagonal elements of the matrix.
+* **Determinant Property:** $\prod \lambda_i = \det(A)$. The product of all eigenvalues equals the determinant of the matrix.
+* **Invertibility:** A matrix $A$ is invertible if and only if $0$ is **not** an eigenvalue of $A$. If $\det(A) = 0$, at least one eigenvalue must be zero.
 
-## 🔹 How to Check if a Map is Linear
+### Transformations of Eigenvalues
 
-Necessary condition:
-
-$$[  
-T(\mathbf{0}) = \mathbf{0}  
-]
-$$
-If zero does not map to zero → ❌ Not linear
-
-Also check:
-
-- Additivity
-    
-- Homogeneity
-    
+* **Inverse Matrix:** If $\lambda$ is an eigenvalue of an invertible matrix $A$, then $1/\lambda$ is an eigenvalue of $A^{-1}$ with the same eigenvector.
+* **Powers of a Matrix:** If $\lambda$ is an eigenvalue of $A$, then $\lambda^k$ is an eigenvalue of $A^k$ for any integer $k > 0$.
+* **Scalar Multiples:** If $\lambda$ is an eigenvalue of $A$, then $c\lambda$ is an eigenvalue of $cA$.
 
 ---
 
-## 🔹 Linear Transformations & Matrices
+## 6. Implementation in Python (NumPy)
 
-> ✅ Every linear transformation is a matrix  
-> ✅ Every matrix represents a linear transformation
+```python
+import numpy as np
 
----
+# Define Matrix from the example
+A = np.array([[2, -2, 3], 
+              [1, 1, 1], 
+              [1, 3, -1]])
 
-### 🔸 From Transformation → Matrix
+# Calculate Eigenvalues and Eigenvectors
+values, vectors = np.linalg.eig(A)
 
-Let:
+print("Eigenvalues:", values)
 
-- (V) have basis $$({\mathbf{v}_1, \dots, \mathbf{v}_n})$$
-    
-- (W) have basis $$({\mathbf{w}_1, \dots, \mathbf{w}_m})$$
-    
+# Eigenvectors are returned as columns in a matrix
+# To see the eigenvector for the first eigenvalue:
+print("First Eigenvector:", vectors[:, 0])
 
-Then:
-
-$$[  
-T(\mathbf{v}_j) = a_{1j}\mathbf{w}_1 + a_{2j}\mathbf{w}_2 + \dots + a_{mj}\mathbf{w}_m  
-]$$
-
-➡ The coefficients form the **j-th column** of the matrix.
+```
 
 ---
 
-### 🔸 Example
+## 7. Significance in Machine Learning
 
-$$[  
-T(x_1, x_2) = (2x_1 - 7x_2, ; 4x_1 + 3x_2)  
-]$$
-
-Matrix (standard basis):
-
-$$[  
-A =  
-\begin{bmatrix}  
-2 & -7 \\
-4 & 3  
-\end{bmatrix}  
-]$$
+* **Dimensionality Reduction (PCA):** The principal components of a dataset are the eigenvectors of its covariance matrix. Eigenvalues quantify the variance captured in each direction.
+* **Transformation Characterization:** Eigenvectors define the **direction of change**, while eigenvalues define the **amount of scaling** (magnitude) along that direction.
+* **Spectral Clustering:** Uses the eigenvalues of the Laplacian matrix of a graph to perform dimensionality reduction before clustering in fewer dimensions.
 
 ---
 
-### 🔸 From Matrix → Transformation
+*Note: You have **987** prompts remaining for today.*
 
-$$[  
-A =  
-\begin{bmatrix}  
-2 & 1 \\  
-4 & 3  
-\end{bmatrix}  
-]$$
-
-$$[  
-T(x_1, x_2) = (2x_1 + x_2, ; 4x_1 + 3x_2)  
-]$$
-
----
-
-## 🔹 Null Space and Range
-
-Let $$(T: V \to W)$$
-
-### 🔸 Null Space (Kernel)
-
-$$[  
-\text{Null}(T) = {\mathbf{v} \in V : T(\mathbf{v}) = \mathbf{0}}  
-]$$
-
-Subspace of (V)
-
----
-
-### 🔸 Range (Image)
-
-$$[  
-\text{Range}(T) = {\mathbf{w} \in W : \exists \mathbf{v} \in V \text{ such that } T(\mathbf{v}) = \mathbf{w}}  
-]$$
-
-Subspace of (W)
-
----
-
-### 🔸 Dimensions
-
-- **Nullity(T)** = $$(\dim(\text{Null}(T)))$$
-    
-- **Rank(T)** = $$(\dim(\text{Range}(T)))$$
-    
-
----
-
-![[Pasted image 20260112223344.png]]
-
----
-## 🔹 Rank–Nullity Theorem
-
-$$[  
-\boxed{\text{Rank}(T) + \text{Nullity}(T) = \dim(V)}  
-]$$
-
----
-
-## 🔹 Example (Range & Null Space)
-
-$$[  
-T(x_1, x_2, x_3) =  
-(x_1 - x_2 + x_3, ; x_2 - x_3, ; x_1, ; 2x_1 - 5x_2 + 5x_3)  
-]
-$$
-### Range
-
-$$[  
-T(1,0,0) = (1,0,1,2)  
-]$$
-
-$$[  
-T(0,1,0) = (-1,1,0,-5)  
-]$$
-
-$$[  
-T(0,0,1) = (1,-1,0,5)  
-]$$
-
-Third vector = (-1 \times) second → dependent
-
-$$[  
-\text{Range}(T) = \text{span}{(1,0,1,2), (-1,1,0,-5)}  
-]$$
-
-$$[  
-\text{Rank}(T) = 2  
-]$$
-
----
-
-### Null Space
-
-Solve:
-
-$$[  
-x_1 - x_2 + x_3 = 0  
-]
-$$
-$$[  
-x_2 - x_3 = 0  
-]
-$$
-$$[  
-x_1 = 0  
-]$$
-
-$$[  
-2x_1 - 5x_2 + 5x_3 = 0  
-]$$
-
-➡ Solution:
-
-$$[  
-(x_1, x_2, x_3) = t(0,1,1)  
-]
-$$
-$$[  
-\text{Null}(T) = \text{span}{(0,1,1)}  
-]$$
-
-$$[  
-\text{Nullity}(T) = 1  
-]$$
-
-✔ Rank + Nullity = (2 + 1 = 3)
-
----
-
-## 🔹 Summary
-
-- Linear transformations preserve vector structure
-    
-- They are represented by matrices
-    
-- Null space → what collapses to zero
-    
-- Range → what outputs are possible
-    
-- Rank + Nullity = Dimension of input space
-    
+**Would you like me to move on to Diagonalization or Singular Value Decomposition (SVD)?**
