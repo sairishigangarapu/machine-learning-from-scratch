@@ -13,13 +13,13 @@ where \( \lambda \) is a scalar known as the eigenvalue.
 ### Matrix Representation
 For a matrix \( A \), the eigenvalue equation can be represented in terms of the matrix \( A - \lambda I \):
 \[ \begin{pmatrix}
-  a & b \\ 
+  a & b \\
   c & d
 \end{pmatrix} \begin{pmatrix}
-  v_1 \\ 
+  v_1 \\
   v_2
 \end{pmatrix} = \lambda \begin{pmatrix}
-  v_1 \\ 
+  v_1 \\
   v_2
 \end{pmatrix} \]
 
