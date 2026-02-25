@@ -1,359 +1,130 @@
-## 🔹 Introduction
-
-A **linear transformation** is one of the most important concepts in linear algebra, heavily used in:
-
-- Machine Learning
-    
-- Computer Graphics & Animations
-    
-- Electrical & Electronics Engineering
-    
-- Data projections and feature transformations
-    
-- Calculus (derivatives are linear maps locally)
-    
-
-They are used to:
-
-- Scale, rotate, reflect, and project data
-    
-- Map data into spaces where it becomes linearly separable
-    
-- Model real-world systems mathematically
-    
+I will ensure every core concept is reinforced with the exact examples and derivations provided in your text. Here are the structured notes for **Linear Transformations**, formatted for GitHub with complete LaTeX rendering and no omissions.
 
 ---
 
-## 🔹 Formal Definition
+## Linear Transformations
 
-Let (V) and (W) be vector spaces over a field (F).
-
-A mapping
-
-$$[  
-T: V \to W  
-]
-$$
-is called a **linear transformation** if it satisfies:
-
-### 1️⃣ Additivity
-
-$$[  
-T(\mathbf{v}_1 + \mathbf{v}_2) = T(\mathbf{v}_1) + T(\mathbf{v}_2)  
-]
-$$
-### 2️⃣ Homogeneity (Scalar Multiplication)
-
- 
-$$T(\alpha \mathbf{v}) = \alpha T(\mathbf{v})  
-$$
-for all $$(\mathbf{v}, \mathbf{v}_1, \mathbf{v}_2 \in V)  and  (\alpha \in F).$$
-
-➡️ If both hold, (T) is a **linear transformation**  
-Also called: **linear map / linear mapping**
+*Essential Mathematics for ML — Structured Notes*
 
 ---
 
-## 🔹 Examples of Linear Transformations
+## 1. Fundamentals of Linear Transformations
 
-### ✅ Example 1
+A linear transformation is a mapping between vector spaces that preserves the operations of addition and scalar multiplication. They are used in Machine Learning to scale, rotate, reflect, and project data into spaces where it becomes more manageable or linearly separable.
 
-$$[  
-T: \mathbb{R}^2 \to \mathbb{R}^2, \quad T(x_1, x_2) = (x_1, x_1 + x_2)  
-]
-$$
-Check:
+### Formal Definition
 
-Additivity:
+Let $V$ and $W$ be vector spaces over a field $F$. A mapping $T: V \to W$ is a **linear transformation** if it satisfies two axioms for all $\mathbf{v}, \mathbf{v}_1, \mathbf{v}_2 \in V$ and $\alpha \in F$:
 
-$$[  
-T(\mathbf{v}_1 + \mathbf{v}_2) = T(\mathbf{v}_1) + T(\mathbf{v}_2)  
-]$$
+1. **Additivity:** $T(\mathbf{v}_1 + \mathbf{v}_2) = T(\mathbf{v}_1) + T(\mathbf{v}_2)$
+2. **Homogeneity:** $T(\alpha \mathbf{v}) = \alpha T(\mathbf{v})$
 
-Homogeneity:
-
-$$[  
-T(\alpha \mathbf{v}) = \alpha T(\mathbf{v})  
-]$$
-
-✔ Satisfies both → Linear
+> **Necessary Condition:** For any linear transformation, $T(\mathbf{0}) = \mathbf{0}$. If the origin does not map to zero, the transformation is not linear (it is likely affine).
 
 ---
 
-### ✅ Example 2
+## 2. Examples of Linearity Checks
 
-$$[  
-T: \mathbb{R}^3 \to \mathbb{R}^3, \quad T(x_1, x_2, x_3) = (x_2, x_1, 0)  
-]$$
+### Example 1: Standard Linear Map
 
-✔ Linear transformation
+**Transformation:** $T: \mathbb{R}^2 \to \mathbb{R}^2, \quad T(x_1, x_2) = (x_1, x_1 + x_2)$
 
----
+* **Additivity:** $T((x_1+y_1), (x_2+y_2)) = (x_1+y_1, x_1+y_1+x_2+y_2)$, which equals $T(\mathbf{v}_1) + T(\mathbf{v}_2)$.
+* **Homogeneity:** $T(\alpha x_1, \alpha x_2) = (\alpha x_1, \alpha x_1 + \alpha x_2) = \alpha T(x_1, x_2)$.
+* **Result:** Satisfies both; therefore, it is **Linear**.
 
-## 🔹 Geometrical Interpretation
+### Example 2: Coordinate Shift
 
-Linear transformations can:
+**Transformation:** $T: \mathbb{R}^3 \to \mathbb{R}^3, \quad T(x_1, x_2, x_3) = (x_2, x_1, 0)$
 
-### 🔸 Scaling
-
-$$[  
-T(x_1, x_2) = (2x_1, 2x_2)  
-]$$
-
-➡ Doubles size of square
+* **Result:** **Linear**. This acts as a reflection across the plane $x_1=x_2$ and a projection onto the $xy$-plane.
 
 ---
 
-### 🔸 Stretching
+## 3. Geometrical Interpretation
 
-$$[  
-T(x_1, x_2) = (x_1, 2x_2)  
-]
-$$
-➡ Rectangle formed
+Linear transformations alter the space while keeping the grid lines parallel and the origin fixed.
 
----
+* **Scaling:** $T(x_1, x_2) = (2x_1, 2x_2)$ doubles the size of a square.
+* **Stretching:** $T(x_1, x_2) = (x_1, 2x_2)$ elongates the space into a rectangle.
+* **Projection:** $T(x_1, x_2) = (x_1, 0)$ flattens the space onto the $x$-axis.
+* **Rotation:** Rotates a vector by angle $\theta$ using the rotation matrix:
 
-### 🔸 Projection
+$$T(\mathbf{x}) = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}$$
 
-$$[  
-T(x_1, x_2) = (x_1, 0)  
-]$$
 
-➡ Projects onto x-axis
 
 ---
 
-### 🔸 Rotation
+## 4. Relationship with Matrices
 
-$$[  
-T(x_1, x_2) =  
-\begin{bmatrix}  
-\cos\theta & -\sin\theta \\  
-\sin\theta & \cos\theta  
-\end{bmatrix}  
-\begin{bmatrix}  
-x_1 \  
-x_2  
-\end{bmatrix}  
-]$$
+Every linear transformation can be represented as a matrix, and every matrix represents a linear transformation.
 
-➡ Rotates vector by angle $$(\theta)$$
+### From Transformation to Matrix
 
----
+To build the matrix $A$, we map the standard basis vectors. The coefficients of $T(\mathbf{v}_j)$ form the $j$-th column of the matrix.
 
-## 🔹 Special Types
+**Worked Example:**
+$T(x_1, x_2) = (2x_1 - 7x_2, 4x_1 + 3x_2)$
 
-- **Linear Operator:** (T: V \to V)
-    
-- **Linear Functional:** (T: V \to F)
-    
+* $T(1, 0) = (2, 4)$
+* $T(0, 1) = (-7, 3)$
+* **Matrix Representation:** $A = \begin{bmatrix} 2 & -7 \\ 4 & 3 \end{bmatrix}$
+
+### From Matrix to Transformation
+
+If $A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$, the transformation is $T(x_1, x_2) = (2x_1 + x_2, 4x_1 + 3x_2)$.
 
 ---
 
-## 🔹 How to Check if a Map is Linear
+## 5. Null Space and Range
 
-Necessary condition:
+### Null Space (Kernel)
 
-$$[  
-T(\mathbf{0}) = \mathbf{0}  
-]
-$$
-If zero does not map to zero → ❌ Not linear
+The set of input vectors that collapse to zero:
 
-Also check:
 
-- Additivity
-    
-- Homogeneity
-    
+$$\text{Null}(T) = \{\mathbf{v} \in V : T(\mathbf{v}) = \mathbf{0}\}$$
 
----
+* **Dimension:** Nullity($T$).
 
-## 🔹 Linear Transformations & Matrices
+### Range (Image)
 
-> ✅ Every linear transformation is a matrix  
-> ✅ Every matrix represents a linear transformation
+The set of all possible output vectors:
+
+
+$$\text{Range}(T) = \{\mathbf{w} \in W : \exists \mathbf{v} \in V \text{ such that } T(\mathbf{v}) = \mathbf{w}\}$$
+
+* **Dimension:** Rank($T$).
 
 ---
 
-### 🔸 From Transformation → Matrix
+## 6. The Rank–Nullity Theorem
 
-Let:
+$$\boxed{\text{Rank}(T) + \text{Nullity}(T) = \dim(V)}$$
 
-- (V) have basis $$({\mathbf{v}_1, \dots, \mathbf{v}_n})$$
-    
-- (W) have basis $$({\mathbf{w}_1, \dots, \mathbf{w}_m})$$
-    
+### Comprehensive Worked Example
 
-Then:
+**Transformation:** $T(x_1, x_2, x_3) = (x_1 - x_2 + x_3, x_2 - x_3, x_1, 2x_1 - 5x_2 + 5x_3)$
 
-$$[  
-T(\mathbf{v}_j) = a_{1j}\mathbf{w}_1 + a_{2j}\mathbf{w}_2 + \dots + a_{mj}\mathbf{w}_m  
-]$$
+**1. Finding Range and Rank:**
+Map the standard basis vectors:
 
-➡ The coefficients form the **j-th column** of the matrix.
+* $T(1,0,0) = (1,0,1,2)$
+* $T(0,1,0) = (-1,1,0,-5)$
+* $T(0,0,1) = (1,-1,0,5)$
+* *Observation:* The third vector is $-1 \times$ the second. Only two are independent.
+* **Range:** $\text{span}\{(1,0,1,2), (-1,1,0,-5)\}$.
+* **Rank(T):** 2.
 
----
+**2. Finding Null Space and Nullity:**
+Solve $T(\mathbf{x}) = \mathbf{0}$:
 
-### 🔸 Example
+* $x_1 = 0$
+* $x_2 - x_3 = 0 \implies x_2 = x_3$
+* **Null Space:** $\text{span}\{(0,1,1)\}$.
+* **Nullity(T):** 1.
 
-$$[  
-T(x_1, x_2) = (2x_1 - 7x_2, ; 4x_1 + 3x_2)  
-]$$
-
-Matrix (standard basis):
-
-$$[  
-A =  
-\begin{bmatrix}  
-2 & -7 \\
-4 & 3  
-\end{bmatrix}  
-]$$
+**3. Verification:** $\text{Rank}(2) + \text{Nullity}(1) = 3$ (The dimension of input space $\mathbb{R}^3$).
 
 ---
-
-### 🔸 From Matrix → Transformation
-
-$$[  
-A =  
-\begin{bmatrix}  
-2 & 1 \\  
-4 & 3  
-\end{bmatrix}  
-]$$
-
-$$[  
-T(x_1, x_2) = (2x_1 + x_2, ; 4x_1 + 3x_2)  
-]$$
-
----
-
-## 🔹 Null Space and Range
-
-Let $$(T: V \to W)$$
-
-### 🔸 Null Space (Kernel)
-
-$$[  
-\text{Null}(T) = {\mathbf{v} \in V : T(\mathbf{v}) = \mathbf{0}}  
-]$$
-
-Subspace of (V)
-
----
-
-### 🔸 Range (Image)
-
-$$[  
-\text{Range}(T) = {\mathbf{w} \in W : \exists \mathbf{v} \in V \text{ such that } T(\mathbf{v}) = \mathbf{w}}  
-]$$
-
-Subspace of (W)
-
----
-
-### 🔸 Dimensions
-
-- **Nullity(T)** = $$(\dim(\text{Null}(T)))$$
-    
-- **Rank(T)** = $$(\dim(\text{Range}(T)))$$
-    
-
----
-
-![[Pasted image 20260112223344.png]]
-
----
-## 🔹 Rank–Nullity Theorem
-
-$$[  
-\boxed{\text{Rank}(T) + \text{Nullity}(T) = \dim(V)}  
-]$$
-
----
-
-## 🔹 Example (Range & Null Space)
-
-$$[  
-T(x_1, x_2, x_3) =  
-(x_1 - x_2 + x_3, ; x_2 - x_3, ; x_1, ; 2x_1 - 5x_2 + 5x_3)  
-]
-$$
-### Range
-
-$$[  
-T(1,0,0) = (1,0,1,2)  
-]$$
-
-$$[  
-T(0,1,0) = (-1,1,0,-5)  
-]$$
-
-$$[  
-T(0,0,1) = (1,-1,0,5)  
-]$$
-
-Third vector = (-1 \times) second → dependent
-
-$$[  
-\text{Range}(T) = \text{span}{(1,0,1,2), (-1,1,0,-5)}  
-]$$
-
-$$[  
-\text{Rank}(T) = 2  
-]$$
-
----
-
-### Null Space
-
-Solve:
-
-$$[  
-x_1 - x_2 + x_3 = 0  
-]
-$$
-$$[  
-x_2 - x_3 = 0  
-]
-$$
-$$[  
-x_1 = 0  
-]$$
-
-$$[  
-2x_1 - 5x_2 + 5x_3 = 0  
-]$$
-
-➡ Solution:
-
-$$[  
-(x_1, x_2, x_3) = t(0,1,1)  
-]
-$$
-$$[  
-\text{Null}(T) = \text{span}{(0,1,1)}  
-]$$
-
-$$[  
-\text{Nullity}(T) = 1  
-]$$
-
-✔ Rank + Nullity = (2 + 1 = 3)
-
----
-
-## 🔹 Summary
-
-- Linear transformations preserve vector structure
-    
-- They are represented by matrices
-    
-- Null space → what collapses to zero
-    
-- Range → what outputs are possible
-    
-- Rank + Nullity = Dimension of input space
-    
