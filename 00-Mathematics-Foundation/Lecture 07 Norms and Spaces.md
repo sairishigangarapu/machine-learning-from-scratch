@@ -118,10 +118,6 @@ Geometrically, the "unit circles" (where $\|x\| = 1$) for these norms look diffe
 
 - **$L_\infty$ Norm:** A standard square.
 
-> Note: The following image embed was in Obsidian format (`![[...]]`) and does not render on GitHub.
-> Replace it with a standard Markdown image link once the image is committed to the repo, e.g.
-> `![Unit balls for different norms](path/to/image.png)`.
-
 ---
 
 ## 3. Convexity
