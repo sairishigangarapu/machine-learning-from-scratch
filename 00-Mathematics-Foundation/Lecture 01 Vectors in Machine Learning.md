@@ -1,301 +1,161 @@
+## Vectors in Machine Learning
 
-# 🧭 Vectors in Machine Learning
-
-_Essential Mathematics for ML — Structured Notes_
+*Essential Mathematics for ML — Structured Notes*
 
 ---
 
-## 📌 1. What is a Vector?
+## 1. Fundamentals of Vectors
 
-A **vector** is a mathematical object that has:
+In the context of Machine Learning and Linear Algebra, a vector is a mathematical object characterized by magnitude (length) and direction. Formally, a vector is an element of a vector space, which is a collection of objects that satisfies two primary operations:
 
-- **Magnitude (length)**
-    
-- **Direction**
-    
-
-### Formal definition
-
-A vector is an element of a **vector space**, which supports:
-
-1. **Vector addition**
-    
-2. **Scalar multiplication**
-    
+1. **Vector Addition**: Combining two vectors to produce a third.
+2. **Scalar Multiplication**: Scaling a vector by a real number (scalar).
 
 ### Representation
 
-- **Row vector:** `[v₁ v₂ ... vₙ]`
-    
-- **Column vector:**
-    
-    ```
-    [ v₁
-      v₂
-      ⋮
-      vₙ ]
-    ```
-    
+In technical documentation, we distinguish between two primary orientations:
+
+* **Row Vector:** $\mathbf{v} = [v_1, v_2, \dots, v_n]$
+* **Column Vector:** 
+$$\mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{bmatrix}$$
+
+
 
 ---
 
-## 📌 2. Vectors in ℝⁿ
+## 2. Vectors in $\mathbb{R}^n$
 
-A vector  
-`v = (v₁, v₂, …, vₙ)`  
-belongs to the vector space **ℝⁿ** if all components are real numbers.
+A vector $\mathbf{v} = (v_1, v_2, \dots, v_n)$ belongs to the $n$-dimensional Euclidean space $\mathbb{R}^n$ if all its components are real numbers.
 
-### Examples
+* **$\mathbb{R}^2$:** Represented as $(x, y)$, visualized on a plane.
+* **$\mathbb{R}^3$:** Represented as $(x, y, z)$, visualized in 3D space.
+* **Higher Dimensions:** While $n > 3$ cannot be visualized, the algebraic properties remain consistent across dimensions.
 
-- **ℝ²:** (1, 2)
-    
-- **ℝ³:** (1, 2, 3)
-    
-- Higher dimensions exist but cannot be visualized.
-    
+### Geometric Interpretation
+
+Geometrically, a vector is typically viewed as an arrow originating from the origin $(0, 0, \dots, 0)$. Each component represents the displacement along a specific axis.
 
 ---
 
-## 📌 3. Geometric Interpretation
+## Vector Algebra
 
-- Each component = coordinate along an axis
-    
-- In 2D → (x, y)
-    
-- In 3D → (x, y, z)
-    
+### 3. Basic Operations
 
-A vector = **arrow from origin** representing direction + length.
+Operations are performed component-wise. Given $\mathbf{v} = (x_1, \dots, x_n)$ and $\mathbf{w} = (y_1, \dots, y_n)$:
 
----
+* **Addition:** $\mathbf{v} + \mathbf{w} = (x_1 + y_1, x_2 + y_2, \dots, x_n + y_n)$
+* **Subtraction:** $\mathbf{v} - \mathbf{w} = (x_1 - y_1, x_2 - y_2, \dots, x_n - y_n)$
 
-# 🧮 Vector Algebra
+### 4. Dot Product (Inner Product)
 
----
+The dot product of two vectors in $\mathbb{R}^n$ results in a scalar value:
 
-## ✔️ 4. Addition & Subtraction
 
-Defined **component-wise**.
+$$\mathbf{v} \cdot \mathbf{w} = \sum_{i=1}^{n} x_i y_i$$
 
-Given  
-`v₁ = (x₁, x₂, …, xₙ)`  
-`v₂ = (y₁, y₂, …, yₙ)`
+**Example in $\mathbb{R}^3$:**
+$(1, 1, -1) \cdot (2, 3, 1) = (1 \times 2) + (1 \times 3) + (-1 \times 1) = 2 + 3 - 1 = 4$
 
-### Addition
+### 5. Norm and Magnitude
 
-```
-v₁ + v₂ = (x₁ + y₁, x₂ + y₂, …, xₙ + yₙ)
-```
+The magnitude (or $L_2$ norm) of a vector represents its Euclidean length:
 
-### Subtraction
 
-```
-v₁ - v₂ = (x₁ - y₁, x₂ - y₂, …, xₙ - yₙ)
-```
+$$\|\mathbf{v}\| = \sqrt{\mathbf{v} \cdot \mathbf{v}} = \sqrt{x_1^2 + x_2^2 + \dots + x_n^2}$$
 
----
+**Example:** For $\mathbf{v} = (1, -1, 2)$, $\|\mathbf{v}\| = \sqrt{1^2 + (-1)^2 + 2^2} = \sqrt{6}$.
 
-## ✔️ 5. Dot Product (Inner Product)
+### 6. Angles Between Vectors
 
-Given two vectors in ℝⁿ:
+The relationship between the dot product and the geometric angle $\theta$ is defined by:
 
-```
-v₁ · v₂ = Σ (xᵢ yᵢ)
-```
 
-Example in ℝ³:  
-`(1, 1, -1) · (2, 3, 1) = 4`
+$$\cos \theta = \frac{\mathbf{v} \cdot \mathbf{w}}{\|\mathbf{v}\| \|\mathbf{w}\|}$$
 
-→ Result is always a **scalar**.
+Consequently, the angle can be determined using the arccosine:
+
+
+$$\theta = \arccos \left( \frac{\mathbf{v} \cdot \mathbf{w}}{\|\mathbf{v}\| \|\mathbf{w}\|} \right)$$
 
 ---
 
-## ✔️ 6. Magnitude (Length / Norm)
+## 7. Linear Combinations and Independence
 
-```
-‖v‖ = √(v · v)
-```
+### Linear Combination
 
-Example:  
-`v = (1, -1, 2)`
+Given a set of vectors $\{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_k\}$, a linear combination is defined as:
 
-```
-‖v‖ = √(1² + (-1)² + 2²) = √6
-```
 
----
+$$\mathbf{u} = \alpha_1\mathbf{v}_1 + \alpha_2\mathbf{v}_2 + \dots + \alpha_k\mathbf{v}_k$$
 
-## ✔️ 7. Angle Between Two Vectors
 
-```
-cos θ = (v₁ · v₂) / (‖v₁‖ ‖v₂‖)
-```
-```
-sin θ = (v₁ x v₂) / (‖v₁‖ ‖v₂‖)
-```
+where $\alpha_i$ are scalar coefficients.
 
-So,
+### Linear Independence (LI)
 
-```
-θ = cos⁻¹( (v₁ · v₂) / (‖v₁‖ ‖v₂‖) )
-```
-```
-θ = sin⁻¹( (v₁ x v₂) / (‖v₁‖ ‖v₂‖) )
-```
----
+A set of vectors is Linearly Independent if the only solution to the following equation is the trivial solution ($\alpha_i = 0$ for all $i$):
 
-# 🔗 8. Linear Combination
 
-Given vectors `{v₁, v₂, …, vₖ}`:
+$$\alpha_1\mathbf{v}_1 + \alpha_2\mathbf{v}_2 + \dots + \alpha_n\mathbf{v}_n = \mathbf{0}$$
 
-A **linear combination** is:
+> **Key Concept:** In a linearly independent set, no vector can be expressed as a linear combination of the others.
 
-```
-α₁v₁ + α₂v₂ + ... + αₖvₖ
-```
+### Linear Dependence (LD)
 
-α’s are scalars (usually real numbers).
+A set is Linearly Dependent if at least one vector can be expressed as a linear combination of the others.
 
-Example:  
-Using vectors v₁, v₂, v₃ in ℝ³, any vector formed like:
-
-```
-α₁v₁ + α₂v₂ + α₃v₃
-```
-
-is a linear combination.
+* **Property:** In $\mathbb{R}^n$, any set containing more than $n$ vectors is Linearly Dependent.
+* **Property:** Any set containing the zero vector is Linearly Dependent.
 
 ---
 
-# 🔍 9. Linear Independence & Dependence
+## 8. Orthogonality and Orthonormality
 
-## ✔️ Linear Independence (LI)
+### Orthogonal Vectors
 
-Set `{v₁, v₂, …, vₙ}` is LI if:
+Two vectors are orthogonal if they are perpendicular, resulting in a dot product of zero:
 
-```
-α₁v₁ + α₂v₂ + ... + αₙvₙ = 0
-```
 
-only when:
+$$\mathbf{v}_i \cdot \mathbf{v}_j = 0, \quad \text{for } i \neq j$$
 
-```
-α₁ = α₂ = ... = αₙ = 0
-```
+### Orthonormal Vectors
 
-### Intuition
+A set is orthonormal if it satisfies two conditions:
 
-You **cannot build** one vector using others.
+1. All vectors are mutually orthogonal.
+2. Each vector has a unit magnitude ($\|\mathbf{v}\| = 1$).
 
 ---
 
-## ❌ Linear Dependence (LD)
+## 9. Vectors as Feature Vectors in Machine Learning
 
-Vectors are LD if:
+In Machine Learning datasets, vectors serve as the fundamental unit of data representation:
 
-```
-α₁v₁ + α₂v₂ + ... = 0
-```
+* **Samples (Rows):** Each row represents an individual data point or observation.
+* **Features (Columns):** Each column represents a specific attribute.
 
-for **some non-zero scalars**.
-
-### Example
-
-(1,1) and (3,3) → LD because:
-
-```
-3(1,1) - 1(3,3) = 0
-```
+**Feature Vector:** For a specific sample $E_i$, the feature vector is represented as $\mathbf{x}_i = [f_1, f_2, \dots, f_n]$.
 
 ---
 
-## Important Remarks
-
-- In **ℝⁿ**, any set of **> n vectors is LD**
-    
-- Any set **containing the zero vector is LD**
-    
-
----
-
-# 🎯 10. Orthogonal & Orthonormal Vectors
-
-## ✔️ Orthogonal
-
-```
-vᵢ · vⱼ = 0, for all i ≠ j
-```
-
-→ They are perpendicular.
-
-### Important
-
-Orthogonal vectors are **automatically linearly independent**.
-
----
-
-## ✔️ Orthonormal
-
-Set is orthonormal if:
-
-1. Vectors are orthogonal
-    
-2. Each vector has length = 1
-    
-
-Example in ℝ²:
-
-```
-(1/√2, 1/√2)
-(1/√2, -1/√2)
-```
-
----
-
-# 📊 11. Vectors as Feature Vectors in ML
-
-Consider this dataset:
-
-|Employee|Height|Weight|
-|---|---|---|
-|E₁|α₁|β₁|
-|E₂|α₂|β₂|
-|…|…|…|
-|Eₖ|αₖ|βₖ|
-
-For employee E₂:
-
-```
-Feature vector = ( height, weight ) = (α₂, β₂)
-```
-
-In ML:
-
-- **rows** = samples
-    
-- **columns** = features
-    
-- each row vector = **feature vector**
-    
-
----
-
-# 🐍 12. Python / NumPy Operations
+## 10. Implementation via NumPy
 
 ```python
 import numpy as np
 
+# Vector initialization
 v = np.array([1, -1, 2])
 w = np.array([2, 5, 2])
 
-print(v + w)          # Addition
-print(v - w)          # Subtraction
-print(3 * v)          # Scalar multiplication
-print(np.linalg.norm(v)) # Length
-print(np.dot(v, w))      # Dot product
+# Basic Operations
+addition = v + w               # Vector Addition
+subtraction = v - w            # Vector Subtraction
+scalar_scaling = 3 * v         # Scalar Multiplication
+
+# Linear Algebra Metrics
+magnitude = np.linalg.norm(v)  # L2 Norm (Magnitude)
+dot_product = np.dot(v, w)     # Dot Product
+
 ```
 
-Outputs include addition, subtraction, norm, and dot product.
-
 ---
-
