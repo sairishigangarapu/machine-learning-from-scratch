@@ -1,267 +1,95 @@
-## 🎵 Introduction
+## Introduction to Vector Spaces
 
-A **vector space** $V$ over a **field** $\mathbb{R}$ is defined using:
-
-- A **set of vectors** $V$
-    
-- A **field of scalars** $\mathbb{R}$
-    
-- Two operations:
-    
-    - **Vector addition** $+$
-        
-    - **Scalar multiplication** $\cdot$
-        
-
-In machine learning we mostly use vector spaces over **real numbers**.
+*Essential Mathematics for ML — Structured Notes*
 
 ---
 
-# 1️⃣ Definition of a Vector Space
+## 1. Definition of a Vector Space
 
-A set $V$ is a vector space over $\mathbb{R}$ if:
+A **vector space** $V$ over a **field** $\mathbb{R}$ is a mathematical structure consisting of a set of vectors, a field of scalars (typically real numbers in ML), and two fundamental operations that satisfy specific properties.
 
-### Operation 1: Vector Addition
+### Primary Operations
 
-A binary operation  
-$$ + : V \times V \to V $$
-
-### Operation 2: Scalar Multiplication
-
-A binary operation  
-$$ \cdot : \mathbb{R} \times V \to V $$
+1. **Vector Addition ($+$):** A binary operation that maps two vectors to a third vector within the same space: $+ : V \times V \to V$.
+2. **Scalar Multiplication ($\cdot$):** A binary operation that scales a vector by a real number: $\cdot : \mathbb{R} \times V \to V$.
 
 ---
 
-# 2️⃣ Axioms of a Vector Space
+## 2. Axioms of a Vector Space
 
-For all scalars $a, b \in \mathbb{R}$ and vectors $u, v, w \in V$:
+For a set $V$ to be considered a vector space, it must satisfy the following axioms for all scalars $a, b \in \mathbb{R}$ and vectors $\mathbf{u}, \mathbf{v}, \mathbf{w} \in V$:
 
-### **(1) $(V,+)$ is an Abelian group**
+### (A) Additive Properties (Abelian Group)
 
-#### • Closure
+* **Closure:** $\mathbf{v} + \mathbf{w} \in V$.
+* **Commutativity:** $\mathbf{v} + \mathbf{w} = \mathbf{w} + \mathbf{v}$.
+* **Associativity:** $\mathbf{u} + (\mathbf{v} + \mathbf{w}) = (\mathbf{u} + \mathbf{v}) + \mathbf{w}$.
+* **Additive Identity:** There exists a zero vector $\mathbf{0} \in V$ such that $\mathbf{v} + \mathbf{0} = \mathbf{v}$.
+* **Additive Inverse:** For every $\mathbf{v} \in V$, there exists $-\mathbf{v}$ such that $\mathbf{v} + (-\mathbf{v}) = \mathbf{0}$.
 
-$$ v + w \in V $$
+### (B) Multiplicative and Distributive Properties
 
-#### • Commutativity
-
-$$ v + w = w + v $$
-
-#### • Associativity
-
-$$ u + (v + w) = (u + v) + w $$
-
-#### • Additive Identity
-
-There exists $0 \in V$ such that  
-$$ v + 0 = v $$
-
-#### • Additive Inverse
-
-For all $v \in V$,  
-$$ v + (-v) = 0 $$
+* **Scalar Closure:** $a \cdot \mathbf{v} \in V$.
+* **Distributivity (Vector):** $a(\mathbf{v} + \mathbf{w}) = a\mathbf{v} + a\mathbf{w}$.
+* **Distributivity (Scalar):** $(a + b)\mathbf{v} = a\mathbf{v} + b\mathbf{v}$.
+* **Associativity of Scalars:** $a(b\mathbf{v}) = (ab)\mathbf{v}$.
+* **Unitary Law:** $1 \cdot \mathbf{v} = \mathbf{v}$.
 
 ---
 
-### **(2) Scalar closure**
+## 3. Valid Vector Space Examples
 
-$$ a \cdot v \in V $$
+### Euclidean Spaces ($\mathbb{R}^n$)
 
-### **(3) Scalar distributes over vector addition**
+$\mathbb{R}^2, \mathbb{R}^3$, and general $\mathbb{R}^n$ are the most common vector spaces in Machine Learning. In $\mathbb{R}^2$, given $\mathbf{v} = (a,b)$ and $\mathbf{w} = (c,d)$:
 
-$$ a(v + w) = av + aw $$
+* Addition: $(a+c, b+d) \in \mathbb{R}^2$.
+* Scalar Multiplication: $k(a,b) = (ka, kb) \in \mathbb{R}^2$.
 
-### **(4) Scalars distribute over scalar addition**
+### Other Technical Examples
 
-$$ (a + b)v = av + bv $$
-
-### **(5) Associativity of scalar multiplication**
-
-$$ a(bv) = (ab)v $$
-
-### **(6) Unitary law**
-
-$$ 1 \cdot v = v $$
-
-If all six axioms hold → **$V$ is a vector space**.
+* **Matrices:** The set of all $m \times n$ matrices forms a vector space under standard matrix addition and scalar multiplication.
+* **Polynomials:** The set of all polynomials of degree $\le n$ is a vector space.
+* **Convergent Sequences:** These form a vector space as the sum of two convergent sequences also converges.
 
 ---
 
-# 3️⃣ Example: $\mathbb{R}^2$ is a Vector Space
+## 4. Non-Examples (Counter-Cases)
 
-Let  
-$$ v = (a,b), \quad w = (c,d) $$
+Understanding where axioms fail is critical for identifying invalid structures:
 
-### ✔ Closure
-
-$$ (a,b) + (c,d) = (a+c, , b+d) \in \mathbb{R}^2 $$
-
-### ✔ Commutativity
-
-$$ (a,b) + (c,d) = (c,d) + (a,b) $$
-
-### ✔ Associativity
-
-$$ (a,b) + ((c,d)+(e,f)) = ((a,b)+(c,d)) + (e,f) $$
-
-### ✔ Additive Identity
-
-$$ (0,0) + (a,b) = (a,b) $$
-
-### ✔ Additive Inverse
-
-$$ (a,b) + (-a,-b) = (0,0) $$
-
-### ✔ Scalar multiplication closure
-
-For $k \in \mathbb{R}$:  
-$$ k(a,b) = (ka, kb) \in \mathbb{R}^2 $$
-
-All remaining axioms follow similarly →  
-**$\mathbb{R}^2$ is a vector space.**
-
-Likewise:
-
-- $\mathbb{R}^3$
-    
-- $\mathbb{R}^n$
-    
-
-are vector spaces.
+* **Exact Degree Polynomials:** The set of polynomials of *exactly* degree $n$ is not a vector space. For example, adding $p_1(x) = 2x^3$ and $p_2(x) = -2x^3 + x^2$ results in $x^2$. The degree changes from 3 to 2, violating **closure**.
+* **Modified Operations:** If we redefine addition as $(x_1, y_1) \oplus (x_2, y_2) = (x_1 + x_2, y_1 + 2y_2)$, the operation is no longer **commutative**, thus failing the Abelian group requirement.
 
 ---
 
-# 4️⃣ More Vector Space Examples
+## 5. Geometric Interpretation
 
-### ✔ Matrices
+### Visualizing Vectors
 
-All $m \times n$ matrices form a vector space under:
+* **$n=1$:** A point or arrow on the real number line.
+* **$n=2, 3$:** An arrow originating from the origin $(0,0)$ to a coordinate point.
 
-- Usual matrix addition
-    
-- Scalar multiplication
-    
+### Parallelogram Law of Addition
 
-### ✔ Polynomials
+Geometrically, the sum of two vectors $\mathbf{v}_1 + \mathbf{v}_2$ is represented by the diagonal of the parallelogram formed by those vectors as adjacent sides.
 
-- Set of all polynomials with real coefficients
-    
-- Set of all polynomials of degree ≤ $n$
-    
+### Linear Independence
 
-### ✔ Convergent sequences
+In $\mathbb{R}^3$, vectors are linearly independent if:
 
-Also form a vector space.
+1. They are not collinear (do not lie on the same line).
+2. The third vector does not lie in the plane created by the first two.
 
 ---
 
-# 5️⃣ Non-Examples (NOT Vector Spaces)
+## 6. Applications in $\mathbb{R}^n$
 
-## ❌ 1. Polynomials of _exact_ degree $n$
+In Machine Learning, $\mathbb{R}^n$ is the standard environment for:
 
-Example: degree-3 polynomials.
+* **Data Points:** Each sample is a point in $n$-dimensional space.
+* **Feature Vectors:** Numerical representations of categorical or continuous data.
 
-Let:
-
-- $p_1(x) = 2x^3 + 5x^2 + x + 7$
-    
-- $p_2(x) = -2x^3 + 3x^2 + 4x + 1$
-    
-
-Sum:  
-$$  
-p_1(x) + p_2(x)  
-= 8x^2 + 5x + 8  
-$$
-
-Degree is 2 → **not in the set** → closure fails.
-
----
-
-## ❌ 2. Modified vector addition in $\mathbb{R}^2$
-
-Define:  
-$$  
-(x_1,y_1) \oplus (x_2,y_2)  
-= (x_1 + x_2,; y_1 + 2y_2)  
-$$
-
-Reverse order:  
-$$  
-(x_2,y_2) \oplus (x_1,y_1)  
-= (x_2 + x_1,; y_2 + 2y_1)  
-$$
-
-These are **not equal** unless $y_1 = y_2$ → commutativity fails → not a vector space.
-
-**Lesson:**
-
-> A set is not enough — the operations must satisfy all axioms.
-
----
-
-# 6️⃣ Geometric Interpretation
-
-## For $n = 1$
-
-- Real line
-    
-- Vector from $0$ to $x$
-    
-
-Examples:
-
-- $v = 5$ → arrow from 0 to 5
-    
-- $v = -2$ → arrow from 0 to −2
-    
-
----
-
-## For $n = 2$
-
-Vector $(x,y)$ drawn as arrow from origin to $(x,y)$.
-
----
-
-## For $n = 3$
-
-Vector $(x,y,z)$ drawn from origin to $(x,y,z)$.
-
-### Vector addition (parallelogram law)
-
-If $v_1$ and $v_2$ are two vectors,  
-$v_1 + v_2$ is the diagonal of the parallelogram.
-
----
-
-## Linear Independence (geometric meaning)
-
-Vectors $v_1, v_2, v_3$ in $\mathbb{R}^3$ are linearly independent if:
-
-- $v_1$ and $v_2$ are not collinear
-    
-- $v_3$ does not lie in the plane of $v_1$ and $v_2$
-    
-
----
-
-# 7️⃣ Euclidean Space $\mathbb{R}^n$
-
-Vector:  
-$$  
-x = (x_1, x_2, \dots, x_n)  
-$$
-
-Used to represent:
-
-- Data points
-    
-- Feature vectors
-    
-
-ML commonly uses very large $n$ (100, 2000, etc.)
-
-Visualization is only possible for $n \le 3$.
+While we can only visualize up to $n=3$, ML models routinely operate in high-dimensional spaces (e.g., $n=1024$ for word embeddings). The algebraic axioms defined above ensure that calculations remain consistent regardless of the number of dimensions.
 
 ---
