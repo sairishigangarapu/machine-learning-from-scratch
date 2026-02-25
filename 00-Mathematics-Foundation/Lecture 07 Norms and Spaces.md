@@ -84,19 +84,19 @@ For a vector $x = (x_1, x_2, \dots, x_n) \in \mathbb{R}^n$:
 
 - L1 Norm (Manhattan Norm):
 
-  $$\|x\|_1 = \sum_{i=1}^{n} |x_i|$$
+  $$\lVert x \rVert_1 = \sum_{i=1}^{n} |x_i|$$
 
 - L2 Norm (Euclidean Norm):
 
-  $$\|x\|_2 = \sqrt{\sum_{i=1}^{n} x_i^2}$$
+  $$\lVert x \rVert_2 = \sqrt{\sum_{i=1}^{n} x_i^2}$$
 
 - $p$-Norm:
 
-  $$\|x\|_p = \left( \sum_{i=1}^{n} |x_i|^p \right)^{1/p}$$
+  $$\lVert x \rVert_p = \left( \sum_{i=1}^{n} |x_i|^p \right)^{1/p}$$
 
 - $L_\infty$ Norm (Max Norm):
 
-  $$\|x\|_\infty = \max_{i} |x_i|$$
+  $$\lVert x \rVert_\infty = \max_{1 \le i \le n} |x_i|$$
 
 Example Calculation:
 
