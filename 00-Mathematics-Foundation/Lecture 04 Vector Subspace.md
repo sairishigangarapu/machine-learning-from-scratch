@@ -1,358 +1,86 @@
-## 🎵 Introduction
+## Vector Subspaces
 
-In the last lecture, we learned:
-
-- What vector spaces are
-    
-- Examples of vector spaces
-    
-
-In this lecture, we cover:
-
-- **Vector subspaces**
-    
-- **Examples**
-    
-- **Key properties**
-    
-- **Matrix-related subspaces**
-    
-
-The field is $\mathbb{R}$ (real numbers), as usual in machine learning.
+*Essential Mathematics for ML — Structured Notes*
 
 ---
 
-# 1️⃣ Definition of a Subspace
+## 1. Definition of a Subspace
 
-Let $\mathbb{R}^n$ be a vector space over $\mathbb{R}$.
+Let $V$ be a vector space over $\mathbb{R}$. A subset $S \subseteq V$ is defined as a **subspace** if $S$ itself is a vector space under the same addition and scalar multiplication operations defined on $V$.
 
-A subset $S \subseteq \mathbb{R}^n$ is called a **subspace** of $\mathbb{R}^n$ if:
-
-### ✔ $S$ is itself a vector space
-
-Meaning: the vectors of $S$ satisfy **all 6 vector space axioms** under the **same operations** as $\mathbb{R}^n$.
-
-
-> [!important] Vector Space vs Subspace (Layman Analogy)
-> **Vector Space** = an entire infinite room where all movement is allowed.  
-> **Subspace** = a perfectly flat surface (line, plane, or hyperplane) *inside that room*  
-> that **must pass through the origin** and follow all the same vector rules.
->
-> - Subspace is not “smaller space shaped like a cube.”  
-> - It’s an “origin-anchored flat slice” of the big space.  
-> - Scaling or adding vectors keeps you inside that surface — that's why it counts.
+Geometrically, a subspace in $\mathbb{R}^n$ is an "origin-anchored flat slice" of the larger space. To be a valid subspace, it must be "flat" (linear) and pass through the origin.
 
 ---
 
-# 2️⃣ Alternate Subspace Definition (Much Easier)
+## 2. The Three-Point Subspace Criterion
 
-A subset $S \subseteq \mathbb{R}^n$ is a subspace if ALL the following hold:
+Rather than checking all vector space axioms, a subset $S$ is a subspace if and only if it satisfies these three conditions:
 
-1. **Zero vector is in $S$**  
-    $$ 0 \in S $$
-    
-2. **Closed under vector addition**  
-    If $x, y \in S$ then  
-    $$ x + y \in S $$
-    
-3. **Closed under scalar multiplication**  
-    If $x \in S$ and $\alpha \in \mathbb{R}$, then  
-    $$ \alpha x \in S $$
-    
+1. **Existence of Zero Vector:** $\mathbf{0} \in S$.
+2. **Closure under Addition:** If $\mathbf{x}, \mathbf{y} \in S$, then $\mathbf{x} + \mathbf{y} \in S$.
+3. **Closure under Scalar Multiplication:** If $\mathbf{x} \in S$ and $\alpha \in \mathbb{R}$, then $\alpha \mathbf{x} \in S$.
 
-This is the version used in most proofs.
+**Unified Theorem:** $S$ is a subspace if for all $a, b \in \mathbb{R}$ and $\mathbf{u}, \mathbf{v} \in S$, the linear combination $a\mathbf{u} + b\mathbf{v} \in S$.
 
 ---
 
-# 3️⃣ Important Theorem About Subspaces
+## 3. Examples and Non-Examples
 
-Let $W \subseteq \mathbb{R}^n$.  
-Then $W$ is a subspace **iff**:
+### Valid Subspaces
 
-- $W \neq \varnothing$
-    
-- For all scalars $a, b \in \mathbb{R}$ and vectors $u, v \in W$:  
-    $$ au + bv \in W $$
-    
+* **Trivial Subspaces:** For any vector space $V$, the set containing only the zero vector $\{\mathbf{0}\}$ and the space $V$ itself are subspaces.
+* **Symmetric Matrices:** In the space of $3 \times 3$ matrices, the set of all symmetric matrices ($A = A^T$) is a subspace.
+* **Homogeneous Planes:** A plane defined by $x_1 + x_2 - x_3 = 0$ is a subspace because it contains $(0,0,0)$ and is closed under linear combinations.
 
-This single condition implies **all 6 vector space axioms**, making it the most convenient criterion.
+### Non-Examples
 
----
-
-# 4️⃣ Examples of Subspaces
-
-## **Example 1 — Trivial subspaces**
-
-If $V$ is a vector space:
-
-- $S = {0}$
-    
-- $S = V$
-    
-
-Both are automatically subspaces → **trivial subspaces**.
+* **Affine Planes (Non-homogeneous):** The set $x_1 + x_2 + x_3 = 1$ is **not** a subspace. It fails the zero vector check ($0+0+0 \neq 1$) and closure under scaling.
+* **Unions:** The union of two subspaces $S_1 \cup S_2$ is generally **not** a subspace unless $S_1 \subseteq S_2$ or $S_2 \subseteq S_1$. However, the **intersection** $S_1 \cap S_2$ is always a subspace.
 
 ---
 
-## **Example 2 — Symmetric $3 \times 3$ matrices**
+## 4. Linear Span
 
-Let  
-$$ V = M_{3 \times 3}(\mathbb{R}) $$
+The **span** of a set of vectors $S = \{\mathbf{v}_1, \dots, \mathbf{v}_n\}$ is the set of all possible linear combinations of those vectors:
 
-The subset:
 
-> All symmetric $3 \times 3$ matrices
+$$\text{span}(S) = \{c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \dots + c_n \mathbf{v}_n : c_i \in \mathbb{R}\}$$
 
-is a subspace because:
-
-- Zero matrix is symmetric
-    
-- Sum of symmetric matrices is symmetric
-    
-- Scalar multiple of a symmetric matrix is symmetric
-    
+* **Property:** $\text{span}(S)$ is the **smallest subspace** that contains all vectors in $S$.
+* **Example:** In $\mathbb{R}^3$, the span of two non-collinear vectors is a plane passing through the origin.
 
 ---
 
-## **Example 3 — Plane in $\mathbb{R}^3$: $x_1 + x_2 - x_3 = 0$**
+## 5. Matrix-Related Subspaces
 
-Define:  
-$$  
-S = {(x_1,x_2,x_3) \in \mathbb{R}^3 : x_1 + x_2 - x_3 = 0}  
-$$
+For any $m \times n$ matrix $A$, there are four fundamental subspaces that are critical for understanding data transformations:
 
-### ✔ Zero vector check
+### Row Space, $\text{Row}(A)$
 
-$0 + 0 - 0 = 0$ → $0 \in S$
+The span of the row vectors of $A$. It is a subspace of $\mathbb{R}^n$.
 
-### ✔ Closure under scalar multiplication
+### Column Space, $\text{Col}(A)$
 
-Take $a \in \mathbb{R}$:  
-$$  
-x_1 + x_2 - x_3 = 0 \Rightarrow  
-a x_1 + a x_2 - a x_3 = a(0) = 0  
-$$
+The span of the column vectors of $A$. It is a subspace of $\mathbb{R}^m$. In ML, this is the **Range** of the matrix, representing all possible outputs of the transformation $A\mathbf{x}$.
 
-### ✔ Closure under addition
+### Null Space, $N(A)$
 
-If:  
-$$  
-x_1 + x_2 - x_3 = 0,\qquad  
-y_1 + y_2 - y_3 = 0  
-$$
+The set of all vectors $\mathbf{x}$ such that $A\mathbf{x} = \mathbf{0}$.
 
-Then:  
-$$  
-(x_1+y_1) + (x_2+y_2) - (x_3+y_3) = 0  
-$$
 
-Thus **$S$ is a subspace of $\mathbb{R}^3$**.
+$$N(A) = \{ \mathbf{x} \in \mathbb{R}^n : A\mathbf{x} = \mathbf{0} \}$$
+
+
+It is a subspace of $\mathbb{R}^n$ and represents the directions that are "collapsed" to zero by the matrix.
 
 ---
 
-## **Example 4 — Line where all components are equal: $x_1 = x_2 = x_3$**
+## 6. Significance in Machine Learning
 
-Define:  
-$$  
-S = { (x,x,x) : x \in \mathbb{R} }  
-$$
+Subspaces are the foundation for several core ML techniques:
 
-Contains $(0,0,0)$.
-
-Closed under:
-
-- Addition:  
-    $(x,x,x) + (y,y,y) = (x+y, x+y, x+y)$
-    
-- Scalar multiplication:  
-    $a(x,x,x) = (ax,ax,ax)$
-    
-
-So it is a subspace.
-
----
-
-## ❌ **Non-Example — $x_1 + x_2 + x_3 = 1$ is NOT a subspace**
-
-Define:  
-$$  
-S = { (x_1,x_2,x_3) : x_1 + x_2 + x_3 = 1 }  
-$$
-
-Check zero vector:  
-$$  
-0 + 0 + 0 = 0 \neq 1  
-$$
-
-Zero vector is missing → **not a subspace**.
-
----
-
-# 5️⃣ Geometric Meaning of Subspaces in $\mathbb{R}^3$
-
-A subspace of $\mathbb{R}^3$ can only be:
-
-1. ${0}$
-    
-2. A **line** through the origin
-    
-3. A **plane** through the origin
-    
-4. The entire $\mathbb{R}^3$
-    
-
-These are the only possibilities.
-
----
-
-# 6️⃣ Intersection vs Union of Subspaces
-
-## ✔ Intersection
-
-If $S_1$ and $S_2$ are subspaces:
-
-$$ S_1 \cap S_2 \text{ is always a subspace} $$
-
-## ❌ Union (usually NOT a subspace)
-
-$$ S_1 \cup S_2 \text{ is NOT necessarily a subspace} $$
-
-The **only time** union is a subspace is when:
-
-- One is contained in the other  
-    $$ S_1 \subseteq S_2 \quad\text{or}\quad S_2 \subseteq S_1 $$
-    
-
----
-
-# 7️⃣ Example of Intersection
-
-Let
-
-- $S_1 = {x_1+x_2-x_3=0}$
-    
-- $S_2 = {x_1 = x_2 = x_3}$
-    
-
-Solve both conditions simultaneously.
-
-From $S_2$:  
-$$ x_1 = x_2 = x_3 = t $$
-
-Plug into $S_1$:  
-$$ t + t - t = t = 0 $$
-
-Thus $t=0$ → only vector in intersection is:
-
-$$ (0,0,0) $$
-
-So:  
-$$ S_1 \cap S_2 = {0} $$
-
-A trivial subspace.
-
----
-
-# 8️⃣ Linear Span
-
-Let $V$ be a vector space.
-
-Let  
-$$ S = {v_1, v_2, \dots, v_n} \subseteq V $$
-
-The **linear span** of $S$ is:  
-$$  
-\text{span}(S) = {c_1 v_1 + c_2 v_2 + \dots + c_n v_n : c_i \in \mathbb{R}}  
-$$
-
-This is **the set of all linear combinations** of the vectors.
-
-### Examples:
-
-### Example 1
-
-$S = {(1,0), (0,1)}$ in $\mathbb{R}^2$
-
-Span:  
-$$  
-c_1(1,0) + c_2(0,1) = (c_1, c_2)  
-$$
-
-This is:  
-$$ \mathbb{R}^2 $$
-
----
-
-### Example 2
-
-$S = {(1,2,0), (1,1,-1)}$
-
-Compute:  
-$$  
-c_1(1,2,0) + c_2(1,1,-1)  
-= (c_1+c_2,, 2c_1+c_2,, -c_2)  
-$$
-
-That set can be rewritten as:  
-$$  
-{(x_1,x_2,x_3) : 2x_1 - x_3 = x_2}  
-$$
-
-This is a plane through origin → subspace of $\mathbb{R}^3$.
-
----
-
-## ✔ Important result
-
-$\text{span}(S)$ is **always** a subspace of $V$.
-
-Also:
-
-> It is the **smallest** subspace containing $S$.
-
----
-
-# 9️⃣ Matrix-Related Subspaces
-
-Let $A$ be an $m \times n$ matrix.
-
-### 1. **Row space**
-
-$$ \text{Row}(A) = \text{span of all rows of } A $$  
-A subspace of $\mathbb{R}^n$.
-
----
-
-### 2. **Column space**
-
-$$ \text{Col}(A) = \text{span of all columns of } A $$  
-A subspace of $\mathbb{R}^m$.
-
-Column space = **range** of the linear transformation $Ax$.
-
----
-
-### 3. **Null space**
-
-$$  
-N(A) = { x \in \mathbb{R}^n : Ax = 0 }  
-$$
-
-A subspace of $\mathbb{R}^n$.
-
----
-
-### 4. **Range space**
-
-$$  
-\text{Range}(A) = { Ax : x \in \mathbb{R}^n }  
-$$
-
-But:  
-$$  
-\text{Range}(A) = \text{Col}(A)  
-$$
-
-These four subspaces are critical in ML (PCA, SVD, dimensionality reduction).
+* **Dimensionality Reduction (PCA):** Finds a lower-dimensional subspace that captures the maximum variance of the data.
+* **SVD (Singular Value Decomposition):** Decomposes a matrix into components related to these four fundamental subspaces.
+* **Linear Regression:** Seeks to project the target vector onto the column space of the feature matrix.
 
 ---
