@@ -1,6 +1,3 @@
-I will ensure every core concept is reinforced with the exact examples and derivations provided in your text. Here are the structured notes for **Linear Transformations**, formatted for GitHub with complete LaTeX rendering and no omissions.
-
----
 
 ## Linear Transformations
 
