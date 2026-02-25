@@ -363,6 +363,3 @@ Matrix operations power:
     
 
 ---
-
-### Yt Link-
->https://www.youtube.com/watch?v=VviJTNbznjE&list=PLLy_2iUCG87D1CXFxE-SxCFZUiJzQ3IvE&index=3
