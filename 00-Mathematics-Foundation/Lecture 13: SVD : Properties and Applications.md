@@ -1,3 +1,11 @@
+It looks like your GitHub preview is rendering the raw LaTeX code (e.g., `\begin{bmatrix}`) rather than the formatted matrices. This usually happens because GitHub's built-in Markdown renderer requires specific delimiters for math blocks.
+
+To fix this for your repo and make it look like a professional textbook, you should wrap your LaTeX equations in double dollar signs `$$` for blocks and single dollar signs `$` for inline math.
+
+Here is the corrected and expanded version of your **SVD Properties and Matrix Norms** notes, optimized to render perfectly on GitHub.
+
+---
+
 ## Singular Value Decomposition: Properties and Matrix Norms
 
 *Essential Mathematics for ML — Advanced Structured Notes*
@@ -33,19 +41,26 @@ SVD provides an orthonormal basis for the four fundamental subspaces of an $m \t
 
 For non-square or singular matrices where a standard inverse doesn't exist, we use the **Pseudo-Inverse**:
 
-
-$$\boxed{A^+ = V \Sigma^+ U^T}$$
-
+$$A^+ = V \Sigma^+ U^T$$
 
 Where $\Sigma^+$ is formed by transposing $\Sigma$ and replacing every non-zero singular value $\sigma_i$ with its reciprocal $1/\sigma_i$. If $\sigma_i = 0$, it remains $0$.
 
 ### Worked Example: Pseudo-Inverse
 
-**Given:** $A = \begin{bmatrix} 4 & 11 & 14 \\ 8 & 7 & -2 \end{bmatrix}$ (Rank 2)
+**Given:** 
+
+$$A = \begin{bmatrix} 4 & 11 & 14 \\ 8 & 7 & -2 \end{bmatrix} \text{ (Rank 2)}$$
 
 1. **Identify Components:** $U$ is $2 \times 2$, $\Sigma$ is $2 \times 3$, and $V$ is $3 \times 3$.
-2. **Form $\Sigma^+$:** If $\sigma_1, \sigma_2 > 0$, then $\Sigma^+ = \begin{bmatrix} 1/\sigma_1 & 0 \\ 0 & 1/\sigma_2 \\ 0 & 0 \end{bmatrix}$.
-3. **Result:** $A^+ = V \Sigma^+ U^T \approx \begin{bmatrix} -0.0056 & 0.0722 \\ 0.0222 & 0.0444 \\ 0.0556 & -0.0556 \end{bmatrix}$.
+2. **Form $\Sigma^+$:** If $\sigma_1, \sigma_2 > 0$, then:
+
+$$\Sigma^+ = \begin{bmatrix} 1/\sigma_1 & 0 \\ 0 & 1/\sigma_2 \\ 0 & 0 \end{bmatrix}$$
+
+
+3. **Result:** 
+$$A^+ = V \Sigma^+ U^T \approx \begin{bmatrix} -0.0056 & 0.0722 \\ 0.0222 & 0.0444 \\ 0.0556 & -0.0556 \end{bmatrix}$$
+
+
 
 ---
 
@@ -70,7 +85,9 @@ $$\|A\|_F = \sqrt{\sum_{i,j} a_{ij}^2} = \sqrt{\text{Tr}(A^T A)} = \sqrt{\sum \s
 
 ## 5. Comprehensive Worked Example
 
-**Matrix:** $A = \begin{bmatrix} 0 & 1 & 1 \\ \sqrt{2} & 2 & 0 \\ 0 & 1 & 1 \end{bmatrix}$
+**Matrix:** 
+
+$$A = \begin{bmatrix} 0 & 1 & 1 \\ \sqrt{2} & 2 & 0 \\ 0 & 1 & 1 \end{bmatrix}$$
 
 **1. SVD Metrics:**
 
@@ -90,6 +107,6 @@ $$\|A\|_F = \sqrt{\sum_{i,j} a_{ij}^2} = \sqrt{\text{Tr}(A^T A)} = \sqrt{\sum \s
 
 * **Range Space Discovery:** The first $r$ columns of $U$ give the directions of the data points in the target space.
 * **Regularization:** In Ridge Regression, adding $\lambda I$ prevents the singular values from being too small, stabilizing the calculation of $A^+$.
-* **Unitary Invariance:** Many matrix norms (like Frobenius and Spectral) are "unitary invariant," meaning $\|UAV\| = \|A\|$. This is critical because it shows that rotating the data doesn't change its fundamental "size" or information content.
+* **Unitary Invariance:** Many matrix norms (like Frobenius and Spectral) are "unitary invariant," meaning $\|UAV\| = \|A\|$. This ensures that rotating the data does not change its fundamental information content.
 
 ---
