@@ -1,8 +1,4 @@
-It looks like your GitHub preview is rendering the raw LaTeX code (e.g., `\begin{bmatrix}`) rather than the formatted matrices. This usually happens because GitHub's built-in Markdown renderer requires specific delimiters for math blocks.
 
-To fix this for your repo and make it look like a professional textbook, you should wrap your LaTeX equations in double dollar signs `$$` for blocks and single dollar signs `$` for inline math.
-
-Here is the corrected and expanded version of your **SVD Properties and Matrix Norms** notes, optimized to render perfectly on GitHub.
 
 ---
 
