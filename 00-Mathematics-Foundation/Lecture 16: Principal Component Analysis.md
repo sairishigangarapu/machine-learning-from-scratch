@@ -23,17 +23,23 @@ PCA is an orthogonal linear transformation that projects the data into a new coo
 To understand how PCA identifies these "best directions", we define statistical measures:
 
 * **Mean ($\mu$):** The central tendency of a feature.
-$$\mu = \frac{1}{n} \sum_{i=1}^{n} \mathbf{x}_i$$
+
+$$
+\mu = \frac{1}{n} \sum_{i=1}^{n} \mathbf{x}_i
+$$
 
 * **Variance/Standard Deviation:** Measures the spread of a single feature.
 * **Covariance ($\text{cov}(X, Y)$):** Measures how two variables change dynamically together.
-$$\sigma_{XY} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu_X)(y_i - \mu_Y)$$
+
+$$
+\sigma_{XY} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu_X)(y_i - \mu_Y)
+$$
 
 ---
 
 ## 3. The Covariance Matrix ($\Sigma$)
 
-For a dataset with $d$features, the covariance matrix$\Sigma$is a$d \times d$symmetric matrix. It is the mathematical heart of PCA because its structure captures the full 3D shape and orientation of our metaphorical pancake.
+For a dataset with $d$ features, the covariance matrix $\Sigma$ is a $d \times d$ symmetric matrix. It is the mathematical heart of PCA because its structure captures the full 3D shape and orientation of our metaphorical pancake.
 
 ### Matrix Structure
 Diagonal elements are the **variances**, off-diagonals are **covariances**:
@@ -48,9 +54,11 @@ $$
 $$
 
 ### Algebraic Computation
-If$C$is the **centered data matrix** of size$n \times d$(mean subtracted from columns):
+If $C$ is the **centered data matrix** of size $n \times d$ (mean subtracted from columns):
 
-$$\Sigma = \frac{1}{n} C^T C$$
+$$
+\Sigma = \frac{1}{n} C^T C
+$$
 
 ```python
 import numpy as np
@@ -69,9 +77,10 @@ Sigma = (C.T @ C) / data.shape[0]
 ```
 
 ### Key Geometric Properties
-1. **Symmetry:**$\Sigma = \Sigma^T$.
+
+1. **Symmetry:** $\Sigma = \Sigma^T$.
 2. **Positive Semi-Definite:** $\mathbf{u}^T \Sigma \mathbf{u} \ge 0$, ensuring eigenvalues (variances) are never negative.
-3. **Rotation and Variance:** The eigenvectors of $\Sigma$point precisely in the directions of maximum variance in the data.
+3. **Rotation and Variance:** The eigenvectors of $\Sigma$ point precisely in the directions of maximum variance in the data.
 
 ---
 
@@ -96,10 +105,10 @@ principal_components = eigenvectors[:, sorted_indices]
 
 ## 5. The PCA Projection Step
 
-To compress an$n$-dimensional dataset to $k$ dimensions ($k < n$):
+To compress an $n$-dimensional dataset to $k$ dimensions ($k < n$):
 
-1. **Select Top $k$Components:** Extract the first$k$columns of the sorted eigenvector matrix. This forms our projection matrix$W$ ($n \times k$).
-2. **Projection:** Project the centered data $C$onto these eigenvectors:$Y = C W$.
+1. **Select Top $k$ Components:** Extract the first $k$ columns of the sorted eigenvector matrix. This forms our projection matrix $W$ ($n \times k$).
+2. **Projection:** Project the centered data $C$ onto these eigenvectors: $Y = C W$.
 
 ```python
 # Suppose we want to reduce from 3D to 2D
@@ -116,6 +125,6 @@ reduced_data = C @ W  # Now shaped (100, 2)
 
 * **Information Preservation:** The ratio `eigenvalue / sum(all eigenvalues)` tells us exactly what percentage of the variance is preserved by that component.
 * **Failure Mode (Non-Linearity):** PCA strictly captures linear correlations. If your data forms a 3D spiral (a "Swiss Roll"), PCA will utterly fail to unroll it because a global linear plane cannot model curves. This is why we need Manifold Learning (like t-SNE or UMAP) or Autoencoders for highly non-linear data.
-* **Failure Mode (Feature Scaling):** If feature $X_1$is measured in millimeters, and$X_2$in kilometers,$X_1$will mathematically dominate the variance. PCA will blindly align PC1 across$X_1$, completely ruining the analysis. **Always scale/normalize features to unit variance before PCA.**
+* **Failure Mode (Feature Scaling):** If feature $X_1$ is measured in millimeters, and $X_2$ in kilometers, $X_1$ will mathematically dominate the variance. PCA will blindly align PC1 across $X_1$, completely ruining the analysis. **Always scale/normalize features to unit variance before PCA.**
 
 > **Check your intuition:** If a dataset is a completely uniform, perfectly spherical cloud of noise in 3D, what does PCA do? *(Answer: It does absolutely nothing useful. All eigenvalues of the covariance matrix will be identical, meaning there are no "principal" directions since the variance is equal in every direction.)*

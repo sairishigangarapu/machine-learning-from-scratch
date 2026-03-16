@@ -12,35 +12,46 @@ When a matrix multiplies a vector, it typically knocks it off its axis, twisting
 These un-twisting, rigid "bones" of a mathematical transformation are its **Eigenvectors**. The amount by which they stretched (or shrank) is the **Eigenvalue**. 
 
 ### Deep Learning Connection
-In Recurrent Neural Networks (RNNs), a hidden state $\mathbf{h}$is iteratively multiplied by the same weight matrix$W$thousands of times over a sequence. If$W$has an eigenvector with an eigenvalue$\lambda > 1$, multiplying it thousands of times will cause the vector to explode toward infinity ($1.1^{1000} \to \infty$). If $\lambda < 1$, it shrinks to nothing ($0.9^{1000} \to 0$). This is the literal mathematical origin of the **Vanishing / Exploding Gradient Problem**.
+In Recurrent Neural Networks (RNNs), a hidden state $\mathbf{h}$ is iteratively multiplied by the same weight matrix $W$ thousands of times over a sequence. If $W$ has an eigenvector with an eigenvalue $\lambda > 1$, multiplying it thousands of times will cause the vector to explode toward infinity ($1.1^{1000} \to \infty$). If $\lambda < 1$, it shrinks to nothing ($0.9^{1000} \to 0$). This is the literal mathematical origin of the **Vanishing / Exploding Gradient Problem**.
 
 ---
 
 ## 2. Mathematical Definition
 
-Let $A$be an$n \times n$real square matrix. A nonzero vector$\mathbf{v}$is an **eigenvector** if:
+Let $A$ be an $n \times n$ real square matrix. A nonzero vector $\mathbf{v}$ is an **eigenvector** if:
 
-$$A\mathbf{v} = \lambda \mathbf{v}$$
+$$
+A\mathbf{v} = \lambda \mathbf{v}
+$$
 
-where$\lambda$is a scalar called the **eigenvalue**. The matrix transformation acts on$\mathbf{v}$exactly as if it were just a simple scalar multiplication.
+where $\lambda$ is a scalar called the **eigenvalue**. The matrix transformation acts on $\mathbf{v}$ exactly as if it were just a simple scalar multiplication.
 
-> **Note:** The zero vector mathematically satisfies$A\mathbf{0} = \lambda \mathbf{0}$, but it provides no geometric information about the rigid rotational axes of the matrix, so it is strictly excluded from being an eigenvector.
+> **Note:** The zero vector mathematically satisfies $A\mathbf{0} = \lambda \mathbf{0}$, but it provides no geometric information about the rigid rotational axes of the matrix, so it is strictly excluded from being an eigenvector.
 
 ---
 
 ## 3. How to Calculate Eigenvalues and Eigenvectors
 
 We rearrange the definition into a homogeneous system:
-$$A\mathbf{v} - \lambda \mathbf{v} = \mathbf{0}$$
-$$(A - \lambda I)\mathbf{v} = \mathbf{0}$$
 
-For a nonzero solution $\mathbf{v}$to exist, the matrix$(A - \lambda I)$ must crush space to 0 (meaning it has a valid Null Space). It can only do that if its determinant is exactly zero. This is the **Characteristic Equation**:
+$$
+A\mathbf{v} - \lambda \mathbf{v} = \mathbf{0}
+$$
 
-$$\det(A - \lambda I) = 0$$
+$$
+(A - \lambda I)\mathbf{v} = \mathbf{0}
+$$
+
+For a nonzero solution $\mathbf{v}$ to exist, the matrix $(A - \lambda I)$ must crush space to 0 (meaning it has a valid Null Space). It can only do that if its determinant is exactly zero. This is the **Characteristic Equation**:
+
+$$
+\det(A - \lambda I) = 0
+$$
 
 ### Step-by-Step Procedure
+
 1. Find the roots ($\lambda$) of the polynomial $\det(A - \lambda I) = 0$.
-2. For each $\lambda$, plug it back into $(A - \lambda I)\mathbf{v} = \mathbf{0}$and solve for the basis of the null space$\mathbf{v}$.
+2. For each $\lambda$, plug it back into $(A - \lambda I)\mathbf{v} = \mathbf{0}$ and solve for the basis of the null space $\mathbf{v}$.
 
 ```python
 import numpy as np
@@ -64,18 +75,34 @@ print("Eigenvector for Lambda=3:", vectors[:, 0])
 
 ## 4. Comprehensive Worked Example
 
-**Matrix:** $A = \begin{bmatrix} 2 & -2 & 3 \\ 1 & 1 & 1 \\ 1 & 3 & -1 \end{bmatrix}$**Step 1: Eigenvalues**
-Solving$\det(A - \lambda I) = 0$results in polynomial roots:
-$$(\lambda - 3)(\lambda - 1)(\lambda + 2) = 0$$
-**Eigenvalues:**$\lambda_1 = 3, \lambda_2 = 1, \lambda_3 = -2$.
+**Matrix:** 
+
+$$
+A = \begin{bmatrix} 2 & -2 & 3 \\ 1 & 1 & 1 \\ 1 & 3 & -1 \end{bmatrix}
+$$
+
+**Step 1: Eigenvalues**
+Solving $\det(A - \lambda I) = 0$ results in polynomial roots:
+
+$$
+(\lambda - 3)(\lambda - 1)(\lambda + 2) = 0
+$$
+
+**Eigenvalues:** $\lambda_1 = 3, \lambda_2 = 1, \lambda_3 = -2$.
 
 **Step 2: Eigenvector for $\lambda_1 = 3$**
-Substitute $\lambda = 3$into$(A - 3I)\mathbf{v} = \mathbf{0}$:
+Substitute $\lambda = 3$ into $(A - 3I)\mathbf{v} = \mathbf{0}$:
 
-$$\begin{bmatrix} -1 & -2 & 3 \\ 1 & -2 & 1 \\ 1 & 3 & -4 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$$
+$$
+\begin{bmatrix} -1 & -2 & 3 \\ 1 & -2 & 1 \\ 1 & 3 & -4 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
+$$
 
 Applying Gaussian elimination reveals $v_1 = v_2 = v_3$.
-**Basis Eigenvector:** $\mathbf{v} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$.
+**Basis Eigenvector:** 
+
+$$
+\mathbf{v} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+$$
 
 ---
 
@@ -85,7 +112,7 @@ Knowing the eigenvalues allows you to "cheat" at advanced matrix algebra without
 
 * **Trace Property:** $\sum \lambda_i = \text{Tr}(A)$. (Sum of eigenvalues = sum of diagonal elements).
 * **Determinant Property:** $\prod \lambda_i = \det(A)$. (Product of eigenvalues = determinant).
-* **Matrix Inverse:** If a matrix is invertible, its inverse $A^{-1}$holds the exact same eigenvectors, but its eigenvalues are explicitly$1/\lambda$.
-* **Matrix Powers:** $A^{100}$holds the exact same eigenvectors as$A$, but its eigenvalues are $\lambda^{100}$.
+* **Matrix Inverse:** If a matrix is invertible, its inverse $A^{-1}$ holds the exact same eigenvectors, but its eigenvalues are explicitly $1/\lambda$.
+* **Matrix Powers:** $A^{100}$ holds the exact same eigenvectors as $A$, but its eigenvalues are $\lambda^{100}$.
 
 *Failure mode recap:* If *any* eigenvalue is exactly $0$, then the product of eigenvalues is $0$, meaning $\det(A) = 0$. The matrix has crushed a dimension and cannot be mathematically inverted.
