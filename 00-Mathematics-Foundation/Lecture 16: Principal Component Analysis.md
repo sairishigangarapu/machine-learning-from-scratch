@@ -43,24 +43,35 @@ $$\sigma_{XY} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu_X)(y_i - \mu_Y)$$
 
 
 ---
-
 ## 3. The Covariance Matrix ($\Sigma$)
 
-For a dataset with $k$ attributes, the covariance matrix is a $k \times k$ symmetric matrix that captures the relationships between all pairs of features:
-$$\Sigma = \begin{bmatrix}
-\text{var}(X_1) & \text{cov}(X_1, X_2) & \dots \
-\text{cov}(X_2, X_1) & \text{var}(X_2) & \dots \
-\vdots & \vdots & \ddots
-\end{bmatrix}$$
-If $C$ is the centered data matrix (where the mean is subtracted from each row), then:
+For a dataset with $d$ features (attributes), the covariance matrix $\Sigma$ is a $d \times d$ symmetric matrix. It is the most critical structure in PCA because it characterizes the spread and orientation of the data in the feature space.
 
+### Matrix Structure
+
+The diagonal elements represent the **variance** of individual features, while the off-diagonal elements represent the **covariance** between pairs of features:
+
+$$\Sigma = \begin{bmatrix}
+\text{var}(X_1) & \text{cov}(X_1, X_2) & \dots & \text{cov}(X_1, X_d) \
+\text{cov}(X_2, X_1) & \text{var}(X_2) & \dots & \text{cov}(X_2, X_d) \
+\vdots & \vdots & \ddots & \vdots \
+\text{cov}(X_d, X_1) & \text{cov}(X_d, X_2) & \dots & \text{var}(X_d)
+\end{bmatrix}$$
+
+### Algebraic Computation
+
+If $C$ is the **centered data matrix** of size $n \times d$ (where each column has had its mean subtracted), the covariance matrix is calculated as:
 
 $$\Sigma = \frac{1}{n} C^T C$$
 
+### Key Geometric Properties
 
-Because $\Sigma$ is **symmetric**, it is guaranteed to have real eigenvalues and orthogonal eigenvectors.
+1. **Symmetry:** Because $\text{cov}(X_i, X_j) = \text{cov}(X_j, X_i)$, the matrix is symmetric ($\Sigma = \Sigma^T$).
+2. **Positive Semi-Definite:** For any vector $\mathbf{u}$, $\mathbf{u}^T \Sigma \mathbf{u} \ge 0$. This ensures all eigenvalues are non-negative ($\lambda \ge 0$).
+3. **Rotation and Variance:** The eigenvectors of $\Sigma$ point in the directions of maximum variance. These are the "Principal Components."
 
 ---
+
 
 ## 4. Principal Components
 
