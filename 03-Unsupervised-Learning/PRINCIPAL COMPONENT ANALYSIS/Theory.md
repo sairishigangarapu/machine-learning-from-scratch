@@ -49,3 +49,11 @@ PCA relies on Linear Algebra to find the "directions" of maximum variance.
 
 ---
 **External Exercise:** [Codebasics PCA Lab](https://github.com/codebasics/py/blob/master/ML/18_pca/pca_digits.ipynb)
+
+---
+
+## 5. Mathematical Deep Dive 🧠
+To deeply understand the linear algebra engine driving this algorithm (Covariance Matrices, Eigenvectors, Representation Error), please reference our **Mathematics Foundation** knowledge bank:
+* [Lecture 16: Principal Component Analysis](../../00-Mathematics-Foundation/Lecture%2016:%20Principal%20Component%20Analysis.md) (Covariance Geometry & High-Level Intuition)
+* [Lecture 17: PCA Derivation and Examples](../../00-Mathematics-Foundation/Lecture%2017%20PCA%20Derivation%20and%20Examples.md) (Calculus & SVD Optimization Proofs)
+* [Lecture 18: Python Implementation of PCA](../../00-Mathematics-Foundation/Lecture%2018%20Python%20implementation%20of%20PCA.md) (NumPy From-Scratch vs. Scikit-Learn)
