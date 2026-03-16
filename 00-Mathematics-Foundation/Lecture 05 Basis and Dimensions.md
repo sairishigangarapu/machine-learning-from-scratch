@@ -6,109 +6,87 @@
 
 ## 1. Definition of a Basis
 
-In Machine Learning, we often decompose complex data into a weighted sum of simpler components (e.g., PCA or Wavelet transforms). A **basis** is the set of vectors that allows for this unique representation.
+### Motivation and Intuition
+A $1024 \times 1024$image dataset technically exists in a 1,000,000-dimensional space. However, most images of human faces don't use all those random dimensions—they share common structures like eyes, noses, and lighting gradients.
 
-A set $B = \{v_1, v_2, \dots, v_n\} \subseteq V$ is a basis of a vector space $V$ if it satisfies two conditions:
+What if we could find a core set of, say, 50 "eigen-faces" such that blending them together in different proportions could perfectly perfectly recreate any face in our dataset? That set of 50 core images is a **Basis**. 
 
-1. **Linear Independence:** No vector in $B$ can be expressed as a linear combination of the other vectors in $B$.
-2. **Spanning Property:** Every vector $\mathbf{v} \in V$ can be written as a linear combination of the vectors in $B$:
+By finding a compact basis, Deep Learning models (like Autoencoders) can compress data from 1,000,000 dimensions down to a 50-dimensional "latent space", discarding the noise entirely and dramatically accelerating training.
 
-$$\mathbf{v} = \alpha_1 \mathbf{v}_1 + \alpha_2 \mathbf{v}_2 + \dots + \alpha_n \mathbf{v}_n$$
+### Formal Definition
+A set of vectors$B = \{v_1, v_2, \dots, v_k\}$forms a basis for a vector space$V$if it satisfies two strict conditions:
 
+1. **Linear Independence:** No vector in$B$is a redundant copy or blend of the others. There is zero wasted information.
+2. **Spanning Property:** You can reach *every single point* in$V$by taking a linear combination of the vectors in$B$.
 
+$$\mathbf{v} = \alpha_1 \mathbf{v}_1 + \dots + \alpha_k \mathbf{v}_k$$
 
 ---
 
 ## 2. Finite vs. Infinite Dimensional Spaces
 
-The "size" of a vector space is determined by its basis:
+The "size" of a vector space is perfectly defined by the number of vectors in its basis, a concept known as **Dimension**.
 
-* **Finite-dimensional:** The basis contains a finite number of vectors.
-* *Example:* $\mathbb{R}^n$ has dimension $n$.
+* **Finite-dimensional:** ML datasets lie here. If it takes 5 vectors to span the subspace, the dimension is 5.
+* **Infinite-dimensional:** Theoretical ML (like kernel methods handling infinite feature spaces) uses spaces whose basis requires an infinite number of vectors (e.g., the space of all continuous functions).
 
+```python
+import numpy as np
 
-* **Infinite-dimensional:** The basis requires an infinite set of vectors.
-* *Example:* The space of all continuous functions or the space of all polynomials.
+# A dataset matrix where rows are linearly independent features
+A = np.array([[1, 0, 0],
+              [0, 1, 0]])
 
-
+# The mathematical dimension of the space this matrix spans is its Rank
+dimension = np.linalg.matrix_rank(A)  # Output: 2
+```
 
 ---
 
 ## 3. Standard and Custom Bases
 
 ### Standard Bases
+The default coordinate system we use every day.
+* **In $\mathbb{R}^3$:** $e_1 = (1,0,0), e_2 = (0,1,0), e_3 = (0,0,1)$.
 
-These are the most intuitive bases used in computation:
-
-* **In $\mathbb{R}^2$:** $e_1 = (1,0), e_2 = (0,1)$.
-* **In $\mathbb{R}^n$:** $e_1 = (1,0,\dots,0), \dots, e_n = (0,0,\dots,1)$.
-* **In Matrices ($M_{2 \times 2}$):**
-
-$$\begin{bmatrix}1 & 0 \\ 0 & 0\end{bmatrix}, \begin{bmatrix}0 & 1 \\ 0 & 0\end{bmatrix}, \begin{bmatrix}0 & 0 \\ 1 & 0\end{bmatrix}, \begin{bmatrix}0 & 0 \\ 0 & 1\end{bmatrix}$$
-
-
-
-The dimension here is $mn$ (for a $2 \times 2$, $\dim = 4$).
-
-### Symmetric Matrix Basis
-
-For a $2 \times 2$ symmetric matrix $\begin{bmatrix} a & b \\ b & c \end{bmatrix}$, the basis is:
-
+### Custom Bases
+We can change our perspective. For a symmetric $2 \times 2$matrix$\begin{bmatrix} a & b \\ b & c \end{bmatrix}$, the customized basis highlights its symmetries:
 
 $$\begin{bmatrix}1&0\\0&0\end{bmatrix}, \begin{bmatrix}0&1\\1&0\end{bmatrix}, \begin{bmatrix}0&0\\0&1\end{bmatrix}$$
 
-
-The dimension is 3, reflecting the 3 degrees of freedom ($a, b, c$).
+The dimension is 3, formally proving there are exactly 3 degrees of freedom ($a, b, c$) in a $2 \times 2$symmetric matrix.
 
 ---
 
 ## 4. Fundamental Theorems
 
-* **Theorem 1:** In an $n$-dimensional space, any set with more than $n$ vectors is **linearly dependent**.
-* **Theorem 2:** Any linearly independent set can be **extended** to form a basis.
-* **Theorem 3:** All bases for a specific vector space have the **same number of vectors**.
-* **Theorem 4 (Dimension Theorem):** For subspaces $S_1$ and $S_2$:
-
-$$\dim(S_1) + \dim(S_2) = \dim(S_1 + S_2) + \dim(S_1 \cap S_2)$$
-
-
+1. **Theorem 1:** In an$n$-dimensional space, any set with more than $n$vectors is mathematically guaranteed to be **linearly dependent** (redundant).
+2. **Theorem 2:** Any linearly independent set can be extended with more vectors to eventually form a full basis.
+3. **Theorem 3:** Every valid basis for a specific vector space will *always* have the exact same number of vectors.
 
 ---
 
 ## 5. Worked Examples: Finding Basis and Dimension
 
-### Example A: A Plane in $\mathbb{R}^3$
-
-**Given:** $S = \{(x_1, x_2, x_3) \in \mathbb{R}^3 : x_1 + x_2 - x_3 = 0\}$.
+### Example A: A Plane in$\mathbb{R}^3$**Given:** Subspace$S$defined by points where$x_1 + x_2 - x_3 = 0$.
 
 1. **Constraint:** $x_3 = x_1 + x_2$.
-2. **Vector Form:** $(x_1, x_2, x_1 + x_2) = x_1(1,0,1) + x_2(0,1,1)$.
-3. **Basis:** $\{(1,0,1), (0,1,1)\}$.
-4. **Dimension:** $\dim(S) = 2$.
+2. **Vector Form:** Any point looks like $(x_1, x_2, x_1 + x_2)$.
+3. **Split Variables:** $x_1(1,0,1) + x_2(0,1,1)$.
+4. **Conclusion:** The basis is $\{(1,0,1), (0,1,1)\}$. Because there are 2 vectors, $\dim(S) = 2$. It's a 2D plane passing through the origin.
 
-### Example B: Intersection of Subspaces
+### Example C: Intersection of Subspaces
+**Given:** $S_1$defined by$x_1+x_2-x_3+x_4=0$and$x_1+x_2+x_3+x_4=0$.
 
-**Given:** $S$ (from above) and $W = \{(x,x,x) : x \in \mathbb{R}\}$.
-
-1. **Solve simultaneously:** $x + x - x = 0 \Rightarrow x = 0$.
-2. **Intersection:** Only the zero vector $(0,0,0)$.
-3. **Dimension:** $\dim(S \cap W) = 0$.
-
-### Example C: Subspaces in $\mathbb{R}^4$
-
-**Given:** $S_1$ defined by $x_1+x_2-x_3+x_4=0$ and $x_1+x_2+x_3+x_4=0$.
-
-1. Subtracting equations gives $2x_3 = 0 \Rightarrow x_3 = 0$.
-2. Then $x_1 + x_2 + x_4 = 0 \Rightarrow x_4 = -(x_1 + x_2)$.
+1. Subtracting the equations yields $2x_3 = 0 \Rightarrow x_3 = 0$.
+2. Substitute back: $x_1 + x_2 + 0 + x_4 = 0 \Rightarrow x_4 = -x_1 - x_2$.
 3. **Vector Form:** $(x_1, x_2, 0, -x_1 - x_2) = x_1(1,0,0,-1) + x_2(0,1,0,-1)$.
 4. **Basis:** $\{(1,0,0,-1), (0,1,0,-1)\}$. $\dim(S_1) = 2$.
 
 ---
 
-## 6. Significance in Machine Learning
+## 6. Significance in Deep Learning
 
-* **PCA (Principal Component Analysis):** Finds an orthonormal basis where the first few vectors (principal components) capture the most variance.
-* **Latent Spaces:** In Autoencoders, the bottleneck layer represents a lower-dimensional basis for the input data.
-* **Sparsity:** Basis Pursuit algorithms try to represent data using as few basis vectors as possible.
-
----
+* **Latent Spaces (Autoencoders):** A deep neural network encoder physically learns a new, customized, lower-dimensional basis that perfectly captures the underlying manifold of the training data.
+* **PCA (Principal Component Analysis):** A rigid mathematical method to find an *orthonormal* basis where the first few vectors point precisely along the axes of highest dataset variance.
+* **Sparsity:** Advanced regularization techniques (like L1 / Lasso) force neural networks to use as few basis vectors as possible, zeroing out the redundant ones to achieve model compression and interpretability.

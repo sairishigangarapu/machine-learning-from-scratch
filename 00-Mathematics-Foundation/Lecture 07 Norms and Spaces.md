@@ -1,207 +1,82 @@
-## 1. Metric Spaces
+## 1. Metric Spaces and Norms
 
-A **Metric Space** is a generalisation of the notion of distance from Euclidean space (e.g., distance in $\mathbb{R}^2$ or $\mathbb{R}^3$).
+### Motivation and Intuition
+How do you teach a machine that a prediction is "bad"? If an algorithm predicts a house costs $\$200,000$and the real price is$\$250,000$, the error is $\$50,000$.
 
-### Definition
+But what if the algorithm is predicting an image? How do you mathematically measure the "distance" between a picture of a cat and a picture of a dog? We need a rigorous mathematical formulation of what "distance" (Metric) and "size/length" (Norm) actually mean in high-dimensional spaces. The entire concept of Loss Functions in Machine Learning is built on Norms.
 
-A metric on a set $S$ is a function $d: S \times S \to \mathbb{R}$ satisfying the following properties for all $x, y, z \in S$:
+### Metric Space Definition
+A metric is a function $d(x,y)$representing the distance between$x$and$y$, satisfying:
+1. $d(x, y) \ge 0$(Distances can't be negative).
+2.$d(x, y) = d(y, x)$(Symmetry).
+3.$d(x, z) \le d(x, y) + d(y, z)$(Triangle Inequality: shortcuts are always faster).
 
-1. Non-negativity:
+### Normed Space Definition
+A norm$\|x\|$is the specific "length" of a single vector. Every norm automatically produces a metric:$d(x,y) = \|x - y\|$.
+1. $\|x\| \ge 0$2.$\|\alpha x\| = |\alpha| \cdot \|x\|$3.$\|x + y\| \le \|x\| + \|y\|$---
 
-   $$d(x, y) \ge 0$$
+## 2. Common Norms in Machine Learning
 
-   (and $d(x, y) = 0 \iff x = y$)
+For a vector$x \in \mathbb{R}^n$, there are infinite ways to measure its size, but ML primarily uses two variants of the $p$-norm family.
 
-2. Symmetry:
+$$ \lVert x \rVert_p = \left( \sum_{i=1}^{n} |x_i|^p \right)^{1/p} $$
 
-   $$d(x, y) = d(y, x)$$
+### 1. L2 Norm (Euclidean Norm)
+The standard straight-line "as the crow flies" distance. This is the foundation of **Mean Squared Error (MSE)** loss functions and Ridge (L2) Regularization.
+$$\lVert x \rVert_2 = \sqrt{\sum x_i^2}$$
 
-3. Triangle Inequality:
+### 2. L1 Norm (Manhattan Norm)
+The "city block" distance, summing the absolute steps across each axis. It is the foundation of **Mean Absolute Error (MAE)** and Lasso (L1) Regularization.
+$$\lVert x \rVert_1 = \sum |x_i|$$
 
-   $$d(x, z) \le d(x, y) + d(y, z)$$
+### 3. $L_\infty$Norm (Max Norm)
+Simply the largest single component in the vector. 
+$$\lVert x \rVert_\infty = \max |x_i|$$
 
-The set $S$ together with the metric $d$ is called a **Metric Space**, denoted as $(S, d)$.
+```python
+import numpy as np
 
-Example:
+x = np.array([1, 0, -2])
 
-For $S \subseteq \mathbb{R}$, define the metric as the absolute difference:
+# L1 Norm = 1 + 0 + |-2| = 3
+l1 = np.linalg.norm(x, ord=1)       
 
-$$d(x, y) = |x - y|$$
+# L2 Norm = sqrt(1^2 + 0^2 + (-2)^2) = 2.236
+l2 = np.linalg.norm(x, ord=2)       
 
----
-
-## 2. Normed Spaces
-
-A **Norm** is a generalization of the notion of **length** for vectors.
-
-### Definition
-
-A norm on a real Vector Space $V$ is a function $\|\cdot\|: V \to \mathbb{R}$ satisfying the following properties for all $x, y \in V$ and scalar $\alpha \in \mathbb{R}$:
-
-1. Non-negativity:
-
-   $$\|x\| \ge 0$$
-
-   (and $\|x\| = 0 \iff x = \mathbf{0}$)
-
-2. Scalar Multiplication:
-
-   $$\|\alpha x\| = |\alpha| \cdot \|x\|$$
-
-3. Triangle Inequality:
-
-   $$\|x + y\| \le \|x\| + \|y\|$$
-
-The vector space $V$ together with the norm is called a **Normed Space** (or Normed Linear Space).
-
-### Relation between Metric and Normed Spaces
-
-- **Every Normed Space is a Metric Space.** We can define the metric induced by the norm as:
-
-  $$d(x, y) = \|x - y\|$$
-
-- **The converse is NOT true.** Every Metric Space is not necessarily a Normed Space.
-
-#### General distance formula (Minkowski / $p$-norm distance)
-
-In $\mathbb{R}^n$, the distance induced by the $p$-norm (for $p \ge 1$) is:
-
-$$d_p(x, y) = \left( \sum_{i=1}^{n} |x_i - y_i|^p \right)^{1/p}$$
-
-This matches the general form you mentioned: $\left(\sum c^i\right)^{1/i}$, where $c$ corresponds to componentwise absolute differences (raised to the power $p$).
-
-Counter-Example:
-
-Let $X = \{0, 1\} \subset \mathbb{R}$. Define the Discrete Metric:
-
-$$d(x, y) = \begin{cases} 1 & \text{if } x \neq y \\ 0 & \text{otherwise} \end{cases}$$
-
-$(X, d)$ is a metric space but cannot be a normed space because it does not satisfy the properties of a norm (specifically regarding vector space structure and scalar multiplication).
-
-### Common Norms on $\mathbb{R}^n$
-
-For a vector $x = (x_1, x_2, \dots, x_n) \in \mathbb{R}^n$:
-
-- L1 Norm (Manhattan Norm):
-
-  $$\lVert x \rVert_1 = \sum_{i=1}^{n} |x_i|$$
-
-- L2 Norm (Euclidean Norm):
-
-  $$\lVert x \rVert_2 = \sqrt{\sum_{i=1}^{n} x_i^2}$$
-
-- $p$-Norm:
-
-  $$\lVert x \rVert_p = \left( \sum_{i=1}^{n} |x_i|^p \right)^{1/p}$$
-
-- $L_\infty$ Norm (Max Norm):
-
-  $$\lVert x \rVert_\infty = \max_{1 \le i \le n} |x_i|$$
-
-Example Calculation:
-
-For vector $x = (1, 0, -2) \in \mathbb{R}^3$:
-
-- $\|x\|_1 = |1| + |0| + |-2| = 3$
-
-- $\|x\|_2 = \sqrt{1^2 + 0^2 + (-2)^2} = \sqrt{5}$
-
-- $\|x\|_\infty = \max(1, 0, 2) = 2$
-
-### Geometric Visualization
-
-Geometrically, the "unit circles" (where $\|x\| = 1$) for these norms look different in 2D:
-
-- **L2 Norm:** A standard circle.
-
-- **L1 Norm:** A square rotated by 45 degrees (diamond shape).
-
-- **$L_\infty$ Norm:** A standard square.
+# L_inf = max(|1|, |0|, |-2|) = 2
+l_inf = np.linalg.norm(x, ord=np.inf) 
+```
 
 ---
 
-## 3. Convexity
+## 3. Deep Learning Failure Modes & Convexity
 
-All norms are **convex functions**.
+All true norms are **Convex functions**. In optimization, a convex loss function guarantees that gradient descent will find a single, global minimum point.
 
-### Convex Function
+**The sparsity problem:** In ML, we often want our neural network to aggressively shut down useless features (setting weights to exactly$0.000$).
+* **L2 Regularization** shrinks weights smoothly, but rarely hits exactly zero.
+* **L1 Regularization** is visually shaped like a diamond. Because of its sharp corners, gradient descent naturally settles exactly on the axes, aggressively coercing weights to $0.000$. This induces mathematical sparsity.
 
-A function $f: S \to \mathbb{R}$ (where $S$ is a convex subset of $\mathbb{R}^n$) is convex if for all $x_1, x_2 \in S$ and $\lambda \in [0, 1]$:
-
-$$f(\lambda x_1 + (1-\lambda)x_2) \le \lambda f(x_1) + (1-\lambda)f(x_2)$$
-
-Geometrically: The chord joining any two points on the function graph lies above or on the graph.
-
-### Convex Set
-
-A set $S$ is convex if the line segment joining any two points in the set lies entirely within the set.
-
-$$x_1, x_2 \in S \implies \lambda x_1 + (1-\lambda)x_2 \in S \quad \forall \lambda \in [0, 1]$$
-
-- **Rectangles and Circular balls** are convex sets.
-
-- **Kidney-bean shapes** are typically not convex sets (a line between two internal points may pass outside).
-
-- **Geometric Norm Definition:** In real finite-dimensional vector spaces, any **symmetric, compact, convex region centered at the origin** defines a norm.
+### The $L_0$"Norm"
+The$L_0$norm just counts the number of non-zero elements.
+$$\|x\|_0 = |\{i : x_i \neq 0\}|$$
+Strictly speaking,$L_0$ is **not a formal norm** because it fails scalar multiplication ($\|2x\|_0 = \|x\|_0$). It is also completely non-convex and non-differentiable (a piecewise step function). Attempting to use $L_0$in Deep Learning backpropagation will crash the optimizer because the gradient is either zero everywhere or infinitely undefined. We universally use L1 as a convex, differentiable approximation of L0 to achieve sparsity.
 
 ---
 
 ## 4. Inner Product Spaces
 
-Inner product spaces generalize the dot product and are crucial for analyzing classifiers in machine learning.
+Inner product spaces generalize the dot product. While Norms give vectors *length*, Inner Products give vector spaces *angles*.
 
-### Definition
-
-An inner product on a real Vector Space $V$ is a function $\langle \cdot, \cdot \rangle: V \times V \to \mathbb{R}$ satisfying:
-
-1. Non-negativity:
-
-   $$\langle x, x \rangle \ge 0 \quad (\text{and } \langle x, x \rangle = 0 \iff x = 0)$$
-
-2. Linearity (in the first argument):
-
-   $$\langle \alpha x, y \rangle = \alpha \langle x, y \rangle$$
-
-   $$\langle x + y, z \rangle = \langle x, z \rangle + \langle y, z \rangle$$
-
-3. Symmetry:
-
-   $$\langle x, y \rangle = \langle y, x \rangle$$
-
-A vector space equipped with an inner product is called an **Inner Product Space**.
-
-### Examples
-
-1. Standard Dot Product (in $\mathbb{R}^n$):
-
-   $$\langle x, y \rangle = \sum_{i=1}^{n} x_i y_i$$
-
-2. Weighted Inner Product (in $\mathbb{R}^2$):
-
-   For $u = (u_1, u_2)$ and $v = (v_1, v_2)$, a valid inner product can be defined as:
-
-   $$\langle u, v \rangle = 2u_1v_1 - u_1v_2 - v_1u_2 + u_2v_2$$
+An inner product$\langle x, y \rangle$satisfies:
+1. Non-negativity:$\langle x, x \rangle \ge 0$.
+2. Linearity: $\langle \alpha x, y \rangle = \alpha \langle x, y \rangle$.
+3. Symmetry: $\langle x, y \rangle = \langle y, x \rangle$.
 
 ### Angle Between Vectors
-
-The angle $\theta$ between vectors $x$ and $y$ is defined via the inner product:
+The most critical relationship in NLP (Cosine Similarity) is derived directly from the inner product:
 
 $$\langle x, y \rangle = \|x\| \|y\| \cos \theta$$
 
----
-
-## 5. The $L_0$ "Norm"
-
-Strictly speaking, $L_0$ is **not a norm**, but it is widely used in compressed sensing and sparse solutions.
-
-### Definition
-
-The $L_0$ norm of a vector $x$ is the number of non-zero elements in $x$.
-
-$$\|x\|_0 = |\{i : x_i \neq 0\}|$$
-
-Why is it not a norm?
-
-It fails the scalar multiplication property ($\|\alpha x\| = |\alpha| \|x\|$) for $\alpha \neq \pm 1$.
-
-Example: If $x$ has 4 non-zero elements, $\|x\|_0 = 4$. If we scale $x$ by $\alpha=2$, the resulting vector $2x$ still has 4 non-zero elements ($2x \neq 2 \times 4$).
+By isolating $\cos \theta$, we can instantly measure how deeply "aligned" two sentence embeddings are in space, ignoring their magnitude.
