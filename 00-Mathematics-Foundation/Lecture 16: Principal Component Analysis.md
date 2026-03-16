@@ -51,12 +51,14 @@ For a dataset with $d$ features (attributes), the covariance matrix $\Sigma$ is 
 
 The diagonal elements represent the **variance** of individual features, while the off-diagonal elements represent the **covariance** between pairs of features:
 
-$$\Sigma = \begin{bmatrix}
-\text{var}(X_1) & \text{cov}(X_1, X_2) & \dots & \text{cov}(X_1, X_d) \
-\text{cov}(X_2, X_1) & \text{var}(X_2) & \dots & \text{cov}(X_2, X_d) \
-\vdots & \vdots & \ddots & \vdots \
-\text{cov}(X_d, X_1) & \text{cov}(X_d, X_2) & \dots & \text{var}(X_d)
-\end{bmatrix}$$
+$$
+\Sigma = \begin{bmatrix} 
+\text{var}(X_1) & \text{cov}(X_1, X_2) & \dots & \text{cov}(X_1, X_d) \\\\
+\text{cov}(X_2, X_1) & \text{var}(X_2) & \dots & \text{cov}(X_2, X_d) \\\\
+\vdots & \vdots & \ddots & \vdots \\\\
+\text{cov}(X_d, X_1) & \text{cov}(X_d, X_2) & \dots & \text{var}(X_d) 
+\end{bmatrix}
+$$
 
 ### Algebraic Computation
 
