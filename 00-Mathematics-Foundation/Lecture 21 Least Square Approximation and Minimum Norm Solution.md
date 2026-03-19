@@ -90,8 +90,9 @@ $$
 
 **Step 1: Compute $A^T A$**
 
+
 $$
-A^T A =
+A^T A = 
 \begin{bmatrix}
 1 & 1 & 1 \\
 0 & 1 & 2
