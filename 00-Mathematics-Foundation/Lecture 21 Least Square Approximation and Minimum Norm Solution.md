@@ -4,22 +4,24 @@
 
 ---
 
-## 1. Linear Systems — Three Cases
+## 1. Linear Systems: The Three Realities
 
-Consider the linear system $A\mathbf{x} = \mathbf{b}$, where $A \in \mathbb{R}^{m \times n}, \mathbf{x} \in \mathbb{R}^n, \mathbf{b} \in \mathbb{R}^m$.
+Every time you "train" a linear model, you are actually solving a system of equations $A\mathbf{x} = \mathbf{b}$. Depending on how much data you have versus how many parameters you're trying to find, you land in one of three mathematical realities:
 
-| Condition | Name | Solutions |
-|---|---|---|
-| $m = n$, $A$ invertible | **Square system** | Unique: $\mathbf{x} = A^{-1}\mathbf{b}$ |
-| $m > n$ | **Over-determined** | Rarely exact — seek **least square approximation** |
-| $m < n$ | **Under-determined** | Infinitely many — seek **minimum norm solution** |
+| Reality | Condition | The Outcome |
+|:---|:---|:---|
+| **Square system** | $m = n$ | Unique solution: $\mathbf{x} = A^{-1}\mathbf{b}$. Perfect, but rare in ML. |
+| **Over-determined** | $m > n$ | More data than parameters. No exact solution exists. We seek the **Least Square Approximation**. |
+| **Under-determined** | $m < n$ | More parameters than data. Infinite solutions exist. We seek the **Minimum Norm Solution**. |
 
 ---
 
 ## 2. Over-Determined Systems
 
 ### Intuition
-When $m > n$, there are **more equations than unknowns** (more observations than free parameters). An exact solution almost never exists. We instead find the $\mathbf{x}$ that comes *closest* to satisfying all equations simultaneously.
+When $m > n$, there are **more equations than unknowns** (more observations than free parameters). This is the standard Machine Learning scenario: you have $10,000$ rows of data but only $10$ features. There is no line that passes through every point because the world is noisy. 
+
+Instead of an impossible "perfect" solution, we find the $\mathbf{x}$ that is the **Least Wrong**.
 
 **Classic example:** Fitting a line to $m$ data points when $m > 2$.
 
@@ -106,6 +108,8 @@ $$ \boxed{\mathbf{x}_{\text{MN}} = A^T (AA^T)^{-1} \mathbf{b} = A^{+} \mathbf{b}
 
 where $A^{+} = A^T(AA^T)^{-1}$ is the **left pseudo-inverse** of $A$. This $\mathbf{x}_{\text{MN}}$ is the unique solution to $A\mathbf{x} = \mathbf{b}$ with minimum Euclidean norm.
 
+> **Hacker's Connection:** This Minimum Norm solution is the theoretical grandparent of **L2 Regularization (Ridge Regression)**. By forcing the weights to have a small norm, we prevent the model from becoming too "wild" and overfitting the few samples we have.
+
 ---
 
 ## 6. Worked Example — Under-Determined System
@@ -160,3 +164,5 @@ The least square solution is the mathematical backbone of **linear regression**:
 - Each data point $(x_i, y_i)$ gives one row of $A$ and one entry of $\mathbf{b}$.
 - With $m$ data points and $n$ model parameters ($m > n$), the system is over-determined.
 - The least square solution $\mathbf{x}_{\text{LS}} = (A^T A)^{-1} A^T \mathbf{b}$ gives the **optimal regression coefficients** — the line (or hyperplane) that minimizes the total squared error across all data points.
+
+**Next Step:** We will apply this "Regression Engine" to solve complex forecasting problems in **Multiple and Polynomial Regression**.

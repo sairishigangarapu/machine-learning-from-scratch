@@ -6,17 +6,20 @@
 
 ## 1. LDA vs. PCA — A Quick Recap
 
-Before diving into code, here is a crisp side-by-side comparison:
+Before diving into code, here is a crisp side-by-side comparison. Think of this as your **"Hacker's Decision Tree"**:
 
 | Property | PCA | LDA |
 |---|---|---|
 | **Type** | Unsupervised (Feature Extraction) | Supervised (Data Classification) |
 | **Objective** | Direction of **maximum variance** | Direction of **maximum inter-class separation** |
-| **Uses Class Labels?** | No | Yes |
-| **Max Output Dimensions** | $\min(n, d)$ | $C - 1$ (where $C$ = number of classes) |
-| **Preserves Linear Separability?** | Not guaranteed | Yes, by design |
+| **Uses Class Labels?** | No | **Yes** (Fit requires `y`) |
+| **Max Output Dimensions** | $\min(n, d)$ | $C - 1$ ($C$ = # of classes) |
+| **Preserves Linear Separability?** | Not guaranteed | **Yes**, by design |
 
-> **Key Limitation of LDA:** For a dataset with $C$ classes, LDA can only project the data into at most $C - 1$ dimensions. A 3-class problem can be reduced to at most 2D; a 2-class problem to at most 1D.
+> **The Hard Constraint:** For a dataset with $C$ classes, LDA can only project the data into at most $C - 1$ dimensions. 
+> * 3 classes? Max 2D.
+> * 2 classes? **Max 1D.** 
+> This is a fundamental limit of the mathematics (the rank of the between-class scatter matrix $S_B$).
 
 The sklearn API for LDA is: `from sklearn.discriminant_analysis import LinearDiscriminantAnalysis`
 
@@ -98,6 +101,17 @@ print("PCA 1D Representation:\n", X_pca)
 **Observation:** The LDA projection shows two **distinct, non-overlapping clusters** — one for each class. Any threshold point separates them perfectly. This directly contrasts with the PCA result above.
 
 > **Critical Difference:** `fit_transform(X, y)` — LDA's `fit_transform` takes **both** `X` (features) and `y` (class labels). PCA's `fit_transform` takes only `X`.
+
+---
+
+## 3. Engineering Reality: The Moore-Penrose Pseudoinverse
+
+In Lecture 19, we saw the formula $\mathbf{v} = S_W^{-1} (\mu_1 - \mu_2)$. But in the real world, $S_W$ is often **singular** (non-invertible) if our data is collinear or if we have more features than samples (the $d > n$ problem).
+
+### The Fix
+Instead of a standard inverse, robust implementations use the **Moore-Penrose Pseudoinverse** ($S_W^{+}$), calculated via SVD. Sklearn handles this internally, but when coding from scratch, you should use `np.linalg.pinv(Sw)` instead of `np.linalg.inv(Sw)`.
+
+> **Hacker's Pro-Tip:** If your LDA starts throwing "Singular Matrix" errors, it's a sign your features are highly redundant. Try running PCA *first* to reduce noise, then pipe that output into LDA.
 
 ---
 
@@ -241,3 +255,5 @@ In this lecture we implemented LDA with `scikit-learn` in two settings:
 - **Classification Pipeline:** Used LDA as a full supervised classifier with a train/test split, achieving ~100% test accuracy on the Wine dataset.
 
 LDA is the go-to method when class information is available and linear separability matters. For unlabelled data or purely exploratory analysis, PCA remains the appropriate tool.
+
+**End of Module:** You are now equipped to handle high-dimensional classification. In the next lecture, we move to the math behind **Linear Regression**—the engine of modern forecasting.

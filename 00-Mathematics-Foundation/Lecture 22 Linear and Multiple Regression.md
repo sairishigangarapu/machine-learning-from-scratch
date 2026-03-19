@@ -25,21 +25,20 @@ where $\varepsilon$ represents noise or model error.
 
 ---
 
-## 2. Simple Linear Regression
+## 2. Simple Linear Regression (The Straight Line)
 
 When there is a **single input variable** $X$, the model is:
 
 $$
-Y = \alpha_0 + \alpha_1 X
+Y = \alpha_0 + \alpha_1 X + \varepsilon
 $$
 
-where $\alpha_1$ is the **slope** and $\alpha_0$ is the **$Y$-intercept**.
+where $\alpha_1$ is the **slope** (the "weight" or "annual raise") and $\alpha_0$ is the **$Y$-intercept** (the "starting point").
 
 ### Intuition
+Given $m$ data points $\{(x_i, y_i)\}_{i=1}^{m}$, we find $\alpha_0$ and $\alpha_1$ that minimise the total squared error. Once the line is fit, we can **predict** $Y$ for any new $X$ value.
 
-Given $m$ data points $\{(x_i, y_i)\}_{i=1}^{m}$, we find $\alpha_0$ and $\alpha_1$ that minimise the total squared error. Once the line is fit, we can **predict** $Y$ for any new $X$ value not in the dataset.
-
-**Example:** If $X = \text{age}$ (years) and $Y = \text{salary}$, fitting the regression line allows us to estimate the salary of an employee of age 29 even if that exact age was not in the training data.
+**Example:** If $X = \text{age}$ and $Y = \text{salary}$, $\alpha_0$ is your salary with zero experience, and $\alpha_1$ is how much your salary grows each year.
 
 ---
 
@@ -147,7 +146,7 @@ where $\bar{y} = \frac{1}{n}\sum y_i$ is the mean of the observed values.
 | $R^2 = 0$ | Model is no better than predicting the mean $\bar{y}$ |
 | $0 < R^2 < 1$ | Partial fit; context-dependent threshold for "good" |
 
-> **Note:** There is no universal threshold for a "good" $R^2$. Its adequacy depends on the application domain and inherent data noise.
+> **The Wizardry Check:** $R^2$ measures what percentage of the data's "movement" your model actually understands. $R^2 = 1$ means you've captured everything; $R^2 = 0$ means you're just guessing the average.
 
 ---
 
@@ -178,6 +177,10 @@ $$
 | $d = 1$ | Linear — may underfit curved data |
 | $d = 5$ (example) | Captures the trend; small residual, generalises well |
 | $d = n - 1$ | **Overfitting** — passes through every training point, $R^2 = 1$, but fails on new data |
+
+### The Complexity Trap (Bias-Variance Tradeoff)
+*   **Low Degree ($d=1$):** Too simple. It misses the curve entirely. This is **Underfitting** (High Bias).
+*   **High Degree ($d=20$):** Too complex. It fits every single noise point in the training data, but it will fail miserably on any new data. This is **Overfitting** (High Variance).
 
 ---
 
@@ -249,3 +252,5 @@ The L1 penalty can force some $\beta_j$ to be **exactly zero** when $\lambda$ is
 | Lasso Regression | LS + $\lambda\|\boldsymbol{\beta}\|_1$ | Sparsity; feature selection |
 
 All methods reduce to solving an over-determined linear system via the **least square pseudo-inverse** $\boldsymbol{\alpha} = (A^T A)^{-1} A^T \mathbf{y}$ covered in Lecture 21.
+
+**Conclusion:** You have now completed the foundation of Linear Models. You understand how to find the "best fit" for any dataset using the power of the Pseudo-Inverse. Next, we step into the world of **Recursive and Iterative optimization**!
