@@ -97,3 +97,13 @@ print("Singular Values (S):", S) # Approx [18.97, 9.48]
 * **Rank Determination:** By simply counting the number of strictly non-zero singular values in $\Sigma$, we have a mathematically infallible way to discover the true, exact Rank of matrix $A$.
 * **Spectral Matrix Norm ($\|A\|_2$):** Want to know the absolute maximum "stretch" this matrix applies to any input? Look at the top left value of $\Sigma$. The largest singular value $\sigma_1$ is the Spectral Norm. 
 * **Condition Number:** $\kappa = \sigma_{\max} / \sigma_{\min}$. If $\sigma_{\min}$ is terrifyingly close to zero, $\kappa \to \infty$. This implies the matrix is "ill-conditioned" and computers will suffer massive floating-point rounding errors attempting to invert it.
+
+---
+
+## 6. The SVD Power-User Case: ML Applications
+
+SVD is the most important decomposition in modern data science:
+
+* **[Principal Component Analysis (PCA):](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/00-Mathematics-Foundation/Lecture%2016%20Principal%20Component%20Analysis%20-%20I.md)** Most high-performance PCA implementations (like `sklearn`) use SVD internally because it is numerically more stable than eigendecomposition.
+* **[The Moore-Penrose Pseudo-Inverse:](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/00-Mathematics-Foundation/Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md)** As seen in Lecture 21, we solve impossible linear systems using $A^{+} = V \Sigma^{-1} U^T$.
+* **Low-Rank Approximation:** As explored in Lecture 14, SVD allows us to compress massive datasets (like images or user-item matrices in Recommenders) by throwing away small singular values.

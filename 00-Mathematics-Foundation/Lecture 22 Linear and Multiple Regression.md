@@ -205,7 +205,7 @@ Regularization adds a **penalty term** to the loss function to prevent excessive
 Minimise the **penalised** residual sum of squares:
 
 $$
-\min_{\boldsymbol{\beta}} \left\{ \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{p} \beta_j^2 \right\}
+\min_{\boldsymbol{\beta}} \left[ \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{p} \beta_j^2 \right]
 $$
 
 The extra term $\lambda \|\boldsymbol{\beta}\|_2^2$ **shrinks** all $\beta_j$ toward zero but never forces any of them to be exactly zero.
@@ -224,7 +224,7 @@ The extra term $\lambda \|\boldsymbol{\beta}\|_2^2$ **shrinks** all $\beta_j$ to
 Minimise the **L1-penalised** loss:
 
 $$
-\min_{\boldsymbol{\beta}} \left\{ \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{p} |\beta_j| \right\}
+\min_{\boldsymbol{\beta}} \left[ \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{p} |\beta_j| \right]
 $$
 
 The L1 penalty can force some $\beta_j$ to be **exactly zero** when $\lambda$ is sufficiently large.
@@ -254,3 +254,10 @@ The L1 penalty can force some $\beta_j$ to be **exactly zero** when $\lambda$ is
 All methods reduce to solving an over-determined linear system via the **least square pseudo-inverse** $\boldsymbol{\alpha} = (A^T A)^{-1} A^T \mathbf{y}$ covered in Lecture 21.
 
 **Conclusion:** You have now completed the foundation of Linear Models. You understand how to find the "best fit" for any dataset using the power of the Pseudo-Inverse. Next, we step into the world of **Recursive and Iterative optimization**!
+
+---
+
+### 🚀 Practical Application
+- **Supervised Learning Lab (Simple):** [linear_regression_lab.py](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/02-Supervised-Learning/LINEAR%20REGRESSION/linear_regression_lab.py)
+- **Supervised Learning Lab (Multiple Variables):** [multivariate_regression_lab.py](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/02-Supervised-Learning/LINEAR%20REGRESSION%20WITH%20MULTIPLE%20VARIABLES/multivariate_regression_lab.py)
+- **Core Concept Link:** Deep dive into the [Bias-Variance Tradeoff](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/01-Core-Concepts/Bias-Variance-Tradeoff.md) to understand why $L_1/L_2$ regularization is needed.

@@ -160,3 +160,9 @@ For $C$ classes, LDA can reduce dimensionality to **at most $C - 1$ dimensions**
 | **Max Dims** | $\min(n, d)$ | $C - 1$ |
 
 **Next Step:** move to **Python Implementation**, where we'll handle "singular" matrices using the **Moore-Penrose Pseudoinverse**.
+
+---
+
+### 🚀 Practical Application
+- **Unsupervised Learning Lab:** See how PCA (LDA's cousin) is implemented in [pca_lab.py](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/03-Unsupervised-Learning/PRINCIPAL%20COMPONENT%20ANALYSIS/pca_lab.py).
+- **Theory Comparison:** Read the [PCA Theory](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/03-Unsupervised-Learning/PRINCIPAL%20COMPONENT%20ANALYSIS/Theory.md) to understand the Unsupervised vs. Supervised extraction gap.

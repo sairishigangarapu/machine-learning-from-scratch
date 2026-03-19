@@ -38,6 +38,13 @@ Real-world datasets often have holes (NaN values). Before training, we must hand
 
 * **Strategy:** Replace missing values with the **Median** (robust to outliers) or **Mean** of the column.
 * **Why?** Algorithms like Linear Regression cannot handle mathematical operations on `null` values.
-
----
+ 
+ ---
+ 
+ ## 4. Mathematical Deep Dive 🧠
+ To understand the high-dimensional matrix algebra and the pseudo-inverse engine:
+ * [Lecture 21: Least Squares & Over-determined Systems](../../00-Mathematics-Foundation/Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md)
+ * [Lecture 22: Multiple Regression Matrix Form](../../00-Mathematics-Foundation/Lecture%2022%20Linear%20and%20Multiple%20Regression.md) (The Hyperplane Math)
+ 
+ ---
 **External Exercise:** [Codebasics Multivariate Regression Lab](https://github.com/codebasics/py/blob/master/ML/2_linear_reg_multivariate/2_linear_regression_multivariate.ipynb)

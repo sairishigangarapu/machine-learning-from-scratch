@@ -55,6 +55,13 @@ Accuracy alone is often misleading (especially in imbalanced datasets). The **Co
 * **Precision:** $\frac{TP}{TP + FP}$ (Accuracy of positive predictions)
 * **Recall:** $\frac{TP}{TP + FN}$ (Coverage of actual positives)
 * **F1-Score:** Harmonic mean of Precision and Recall.
-
----
+ 
+ ---
+ 
+ ## 5. Mathematical Deep Dive 🧠
+ Understanding the leap from regression to classification:
+ * [Lecture 19 & 20: LDA](../../00-Mathematics-Foundation/Lecture%2019%20Linear%20Discriminant%20Analysis.md) (How classification works using linear separation)
+ * [Lecture 22: Regression Foundations](../../00-Mathematics-Foundation/Lecture%2022%20Linear%20and%20Multiple%20Regression.md) (The linear engine $z = mx+b$)
+ 
+ ---
 **External Exercise:** [Codebasics Logistic Regression](https://github.com/codebasics/py/tree/master/ML/7_logistic_reg)

@@ -116,3 +116,13 @@ Knowing the eigenvalues allows you to "cheat" at advanced matrix algebra without
 * **Matrix Powers:** $A^{100}$ holds the exact same eigenvectors as $A$, but its eigenvalues are $\lambda^{100}$.
 
 *Failure mode recap:* If *any* eigenvalue is exactly $0$, then the product of eigenvalues is $0$, meaning $\det(A) = 0$. The matrix has crushed a dimension and cannot be mathematically inverted.
+
+---
+
+## 6. Beyond the Basics: ML Applications
+
+Eigenvalues are not just for solving textbooks; they are the core engine of almost every dimension reduction technique:
+
+* **[Principal Component Analysis (PCA):](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/00-Mathematics-Foundation/Lecture%2016%20Principal%20Component%20Analysis%20-%20I.md)** We find the directions of maximum variance by calculating the eigenvectors of the data's covariance matrix.
+* **[Linear Discriminant Analysis (LDA):](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/00-Mathematics-Foundation/Lecture%2019%20Linear%20Discriminant%20Analysis.md)** We separate data classes by finding the eigenvectors of $S_W^{-1} S_B$.
+* **[Spectral Decomposition:](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/00-Mathematics-Foundation/Lecture%2011%20Spectral%20decomposition.md)** Understanding how symmetric matrices can be "diagonalized" into their constituent components.

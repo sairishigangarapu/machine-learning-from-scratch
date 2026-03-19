@@ -35,10 +35,18 @@ $$
 
 ## 3. Visualization
 
-<img width="840" height="467" alt="image" src="https://github.com/user-attachments/assets/afc9829a-d38a-4496-89a6-3ec3d4ec6d1e" />
+![Linear Regression](https://github.com/user-attachments/assets/afc9829a-d38a-4496-89a6-3ec3d4ec6d1e)
 
 
 The goal of training is to find the optimal values for $m$ and $c$ that minimize the **Mean Squared Error (MSE)**.
+
+---
+
+## 4. Mathematical Deep Dive 🧠
+To understand the matrix calculus and pseudo-inverse math behind the line of best fit:
+* [Lecture 21: Least Squares & Pseudo-Inverse](../../00-Mathematics-Foundation/Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) (The Algebraic Engine)
+* [Lecture 22: Linear and Multiple Regression](../../00-Mathematics-Foundation/Lecture%2022%20Linear%20and%20Multiple%20Regression.md) (The Core Foundation)
+* [Bias-Variance Tradeoff](../../01-Core-Concepts/Bias-Variance-Tradeoff.md) (Understanding Regularization: Ridge & Lasso)
 
 ---
 **External Exercise:** [Codebasics Linear Regression Lab](https://github.com/codebasics/py/tree/master/ML/1_linear_reg)

@@ -54,6 +54,8 @@ PCA relies on Linear Algebra to find the "directions" of maximum variance.
 
 ## 5. Mathematical Deep Dive 🧠
 To deeply understand the linear algebra engine driving this algorithm (Covariance Matrices, Eigenvectors, Representation Error), please reference our **Mathematics Foundation** knowledge bank:
-* [Lecture 16: Principal Component Analysis](../../00-Mathematics-Foundation/Lecture%2016:%20Principal%20Component%20Analysis.md) (Covariance Geometry & High-Level Intuition)
-* [Lecture 17: PCA Derivation and Examples](../../00-Mathematics-Foundation/Lecture%2017%20PCA%20Derivation%20and%20Examples.md) (Calculus & SVD Optimization Proofs)
-* [Lecture 18: Python Implementation of PCA](../../00-Mathematics-Foundation/Lecture%2018%20Python%20implementation%20of%20PCA.md) (NumPy From-Scratch vs. Scikit-Learn)
+* [Lecture 09: Eigenvalues & Eigenvectors](../../00-Mathematics-Foundation/Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) (The Core Engines)
+* [Lecture 12: Singular Value Decomposition](../../00-Mathematics-Foundation/Lecture%2012%20Singular%20Value%20Decomposition.md) (The Robust Implementation Engine)
+* [Lecture 16: PCA - Part I](../../00-Mathematics-Foundation/Lecture%2016%20Principal%20Component%20Analysis%20-%20I.md) (Covariance Geometry & High-Level Intuition)
+* [Lecture 17: PCA - Part II](../../00-Mathematics-Foundation/Lecture%2017%20PCA%20Derivation%20and%20Examples.md) (Optimization Proofs & Calculus)
+* [Lecture 18: PCA - Python](../../00-Mathematics-Foundation/Lecture%2018%20Python%20implementation%20of%20PCA.md) (NumPy From-Scratch)
