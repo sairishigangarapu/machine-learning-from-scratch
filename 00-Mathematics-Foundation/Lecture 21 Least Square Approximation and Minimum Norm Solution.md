@@ -6,11 +6,11 @@
 
 ## 1. Linear Systems — Three Cases
 
-Consider the linear system $A\mathbf{x} = \mathbf{b}$, where $A \in \mathbb{R}^{m \times n}$, $\mathbf{x} \in \mathbb{R}^n$, $\mathbf{b} \in \mathbb{R}^m$.
+Consider the linear system $Ax = b$, where $A \in \mathbb{R}^{m \times n}, x \in \mathbb{R}^n, b \in \mathbb{R}^m$.
 
 | Condition | Name | Solutions |
 |---|---|---|
-| $m = n$, $A$ invertible | **Square system** | Unique: $\mathbf{x} = A^{-1}\mathbf{b}$ |
+| $m = n$, $A$ invertible | **Square system** | Unique: $x = A^{-1}b$ |
 | $m > n$ | **Over-determined** | Rarely exact — seek **least square approximation** |
 | $m < n$ | **Under-determined** | Infinitely many — seek **minimum norm solution** |
 
@@ -19,50 +19,50 @@ Consider the linear system $A\mathbf{x} = \mathbf{b}$, where $A \in \mathbb{R}^{
 ## 2. Over-Determined Systems
 
 ### Intuition
-When $m > n$, there are **more equations than unknowns** (more observations than free parameters). An exact solution almost never exists. We instead find the $\mathbf{x}$ that comes *closest* to satisfying all equations simultaneously.
+When $m > n$, there are **more equations than unknowns**. An exact solution almost never exists. We instead find the $x$ that comes *closest* to satisfying all equations simultaneously.
 
 **Classic example:** Fitting a line to $m$ data points when $m > 2$.
 
 ### The Residual
-For a candidate solution $\mathbf{x}$, the **residual vector** is:
+For a candidate solution $x$, the **residual vector** is:
 
 $$
-\mathbf{r} = \mathbf{b} - A\mathbf{x}
+r = b - Ax
 $$
 
-Each component $r_i$ is the directed distance between the $i$-th observed value $b_i$ and the value predicted by the model $A\mathbf{x}$.
+Each component $r_i$ is the directed distance between the $i$-th observed value $b_i$ and the value predicted by the model $Ax$.
 
 ### The Least Square Problem
 Minimize the squared Euclidean norm of the residual:
 
 $$
-\min_{\mathbf{x} \in \mathbb{R}^n} \|A\mathbf{x} - \mathbf{b}\|_2^2
+\min_{x \in \mathbb{R}^n} \|Ax - b\|_2^2
 $$
 
-This is equivalent to minimizing the **sum of squared residuals** $\sum_{i=1}^{m} r_i^2$ — hence the name *least squares*.
+This is equivalent to minimizing the **sum of squared residuals** $\sum r_i^2$ — hence the name *least squares*.
 
 ---
 
 ## 3. Solving the Least Square Problem — Normal Equations
 
 ### Derivation
-Set the partial derivatives of $E(\mathbf{x}) = \|A\mathbf{x} - \mathbf{b}\|_2^2$ to zero:
+Set the partial derivatives of $E(x) = \|Ax - b\|_2^2$ to zero:
 
 $$
-\frac{\partial E}{\partial \mathbf{x}} = 2A^T(A\mathbf{x} - \mathbf{b}) = \mathbf{0}
+\frac{\partial E}{\partial x} = 2A^T(Ax - b) = 0
 $$
 
 This yields the **Normal Equations**:
 
 $$
-\boxed{A^T A \, \mathbf{x} = A^T \mathbf{b}}
+\boxed{A^T A x = A^T b}
 $$
 
 ### The Pseudo-Inverse Solution
-$A^T A$ is an $n \times n$ matrix. If $\text{rank}(A) = n$ (columns are linearly independent), then $A^T A$ is invertible and:
+$A^T A$ is an $n \times n$ matrix. If $\text{rank}(A) = n$, then $A^T A$ is invertible and:
 
 $$
-\mathbf{x}_{\text{LS}} = (A^T A)^{-1} A^T \mathbf{b} = A^{+} \mathbf{b}
+x_{\text{LS}} = (A^T A)^{-1} A^T b = A^{+} b
 $$
 
 where $A^{+} = (A^T A)^{-1} A^T$ is the **right pseudo-inverse** of $A$.
@@ -71,42 +71,16 @@ where $A^{+} = (A^T A)^{-1} A^T$ is the **right pseudo-inverse** of $A$.
 
 ## 4. Worked Example — Over-Determined System
 
-**Problem:** Find the least square solution of $A\mathbf{x} = \mathbf{b}$ where:
+**Problem:** Find the least square solution of $Ax = b$ where:
 
 $$
-A =
-\begin{bmatrix}
-1 & 0 \\
-1 & 1 \\
-1 & 2
-\end{bmatrix}, \qquad
-\mathbf{b} =
-\begin{bmatrix}
-6 \\
-0 \\
-0
-\end{bmatrix}
+A = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix}, \qquad b = \begin{bmatrix} 6 \\ 0 \\ 0 \end{bmatrix}
 $$
 
 **Step 1: Compute $A^T A$**
 
-
 $$
-A^T A = 
-\begin{bmatrix}
-1 & 1 & 1 \\
-0 & 1 & 2
-\end{bmatrix}
-\begin{bmatrix}
-1 & 0 \\
-1 & 1 \\
-1 & 2
-\end{bmatrix}
-=
-\begin{bmatrix}
-3 & 3 \\
-3 & 5
-\end{bmatrix}
+A^T A = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} = \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix}
 $$
 
 **Step 2: Compute $(A^T A)^{-1}$**
@@ -116,208 +90,92 @@ $$
 $$
 
 $$
-(A^T A)^{-1} = \frac{1}{6}
-\begin{bmatrix}
- 5 & -3 \\
--3 &  3
-\end{bmatrix}
+(A^T A)^{-1} = \frac{1}{6} \begin{bmatrix} 5 & -3 \\ -3 & 3 \end{bmatrix}
 $$
 
-**Step 3: Compute $A^T \mathbf{b}$**
+**Step 3: Compute $A^T b$**
 
 $$
-A^T \mathbf{b} =
-\begin{bmatrix}
-1 & 1 & 1 \\
-0 & 1 & 2
-\end{bmatrix}
-\begin{bmatrix}
-6 \\
-0 \\
-0
-\end{bmatrix}
-=
-\begin{bmatrix}
-6 \\
-0
-\end{bmatrix}
+A^T b = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix} \begin{bmatrix} 6 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 6 \\ 0 \end{bmatrix}
 $$
 
-**Step 4: Compute $\mathbf{x}_{\text{LS}} = (A^T A)^{-1} A^T \mathbf{b}$**
+**Step 4: Compute $x_{\text{LS}} = (A^T A)^{-1} A^T b$**
 
 $$
-\mathbf{x}_{\text{LS}} = \frac{1}{6}
-\begin{bmatrix}
- 5 & -3 \\
--3 &  3
-\end{bmatrix}
-\begin{bmatrix}
-6 \\
-0
-\end{bmatrix}
-=
-\begin{bmatrix}
-5 \\
--3
-\end{bmatrix}
+x_{\text{LS}} = \frac{1}{6} \begin{bmatrix} 5 & -3 \\ -3 & 3 \end{bmatrix} \begin{bmatrix} 6 \\ 0 \end{bmatrix} = \begin{bmatrix} 5 \\ -3 \end{bmatrix}
 $$
 
-**Result:** $x_1 = 5$, $x_2 = -3$.
+**Result:** $x_1 = 5, x_2 = -3$.
 
 ---
 
 ## 5. Under-Determined Systems
 
 ### Intuition
-When $m < n$, there are **fewer equations than unknowns**. Any $n - m$ of the unknown variables can be chosen freely — infinitely many solutions exist. Out of all these solutions, we seek the one with the **smallest Euclidean norm** (shortest vector).
+When $m < n$, there are **fewer equations than unknowns**. Out of infinitely many solutions, we seek the one with the **smallest Euclidean norm**.
 
 ### The Minimum Norm Problem
 
 $$
-\min_{\mathbf{x} \in \mathbb{R}^n} \|\mathbf{x}\|_2 \quad \text{subject to} \quad A\mathbf{x} = \mathbf{b}
+\min_{x \in \mathbb{R}^n} \|x\|_2 \quad \text{subject to} \quad Ax = b
 $$
-
-### Why Not Use $(A^{T} A)^{-1} A^T$?
-Here $A$ is $m \times n$ with $m < n$. The matrix $A^T A$ is $n \times n$ but has $\text{rank}(A) \le m < n$ — it is **rank-deficient** and its inverse does not exist.
 
 ### The Left Pseudo-Inverse Solution
-Instead, form $A A^T$, which is $m \times m$. If $\text{rank}(A) = m$, then $A A^T$ is invertible and:
+If $\text{rank}(A) = m$, then $AA^T$ is invertible and:
 
 $$
-\boxed{\mathbf{x}_{\text{MN}} = A^T (A A^T)^{-1} \mathbf{b} = A^{+} \mathbf{b}}
+\boxed{x_{\text{MN}} = A^T (AA^T)^{-1} b = A^{+} b}
 $$
 
-where $A^{+} = A^T(AA^T)^{-1}$ is the **left pseudo-inverse** of $A$. This $\mathbf{x}_{\text{MN}}$ is the unique solution to $A\mathbf{x} = \mathbf{b}$ with minimum Euclidean norm.
+where $A^{+} = A^T(AA^T)^{-1}$ is the **left pseudo-inverse** of $A$.
 
 ---
 
 ## 6. Worked Example — Under-Determined System
 
-**Problem:** Find the minimum norm solution of $A\mathbf{x} = \mathbf{b}$ where:
+**Problem:** Find the minimum norm solution of $Ax = b$ where:
 
 $$
-A =
-\begin{bmatrix}
- 1 &  1 & 1 \\
--1 & -1 & 1
-\end{bmatrix}, \qquad
-\mathbf{b} =
-\begin{bmatrix}
-1 \\
-0
-\end{bmatrix}
+A = \begin{bmatrix} 1 & 1 & 1 \\ -1 & -1 & 1 \end{bmatrix}, \qquad b = \begin{bmatrix} 1 \\ 0 \end{bmatrix}
 $$
 
-Note: $m = 2$, $n = 3$ — under-determined, infinitely many solutions.
-
-**Step 1: Compute $A A^T$**
+**Step 1: Compute $AA^T$**
 
 $$
-A A^T =
-\begin{bmatrix}
- 1 &  1 & 1 \\
--1 & -1 & 1
-\end{bmatrix}
-\begin{bmatrix}
- 1 & -1 \\
- 1 & -1 \\
- 1 &  1
-\end{bmatrix}
-=
-\begin{bmatrix}
-3 & -1 \\
--1 & 3
-\end{bmatrix}
+AA^T = \begin{bmatrix} 1 & 1 & 1 \\ -1 & -1 & 1 \end{bmatrix} \begin{bmatrix} 1 & -1 \\ 1 & -1 \\ 1 & 1 \end{bmatrix} = \begin{bmatrix} 3 & -1 \\ -1 & 3 \end{bmatrix}
 $$
 
-**Step 2: Compute $(A A^T)^{-1}$**
+**Step 2: Compute $(AA^T)^{-1}$**
 
 $$
-\det(A A^T) = 9 - 1 = 8
+\det(AA^T) = 9 - 1 = 8
 $$
 
 $$
-(A A^T)^{-1} = \frac{1}{8}
-\begin{bmatrix}
-3 & 1 \\
-1 & 3
-\end{bmatrix}
+(AA^T)^{-1} = \frac{1}{8} \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}
 $$
 
-**Step 3: Compute the Left Pseudo-Inverse $A^{+} = A^T (A A^T)^{-1}$**
+**Step 3: Compute the Left Pseudo-Inverse $A^{+} = A^T (AA^T)^{-1}$**
 
 $$
-A^{+} = \frac{1}{8}
-\begin{bmatrix}
- 1 & -1 \\
- 1 & -1 \\
- 1 &  1
-\end{bmatrix}
-\begin{bmatrix}
-3 & 1 \\
-1 & 3
-\end{bmatrix}
-=
-\frac{1}{8}
-\begin{bmatrix}
-2 & -2 \\
-2 & -2 \\
-4 &  4
-\end{bmatrix}
-=
-\begin{bmatrix}
- 1/4 & -1/4 \\
- 1/4 & -1/4 \\
- 1/2 &  1/2
-\end{bmatrix}
+A^{+} = \frac{1}{8} \begin{bmatrix} 1 & -1 \\ 1 & -1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix} = \begin{bmatrix} 1/4 & -1/4 \\ 1/4 & -1/4 \\ 1/2 & 1/2 \end{bmatrix}
 $$
 
-**Step 4: Compute $\mathbf{x}_{\text{MN}} = A^{+} \mathbf{b}$**
+**Step 4: Compute $x_{\text{MN}} = A^{+} b$**
 
 $$
-\mathbf{x}_{\text{MN}} =
-\begin{bmatrix}
- 1/4 & -1/4 \\
- 1/4 & -1/4 \\
- 1/2 &  1/2
-\end{bmatrix}
-\begin{bmatrix}
-1 \\
-0
-\end{bmatrix}
-=
-\begin{bmatrix}
-1/4 \\
-1/4 \\
-1/2
-\end{bmatrix}
+x_{\text{MN}} = \begin{bmatrix} 1/4 & -1/4 \\ 1/4 & -1/4 \\ 1/2 & 1/2 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 1/4 \\ 1/4 \\ 1/2 \end{bmatrix}
 $$
 
-**Verification:**
-
-$$
-\|\mathbf{x}_{\text{MN}}\|_2 = \sqrt{\left(\frac{1}{4}\right)^2 + \left(\frac{1}{4}\right)^2 + \left(\frac{1}{2}\right)^2} = \sqrt{\frac{6}{16}} = \frac{\sqrt{6}}{4} \approx 0.612
-$$
-
-Any other solution (e.g., $[0,\ 1/2,\ 1/2]^T$ with norm $1/\sqrt{2} \approx 0.707$) has a **strictly larger** norm — confirming this is the minimum.
+**Result:** $x_1 = 1/4, x_2 = 1/4, x_3 = 1/2$.
 
 ---
 
-## 7. Summary — Pseudo-Inverse Variants
+## 7. Summary
 
-| System Type | Condition | Pseudo-Inverse | Formula |
+| System | Condition | Pseudo-Inverse | Formula |
 |---|---|---|---|
-| Over-determined | $m > n$, $\text{rank}(A)=n$ | Right pseudo-inverse | $A^{+} = (A^T A)^{-1} A^T$ |
-| Under-determined | $m < n$, $\text{rank}(A)=m$ | Left pseudo-inverse | $A^{+} = A^T (A A^T)^{-1}$ |
+| Over-determined | $m > n$ | Right | $A^{+} = (A^T A)^{-1} A^T$ |
+| Under-determined | $m < n$ | Left | $A^{+} = A^T (AA^T)^{-1}$ |
 
-In both cases, the solution takes the unified form $\mathbf{x} = A^{+} \mathbf{b}$. For a general matrix, the full **Moore-Penrose pseudo-inverse** (computed via SVD) handles all cases simultaneously.
-
----
-
-## 8. Connection to Linear Regression
-
-The least square solution is the mathematical backbone of **linear regression**:
-
-- Each data point $(x_i, y_i)$ gives one row of $A$ and one entry of $\mathbf{b}$.
-- With $m$ data points and $n$ model parameters ($m > n$), the system is over-determined.
-- The least square solution $\mathbf{x}_{\text{LS}} = (A^T A)^{-1} A^T \mathbf{b}$ gives the **optimal regression coefficients** — the line (or hyperplane) that minimizes the total squared error across all data points.
+In both cases, $x = A^{+} b$.

@@ -22,7 +22,7 @@ Find a projection direction $\mathbf{v}$ such that when the data is projected on
 
 ### Setup
 - $N$ data points in a $d$-dimensional space: $\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_N$
-- $N_1$ samples from class $\mathcal{C}_1$, $N_2$ from class $\mathcal{C}_2$ (so $N_1 + N_2 = N$)
+- $N_1$ samples from class $\mathcal{C}_1, N_2$ from class $\mathcal{C}_2$ (so $N_1 + N_2 = N$)
 - The projection of a point $\mathbf{x}_i$ onto a unit vector $\mathbf{v}$ is: $y_i = \mathbf{v}^T \mathbf{x}_i$
 
 ### Projected Means
@@ -156,8 +156,8 @@ $$
 
 | Step | Operation |
 |---|---|
-| 1 | Compute class means $\boldsymbol{\mu}_1$, $\boldsymbol{\mu}_2$ |
-| 2 | Compute scatter matrices $S_1$, $S_2$, then $S_W = S_1 + S_2$ |
+| 1 | Compute class means $\boldsymbol{\mu}_1, \boldsymbol{\mu}_2$ |
+| 2 | Compute scatter matrices $S_1, S_2$, then $S_W = S_1 + S_2$ |
 | 3 | Compute $\mathbf{v} = S_W^{-1}(\boldsymbol{\mu}_1 - \boldsymbol{\mu}_2)$ |
 | 4 | Project all samples: $y_i = \mathbf{v}^T \mathbf{x}_i$ |
 
@@ -195,7 +195,7 @@ $$
 S_1 = 4 \cdot \text{Cov}(\mathcal{C}_1) \approx
 \begin{bmatrix}
 10 & 8 \\
-8  & 7.2
+8 & 7.2
 \end{bmatrix}
 $$
 
@@ -203,7 +203,7 @@ $$
 S_2 = 5 \cdot \text{Cov}(\mathcal{C}_2) \approx
 \begin{bmatrix}
 17.3 & 16 \\
-16   & 16
+16 & 16
 \end{bmatrix}
 $$
 
@@ -211,7 +211,7 @@ $$
 S_W = S_1 + S_2 =
 \begin{bmatrix}
 27.3 & 24 \\
-24   & 23.2
+24 & 23.2
 \end{bmatrix}
 $$
 
@@ -222,8 +222,8 @@ $$
 $$
 S_W^{-1} \approx
 \begin{bmatrix}
- 0.39 & -0.41 \\
--0.41 &  0.47
+0.39 & -0.41 \\
+-0.41 & 0.47
 \end{bmatrix}
 $$
 
@@ -232,16 +232,16 @@ $$
 = S_W^{-1}
 \begin{bmatrix}
 -0.3 \\
- 1.6
+1.6
 \end{bmatrix}
 \approx
 \begin{bmatrix}
 -0.79 \\
- 0.89
+0.89
 \end{bmatrix}
 $$
 
-**Result:** Projecting all points onto the direction $[-0.79,\ 0.89]^T$ yields two well-separated 1D clusters — far superior to the PCA projection on the same data.
+**Result:** Projecting all points onto the direction $[-0.79, 0.89]^T$ yields two well-separated 1D clusters — far superior to the PCA projection on the same data.
 
 ---
 
