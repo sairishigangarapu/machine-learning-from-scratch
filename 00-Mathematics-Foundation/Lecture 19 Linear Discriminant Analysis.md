@@ -102,6 +102,7 @@ $$
 $$
 
 ### Step 3: The Final Matrix Form
+
 $$
 \boxed{J(\mathbf{v}) = \frac{\mathbf{v}^T S_B \mathbf{v}}{\mathbf{v}^T S_W \mathbf{v}}}
 $$
@@ -149,14 +150,12 @@ $$
 \boxed{\mathbf{v} = S_W^{-1}(\boldsymbol{\mu}_1 - \boldsymbol{\mu}_2)}
 $$
 
-*(If $S_W$ is not full rank, use a pseudo-inverse.)*
-
 ---
 
 ## 6. Summary: LDA Algorithm (Two-Class)
 
 | Step | Operation |
-|------|-----------|
+|---|---|
 | 1 | Compute class means $\boldsymbol{\mu}_1$, $\boldsymbol{\mu}_2$ |
 | 2 | Compute scatter matrices $S_1$, $S_2$, then $S_W = S_1 + S_2$ |
 | 3 | Compute $\mathbf{v} = S_W^{-1}(\boldsymbol{\mu}_1 - \boldsymbol{\mu}_2)$ |

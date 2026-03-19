@@ -110,7 +110,9 @@ $$
 
 **Step 2: Compute $(A^T A)^{-1}$**
 
-$$\det(A^T A) = 3 \cdot 5 - 3 \cdot 3 = 6$$
+$$
+\det(A^T A) = 3 \cdot 5 - 3 \cdot 3 = 6
+$$
 
 $$
 (A^T A)^{-1} = \frac{1}{6}
@@ -129,11 +131,14 @@ A^T \mathbf{b} =
 0 & 1 & 2
 \end{bmatrix}
 \begin{bmatrix}
-6 \\ 0 \\ 0
+6 \\
+0 \\
+0
 \end{bmatrix}
 =
 \begin{bmatrix}
-6 \\ 0
+6 \\
+0
 \end{bmatrix}
 $$
 
@@ -146,11 +151,13 @@ $$
 -3 &  3
 \end{bmatrix}
 \begin{bmatrix}
-6 \\ 0
+6 \\
+0
 \end{bmatrix}
 =
 \begin{bmatrix}
-5 \\ -3
+5 \\
+-3
 \end{bmatrix}
 $$
 
@@ -169,7 +176,7 @@ $$
 \min_{\mathbf{x} \in \mathbb{R}^n} \|\mathbf{x}\|_2 \quad \text{subject to} \quad A\mathbf{x} = \mathbf{b}
 $$
 
-### Why Not Use $(A^T A)^{-1} A^T$?
+### Why Not Use $(A^{T} A)^{-1} A^T$?
 Here $A$ is $m \times n$ with $m < n$. The matrix $A^T A$ is $n \times n$ but has $\text{rank}(A) \le m < n$ — it is **rank-deficient** and its inverse does not exist.
 
 ### The Left Pseudo-Inverse Solution
@@ -195,7 +202,8 @@ A =
 \end{bmatrix}, \qquad
 \mathbf{b} =
 \begin{bmatrix}
-1 \\ 0
+1 \\
+0
 \end{bmatrix}
 $$
 
@@ -223,7 +231,9 @@ $$
 
 **Step 2: Compute $(A A^T)^{-1}$**
 
-$$\det(A A^T) = 9 - 1 = 8$$
+$$
+\det(A A^T) = 9 - 1 = 8
+$$
 
 $$
 (A A^T)^{-1} = \frac{1}{8}
@@ -271,7 +281,8 @@ $$
  1/2 &  1/2
 \end{bmatrix}
 \begin{bmatrix}
-1 \\ 0
+1 \\
+0
 \end{bmatrix}
 =
 \begin{bmatrix}
