@@ -175,8 +175,17 @@ $$
 **Step 1: Compute Class Means**
 
 $$
-\boldsymbol{\mu}_1 = \begin{bmatrix} 3.0 \\ 3.6 \end{bmatrix}, \qquad
-\boldsymbol{\mu}_2 = \begin{bmatrix} 3.3 \\ 2.0 \end{bmatrix}
+\boldsymbol{\mu}_1 =
+\begin{bmatrix}
+3.0 \\
+3.6
+\end{bmatrix},
+\qquad
+\boldsymbol{\mu}_2 =
+\begin{bmatrix}
+3.3 \\
+2.0
+\end{bmatrix}
 $$
 
 ---
@@ -184,7 +193,7 @@ $$
 **Step 2: Compute Scatter Matrices**
 
 $$
-S_1 = 4 \cdot \operatorname{Cov}(\mathcal{C}_1) \approx
+S_1 = 4 \cdot \text{Cov}(\mathcal{C}_1) \approx
 \begin{bmatrix}
 10 & 8 \\
 8  & 7.2
@@ -192,7 +201,7 @@ S_1 = 4 \cdot \operatorname{Cov}(\mathcal{C}_1) \approx
 $$
 
 $$
-S_2 = 5 \cdot \operatorname{Cov}(\mathcal{C}_2) \approx
+S_2 = 5 \cdot \text{Cov}(\mathcal{C}_2) \approx
 \begin{bmatrix}
 17.3 & 16 \\
 16   & 16
@@ -221,8 +230,16 @@ $$
 
 $$
 \mathbf{v} = S_W^{-1}(\boldsymbol{\mu}_1 - \boldsymbol{\mu}_2)
-= S_W^{-1} \begin{bmatrix} -0.3 \\ 1.6 \end{bmatrix}
-\approx \begin{bmatrix} -0.79 \\ 0.89 \end{bmatrix}
+= S_W^{-1}
+\begin{bmatrix}
+-0.3 \\
+ 1.6
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+-0.79 \\
+ 0.89
+\end{bmatrix}
 $$
 
 **Result:** Projecting all points onto the direction $[-0.79,\ 0.89]^T$ yields two well-separated 1D clusters — far superior to the PCA projection on the same data.
