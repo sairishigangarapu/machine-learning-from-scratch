@@ -81,10 +81,10 @@ A larger margin means the classifier is less sensitive to small perturbations in
 
 ### Primal Formulation
 $$
-\min_{\mathbf{w}, b} \quad \frac{1}{2}||\mathbf{w}||^2
-$$
-$$
-\text{s.t.} \quad y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1 \quad \forall i
+\begin{aligned}
+\min_{\mathbf{w}, b} \quad &\frac{1}{2}||\mathbf{w}||^2 \\
+\text{s.t.} \quad &y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1 \quad \forall i
+\end{aligned}
 $$
 
 **Key Insight:** Minimizing $||\mathbf{w}||^2$ is equivalent to maximizing the margin $\frac{2}{||\mathbf{w}||}$.
@@ -134,10 +134,10 @@ These are the only points that affect the optimal hyperplane. Removing any non-s
 The margin is the region between the two parallel hyperplanes:
 
 $$
-\mathbf{w}^T\mathbf{x} + b = +1 \quad \text{(positive boundary)}
-$$
-$$
-\mathbf{w}^T\mathbf{x} + b = -1 \quad \text{(negative boundary)}
+\begin{aligned}
+\mathbf{w}^T\mathbf{x} + b &= +1 \quad \text{(positive boundary)} \\
+\mathbf{w}^T\mathbf{x} + b &= -1 \quad \text{(negative boundary)}
+\end{aligned}
 $$
 
 The distance between these boundaries is $\frac{2}{||\mathbf{w}||}$. Maximizing this distance is equivalent to minimizing $||\mathbf{w}||^2$.

@@ -13,10 +13,10 @@ We want to find the hyperplane that separates two classes with maximum margin. T
 Given training data $\{(\mathbf{x}_i, y_i)\}_{i=1}^n$ where $y_i \in \{-1, +1\}$:
 
 $$
-\min_{\mathbf{w}, b} \quad \frac{1}{2}||\mathbf{w}||^2
-$$
-$$
-\text{s.t.} \quad y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1 \quad \forall i = 1, \dots, n
+\begin{aligned}
+\min_{\mathbf{w}, b} \quad &\frac{1}{2}||\mathbf{w}||^2 \\
+\text{s.t.} \quad &y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1 \quad \forall i = 1, \dots, n
+\end{aligned}
 $$
 
 ---
@@ -60,10 +60,10 @@ def compute_support_vectors(X, y, alpha, tol=1e-4):
 Substituting the stationarity conditions into the Lagrangian:
 
 $$
-\max_{\boldsymbol{\alpha}} \quad \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \mathbf{x}_i^T \mathbf{x}_j
-$$
-$$
-\text{s.t.} \quad \alpha_i \ge 0 \quad \forall i, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\begin{aligned}
+\max_{\boldsymbol{\alpha}} \quad &\sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \mathbf{x}_i^T \mathbf{x}_j \\
+\text{s.t.} \quad &\alpha_i \ge 0 \quad \forall i, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\end{aligned}
 $$
 
 ### Why the Dual?
@@ -74,10 +74,10 @@ $$
 ### Solution Recovery
 Once $\boldsymbol{\alpha}^*$ is found:
 $$
-\mathbf{w}^* = \sum_{i=1}^n \alpha_i^* y_i \mathbf{x}_i
-$$
-$$
-b^* = y_s - \mathbf{w}^{*T}\mathbf{x}_s \quad \text{(for any support vector $\mathbf{x}_s$)}
+\begin{aligned}
+\mathbf{w}^* &= \sum_{i=1}^n \alpha_i^* y_i \mathbf{x}_i \\
+b^* &= y_s - \mathbf{w}^{*T}\mathbf{x}_s \quad \text{(for any support vector $\mathbf{x}_s$)}
+\end{aligned}
 $$
 
 ---
@@ -87,10 +87,10 @@ $$
 The dual is a **Quadratic Program (QP)**:
 
 $$
-\min_{\boldsymbol{\alpha}} \quad \frac{1}{2}\boldsymbol{\alpha}^T Q \boldsymbol{\alpha} - \mathbf{1}^T\boldsymbol{\alpha}
-$$
-$$
-\text{s.t.} \quad \mathbf{y}^T\boldsymbol{\alpha} = 0, \quad \boldsymbol{\alpha} \ge 0
+\begin{aligned}
+\min_{\boldsymbol{\alpha}} \quad &\frac{1}{2}\boldsymbol{\alpha}^T Q \boldsymbol{\alpha} - \mathbf{1}^T\boldsymbol{\alpha} \\
+\text{s.t.} \quad &\mathbf{y}^T\boldsymbol{\alpha} = 0, \quad \boldsymbol{\alpha} \ge 0
+\end{aligned}
 $$
 
 where $Q_{ij} = y_i y_j \mathbf{x}_i^T \mathbf{x}_j$.

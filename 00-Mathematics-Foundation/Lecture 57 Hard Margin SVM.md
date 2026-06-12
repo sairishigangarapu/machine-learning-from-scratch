@@ -11,10 +11,10 @@ The hard margin SVM requires all training points to be correctly classified with
 
 ### Mathematical Formulation
 $$
-\min_{\mathbf{w}, b} \quad \frac{1}{2}||\mathbf{w}||^2
-$$
-$$
-\text{s.t.} \quad y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1, \quad i = 1, \dots, n
+\begin{aligned}
+\min_{\mathbf{w}, b} \quad &\frac{1}{2}||\mathbf{w}||^2 \\
+\text{s.t.} \quad &y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1, \quad i = 1, \dots, n
+\end{aligned}
 $$
 
 **Note:** The constraint $y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1$ ensures:
@@ -26,18 +26,18 @@ $$
 ## 2. Dual Formulation (Complete)
 
 $$
-\max_{\boldsymbol{\alpha}} \quad \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \mathbf{x}_i^T\mathbf{x}_j
-$$
-$$
-\text{s.t.} \quad \alpha_i \ge 0 \quad \forall i, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\begin{aligned}
+\max_{\boldsymbol{\alpha}} \quad &\sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \mathbf{x}_i^T\mathbf{x}_j \\
+\text{s.t.} \quad &\alpha_i \ge 0 \quad \forall i, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\end{aligned}
 $$
 
 ### Solution Recovery
 $$
-\mathbf{w}^* = \sum_{i=1}^n \alpha_i^* y_i \mathbf{x}_i
-$$
-$$
-b^* = y_s - \mathbf{w}^{*T}\mathbf{x}_s \quad \text{for any support vector } \mathbf{x}_s
+\begin{aligned}
+\mathbf{w}^* &= \sum_{i=1}^n \alpha_i^* y_i \mathbf{x}_i \\
+b^* &= y_s - \mathbf{w}^{*T}\mathbf{x}_s \quad \text{for any support vector } \mathbf{x}_s
+\end{aligned}
 $$
 
 ---

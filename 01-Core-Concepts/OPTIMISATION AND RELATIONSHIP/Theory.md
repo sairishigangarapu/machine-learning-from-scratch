@@ -28,10 +28,19 @@ The **Least Squares Line** ($\hat{y} = \beta_0 + \beta_1 x$) is the closed-form 
 ### Coefficient Formulas
 These formulas allow direct calculation of the optimal parameters using data statistics (means and covariance).
 
-| Parameter | Formula | Interpretation |
-| :--- | :--- | :--- |
-| **Slope** ($\beta_1$) | $$\beta_1 = \frac{ \sum (x_i - \bar{x})(y_i - \bar{y}) }{ \sum (x_i - \bar{x})^2 }$$ | **Rate of Change.** The estimated change in $y$ for a 1-unit increase in $x$. |
-| **Intercept** ($\beta_0$) | $$\beta_0 = \bar{y} - \beta_1 \bar{x}$$ | **Bias.** The baseline value of $y$ when $x=0$. |
+**Slope ($\beta_1$):**
+$$
+\beta_1 = \frac{ \sum (x_i - \bar{x})(y_i - \bar{y}) }{ \sum (x_i - \bar{x})^2 }
+$$
+
+> **Rate of Change.** The estimated change in $y$ for a 1-unit increase in $x$.
+
+**Intercept ($\beta_0$):**
+$$
+\beta_0 = \bar{y} - \beta_1 \bar{x}
+$$
+
+> **Bias.** The baseline value of $y$ when $x=0$.
 
 ---
 

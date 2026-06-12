@@ -72,15 +72,11 @@ $$
 The most stunning property of Word2Vec: **semantic arithmetic**.
 
 $$
-\vec{king} - \vec{man} + \vec{woman} \approx \vec{queen}
-$$
-
-$$
-\vec{Paris} - \vec{France} + \vec{Italy} \approx \vec{Rome}
-$$
-
-$$
-\vec{bigger} - \vec{big} + \vec{small} \approx \vec{smaller}
+\begin{aligned}
+\vec{king} - \vec{man} + \vec{woman} &\approx \vec{queen} \\
+\vec{Paris} - \vec{France} + \vec{Italy} &\approx \vec{Rome} \\
+\vec{bigger} - \vec{big} + \vec{small} &\approx \vec{smaller}
+\end{aligned}
 $$
 
 | Term | Definition | Significance |

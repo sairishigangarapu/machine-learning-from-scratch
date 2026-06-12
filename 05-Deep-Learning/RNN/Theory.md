@@ -5,10 +5,10 @@
 Fully connected networks and CNNs assume inputs are **independent** and **fixed-size**. But for sequences (text, time series, speech), the order and length matter. An RNN processes sequences by maintaining a **hidden state** that acts as a memory of past inputs.
 
 $$
-h_t = \sigma(W_{hh} h_{t-1} + W_{xh} x_t + b)
-$$
-$$
-y_t = W_{hy} h_t + c
+\begin{aligned}
+h_t &= \sigma(W_{hh} h_{t-1} + W_{xh} x_t + b) \\
+y_t &= W_{hy} h_t + c
+\end{aligned}
 $$
 
 | Symbol | Definition | Significance |
@@ -73,13 +73,11 @@ This is why vanilla RNNs struggle with long sequences.
 
 ### Cell State Update
 $$
-\tilde{C}_t = \tanh(W_C [h_{t-1}, x_t] + b_C) \quad \text{(candidate)}
-$$
-$$
-C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t \quad \text{(new cell state)}
-$$
-$$
-h_t = o_t \odot \tanh(C_t) \quad \text{(hidden output)}
+\begin{aligned}
+\tilde{C}_t &= \tanh(W_C [h_{t-1}, x_t] + b_C) \quad \text{(candidate)} \\
+C_t &= f_t \odot C_{t-1} + i_t \odot \tilde{C}_t \quad \text{(new cell state)} \\
+h_t &= o_t \odot \tanh(C_t) \quad \text{(hidden output)}
+\end{aligned}
 $$
 
 | Term | Definition | Significance |
@@ -109,10 +107,10 @@ The cell state $C_t$ is the "conveyor belt" — information can flow through it 
 | **Reset Gate** | $r_t = \sigma(W_r [h_{t-1}, x_t])$ | Decides how much past info to forget for candidate |
 
 $$
-\tilde{h}_t = \tanh(W [r_t \odot h_{t-1}, x_t])
-$$
-$$
-h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
+\begin{aligned}
+\tilde{h}_t &= \tanh(W [r_t \odot h_{t-1}, x_t]) \\
+h_t &= (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
+\end{aligned}
 $$
 
 | Term | Definition | Significance |

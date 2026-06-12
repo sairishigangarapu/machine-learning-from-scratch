@@ -101,10 +101,10 @@ Input Layer Hidden Layer(s) Output Layer
 ### Forward Pass (Single Hidden Layer)
 
 $$
-\mathbf{h} = \sigma(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1) \quad \text{(hidden layer)}
-$$
-$$
-\hat{y} = \sigma(\mathbf{W}_2 \mathbf{h} + \mathbf{b}_2) \quad \text{(output layer)}
+\begin{aligned}
+\mathbf{h} &= \sigma(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1) \quad \text{(hidden layer)} \\
+\hat{y} &= \sigma(\mathbf{W}_2 \mathbf{h} + \mathbf{b}_2) \quad \text{(output layer)}
+\end{aligned}
 $$
 
 | Term | Definition | Significance |

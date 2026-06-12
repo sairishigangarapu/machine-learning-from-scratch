@@ -108,10 +108,10 @@ In ill-conditioned problems (high condition number $\kappa$), gradient descent o
 ### Heavy Ball Method (Polyak, 1964)
 
 $$
-\mathbf{v}_{k+1} = \beta \mathbf{v}_k - \alpha \nabla f(\mathbf{x}_k)
-$$
-$$
-\mathbf{x}_{k+1} = \mathbf{x}_k + \mathbf{v}_{k+1}
+\begin{aligned}
+\mathbf{v}_{k+1} &= \beta \mathbf{v}_k - \alpha \nabla f(\mathbf{x}_k) \\
+\mathbf{x}_{k+1} &= \mathbf{x}_k + \mathbf{v}_{k+1}
+\end{aligned}
 $$
 
 where $\beta \in [0, 1)$ is the momentum coefficient.
@@ -121,10 +121,10 @@ where $\beta \in [0, 1)$ is the momentum coefficient.
 ### Nesterov Accelerated Gradient
 
 $$
-\mathbf{v}_{k+1} = \beta \mathbf{v}_k - \alpha \nabla f(\mathbf{x}_k + \beta \mathbf{v}_k)
-$$
-$$
-\mathbf{x}_{k+1} = \mathbf{x}_k + \mathbf{v}_{k+1}
+\begin{aligned}
+\mathbf{v}_{k+1} &= \beta \mathbf{v}_k - \alpha \nabla f(\mathbf{x}_k + \beta \mathbf{v}_k) \\
+\mathbf{x}_{k+1} &= \mathbf{x}_k + \mathbf{v}_{k+1}
+\end{aligned}
 $$
 
 **Key difference:** Evaluates the gradient at the *lookahead* position $\mathbf{x}_k + \beta \mathbf{v}_k$, not at $\mathbf{x}_k$. This "look ahead" provides faster convergence: $O(1/k^2)$ for convex functions vs $O(1/k)$ for standard gradient descent.

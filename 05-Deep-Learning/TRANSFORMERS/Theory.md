@@ -57,10 +57,10 @@ $$
 Instead of one attention function, we run **$h$ parallel attention heads**, each with different learned projections, then concatenate and project:
 
 $$
-\text{MultiHead}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)\mathbf{W}^O
-$$
-$$
-\text{head}_i = \text{Attention}(\mathbf{Q}\mathbf{W}_i^Q, \mathbf{K}\mathbf{W}_i^K, \mathbf{V}\mathbf{W}_i^V)
+\begin{aligned}
+\text{MultiHead}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) &= \text{Concat}(\text{head}_1, \dots, \text{head}_h)\mathbf{W}^O \\
+\text{head}_i &= \text{Attention}(\mathbf{Q}\mathbf{W}_i^Q, \mathbf{K}\mathbf{W}_i^K, \mathbf{V}\mathbf{W}_i^V)
+\end{aligned}
 $$
 
 | Term | Definition | Significance |
@@ -115,8 +115,10 @@ Output Probabilities (next token)
 Since self-attention is permutation-invariant, we need to inject position information. The original paper used sinusoidal encodings:
 
 $$
-PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right), \quad
-PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d}}\right)
+\begin{aligned}
+PE_{(pos, 2i)} &= \sin\left(\frac{pos}{10000^{2i/d}}\right) \\
+PE_{(pos, 2i+1)} &= \cos\left(\frac{pos}{10000^{2i/d}}\right)
+\end{aligned}
 $$
 
 | Term | Definition | Significance |

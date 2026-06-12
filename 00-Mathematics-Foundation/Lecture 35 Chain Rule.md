@@ -194,16 +194,12 @@ $$
 Consider a 3-layer network:
 
 $$
-\mathbf{h}_1 = \sigma(W_1 \mathbf{x} + \mathbf{b}_1)
-$$
-$$
-\mathbf{h}_2 = \sigma(W_2 \mathbf{h}_1 + \mathbf{b}_2)
-$$
-$$
-\hat{y} = W_3 \mathbf{h}_2 + \mathbf{b}_3
-$$
-$$
-\mathcal{L} = \frac{1}{2}(\hat{y} - y)^2
+\begin{aligned}
+\mathbf{h}_1 &= \sigma(W_1 \mathbf{x} + \mathbf{b}_1) \\
+\mathbf{h}_2 &= \sigma(W_2 \mathbf{h}_1 + \mathbf{b}_2) \\
+\hat{y} &= W_3 \mathbf{h}_2 + \mathbf{b}_3 \\
+\mathcal{L} &= \frac{1}{2}(\hat{y} - y)^2
+\end{aligned}
 $$
 
 ### Forward Pass (Composition)
@@ -217,13 +213,11 @@ $$
 Each term is computed by multiplying the upstream gradient by the local Jacobian:
 
 $$
-\frac{\partial \mathcal{L}}{\partial \mathbf{h}_2} = \frac{\partial \mathcal{L}}{\partial \hat{y}} \cdot W_3
-$$
-$$
-\frac{\partial \mathcal{L}}{\partial \mathbf{h}_1} = \frac{\partial \mathcal{L}}{\partial \mathbf{h}_2} \cdot \text{diag}(\sigma'(\mathbf{z}_2)) \cdot W_2
-$$
-$$
-\frac{\partial \mathcal{L}}{\partial W_1} = \frac{\partial \mathcal{L}}{\partial \mathbf{h}_1} \cdot \text{diag}(\sigma'(\mathbf{z}_1)) \cdot \mathbf{x}^T
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial \mathbf{h}_2} &= \frac{\partial \mathcal{L}}{\partial \hat{y}} \cdot W_3 \\
+\frac{\partial \mathcal{L}}{\partial \mathbf{h}_1} &= \frac{\partial \mathcal{L}}{\partial \mathbf{h}_2} \cdot \text{diag}(\sigma'(\mathbf{z}_2)) \cdot W_2 \\
+\frac{\partial \mathcal{L}}{\partial W_1} &= \frac{\partial \mathcal{L}}{\partial \mathbf{h}_1} \cdot \text{diag}(\sigma'(\mathbf{z}_1)) \cdot \mathbf{x}^T
+\end{aligned}
 $$
 
 This is literally the chain rule applied layer by layer, in reverse order.

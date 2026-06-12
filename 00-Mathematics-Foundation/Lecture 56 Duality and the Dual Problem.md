@@ -23,10 +23,10 @@ In optimization, we often have a **primal** problem with constraints. Duality tr
 ## 2. Primal Formulation (Review)
 
 $$
-\min_{\mathbf{w}, b} \quad \frac{1}{2}||\mathbf{w}||^2
-$$
-$$
-\text{s.t.} \quad y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1, \quad i = 1, \dots, n
+\begin{aligned}
+\min_{\mathbf{w}, b} \quad &\frac{1}{2}||\mathbf{w}||^2 \\
+\text{s.t.} \quad &y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1, \quad i = 1, \dots, n
+\end{aligned}
 $$
 
 ---
@@ -65,10 +65,10 @@ $$
 
 ### The Dual Problem
 $$
-\max_{\boldsymbol{\alpha}} \quad \sum_i \alpha_i - \frac{1}{2} \boldsymbol{\alpha}^T Q \boldsymbol{\alpha}
-$$
-$$
-\text{s.t.} \quad \alpha_i \ge 0 \quad \forall i, \quad \sum_i \alpha_i y_i = 0
+\begin{aligned}
+\max_{\boldsymbol{\alpha}} \quad &\sum_i \alpha_i - \frac{1}{2} \boldsymbol{\alpha}^T Q \boldsymbol{\alpha} \\
+\text{s.t.} \quad &\alpha_i \ge 0 \quad \forall i, \quad \sum_i \alpha_i y_i = 0
+\end{aligned}
 $$
 
 where $Q_{ij} = y_i y_j \mathbf{x}_i^T\mathbf{x}_j$.

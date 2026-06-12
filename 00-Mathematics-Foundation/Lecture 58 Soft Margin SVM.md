@@ -17,10 +17,10 @@ Soft margin SVM introduces **slack variables** $\xi_i \ge 0$ that measure how mu
 ## 2. Primal Formulation
 
 $$
-\min_{\mathbf{w}, b, \boldsymbol{\xi}} \quad \frac{1}{2}||\mathbf{w}||^2 + C \sum_{i=1}^n \xi_i
-$$
-$$
-\text{s.t.} \quad y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1 - \xi_i, \quad \xi_i \ge 0
+\begin{aligned}
+\min_{\mathbf{w}, b, \boldsymbol{\xi}} \quad &\frac{1}{2}||\mathbf{w}||^2 + C \sum_{i=1}^n \xi_i \\
+\text{s.t.} \quad &y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1 - \xi_i, \quad \xi_i \ge 0
+\end{aligned}
 $$
 
 **Parameter $C$ controls the trade-off:**
@@ -57,10 +57,10 @@ def hinge_loss(y_true, y_pred, w, b, C):
 ## 3. Dual Formulation
 
 $$
-\max_{\boldsymbol{\alpha}} \quad \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \mathbf{x}_i^T\mathbf{x}_j
-$$
-$$
-\text{s.t.} \quad 0 \le \alpha_i \le C \quad \forall i, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\begin{aligned}
+\max_{\boldsymbol{\alpha}} \quad &\sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \mathbf{x}_i^T\mathbf{x}_j \\
+\text{s.t.} \quad &0 \le \alpha_i \le C \quad \forall i, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\end{aligned}
 $$
 
 The only change from hard margin: $\alpha_i \le C$ (upper bound).

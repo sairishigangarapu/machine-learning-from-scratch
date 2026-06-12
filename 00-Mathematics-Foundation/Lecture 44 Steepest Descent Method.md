@@ -140,26 +140,22 @@ $$
 Fixes AdaGrad's decay by using an exponential moving average:
 
 $$
-v_k = \beta v_{k-1} + (1-\beta) g_k^2
-$$
-$$
-\theta_{k+1} = \theta_k - \frac{\alpha}{\sqrt{v_k + \epsilon}} \odot g_k
+\begin{aligned}
+v_k &= \beta v_{k-1} + (1-\beta) g_k^2 \\
+\theta_{k+1} &= \theta_k - \frac{\alpha}{\sqrt{v_k + \epsilon}} \odot g_k
+\end{aligned}
 $$
 
 ### Adam (Adaptive Moment Estimation)
 Combines momentum (first moment) with RMSprop (second moment):
 
 $$
-m_k = \beta_1 m_{k-1} + (1-\beta_1) g_k \quad \text{(momentum)}
-$$
-$$
-v_k = \beta_2 v_{k-1} + (1-\beta_2) g_k^2 \quad \text{(adaptive LR)}
-$$
-$$
-\hat{m}_k = \frac{m_k}{1 - \beta_1^k}, \quad \hat{v}_k = \frac{v_k}{1 - \beta_2^k} \quad \text{(bias correction)}
-$$
-$$
-\theta_{k+1} = \theta_k - \frac{\alpha}{\sqrt{\hat{v}_k} + \epsilon} \odot \hat{m}_k
+\begin{aligned}
+m_k &= \beta_1 m_{k-1} + (1-\beta_1) g_k \quad \text{(momentum)} \\
+v_k &= \beta_2 v_{k-1} + (1-\beta_2) g_k^2 \quad \text{(adaptive LR)} \\
+\hat{m}_k &= \frac{m_k}{1 - \beta_1^k}, \quad \hat{v}_k = \frac{v_k}{1 - \beta_2^k} \quad \text{(bias correction)} \\
+\theta_{k+1} &= \theta_k - \frac{\alpha}{\sqrt{\hat{v}_k} + \epsilon} \odot \hat{m}_k
+\end{aligned}
 $$
 
 **Default hyperparameters:** $\beta_1 = 0.9$, $\beta_2 = 0.999$, $\epsilon = 10^{-8}$, $\alpha = 0.001$.

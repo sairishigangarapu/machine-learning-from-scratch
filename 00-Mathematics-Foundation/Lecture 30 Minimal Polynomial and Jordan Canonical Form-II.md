@@ -92,19 +92,13 @@ An ordinary eigenvector is a generalized eigenvector of rank $1$.
 Generalized eigenvectors come in chains. For each Jordan block of size $k$, you get a chain of $k$ vectors:
 
 $$
-(A - \lambda I) x_1 = 0 \quad \text{(ordinary eigenvector)}
-$$
-$$
-(A - \lambda I) x_2 = x_1
-$$
-$$
-(A - \lambda I) x_3 = x_2
-$$
-$$
-\vdots
-$$
-$$
-(A - \lambda I) x_k = x_{k-1}
+\begin{aligned}
+(A - \lambda I) x_1 &= 0 \quad \text{(ordinary eigenvector)} \\
+(A - \lambda I) x_2 &= x_1 \\
+(A - \lambda I) x_3 &= x_2 \\
+&\vdots \\
+(A - \lambda I) x_k &= x_{k-1}
+\end{aligned}
 $$
 
 Each equation $(A - \lambda I) x_{j} = x_{j-1}$ is a **non-homogeneous system**. You solve it to get each generalized eigenvector.

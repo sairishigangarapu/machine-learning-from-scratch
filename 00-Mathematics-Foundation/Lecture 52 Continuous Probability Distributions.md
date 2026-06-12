@@ -21,13 +21,11 @@ $$
 
 ### The 68-95-99.7 Rule
 $$
-P(\mu - \sigma < X < \mu + \sigma) \approx 0.68
-$$
-$$
-P(\mu - 2\sigma < X < \mu + 2\sigma) \approx 0.95
-$$
-$$
-P(\mu - 3\sigma < X < \mu + 3\sigma) \approx 0.997
+\begin{aligned}
+P(\mu - \sigma < X < \mu + \sigma) &\approx 0.68 \\
+P(\mu - 2\sigma < X < \mu + 2\sigma) &\approx 0.95 \\
+P(\mu - 3\sigma < X < \mu + 3\sigma) &\approx 0.997
+\end{aligned}
 $$
 
 ```python
