@@ -39,6 +39,13 @@ $$
 $$
 f(x) = \max(0, x)
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x$ | Input activation value | The output of the convolution or previous layer — can be any real number |
+| $f(x)$ | Output after ReLU | If $x > 0$, output is $x$; if $x \leq 0$, output is $0$ — introduces sparsity and non-linearity |
+| $\max(0, x)$ | Element-wise maximum with zero | Kills all negative activations — creates sparse representations and solves the vanishing gradient problem for positive values |
+
 Introduces non-linearity. Applied element-wise after convolution.
 
 ### C. Pooling Layer
@@ -89,6 +96,12 @@ Deep networks suffer from **degradation** — accuracy saturates and then drops.
 $$
 \text{Output} = F(x) + x
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x$ | Input to the residual block | The original feature map passed through the shortcut connection |
+| $F(x)$ | Residual function learned by the block | The output of the stacked layers — what the block learns to ADD to the input |
+| $F(x) + x$ | Skip connection output | The input plus the residual — if $F(x) \approx 0$, the block acts as identity, making it easy to train deep networks |
 
 This allows gradients to flow directly through the identity shortcut, enabling training of 100+ layer networks.
 

@@ -36,12 +36,25 @@ $$
 P(w_t \mid w_{t-2}, w_{t-1}, w_{t+1}, w_{t+2})
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P(w_t \mid \cdot)$ | Probability of the target word given context | What the model predicts — the conditional distribution over the vocabulary |
+| $w_t$ | Target word at position $t$ | The word we're trying to predict |
+| $w_{t-2}, w_{t-1}, w_{t+1}, w_{t+2}$ | Context words (2 before, 2 after) | The surrounding words that provide context — a window of size 2 |
+
 ### B. Skip-Gram
 Predicts **context words** from a **target word** (inverted CBOW).
 
 $$
 P(w_{t+j} \mid w_t), \quad j \in \{-2, -1, 1, 2\}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P(w_{t+j} \mid w_t)$ | Probability of a context word given the target | What the model predicts — for each target word, it predicts each surrounding word |
+| $w_t$ | Target word at position $t$ | The input word — used to predict context |
+| $w_{t+j}$ | Context word at offset $j$ | A word within the window ($j = \pm 1, \pm 2$) |
+| $j \in \{-2, -1, 1, 2\}$ | Window offsets | The set of positions relative to the target — $j=0$ is excluded (that's the target itself) |
 
 > Skip-Gram works better for rare words and small datasets. CBOW is faster.
 

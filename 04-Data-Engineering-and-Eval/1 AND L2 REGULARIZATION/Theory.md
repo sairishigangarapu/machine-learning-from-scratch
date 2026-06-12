@@ -22,6 +22,12 @@ $$
 \text{Total Cost} = \text{MSE} + \text{Penalty}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Total Cost}$ | Regularized objective function | What the model minimizes — balances fit quality against model complexity |
+| $\text{MSE}$ | Mean Squared Error (training loss) | Measures how well the model fits the training data — lower = better fit |
+| $\text{Penalty}$ | Regularization term | Penalizes large weights — prevents overfitting by keeping the model simple |
+
 ### A. L1 Regularization (Lasso)
 **"Least Absolute Shrinkage and Selection Operator"**
 * **Mechanism:** Adds the **Absolute Value** of coefficients as a penalty.

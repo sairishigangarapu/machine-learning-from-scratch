@@ -36,6 +36,13 @@ $$
 \text{Monroe} = 1 - (\text{West Windsor} + \text{Robbinsville})
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Monroe}$ | Dummy variable for Monroe Township | 1 if the observation is from Monroe, 0 otherwise |
+| $\text{West Windsor}$ | Dummy variable for West Windsor | 1 if the observation is from West Windsor, 0 otherwise |
+| $\text{Robbinsville}$ | Dummy variable for Robbinsville | 1 if the observation is from Robbinsville, 0 otherwise |
+| $1$ | Sum of all dummy variables | Since every observation belongs to exactly one category, all dummies sum to 1 — this creates perfect multicollinearity |
+
 This linear dependency breaks the mathematics of Linear Regression (Matrix Inversion becomes unstable).
 
 ### The Solution: Drop One Column

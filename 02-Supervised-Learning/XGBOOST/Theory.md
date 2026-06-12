@@ -70,6 +70,17 @@ $$
 \mathcal{L} = \sum_{i=1}^{n} l(y_i, \hat{y}_i) + \sum_{k=1}^{K} \Omega(f_k)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathcal{L}$ | Total objective function | Combines prediction accuracy + model complexity — what XGBoost minimizes |
+| $l(y_i, \hat{y}_i)$ | Loss function for sample $i$ | Measures how wrong the prediction is (e.g., squared error for regression, log-loss for classification) |
+| $n$ | Number of training samples | The sum runs over every data point |
+| $y_i$ | True label for sample $i$ | The ground-truth value |
+| $\hat{y}_i$ | Predicted score for sample $i$ | The ensemble's current prediction before adding the new tree |
+| $K$ | Number of trees in the ensemble | The total number of boosting rounds |
+| $f_k$ | The $k$-th tree (weak learner) | A single decision tree added at round $k$ |
+| $\Omega(f_k)$ | Regularization term for tree $k$ | Penalizes complexity: $\Omega(f) = \gamma T + \frac{1}{2}\lambda\sum_{j=1}^{T}w_j^2$ where $T$ = number of leaves, $w_j$ = leaf weights |
+
 where $\Omega(f) = \gamma T + \frac{1}{2}\lambda\sum_{j=1}^{T}w_j^2$ penalizes tree complexity ($T$ = number of leaves, $w_j$ = leaf weights).
 
 ---

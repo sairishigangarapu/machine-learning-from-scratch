@@ -19,6 +19,13 @@ $$
 \text{Accuracy} = \frac{1}{K} \sum_{i=1}^{K} \text{Score}_i
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Accuracy}$ | Final cross-validation score | The estimated performance of the model on unseen data |
+| $K$ | Number of folds | How many times the data is split — more folds = more reliable estimate but slower |
+| $\text{Score}_i$ | Performance score on fold $i$ | The metric (accuracy, F1, etc.) achieved when testing on the $i$-th fold |
+| $\frac{1}{K} \sum_{i=1}^{K}$ | Average over all folds | Averages out the variance from any single split — more stable than a single train/test split |
+
 ---
 
 ## 3. Variations of Cross-Validation
