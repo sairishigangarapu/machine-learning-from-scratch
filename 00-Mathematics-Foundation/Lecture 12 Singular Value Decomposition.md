@@ -104,6 +104,6 @@ print("Singular Values (S):", S) # Approx [18.97, 9.48]
 
 SVD is the most important decomposition in modern data science:
 
-* **[Principal Component Analysis (PCA):](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/00-Mathematics-Foundation/Lecture%2016%20Principal%20Component%20Analysis%20-%20I.md)** Most high-performance PCA implementations (like `sklearn`) use SVD internally because it is numerically more stable than eigendecomposition.
-* **[The Moore-Penrose Pseudo-Inverse:](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/00-Mathematics-Foundation/Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md)** As seen in Lecture 21, we solve impossible linear systems using $A^{+} = V \Sigma^{-1} U^T$.
+* **[Principal Component Analysis (PCA):](Lecture%2016%20Principal%20Component%20Analysis.md)** Most high-performance PCA implementations (like `sklearn`) use SVD internally because it is numerically more stable than eigendecomposition.
+* **[The Moore-Penrose Pseudo-Inverse:](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md)** As seen in Lecture 21, we solve impossible linear systems using $A^{+} = V \Sigma^{-1} U^T$.
 * **Low-Rank Approximation:** As explored in Lecture 14, SVD allows us to compress massive datasets (like images or user-item matrices in Recommenders) by throwing away small singular values.

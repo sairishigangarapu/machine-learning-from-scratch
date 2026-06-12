@@ -103,5 +103,5 @@ We have now mastered the two pillars of foundational supervised learning:
 ---
 
 ### Practical Application
-- **Supervised Learning Lab:** [logistic_regression_lab.py](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/02-Supervised-Learning/LOGISTIC%20REGRESSION/Theory.md)
+- **Supervised Learning Lab:** [logistic_regression_lab.py](../02-Supervised-Learning/LOGISTIC%20REGRESSION/Theory.md)
 - **Math Deep-Dive:** Review [Lecture 24 (Theory)](../../00-Mathematics-Foundation/Lecture%2024%20Logistic%20Regression-I.md) to understand the MLE logic behind `model.fit()`.

@@ -258,6 +258,6 @@ All methods reduce to solving an over-determined linear system via the **least s
 ---
 
 ### Practical Application
-- **Supervised Learning Lab (Simple):** [linear_regression_lab.py](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/02-Supervised-Learning/LINEAR%20REGRESSION/linear_regression_lab.py)
-- **Supervised Learning Lab (Multiple Variables):** [multivariate_regression_lab.py](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/02-Supervised-Learning/LINEAR%20REGRESSION%20WITH%20MULTIPLE%20VARIABLES/multivariate_regression_lab.py)
-- **Core Concept Link:** Deep dive into the [Bias-Variance Tradeoff](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/01-Core-Concepts/Bias-Variance-Tradeoff.md) to understand why $L_1/L_2$ regularization is needed.
+- **Supervised Learning Lab (Simple):** [linear_regression_lab.py](../02-Supervised-Learning/LINEAR%20REGRESSION/linear_regression_lab.py)
+- **Supervised Learning Lab (Multiple Variables):** [multivariate_regression_lab.py](../02-Supervised-Learning/LINEAR%20REGRESSION%20WITH%20MULTIPLE%20VARIABLES/multivariate_regression_lab.py)
+- **Core Concept Link:** Deep dive into the [Bias-Variance Tradeoff](../01-Core-Concepts/Bias-Variance-Tradeoff.md) to understand why $L_1/L_2$ regularization is needed.

@@ -354,4 +354,4 @@ print(f"F1 Score:  {f1:.2f}")
 
 - **[Lecture 24: Logistic Regression-I](Lecture%2024%20Logistic%20Regression-I.md)** — Theory of the Sigmoid and MLE
 - **[Lecture 25: Logistic Regression-II](Lecture%2025%20Logistic%20Regression-II.md)** — Python implementation of Logistic Regression
-- **[Supervised Learning Lab](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/02-Supervised-Learning/LOGISTIC%20REGRESSION/Theory.md)** — Practical lab exercises
+- **[Supervised Learning Lab](../02-Supervised-Learning/LOGISTIC%20REGRESSION/Theory.md)** — Practical lab exercises

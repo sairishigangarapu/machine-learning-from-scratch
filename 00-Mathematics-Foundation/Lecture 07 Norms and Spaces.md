@@ -1,3 +1,9 @@
+## Norms and Spaces
+
+*Essential Mathematics for ML — Structured Notes*
+
+---
+
 ## 1. Metric Spaces and Norms
 
 ### Motivation and Intuition

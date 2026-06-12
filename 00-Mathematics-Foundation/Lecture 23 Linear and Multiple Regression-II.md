@@ -103,6 +103,6 @@ How do we know which degree to choose?
 ---
 
 ### Practical Application
-- **Supervised Learning Lab:** [multivariate_regression_lab.py](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/02-Supervised-Learning/LINEAR%20REGRESSION%20WITH%20MULTIPLE%20VARIABLES/multivariate_regression_lab.py)
+- **Supervised Learning Lab:** [multivariate_regression_lab.py](../02-Supervised-Learning/LINEAR%20REGRESSION%20WITH%20MULTIPLE%20VARIABLES/multivariate_regression_lab.py)
 - **Mathematical Link:** Re-read [Lecture 21 (Least Squares)](../../00-Mathematics-Foundation/Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) to see how the computer actually solves for these coefficients using the Pseudo-Inverse.
 - **Core Concept Link:** Deep dive into the [Bias-Variance Tradeoff](../../01-Core-Concepts/Bias-Variance-Tradeoff.md) to understand why high-degree polynomials (Overfitting) are dangerous.

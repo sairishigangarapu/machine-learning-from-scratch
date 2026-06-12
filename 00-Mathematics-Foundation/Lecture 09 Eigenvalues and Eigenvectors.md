@@ -123,6 +123,6 @@ Knowing the eigenvalues allows you to "cheat" at advanced matrix algebra without
 
 Eigenvalues are not just for solving textbooks; they are the core engine of almost every dimension reduction technique:
 
-* **[Principal Component Analysis (PCA):](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/00-Mathematics-Foundation/Lecture%2016%20Principal%20Component%20Analysis%20-%20I.md)** We find the directions of maximum variance by calculating the eigenvectors of the data's covariance matrix.
-* **[Linear Discriminant Analysis (LDA):](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/00-Mathematics-Foundation/Lecture%2019%20Linear%20Discriminant%20Analysis.md)** We separate data classes by finding the eigenvectors of $S_W^{-1} S_B$.
-* **[Spectral Decomposition:](file:///home/sairishi/Sai_Rishi/GitClonedRepos/machine-learning-from-scratch/00-Mathematics-Foundation/Lecture%2011%20Spectral%20decomposition.md)** Understanding how symmetric matrices can be "diagonalized" into their constituent components.
+* **[Principal Component Analysis (PCA):](Lecture%2016%20Principal%20Component%20Analysis.md)** We find the directions of maximum variance by calculating the eigenvectors of the data's covariance matrix.
+* **[Linear Discriminant Analysis (LDA):](Lecture%2019%20Linear%20Discriminant%20Analysis.md)** We separate data classes by finding the eigenvectors of $S_W^{-1} S_B$.
+* **[Spectral Decomposition:](Lecture%2011%20Spectral%20decomposition.md)** Understanding how symmetric matrices can be "diagonalized" into their constituent components.

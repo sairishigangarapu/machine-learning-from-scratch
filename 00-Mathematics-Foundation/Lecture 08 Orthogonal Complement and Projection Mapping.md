@@ -1,3 +1,9 @@
+## Orthogonal Complement and Projection Mapping
+
+*Essential Mathematics for ML — Structured Notes*
+
+---
+
 ## 1. Orthogonal Vectors
 
 ### Motivation and Intuition
