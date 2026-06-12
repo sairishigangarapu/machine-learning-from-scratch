@@ -24,10 +24,45 @@ Both libraries serialize Python objects, but they have distinct use cases.
 
 ## 3. Workflow
 
-1.  **Train** your model.
-2.  **Serialize (Dump)** the model object to a file (e.g., `model.pkl`).
-3.  **Deserialize (Load)** the file back into a variable.
-4.  **Predict** using the loaded object.
+### Pickle Example
+```python
+import pickle
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([2, 4, 6, 8, 10])
+model = LinearRegression().fit(X, y)
+
+# Save
+with open('model.pkl', 'wb') as f:
+    pickle.dump(model, f)
+
+# Load
+with open('model.pkl', 'rb') as f:
+    loaded_model = pickle.load(f)
+
+print(f"Prediction: {loaded_model.predict([[6]])[0]:.2f}")  # ~12.00
+```
+
+### Joblib Example
+```python
+import joblib
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import load_iris
+
+iris = load_iris()
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(iris.data, iris.target)
+
+# Save (optimized for NumPy arrays)
+joblib.dump(model, 'rf_model.joblib')
+
+# Load
+loaded_rf = joblib.load('rf_model.joblib')
+print(f"Accuracy: {loaded_rf.score(iris.data, iris.target):.4f}")
+```
 
 ---
+
 **External Exercise:** [Codebasics Model Saving Lab](https://github.com/codebasics/py/blob/master/ML/4_save_model/4_save_model.ipynb)

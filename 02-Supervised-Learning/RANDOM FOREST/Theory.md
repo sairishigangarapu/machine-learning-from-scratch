@@ -35,6 +35,65 @@ Random Forest relies on **Bagging** (Bootstrap Aggregation).
 ### ❌ Cons
 * **Black Box:** Harder to interpret than a single tree (you can't easily draw the forest).
 * **Latency:** Slower predictions because every tree has to calculate an output.
+* **Memory:** Stores all trees in memory, which can be significant for very large forests.
 
 ---
+
+## 4. Out-of-Bag (OOB) Evaluation
+
+Because each tree is trained on a bootstrap sample, roughly **36.8%** of the original data is left out of each tree. These "out-of-bag" samples can serve as a built-in validation set — no explicit `train_test_split` needed.
+
+```python
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import load_iris
+
+iris = load_iris()
+rf = RandomForestClassifier(n_estimators=100, oob_score=True, random_state=42)
+rf.fit(iris.data, iris.target)
+
+print(f"OOB Score: {rf.oob_score_:.4f}")
+```
+
+> The OOB score approximates cross-validation performance at zero extra computational cost.
+
+---
+
+## 5. Code Example: Full Pipeline
+
+```python
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+from sklearn.datasets import load_iris
+import pandas as pd
+
+iris = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    iris.data, iris.target, test_size=0.2, random_state=42
+)
+
+rf = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42, n_jobs=-1)
+rf.fit(X_train, y_train)
+
+y_pred = rf.predict(X_test)
+print(classification_report(y_test, y_pred, target_names=iris.target_names))
+```
+
+---
+
+## 6. Feature Importance
+
+Random Forests aggregate impurity reduction across all trees, giving a robust feature importance ranking:
+
+```python
+fi = pd.Series(rf.feature_importances_, index=iris.feature_names)
+fi.sort_values().plot(kind='barh', title='Random Forest Feature Importance')
+plt.xlabel('Mean Decrease in Impurity')
+plt.show()
+```
+
+> Unlike a single Decision Tree, RF importance is averaged over many decorrelated trees, making it more stable and reliable.
+
+---
+
 **External Exercise:** [Codebasics Random Forest Lab](https://github.com/codebasics/py/blob/master/ML/11_random_forest/11_random_forest.ipynb)

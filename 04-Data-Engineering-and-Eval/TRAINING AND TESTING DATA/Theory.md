@@ -33,7 +33,27 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 ## 3. Visualizing the Split
 When we split the data, we are randomly sampling points from the domain.
 
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
 
+np.random.seed(42)
+X = np.random.uniform(0, 10, 100)
+y = 2 * X + 1 + np.random.normal(0, 1.5, 100)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+plt.figure(figsize=(8, 4))
+plt.scatter(X_train, y_train, color='blue', s=30, alpha=0.7, label=f'Training ({len(X_train)} pts)')
+plt.scatter(X_test, y_test, color='red', s=60, marker='x', label=f'Testing ({len(X_test)} pts)')
+plt.xlabel('Feature (X)')
+plt.ylabel('Target (y)')
+plt.title('Train/Test Split Visualization')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
 
 * 🔵 **Blue Points:** Training Data (Model learns from these).
 * 🔴 **Red Points:** Testing Data (Model is tested on these).

@@ -11,11 +11,12 @@ $$
 \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} \left( y_i - (mx_i + b) \right)^2
 $$
 
-
-
-* $n$: Number of data points.
-* $y_i$: Actual value.
-* $mx_i + b$: Predicted value (Hypothesis).
+| Variable | Definition |
+| :--- | :--- |
+| $n$ | Number of data points. |
+| $y_i$ | Actual (ground-truth) value for the $i$-th sample. |
+| $mx_i + b$ | Predicted value (Hypothesis) for the $i$-th sample. |
+| $(y_i - (mx_i + b))^2$ | Squared residual — penalizes large errors disproportionately. |
 
 ---
 
@@ -25,11 +26,13 @@ Gradient descent is an iterative optimization algorithm used to find the minimum
 
 ### Algorithmic Mechanics
 
+We can visualize the cost function $J(m, b)$ as a bowl-shaped surface (a convex surface for MSE). Each point on this surface represents a specific pair of $(m, b)$ values with a corresponding cost. Gradient descent starts at an arbitrary point on this surface and iteratively moves toward the bottom of the bowl.
 
 As we compute the cost with different values of $m$ (slope) and $b$ (intercept), we progress in a direction that reduces error. This continues until we reach the global minimum, providing the optimal $m$ and $b$ for plotting the graph.
 
 ### The Descent Step
 
+The gradient $\nabla J$ points in the direction of steepest **ascent**. By subtracting the gradient (multiplied by the learning rate), we move in the direction of steepest **descent** — directly toward the minimum.
 
 To reach the minima, we calculate the slope of the cost function at the current point and move in the direction where the slope tends toward zero. This is done by taking the derivative at a specific point in the trajectory.
 
@@ -44,12 +47,14 @@ $$
 \frac{\partial}{\partial m} = \frac{2}{n} \sum_{i=1}^{n} -x_i \left( y_i - (mx_i + b) \right)
 $$
 
+This gradient tells us how the cost changes as we nudge the slope $m$. A negative gradient means increasing $m$ will decrease the cost.
 
 ### Partial Derivative w.r.t $b$
 $$
 \frac{\partial}{\partial b} = \frac{2}{n} \sum_{i=1}^{n} -\left( y_i - (mx_i + b) \right)
 $$
 
+This gradient tells us how the cost changes as we nudge the intercept $b$.
 
 ---
 
@@ -58,7 +63,7 @@ $$
 ### Learning Rate ($\alpha$)
 Once we have the direction (gradient), we need to decide the size of the step to take. This is determined by the **Learning Rate**.
 
-
+$$\theta_{\text{new}} = \theta_{\text{old}} - \alpha \cdot \frac{\partial J}{\partial \theta}$$
 
 * **Definition:** A user-defined hyperparameter that controls how much we adjust the weights with respect to the loss gradient.
 * **Tuning:** It must be fine-tuned for accuracy; too small leads to slow convergence, while too large can cause divergence.

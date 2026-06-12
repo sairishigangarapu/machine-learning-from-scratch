@@ -37,7 +37,7 @@ These formulas allow direct calculation of the optimal parameters using data sta
 
 ## 3. Iterative Optimization: Gradient Descent
 
-When a direct analytical solution is computationally expensive (e.g., in high-dimensional space or neural networks), we use **Gradient Descent**.
+When a direct analytical solution is computationally expensive (e.g., in high-dimensional space or neural networks), we use **Gradient Descent**. For the full mathematical derivation (partial derivatives, learning rate tuning, convergence), see [Gradient Descent and Cost Function Theory](../GRADIENT%20DESCENT%20AND%20COST%20FUNCTION/Theory.md).
 
 ### The Update Rule
 We iteratively adjust a parameter ($\theta$) by moving in the direction opposite to the gradient (slope) of the cost function.

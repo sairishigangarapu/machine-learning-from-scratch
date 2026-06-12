@@ -36,7 +36,25 @@ def run_pca_lab():
     X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=30)
 
     # ---------------------------------------------------------
-    # 3. Benchmark: Model WITHOUT PCA
+    # 3. Explained Variance Plot (How Many Components?)
+    # ---------------------------------------------------------
+    pca_full = PCA().fit(X_train)
+    cumvar = np.cumsum(pca_full.explained_variance_ratio_)
+    
+    plt.figure(figsize=(8, 4))
+    plt.plot(range(1, len(cumvar) + 1), cumvar, marker='o', markersize=3)
+    plt.axhline(y=0.95, color='r', linestyle='--', label='95% threshold')
+    plt.axvline(x=np.argmax(cumvar >= 0.95) + 1, color='g', linestyle=':',
+                label=f'{np.argmax(cumvar >= 0.95) + 1} components')
+    plt.xlabel('Number of Components')
+    plt.ylabel('Cumulative Explained Variance')
+    plt.title('PCA: Explained Variance vs. Components')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+    # ---------------------------------------------------------
+    # 4. Benchmark: Model WITHOUT PCA
     # ---------------------------------------------------------
     print("\n🐢 Training Logistic Regression on Full Data (64 Features)...")
     model_base = LogisticRegression(max_iter=1000)
@@ -45,7 +63,7 @@ def run_pca_lab():
     print(f"✅ Baseline Accuracy: {score_base:.4f}")
 
     # ---------------------------------------------------------
-    # 4. Applying PCA
+    # 5. Applying PCA
     # ---------------------------------------------------------
     # We ask PCA to retain 95% of the useful information (variance)
     pca = PCA(n_components=0.95)
@@ -60,7 +78,7 @@ def run_pca_lab():
     print(f"Features reduced from 64 -> {pca.n_components_}")
 
     # ---------------------------------------------------------
-    # 5. Model WITH PCA
+    # 6. Model WITH PCA
     # ---------------------------------------------------------
     print("\n🐇 Training Logistic Regression on PCA Data...")
     model_pca = LogisticRegression(max_iter=1000)
@@ -70,7 +88,7 @@ def run_pca_lab():
     print(f"✅ PCA Accuracy: {score_pca:.4f}")
     
     # ---------------------------------------------------------
-    # 6. Conclusion
+    # 7. Conclusion
     # ---------------------------------------------------------
     print("-" * 30)
     print(f"Speed/Efficiency Gain: Features reduced by {(64 - pca.n_components_)/64:.0%}")

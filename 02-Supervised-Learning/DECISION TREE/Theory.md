@@ -52,6 +52,70 @@ $$
 ### ❌ Cons
 * **Overfitting:** Trees tend to grow very deep and memorize the noise (High Variance).
 * **Instability:** Small changes in data can result in a completely different tree structure.
+* **Greedy Behavior:** Each split is locally optimal — no guarantee of globally optimal tree.
 
 ---
+
+## 4. Pruning: Controlling Overfitting
+
+**Pre-pruning** (early stopping) limits tree growth during training:
+* `max_depth`: Maximum depth of the tree (e.g., 5–10).
+* `min_samples_split`: Minimum samples required to split a node (e.g., 10–20).
+* `min_samples_leaf`: Minimum samples at a leaf node (e.g., 5–10).
+
+**Post-pruning** grows the full tree first, then removes branches that don't improve validation performance (e.g., `ccp_alpha` in sklearn's Cost-Complexity Pruning).
+
+---
+
+## 5. Code Example
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+
+iris = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    iris.data, iris.target, test_size=0.2, random_state=42
+)
+
+# Unpruned tree (will overfit)
+dt_unpruned = DecisionTreeClassifier(random_state=42)
+dt_unpruned.fit(X_train, y_train)
+print(f"Unpruned — Train: {dt_unpruned.score(X_train, y_train):.3f}, "
+      f"Test: {dt_unpruned.score(X_test, y_test):.3f}")
+
+# Pruned tree (generalizes better)
+dt_pruned = DecisionTreeClassifier(max_depth=3, min_samples_leaf=5, random_state=42)
+dt_pruned.fit(X_train, y_train)
+print(f"Pruned   — Train: {dt_pruned.score(X_train, y_train):.3f}, "
+      f"Test: {dt_pruned.score(X_test, y_test):.3f}")
+
+# Visualize the pruned tree
+plt.figure(figsize=(12, 6))
+plot_tree(dt_pruned, feature_names=iris.feature_names,
+          class_names=iris.target_names, filled=True)
+plt.title("Pruned Decision Tree (max_depth=3)")
+plt.show()
+```
+
+---
+
+## 6. Feature Importance
+
+Decision Trees rank features by how much they reduce impurity across all splits:
+
+```python
+import pandas as pd
+fi = pd.Series(dt_pruned.feature_importances_, index=iris.feature_names)
+fi.sort_values().plot(kind='barh', title='Feature Importance')
+plt.show()
+```
+
+> Features that never appear in any split have importance = 0.
+
+---
+
 **External Exercise:** [Codebasics Decision Tree Lab](https://github.com/codebasics/py/blob/master/ML/9_decision_tree/Exercise/9_decision_tree_exercise.ipynb)

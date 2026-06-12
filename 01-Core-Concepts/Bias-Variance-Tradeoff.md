@@ -73,3 +73,58 @@ How to tune hyperparameters and adjust architecture to find the optimal balance.
 The "Goldilocks" zone of Machine Learning is finding the optimal balance where both Bias and Variance are minimized, leading to the lowest Total Error.
 
 $$\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+---
+
+## 5. Code Demo: Visualizing Bias vs. Variance
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.metrics import mean_squared_error
+
+# Generate synthetic data: y = sin(x) + noise
+np.random.seed(42)
+X = np.sort(np.random.uniform(0, 10, 30)).reshape(-1, 1)
+y = np.sin(X).ravel() + np.random.normal(0, 0.3, 30)
+
+fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+
+# High Bias (Underfitting) — degree 1
+model_bias = make_pipeline(PolynomialFeatures(1), LinearRegression())
+model_bias.fit(X, y)
+y_pred_bias = model_bias.predict(X)
+axes[0].scatter(X, y, color='blue', s=20)
+axes[0].plot(X, y_pred_bias, color='red', linewidth=2)
+axes[0].set_title(f"High Bias (Degree 1)\nMSE = {mean_squared_error(y, y_pred_bias):.3f}")
+
+# Balanced — degree 4
+model_balanced = make_pipeline(PolynomialFeatures(4), LinearRegression())
+model_balanced.fit(X, y)
+y_pred_balanced = model_balanced.predict(X)
+axes[1].scatter(X, y, color='blue', s=20)
+axes[1].plot(np.linspace(0, 10, 200).reshape(-1, 1),
+             model_balanced.predict(np.linspace(0, 10, 200).reshape(-1, 1)),
+             color='red', linewidth=2)
+axes[1].set_title(f"Balanced (Degree 4)\nMSE = {mean_squared_error(y, y_pred_balanced):.3f}")
+
+# High Variance (Overfitting) — degree 20
+model_var = make_pipeline(PolynomialFeatures(20), LinearRegression())
+model_var.fit(X, y)
+y_pred_var = model_var.predict(X)
+axes[2].scatter(X, y, color='blue', s=20)
+X_plot = np.linspace(0, 10, 200).reshape(-1, 1)
+axes[2].plot(X_plot, model_var.predict(X_plot), color='red', linewidth=2)
+axes[2].set_title(f"High Variance (Degree 20)\nMSE = {mean_squared_error(y, y_pred_var):.3f}")
+
+for ax in axes:
+    ax.set_xlabel("X")
+    ax.set_ylabel("y")
+plt.tight_layout()
+plt.show()
+```
+
+> **Key Takeaway:** A degree-1 model is too rigid (high bias). A degree-20 model fits training noise perfectly but oscillates wildly between points (high variance). Degree-4 strikes the balance — low training error *and* smooth generalization.
