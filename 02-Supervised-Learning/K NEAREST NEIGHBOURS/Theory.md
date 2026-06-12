@@ -1,4 +1,4 @@
-# K-Nearest Neighbors (KNN) 🏘️
+# K-Nearest Neighbors (KNN)
 
 ## 1. Concept Overview
 **K-Nearest Neighbors (KNN)** is a supervised learning algorithm used for both Classification and Regression. It is an **Instance-Based** or **Lazy Learning** algorithm, meaning it does not construct an internal model during training. Instead, it stores the entire training dataset and performs computation only during inference.
@@ -28,7 +28,7 @@ To classify a new data point, the algorithm identifies the $K$ closest data poin
 ### B. Distance Metrics
 How do we define "Close"?
 * **Euclidean Distance:** (Standard) Straight-line distance.
-  $$d(p, q) = \sqrt{\sum (p_i - q_i)^2}$$
+ $$d(p, q) = \sqrt{\sum (p_i - q_i)^2}$$
 * **Manhattan Distance:** Grid-like path (sum of absolute differences).
 * **Minkowski Distance:** A generalization of both.
 
@@ -39,12 +39,12 @@ Since KNN relies on distance, features with larger magnitudes (e.g., Salary: 100
 
 ## 4. Advantages vs. Disadvantages
 
-### ✅ Pros
+### Pros
 * **Simple:** Easy to understand and implement.
 * **Non-Parametric:** Makes no assumptions about the underlying data distribution.
 * **Versatile:** Works for multi-class problems naturally.
 
-### ❌ Cons
+### Cons
 * **Computationally Expensive:** Must calculate distance to *every* training point for *every* prediction ($O(N)$ inference).
 * **Memory Intensive:** Must keep the entire dataset in RAM.
 * **Curse of Dimensionality:** Performance degrades rapidly as the number of features increases (distance becomes meaningless in high dimensions).
@@ -61,7 +61,7 @@ from sklearn.datasets import load_iris
 
 iris = load_iris()
 X_train, X_test, y_train, y_test = train_test_split(
-    iris.data, iris.target, test_size=0.2, random_state=42
+ iris.data, iris.target, test_size=0.2, random_state=42
 )
 
 # Scaling is mandatory for KNN
@@ -71,10 +71,10 @@ X_test_s = scaler.transform(X_test)
 
 # Compare different K values
 for k in [1, 3, 5, 10, 20]:
-    knn = KNeighborsClassifier(n_neighbors=k)
-    knn.fit(X_train_s, y_train)
-    acc = knn.score(X_test_s, y_test)
-    print(f"  K={k:2d} — Accuracy: {acc:.3f}")
+ knn = KNeighborsClassifier(n_neighbors=k)
+ knn.fit(X_train_s, y_train)
+ acc = knn.score(X_test_s, y_test)
+ print(f" K={k:2d} — Accuracy: {acc:.3f}")
 ```
 
 ---

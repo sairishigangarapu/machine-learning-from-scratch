@@ -1,4 +1,4 @@
-# Artificial Neural Networks: From Neurons to Deep Learning 🧠
+# Artificial Neural Networks: From Neurons to Deep Learning
 
 ## 1. Biological Inspiration
 
@@ -22,6 +22,14 @@ The first mathematical model of a neuron. It uses **thresholding logic**:
 $$
 y = \begin{cases} 1 & \text{if } \sum_{i=1}^{n} x_i \geq \theta \\ 0 & \text{otherwise} \end{cases}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x_i$ | The $i$-th binary input feature (0 or 1) | Each input represents a binary signal from a predecessor neuron |
+| $n$ | Total number of input features | Determines the dimensionality of the input space |
+| $\theta$ | Threshold parameter | If the sum of inputs meets or exceeds this value, the neuron fires (outputs 1) |
+| $y$ | Binary output of the neuron | 1 = neuron fires, 0 = neuron stays silent |
+| $\sum_{i=1}^{n} x_i$ | Sum of all inputs | Aggregates all incoming signals into a single value for comparison against the threshold |
 
 ### Limitations
 * Inputs must be binary (0 or 1).
@@ -50,11 +58,11 @@ $$
 ```
 Initialize w = 0, b = 0
 Repeat until convergence:
-    For each training example (x_i, y_i):
-        ŷ = predict(w, b, x_i)
-        if ŷ != y_i:
-            w = w + learning_rate * (y_i - ŷ) * x_i
-            b = b + learning_rate * (y_i - ŷ)
+ For each training example (x_i, y_i):
+ ŷ = predict(w, b, x_i)
+ if ŷ != y_i:
+ w = w + learning_rate * (y_i - ŷ) * x_i
+ b = b + learning_rate * (y_i - ŷ)
 ```
 
 > **Convergence Guarantee:** If the data is linearly separable, the Perceptron algorithm is guaranteed to converge. If not (e.g., XOR), it will loop forever.
@@ -79,10 +87,10 @@ A single perceptron **cannot learn XOR**. This limitation motivated the **Multil
 ## 5. Multilayer Perceptron (MLP) Architecture
 
 ```
-Input Layer        Hidden Layer(s)       Output Layer
-   x₁ ────────→ h₁ ────────→ ŷ
-   x₂ ────────→ h₂ ────────→
-   x₃ ────────→ h₃ ────────→
+Input Layer Hidden Layer(s) Output Layer
+ x₁ ────────→ h₁ ────────→ ŷ
+ x₂ ────────→ h₂ ────────→
+ x₃ ────────→ h₃ ────────→
 ```
 
 ### Key Definitions
@@ -99,7 +107,16 @@ $$
 \hat{y} = \sigma(\mathbf{W}_2 \mathbf{h} + \mathbf{b}_2) \quad \text{(output layer)}
 $$
 
-where $\sigma$ is a non-linear activation function.
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{x}$ | Input feature vector | The raw data fed into the network |
+| $\mathbf{W}_1$ | Weight matrix from input to hidden layer | Learns which input features are important and how to combine them |
+| $\mathbf{b}_1$ | Bias vector for the hidden layer | Allows the activation function to shift left/right, fitting data that doesn't pass through the origin |
+| $\mathbf{h}$ | Hidden layer output vector | The learned intermediate representation — each element captures a different pattern in the input |
+| $\mathbf{W}_2$ | Weight matrix from hidden to output layer | Maps the learned representation to the final prediction |
+| $\mathbf{b}_2$ | Bias vector for the output layer | Final adjustment to the output before activation |
+| $\hat{y}$ | Predicted output | The network's final prediction after all transformations |
+| $\sigma$ | Non-linear activation function (e.g., ReLU, sigmoid) | Without it, the entire network would be a single linear transformation — no more powerful than logistic regression |
 
 ---
 
@@ -136,11 +153,26 @@ $$
 \frac{\partial L}{\partial w} = \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial h} \cdot \frac{\partial h}{\partial w}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $L$ | Loss function (e.g., cross-entropy, MSE) | Quantifies how wrong the prediction is — the value we want to minimize |
+| $\frac{\partial L}{\partial \hat{y}}$ | Gradient of loss w.r.t. prediction | How much the loss changes when the prediction changes — the "error signal" |
+| $\frac{\partial \hat{y}}{\partial h}$ | Gradient of prediction w.r.t. hidden unit | How the prediction changes when hidden activations change |
+| $\frac{\partial h}{\partial w}$ | Gradient of hidden unit w.r.t. weight | How the hidden activation changes when a weight changes |
+| $w$ | A single model weight | One of the thousands/millions of parameters being optimized |
+
 **Step 3 — Update:** Move each weight in the direction that reduces the loss:
 
 $$
 w \leftarrow w - \alpha \cdot \frac{\partial L}{\partial w}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\alpha$ | Learning rate (hyperparameter) | Controls step size — too large causes overshooting/divergence, too small causes slow convergence |
+| $w$ | Current weight value | The parameter being updated |
+| $\frac{\partial L}{\partial w}$ | Gradient of loss w.r.t. this weight | The direction and magnitude of the steepest increase in loss |
+| $w - \alpha \cdot \frac{\partial L}{\partial w}$ | Updated weight | Moving against the gradient reduces the loss (gradient descent) |
 
 ### Intuition
 Backpropagation answers: *"If I nudge this weight slightly, how does the loss change?"* It propagates the error signal backward from output to input, layer by layer.
@@ -171,12 +203,12 @@ y = np.array([0, 1, 1, 0])
 from sklearn.linear_model import Perceptron
 p = Perceptron()
 p.fit(X, y)
-print(f"Perceptron accuracy: {p.score(X, y):.2f}")  # 0.50 (fails)
+print(f"Perceptron accuracy: {p.score(X, y):.2f}") # 0.50 (fails)
 
 # MLP CAN learn XOR
 mlp = MLPClassifier(hidden_layer_sizes=(4,), max_iter=1000, random_state=42)
 mlp.fit(X, y)
-print(f"MLP accuracy: {mlp.score(X, y):.2f}")  # 1.00 (succeeds)
+print(f"MLP accuracy: {mlp.score(X, y):.2f}") # 1.00 (succeeds)
 print(f"Predictions: {mlp.predict(X)}")
 ```
 
@@ -196,12 +228,12 @@ print(f"Predictions: {mlp.predict(X)}")
 
 ## 11. Advantages & Disadvantages
 
-### ✅ Pros
+### Pros
 * Can learn **non-linear** decision boundaries (unlike logistic regression).
 * Universal approximators — can approximate any continuous function with enough neurons.
 * Scale well with data and compute.
 
-### ❌ Cons
+### Cons
 * **Black box** — hard to interpret individual predictions.
 * Require careful hyperparameter tuning.
 * Prone to **overfitting** on small datasets.

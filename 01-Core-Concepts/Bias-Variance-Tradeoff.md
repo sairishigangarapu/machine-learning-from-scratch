@@ -1,4 +1,4 @@
-# The Bias-Variance Tradeoff: Model Performance Analysis ⚖️
+# The Bias-Variance Tradeoff: Model Performance Analysis
 
 In Machine Learning, the goal is to build a model that generalizes well to new, unseen data. Understanding the tension between **Bias** and **Variance** is critical for diagnosing and fixing model performance issues.
 
@@ -11,7 +11,7 @@ In Machine Learning, the goal is to build a model that generalizes well to new, 
 > **Technical Diagnosis:** **Underfitting**
 > The model fails to learn the relationships in the training data, resulting in poor performance across the board.
 
-### 📉 Symptoms
+### Symptoms
 * **High Training Error:** The model cannot even fit the known data.
 * **High Test/Validation Error:** The model fails to generalize.
 * **Characteristics:** The model is rigid and inflexible.
@@ -25,7 +25,7 @@ In Machine Learning, the goal is to build a model that generalizes well to new, 
 > **Technical Diagnosis:** **Overfitting**
 > The model "memorizes" the training data, including noise and outliers, but fails to generalize to new data.
 
-### 📉 Symptoms
+### Symptoms
 * **Low Training Error:** The model fits the training data almost perfectly.
 * **High Test/Validation Error:** Performance drops significantly on unseen data.
 * **Characteristics:** The model is unstable; small changes in training data result in large changes in the model.
@@ -51,19 +51,19 @@ How to tune hyperparameters and adjust architecture to find the optimal balance.
 ### Addressing High Bias (Fixing Underfitting)
 *Objective: Increase model complexity.*
 
-1.  **Increase Model Complexity:** Switch to a more expressive model (e.g., increase depth of Neural Network, switch from Linear Regression to Polynomial Regression).
-2.  **Feature Engineering:** Add more relevant features or interaction terms to give the model more context.
-3.  **Decrease Regularization:** Lower the regularization parameters (e.g., reduce $\lambda$ in L2 Regularization) to allow the model to fit the data more closely.
-4.  **Extend Training:** Increase the number of epochs (for iterative algorithms).
+1. **Increase Model Complexity:** Switch to a more expressive model (e.g., increase depth of Neural Network, switch from Linear Regression to Polynomial Regression).
+2. **Feature Engineering:** Add more relevant features or interaction terms to give the model more context.
+3. **Decrease Regularization:** Lower the regularization parameters (e.g., reduce $\lambda$ in L2 Regularization) to allow the model to fit the data more closely.
+4. **Extend Training:** Increase the number of epochs (for iterative algorithms).
 
 ### Addressing High Variance (Fixing Overfitting)
 *Objective: Constrain the model or increase data signal.*
 
-1.  **Increase Training Data:** Providing more examples helps the model distinguish between signal and noise.
-2.  **Regularization:** Apply L1 (Lasso) or L2 (Ridge) regularization to penalize large weights and reduce model complexity.
-3.  **Feature Selection:** Remove irrelevant or noisy features (Dimensionality Reduction).
-4.  **Ensemble Methods:** Use techniques like **Bagging** (Random Forests) or **Boosting** (XGBoost) to average out the variance across multiple models.
-5.  **Early Stopping:** Stop training when validation error begins to increase, even if training error continues to decrease.
+1. **Increase Training Data:** Providing more examples helps the model distinguish between signal and noise.
+2. **Regularization:** Apply L1 (Lasso) or L2 (Ridge) regularization to penalize large weights and reduce model complexity.
+3. **Feature Selection:** Remove irrelevant or noisy features (Dimensionality Reduction).
+4. **Ensemble Methods:** Use techniques like **Bagging** (Random Forests) or **Boosting** (XGBoost) to average out the variance across multiple models.
+5. **Early Stopping:** Stop training when validation error begins to increase, even if training error continues to decrease.
 
 ---
 
@@ -72,6 +72,13 @@ How to tune hyperparameters and adjust architecture to find the optimal balance.
 The "Goldilocks" zone of Machine Learning is finding the optimal balance where both Bias and Variance are minimized, leading to the lowest Total Error.
 
 $$\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Total Error}$ | Expected prediction error on unseen data | What we want to minimize — the overall badness of the model |
+| $\text{Bias}^2$ | Squared bias (systematic error) | Error from wrong assumptions — high bias = underfitting. Squared to ensure non-negative |
+| $\text{Variance}$ | Variance of predictions across different training sets | Error from sensitivity to training data — high variance = overfitting |
+| $\text{Irreducible Error}$ | Noise floor (data noise + inherent randomness) | Cannot be reduced by any model — sets the minimum achievable error |
 
 ---
 
@@ -106,8 +113,8 @@ model_balanced.fit(X, y)
 y_pred_balanced = model_balanced.predict(X)
 axes[1].scatter(X, y, color='blue', s=20)
 axes[1].plot(np.linspace(0, 10, 200).reshape(-1, 1),
-             model_balanced.predict(np.linspace(0, 10, 200).reshape(-1, 1)),
-             color='red', linewidth=2)
+ model_balanced.predict(np.linspace(0, 10, 200).reshape(-1, 1)),
+ color='red', linewidth=2)
 axes[1].set_title(f"Balanced (Degree 4)\nMSE = {mean_squared_error(y, y_pred_balanced):.3f}")
 
 # High Variance (Overfitting) — degree 20
@@ -120,8 +127,8 @@ axes[2].plot(X_plot, model_var.predict(X_plot), color='red', linewidth=2)
 axes[2].set_title(f"High Variance (Degree 20)\nMSE = {mean_squared_error(y, y_pred_var):.3f}")
 
 for ax in axes:
-    ax.set_xlabel("X")
-    ax.set_ylabel("y")
+ ax.set_xlabel("X")
+ ax.set_ylabel("y")
 plt.tight_layout()
 plt.show()
 ```

@@ -1,4 +1,4 @@
-# Support Vector Machine (SVM) ⚔️
+# Support Vector Machine (SVM)
 
 ## 1. Concept Overview
 **Support Vector Machine (SVM)** is a powerful supervised learning algorithm used primarily for classification. Ideally, it produces a significant accuracy with less computation power.
@@ -27,7 +27,7 @@ Defines how far the influence of a single training example reaches.
 
 ---
 
-## 3. The Kernel Trick 🥜
+## 3. The Kernel Trick
 What if data isn't linearly separable (e.g., a circle inside another circle)?
 SVM uses **Kernels** to project data into a higher-dimensional space where it *becomes* linearly separable.
 
@@ -51,6 +51,14 @@ $$
 \min \frac{1}{2}\|\mathbf{w}\|^2 + C \sum_{i=1}^{n} \xi_i
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\frac{1}{2}\|\mathbf{w}\|^2$ | Margin maximization term | Maximizes the distance between the hyperplane and the nearest points — $\|\mathbf{w}\|$ is inversely proportional to the margin |
+| $C$ | Regularization parameter | Controls the trade-off: high $C$ = fewer misclassifications (narrow margin), low $C$ = more misclassifications (wider margin) |
+| $\xi_i$ | Slack variable for sample $i$ | How much point $i$ is allowed to violate the margin — 0 = on the correct side, > 0 = misclassified or inside the margin |
+| $\sum_{i=1}^{n} \xi_i$ | Total misclassification cost | Sum of all margin violations — the penalty for having a non-perfect classifier |
+| $\min$ | Minimization objective | We find $\mathbf{w}$, $b$, and $\xi$ that jointly minimize this combined objective |
+
 The parameter $C$ controls the penalty for misclassification:
 * $C = \infty$ → Hard Margin (no errors allowed)
 * $C \to 0$ → Wide margin, more errors tolerated
@@ -69,16 +77,16 @@ from sklearn.metrics import classification_report
 
 iris = load_iris()
 X_train, X_test, y_train, y_test = train_test_split(
-    iris.data, iris.target, test_size=0.2, random_state=42
+ iris.data, iris.target, test_size=0.2, random_state=42
 )
 
 # Compare kernels
 for kernel in ['linear', 'rbf', 'poly']:
-    svm = SVC(kernel=kernel, C=1.0, gamma='scale', random_state=42)
-    svm.fit(X_train, y_train)
-    acc = svm.score(X_test, y_test)
-    n_sv = svm.n_support_.sum()
-    print(f"  {kernel:8s} — Accuracy: {acc:.3f}, Support Vectors: {n_sv}")
+ svm = SVC(kernel=kernel, C=1.0, gamma='scale', random_state=42)
+ svm.fit(X_train, y_train)
+ acc = svm.score(X_test, y_test)
+ n_sv = svm.n_support_.sum()
+ print(f" {kernel:8s} — Accuracy: {acc:.3f}, Support Vectors: {n_sv}")
 ```
 
 ---

@@ -1,4 +1,4 @@
-# Gaussian Mixture Models (GMM) & EM Algorithm 📊
+# Gaussian Mixture Models (GMM) & EM Algorithm
 
 ## 1. Concept Overview
 A **Gaussian Mixture Model** assumes that the data is generated from a mixture of several Gaussian distributions, each representing a cluster. Unlike K-Means (hard assignment), GMM performs **soft assignment** — each point has a probability of belonging to each cluster.
@@ -52,12 +52,28 @@ $$
 \pi_k = \frac{\sum_i r_{ik}}{n}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $r_{ik}$ | Responsibility — probability that point $i$ belongs to component $k$ | Computed in the E-step; weights each point's contribution to parameter updates |
+| $\mathbf{x}_i$ | The $i$-th data point (feature vector) | One observation from the dataset |
+| $\boldsymbol{\mu}_k$ | Mean vector of the $k$-th Gaussian component | The "center" of cluster $k$; updated as responsibility-weighted average |
+| $\boldsymbol{\Sigma}_k$ | Covariance matrix of the $k$-th Gaussian | Determines the shape and orientation of the elliptical cluster |
+| $\pi_k$ | Mixing coefficient for component $k$ | Probability that a random point came from component $k$; must sum to 1 across all $K$ components |
+| $n$ | Total number of data points | Normalizes the sum to compute the weighted average |
+
 ### Convergence
 Repeat E and M steps until the log-likelihood converges:
 
 $$
 \log p(\mathbf{X} \mid \boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Sigma}) = \sum_{i=1}^{n} \log \left[ \sum_{k=1}^{K} \pi_k \cdot \mathcal{N}(\mathbf{x}_i \mid \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k) \right]
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{X}$ | The entire dataset (matrix of all data points) | What we're evaluating the model on |
+| $\boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Sigma}$ | All model parameters (mixing coefficients, means, covariances) | The parameters being optimized by EM |
+| $\mathcal{N}(\mathbf{x}_i \mid \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$ | Gaussian density of point $i$ under component $k$ | How likely component $k$ is to have generated point $i$ |
+| $K$ | Number of Gaussian components (clusters) | The model complexity — must be chosen or selected via BIC/AIC |
 
 ---
 
@@ -67,12 +83,26 @@ $$
 $$
 \text{BIC} = -2 \log p(\mathbf{X}) + p \log n
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $p(\mathbf{X})$ | Likelihood of the data given the model | Higher is better — the model explains the data well |
+| $p$ | Number of estimated parameters in the model | More parameters = more complex model |
+| $n$ | Number of data points | Larger datasets get a bigger penalty for complexity |
+
 Lower BIC is better. It penalizes model complexity (more components).
 
 ### AIC (Akaike Information Criterion)
 $$
 \text{AIC} = -2 \log p(\mathbf{X}) + 2p
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $p(\mathbf{X})$ | Likelihood of the data given the model | Same as BIC |
+| $p$ | Number of estimated parameters | Same as BIC |
+| $2p$ | Penalty term | Weaker penalty than BIC — tends to select more complex models |
+
 Similar to BIC but with a weaker penalty.
 
 ---
@@ -90,9 +120,9 @@ X, y_true = make_blobs(n_samples=300, centers=3, random_state=42)
 # Fit GMM with different k
 bic_scores = []
 for k in range(1, 7):
-    gmm = GaussianMixture(n_components=k, random_state=42)
-    gmm.fit(X)
-    bic_scores.append(gmm.bic(X))
+ gmm = GaussianMixture(n_components=k, random_state=42)
+ gmm.fit(X)
+ bic_scores.append(gmm.bic(X))
 
 best_k = np.argmin(bic_scores) + 1
 print(f"Best k by BIC: {best_k}")
@@ -100,7 +130,7 @@ print(f"Best k by BIC: {best_k}")
 # Final model
 gmm = GaussianMixture(n_components=3, random_state=42)
 labels = gmm.fit_predict(X)
-probs = gmm.predict_proba(X)  # Soft assignments
+probs = gmm.predict_proba(X) # Soft assignments
 
 print(f"Cluster means:\n{gmm.means_}")
 print(f"Mixing coefficients: {gmm.weights_}")
@@ -123,13 +153,13 @@ print(f"Silhouette Score: {silhouette_score(X, labels):.3f}")
 
 ## 8. Advantages & Disadvantages
 
-### ✅ Pros
+### Pros
 * **Soft clustering** — probabilities are more informative than hard labels.
 * Flexible cluster shapes (full covariance matrices).
 * Principled model selection (BIC/AIC).
 * Probabilistic framework — can handle overlapping clusters.
 
-### ❌ Cons
+### Cons
 * Sensitive to initialization (like K-Means).
 * Can converge to local optima.
 * Assumes Gaussian distributions (may not fit real data).

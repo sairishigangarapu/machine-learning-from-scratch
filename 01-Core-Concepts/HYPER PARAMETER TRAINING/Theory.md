@@ -1,4 +1,4 @@
-# Hyperparameter Optimization Strategies 🎛️
+# Hyperparameter Optimization Strategies
 
 ## 1. The Challenge of Tuning
 Machine Learning models are governed by **Hyperparameters**—settings that are not learned from data but must be defined *before* training (e.g., `learning_rate` in Gradient Descent, `k` in KNN).
@@ -10,7 +10,7 @@ Finding the optimal combination manually using nested loops is inefficient and c
 ## 2. Strategy A: Grid Search (`GridSearchCV`)
 Grid Search performs an **exhaustive search** over a specified parameter grid.
 
-### ✅ When to use
+### When to use
 * The search space is **small and finite**.
 * You need to guarantee finding the absolute best combination within the grid.
 * Computational resources are not a constraint.
@@ -26,7 +26,7 @@ Grid Search performs an **exhaustive search** over a specified parameter grid.
 ## 3. Strategy B: Randomized Search (`RandomizedSearchCV`)
 Randomized Search samples a fixed number of parameter settings from specified probability distributions.
 
-### ✅ When to use
+### When to use
 * The search space is **large or continuous**.
 * You want to find a "good enough" model quickly.
 * Some parameters are more important than others (sparsity of the search space).
@@ -39,58 +39,58 @@ Randomized Search samples a fixed number of parameter settings from specified pr
 
 ---
 
-## 4. Hyperparameter Reference Guide 📖
-## 5. Algorithm-Specific Parameter Grids 🎛️
+## 4. Hyperparameter Reference Guide
+## 5. Algorithm-Specific Parameter Grids
 
 Use these `param_dist` dictionaries when configuring your `RandomizedSearchCV`.
 
-### 🤖 Logistic Regression
+### Logistic Regression
 ```python
 param_dist = {
-    'C': loguniform(1e-4, 1e4),   # Inverse regularization (Lower = Stronger Reg)
-    'penalty': ['l1', 'l2', 'elasticnet'],
-    'solver': ['liblinear', 'saga'], # 'saga' handles all penalties
-    'max_iter': [100, 200, 500]
+ 'C': loguniform(1e-4, 1e4), # Inverse regularization (Lower = Stronger Reg)
+ 'penalty': ['l1', 'l2', 'elasticnet'],
+ 'solver': ['liblinear', 'saga'], # 'saga' handles all penalties
+ 'max_iter': [100, 200, 500]
 }
 ```
 
-### 🧠 Support Vector Machine (SVM) 
+### Support Vector Machine (SVM)
 ```python
 param_dist = {
-    'C': uniform(0.1, 100),       # Penalty parameter of the error term
-    'kernel': ['linear', 'rbf', 'poly'],
-    'gamma': ['scale', 'auto'],   # Kernel coefficient
-    'degree': [2, 3, 4]           # Only for 'poly' kernel
+ 'C': uniform(0.1, 100), # Penalty parameter of the error term
+ 'kernel': ['linear', 'rbf', 'poly'],
+ 'gamma': ['scale', 'auto'], # Kernel coefficient
+ 'degree': [2, 3, 4] # Only for 'poly' kernel
 }
 ```
 
-### 🌳 Random Forest
+### Random Forest
 ```python
 param_dist = {
-    'n_estimators': randint(50, 300),    # Number of trees
-    'max_depth': randint(3, 20),         # Pruning depth
-    'min_samples_split': randint(2, 10), # Prevent overfitting
-    'min_samples_leaf': randint(1, 5),   # Smooth predictions
-    'bootstrap': [True, False],
-    'criterion': ['gini', 'entropy']
+ 'n_estimators': randint(50, 300), # Number of trees
+ 'max_depth': randint(3, 20), # Pruning depth
+ 'min_samples_split': randint(2, 10), # Prevent overfitting
+ 'min_samples_leaf': randint(1, 5), # Smooth predictions
+ 'bootstrap': [True, False],
+ 'criterion': ['gini', 'entropy']
 }
 ```
 
-### 📈 K-Nearest Neighbors (KNN)
+### K-Nearest Neighbors (KNN)
 ```python
 param_dist = {
-    'n_neighbors': randint(1, 30),
-    'weights': ['uniform', 'distance'],  # 'distance' gives weight to closer neighbors
-    'metric': ['euclidean', 'manhattan']
+ 'n_neighbors': randint(1, 30),
+ 'weights': ['uniform', 'distance'], # 'distance' gives weight to closer neighbors
+ 'metric': ['euclidean', 'manhattan']
 }
 ```
 
-### 🚀 Gradient Boosting (XGBoost / GBM)
+### Gradient Boosting (XGBoost / GBM)
 ```python
 param_dist = {
-    'learning_rate': uniform(0.01, 0.3), # Step size shrinkage
-    'n_estimators': randint(100, 1000),  # Boosting rounds
-    'max_depth': randint(3, 10),         # Tree complexity
-    'subsample': uniform(0.6, 0.4)       # Stochastic boosting
+ 'learning_rate': uniform(0.01, 0.3), # Step size shrinkage
+ 'n_estimators': randint(100, 1000), # Boosting rounds
+ 'max_depth': randint(3, 10), # Tree complexity
+ 'subsample': uniform(0.6, 0.4) # Stochastic boosting
 }
 ```

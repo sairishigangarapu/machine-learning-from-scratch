@@ -1,4 +1,4 @@
-# XGBoost & Gradient Boosting: The Tabular ML King 🏆
+# XGBoost & Gradient Boosting: The Tabular ML King
 
 ## 1. Why Gradient Boosting?
 
@@ -33,12 +33,13 @@ $$
 \hat{y}_i^{(t)} = \hat{y}_i^{(t-1)} + \eta \cdot f_t(\mathbf{x}_i)
 $$
 
-| Symbol | Meaning |
-| :--- | :--- |
-| $\hat{y}_i^{(t)}$ | Prediction for sample $i$ after $t$ trees |
-| $f_t$ | The $t$-th weak learner (tree) |
-| $\eta$ | **Learning rate** (shrinkage) — contribution of each tree |
-| Residuals $r_i = y_i - \hat{y}_i^{(t-1)}$ | What the current ensemble still gets wrong |
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\hat{y}_i^{(t)}$ | Prediction for sample $i$ after adding tree $t$ | The current ensemble prediction — updated incrementally with each new tree |
+| $\hat{y}_i^{(t-1)}$ | Prediction for sample $i$ after tree $t-1$ | The previous ensemble prediction before adding the new tree |
+| $\eta$ | Learning rate (shrinkage, e.g., 0.1) | Scales down each tree's contribution — lower $\eta$ = more regularization, requires more trees |
+| $f_t(\mathbf{x}_i)$ | Prediction of the $t$-th tree for sample $i$ | The weak learner's output — typically a shallow decision tree predicting residuals |
+| $r_i = y_i - \hat{y}_i^{(t-1)}$ | Residual for sample $i$ | What the current ensemble gets wrong — the new tree learns to predict these residuals |
 
 ### Step by Step
 1. Start with a simple prediction (mean for regression, log-odds for classification).
@@ -101,13 +102,13 @@ from sklearn.ensemble import RandomForestClassifier
 
 # Generate data
 X, y = make_classification(n_samples=1000, n_features=20, n_informative=10,
-                           random_state=42)
+ random_state=42)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # XGBoost
 xgb_model = xgb.XGBClassifier(
-    n_estimators=200, max_depth=5, learning_rate=0.1,
-    subsample=0.8, colsample_bytree=0.8, eval_metric='logloss'
+ n_estimators=200, max_depth=5, learning_rate=0.1,
+ subsample=0.8, colsample_bytree=0.8, eval_metric='logloss'
 )
 xgb_model.fit(X_train, y_train)
 xgb_acc = accuracy_score(y_test, xgb_model.predict(X_test))
@@ -117,7 +118,7 @@ rf = RandomForestClassifier(n_estimators=200, max_depth=10, random_state=42)
 rf.fit(X_train, y_train)
 rf_acc = accuracy_score(y_test, rf.predict(X_test))
 
-print(f"XGBoost:       {xgb_acc:.4f}")
+print(f"XGBoost: {xgb_acc:.4f}")
 print(f"Random Forest: {rf_acc:.4f}")
 ```
 
@@ -168,14 +169,14 @@ fi.sort_values(ascending=False).head(10).plot(kind='bar', title='XGBoost Feature
 
 ## 10. Advantages & Disadvantages
 
-### ✅ Pros
+### Pros
 * **State-of-the-art on tabular data** — beats deep learning on most structured datasets.
 * Handles missing values natively.
 * Built-in regularization (L1, L2).
 * Feature importance built in.
 * Works with mixed feature types (numeric + categorical).
 
-### ❌ Cons
+### Cons
 * **Black box** — harder to interpret than a single tree.
 * Sequential training — can't parallelize across trees.
 * Sensitive to **noisy data** and **outliers** (can memorize noise).

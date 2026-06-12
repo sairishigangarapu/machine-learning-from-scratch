@@ -1,4 +1,4 @@
-# Linear Regression: Foundations 📉
+# Linear Regression: Foundations
 
 ## 1. Concept Overview
 **Linear Regression** is a supervised learning algorithm used for predicting a continuous dependent variable ($y$) based on one or more independent variables ($x$).
@@ -42,7 +42,7 @@ The goal of training is to find the optimal values for $m$ and $c$ that minimize
 
 ---
 
-## 4. Mathematical Deep Dive 🧠
+## 4. Mathematical Deep Dive
 To understand the matrix calculus and pseudo-inverse math behind the line of best fit:
 * [Lecture 21: Least Squares & Pseudo-Inverse](../../00-Mathematics-Foundation/Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) (The Algebraic Engine)
 * [Lecture 22: Linear and Multiple Regression](../../00-Mathematics-Foundation/Lecture%2022%20Linear%20and%20Multiple%20Regression.md) (The Core Foundation)

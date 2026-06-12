@@ -1,4 +1,4 @@
-# Random Forest: Ensemble Learning 🌲🌲🌲
+# Random Forest: Ensemble Learning
 
 ## 1. Concept Overview
 **Random Forest** is a supervised learning algorithm that utilizes **Ensemble Learning**. It operates by constructing a multitude of Decision Trees during training and outputting the class that is the **mode** (majority vote) of the classes (classification) or mean prediction (regression) of the individual trees.
@@ -27,12 +27,12 @@ Random Forest relies on **Bagging** (Bootstrap Aggregation).
 
 ## 3. Advantages vs. Disadvantages
 
-### ✅ Pros
+### Pros
 * **Robustness:** Handles outliers and noise much better than single Decision Trees.
 * **Feature Importance:** Can automatically identify which features are most predictive.
 * **No Scaling:** Like Decision Trees, it requires no feature scaling/normalization.
 
-### ❌ Cons
+### Cons
 * **Black Box:** Harder to interpret than a single tree (you can't easily draw the forest).
 * **Latency:** Slower predictions because every tree has to calculate an output.
 * **Memory:** Stores all trees in memory, which can be significant for very large forests.
@@ -69,7 +69,7 @@ import pandas as pd
 
 iris = load_iris()
 X_train, X_test, y_train, y_test = train_test_split(
-    iris.data, iris.target, test_size=0.2, random_state=42
+ iris.data, iris.target, test_size=0.2, random_state=42
 )
 
 rf = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42, n_jobs=-1)

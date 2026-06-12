@@ -1,4 +1,4 @@
-# Hierarchical Clustering 🌳
+# Hierarchical Clustering
 
 ## 1. Concept Overview
 **Hierarchical Clustering** builds a tree-like hierarchy of clusters (a **dendrogram**), either by progressively merging small clusters (**agglomerative**) or splitting large clusters (**divisive**).
@@ -93,12 +93,12 @@ plt.show()
 
 ## 7. Advantages & Disadvantages
 
-### ✅ Pros
+### Pros
 * No need to pre-specify $k$ — the dendrogram reveals structure.
 * Can produce arbitrarily shaped clusters (with single/average linkage).
 * Deterministic and reproducible.
 
-### ❌ Cons
+### Cons
 * **Computationally expensive** — $O(n^2)$ distance matrix makes it impractical for >10K points.
 * **Sensitive to noise** — single linkage is prone to chaining.
 * **Irreversible merges** — once two clusters are merged, they cannot be split.

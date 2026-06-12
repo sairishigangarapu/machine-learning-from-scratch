@@ -1,4 +1,4 @@
-# Decision Tree: The "White Box" Model 🌳
+# Decision Tree: The "White Box" Model
 
 ## 1. Concept Overview
 A **Decision Tree** is a supervised learning algorithm that makes predictions by asking a sequence of "Yes/No" questions. It splits the data into smaller, more homogeneous subsets until it reaches a final conclusion.
@@ -26,6 +26,13 @@ $$
 Gini = 1 - \sum_{i=1}^{n} (p_i)^2
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $Gini$ | Gini impurity score | Ranges from 0 (pure) to 0.5 (maximally impure for binary) — lower is better |
+| $p_i$ | Proportion of samples belonging to class $i$ | The fraction of data points in this node that are class $i$ |
+| $(p_i)^2$ | Squared proportion | Penalizes large classes more — a node dominated by one class has low Gini |
+| $1 - \sum$ | Complement of sum of squares | 1 minus the probability of correct classification = probability of misclassification |
+
 * **Gini = 0:** Pure node (all samples belong to one class).
 * **Gini = 0.5:** Maximum impurity (50/50 split in binary classification).
 
@@ -36,20 +43,33 @@ $$
 Entropy = - \sum_{i=1}^{n} p_i \log_2(p_i)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $Entropy$ | Shannon entropy of the node | Ranges from 0 (pure) to $\log_2 K$ (maximally impure) — lower is better |
+| $p_i$ | Proportion of samples in class $i$ | Same as Gini — the fraction of the node belonging to class $i$ |
+| $-\sum$ | Negative sum | Ensures entropy is non-negative (since $\log_2(p_i) \leq 0$ for $p_i \leq 1$) |
+| $\log_2$ | Base-2 logarithm | Measures information in bits — entropy is the average bits needed to encode a class label |
+
 $$
 \text{Info Gain} = \text{Entropy(Parent)} - \text{Weighted Avg Entropy(Children)}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Entropy(Parent)}$ | Entropy before the split | How mixed the node was before splitting |
+| $\text{Weighted Avg Entropy(Children)}$ | Entropy after the split, weighted by child sizes | How mixed the children are — weighted by how many points went to each child |
+| $\text{Info Gain}$ | Reduction in entropy | Higher = more informative split — the algorithm chooses the feature with maximum Info Gain |
 
 ---
 
 ## 3. Advantages & Disadvantages
 
-### ✅ Pros
+### Pros
 * **Interpretability:** You can draw the tree and explain exactly *why* a decision was made.
 * **No Scaling:** Requires no normalization or scaling of data.
 * **Versatile:** Handles both Numerical and Categorical data.
 
-### ❌ Cons
+### Cons
 * **Overfitting:** Trees tend to grow very deep and memorize the noise (High Variance).
 * **Instability:** Small changes in data can result in a completely different tree structure.
 * **Greedy Behavior:** Each split is locally optimal — no guarantee of globally optimal tree.
@@ -78,25 +98,25 @@ import matplotlib.pyplot as plt
 
 iris = load_iris()
 X_train, X_test, y_train, y_test = train_test_split(
-    iris.data, iris.target, test_size=0.2, random_state=42
+ iris.data, iris.target, test_size=0.2, random_state=42
 )
 
 # Unpruned tree (will overfit)
 dt_unpruned = DecisionTreeClassifier(random_state=42)
 dt_unpruned.fit(X_train, y_train)
 print(f"Unpruned — Train: {dt_unpruned.score(X_train, y_train):.3f}, "
-      f"Test: {dt_unpruned.score(X_test, y_test):.3f}")
+ f"Test: {dt_unpruned.score(X_test, y_test):.3f}")
 
 # Pruned tree (generalizes better)
 dt_pruned = DecisionTreeClassifier(max_depth=3, min_samples_leaf=5, random_state=42)
 dt_pruned.fit(X_train, y_train)
-print(f"Pruned   — Train: {dt_pruned.score(X_train, y_train):.3f}, "
-      f"Test: {dt_pruned.score(X_test, y_test):.3f}")
+print(f"Pruned — Train: {dt_pruned.score(X_train, y_train):.3f}, "
+ f"Test: {dt_pruned.score(X_test, y_test):.3f}")
 
 # Visualize the pruned tree
 plt.figure(figsize=(12, 6))
 plot_tree(dt_pruned, feature_names=iris.feature_names,
-          class_names=iris.target_names, filled=True)
+ class_names=iris.target_names, filled=True)
 plt.title("Pruned Decision Tree (max_depth=3)")
 plt.show()
 ```

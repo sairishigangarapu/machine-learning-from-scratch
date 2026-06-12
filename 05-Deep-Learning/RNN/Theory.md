@@ -1,4 +1,4 @@
-# Recurrent Neural Networks (RNNs) 📝
+# Recurrent Neural Networks (RNNs)
 
 ## 1. Why RNNs?
 
@@ -11,13 +11,17 @@ $$
 y_t = W_{hy} h_t + c
 $$
 
-| Symbol | Meaning |
-| :--- | :--- |
-| $x_t$ | Input at time step $t$ |
-| $h_t$ | Hidden state at time step $t$ (the "memory") |
-| $y_t$ | Output at time step $t$ |
-| $W_{hh}$ | Recurrent weights (hidden → hidden) |
-| $W_{xh}$ | Input weights (input → hidden) |
+| Symbol | Definition | Significance |
+| :--- | :--- | :--- |
+| $x_t$ | Input vector at time step $t$ | The current token/feature being processed |
+| $h_t$ | Hidden state at time step $t$ | The network's "memory" — encodes all past information up to step $t$ |
+| $y_t$ | Output vector at time step $t$ | The prediction at this time step |
+| $W_{hh}$ | Recurrent weight matrix (hidden → hidden) | Controls how the previous hidden state influences the current one — this is where temporal dependencies are learned |
+| $W_{xh}$ | Input weight matrix (input → hidden) | Controls how the current input affects the hidden state |
+| $W_{hy}$ | Hidden-to-output weight matrix | Maps the hidden state to the output space |
+| $b$ | Hidden layer bias | Allows the hidden state to shift, fitting data that doesn't pass through the origin |
+| $c$ | Output layer bias | Final adjustment to the output |
+| $\sigma$ | Activation function (typically tanh or ReLU) | Introduces non-linearity; without it, the RNN collapses to a linear model |
 
 ---
 
@@ -27,8 +31,8 @@ The RNN is **unrolled** across time steps, revealing that it is essentially a de
 
 ```
 x₁ → [RNN] → h₁ → [RNN] → h₂ → [RNN] → h₃ → output
-        ↑              ↑              ↑
-       W_hh           W_hh           W_hh    (same weights)
+ ↑ ↑ ↑
+ W_hh W_hh W_hh (same weights)
 ```
 
 ---
@@ -40,6 +44,13 @@ RNNs are trained by unrolling the network and applying backpropagation across al
 $$
 \frac{\partial L}{\partial W} = \sum_{t=1}^{T} \frac{\partial L_t}{\partial W}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $L$ | Total loss across all time steps | The sum of losses at each time step — what we minimize |
+| $L_t$ | Loss at time step $t$ | How wrong the prediction is at this specific step |
+| $W$ | All model weights (shared across time steps) | The same weights are used at every step — gradients are accumulated |
+| $T$ | Total number of time steps | The length of the input sequence |
 
 ### The Vanishing Gradient Problem
 Because gradients are multiplied repeatedly through $W_{hh}$, they either:
@@ -71,6 +82,19 @@ $$
 h_t = o_t \odot \tanh(C_t) \quad \text{(hidden output)}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\tilde{C}_t$ | Candidate cell state | New information that could be added to the cell state (before gating) |
+| $W_C$ | Weight matrix for the candidate | Learns what new information to generate |
+| $b_C$ | Bias for the candidate | Allows the candidate to shift |
+| $C_t$ | Current cell state | The "conveyor belt" — carries information across time steps with minimal modification |
+| $C_{t-1}$ | Previous cell state | The memory from the last time step |
+| $f_t$ | Forget gate output (0 to 1 per element) | Element-wise multiplier: 0 = forget completely, 1 = keep completely |
+| $i_t$ | Input gate output (0 to 1 per element) | Element-wise multiplier: 0 = ignore candidate, 1 = fully accept candidate |
+| $\odot$ | Hadamard (element-wise) product | Each element is multiplied independently — gates operate per-dimension |
+| $o_t$ | Output gate output (0 to 1 per element) | Controls how much of the cell state is exposed to the hidden output |
+| $h_t$ | Final hidden output | The visible output of the LSTM cell at this time step |
+
 The cell state $C_t$ is the "conveyor belt" — information can flow through it with only minor linear interactions (multiply by forget gate, add input), preserving gradients over long sequences.
 
 ---
@@ -90,6 +114,16 @@ $$
 $$
 h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\tilde{h}_t$ | Candidate hidden state | New information proposed for the hidden state (before gating) |
+| $W$ | Shared weight matrix | Learns both the candidate generation and gate behaviors |
+| $r_t$ | Reset gate output | Controls how much of the past hidden state to forget when generating the candidate |
+| $z_t$ | Update gate output | Controls the blend between old state ($1 - z_t$) and new candidate ($z_t$) |
+| $\odot$ | Hadamard (element-wise) product | Element-wise multiplication — gates operate per-dimension |
+| $(1 - z_t) \odot h_{t-1}$ | Retained portion of old state | What we keep from the past |
+| $z_t \odot \tilde{h}_t$ | New information added | What we accept from the candidate |
 
 > GRUs have **fewer parameters** than LSTMs (2 gates vs 3) and often perform comparably.
 
@@ -125,23 +159,23 @@ import torch
 import torch.nn as nn
 
 class LSTMClassifier(nn.Module):
-    def __init__(self, input_size, hidden_size, num_classes):
-        super().__init__()
-        self.lstm = nn.LSTM(input_size, hidden_size, batch_first=True)
-        self.fc = nn.Linear(hidden_size, num_classes)
-    
-    def forward(self, x):
-        # x shape: (batch, seq_len, input_size)
-        output, (h_n, c_n) = self.lstm(x)
-        # Use last hidden state
-        last_hidden = h_n[-1]  # (batch, hidden_size)
-        return self.fc(last_hidden)
+ def __init__(self, input_size, hidden_size, num_classes):
+ super().__init__()
+ self.lstm = nn.LSTM(input_size, hidden_size, batch_first=True)
+ self.fc = nn.Linear(hidden_size, num_classes)
+
+ def forward(self, x):
+ # x shape: (batch, seq_len, input_size)
+ output, (h_n, c_n) = self.lstm(x)
+ # Use last hidden state
+ last_hidden = h_n[-1] # (batch, hidden_size)
+ return self.fc(last_hidden)
 
 # Example: classify sequences of length 20, 5 features each
 model = LSTMClassifier(input_size=5, hidden_size=64, num_classes=3)
-x = torch.randn(32, 20, 5)  # batch=32, seq_len=20, features=5
+x = torch.randn(32, 20, 5) # batch=32, seq_len=20, features=5
 out = model(x)
-print(f"Output shape: {out.shape}")  # (32, 3)
+print(f"Output shape: {out.shape}") # (32, 3)
 ```
 
 ---
@@ -162,13 +196,13 @@ While LSTMs/GRUs were state-of-the-art for sequences until ~2017, **Transformers
 
 ## 10. Advantages & Disadvantages
 
-### ✅ Pros
+### Pros
 * Naturally handles variable-length sequences.
 * Captures temporal dependencies.
 * LSTM/GRU solve vanishing gradients for long sequences.
 * Applicable to virtually any sequential data.
 
-### ❌ Cons
+### Cons
 * Sequential processing is hard to parallelize (slow on long sequences).
 * Struggles with sequences >500 steps (Transformers are better).
 * Prone to overfitting on small datasets.

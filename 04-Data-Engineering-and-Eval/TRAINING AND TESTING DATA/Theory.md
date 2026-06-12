@@ -1,4 +1,4 @@
-# Training & Testing Splits ✂️
+# Training & Testing Splits
 
 ## 1. Concept Overview: Generalization
 The goal of Machine Learning is not to memorize data, but to **generalize** to new, unseen examples.
@@ -7,8 +7,8 @@ If we train our model on *all* the available data, we have no way of knowing if 
 
 ### The Strategy
 We split our dataset into two distinct sets:
-1.  **Training Set (e.g., 80%):** Used to teach the model (calculate weights/biases). The model is allowed to see these answers.
-2.  **Test Set (e.g., 20%):** Used to evaluate the model. The model *never* sees these answers during training. We use this to simulate "future" data.
+1. **Training Set (e.g., 80%):** Used to teach the model (calculate weights/biases). The model is allowed to see these answers.
+2. **Test Set (e.g., 20%):** Used to evaluate the model. The model *never* sees these answers during training. We use this to simulate "future" data.
 
 ---
 
@@ -55,5 +55,5 @@ plt.grid(True)
 plt.show()
 ```
 
-* 🔵 **Blue Points:** Training Data (Model learns from these).
-* 🔴 **Red Points:** Testing Data (Model is tested on these).
+* **Blue Points:** Training Data (Model learns from these).
+* **Red Points:** Testing Data (Model is tested on these).

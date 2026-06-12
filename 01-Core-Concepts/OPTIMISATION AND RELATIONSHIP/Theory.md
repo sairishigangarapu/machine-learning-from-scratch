@@ -1,4 +1,4 @@
-# Optimization Foundations & Relationship Metrics 📊
+# Optimization Foundations & Relationship Metrics
 
 ## 1. Cost Function: Mean Squared Error (MSE)
 
@@ -61,6 +61,16 @@ The **Pearson Correlation Coefficient** ($r$) quantifies the **strength and dire
 $$
 r = \frac{ \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}) }{ \sqrt{ \sum_{i=1}^{n} (x_i - \bar{x})^2 } \cdot \sqrt{ \sum_{i=1}^{n} (y_i - \bar{y})^2 } }
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $r$ | Pearson correlation coefficient | Measures linear relationship strength: $r = 1$ (perfect positive), $r = -1$ (perfect negative), $r = 0$ (no linear relationship) |
+| $x_i, y_i$ | Individual data points | Paired observations from the dataset |
+| $\bar{x}, \bar{y}$ | Sample means | The center of each variable's distribution |
+| $(x_i - \bar{x})(y_i - \bar{y})$ | Cross-product of deviations | Positive when both deviate in same direction, negative when opposite — captures co-movement |
+| $\sum_{i=1}^{n}$ | Sum over all $n$ samples | Aggregates the signal across the entire dataset |
+| $\sqrt{\sum (x_i - \bar{x})^2}$ | Standard deviation of $x$ (up to $\sqrt{n}$) | Normalizes by the spread of $x$ — ensures $r$ is dimensionless |
+| $\sqrt{\sum (y_i - \bar{y})^2}$ | Standard deviation of $y$ (up to $\sqrt{n}$) | Same normalization for $y$ |
 
 ### Interpretation Table
 

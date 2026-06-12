@@ -1,4 +1,4 @@
-# Model Persistence: Pickle vs. Joblib 💾
+# Model Persistence: Pickle vs. Joblib
 
 ## 1. The Concept: Serialization
 In Machine Learning, training a model can take hours or even days. **Model Persistence** allows you to save the trained model to a file (Serialization) and load it back later (Deserialization) to make predictions without retraining.
@@ -9,7 +9,7 @@ In Machine Learning, training a model can take hours or even days. **Model Persi
 
 Both libraries serialize Python objects, but they have distinct use cases.
 
-| Feature | `pickle` 🥒 | `joblib` ⚡ |
+| Feature | `pickle` | `joblib` |
 | :--- | :--- | :--- |
 | **Primary Use** | General-purpose Python object serialization. | Efficient serialization for large NumPy arrays. |
 | **Best For** | Small, simple dictionaries or lists. | **Scikit-Learn models** (which rely heavily on NumPy). |
@@ -17,7 +17,7 @@ Both libraries serialize Python objects, but they have distinct use cases.
 | **File Format** | Standard Python byte stream. | Optimized binary format. |
 | **Usage** | Built-in (no install needed). | Requires `pip install joblib`. |
 
-### ⚠️ Security Warning
+### Security Warning
 **NEVER** load a pickle/joblib file from an untrusted source. Malicious code inside the file can execute immediately upon loading.
 
 ---
@@ -36,13 +36,13 @@ model = LinearRegression().fit(X, y)
 
 # Save
 with open('model.pkl', 'wb') as f:
-    pickle.dump(model, f)
+ pickle.dump(model, f)
 
 # Load
 with open('model.pkl', 'rb') as f:
-    loaded_model = pickle.load(f)
+ loaded_model = pickle.load(f)
 
-print(f"Prediction: {loaded_model.predict([[6]])[0]:.2f}")  # ~12.00
+print(f"Prediction: {loaded_model.predict([[6]])[0]:.2f}") # ~12.00
 ```
 
 ### Joblib Example

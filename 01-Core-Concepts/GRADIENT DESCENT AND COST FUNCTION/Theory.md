@@ -1,4 +1,4 @@
-# Gradient Descent and Cost Function Optimization 📉
+# Gradient Descent and Cost Function Optimization
 
 ## 1. The Objective: Cost Minimization
 
@@ -44,15 +44,29 @@ To update our parameters, we calculate the partial derivatives of the Cost Funct
 
 ### Partial Derivative w.r.t $m$
 $$
-\frac{\partial}{\partial m} = \frac{2}{n} \sum_{i=1}^{n} -x_i \left( y_i - (mx_i + b) \right)
+\frac{\partial J}{\partial m} = \frac{2}{n} \sum_{i=1}^{n} -x_i \left( y_i - (mx_i + b) \right)
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\frac{\partial J}{\partial m}$ | Partial derivative of cost w.r.t. slope | How much the cost changes when we nudge the slope $m$ — this IS the gradient |
+| $x_i$ | Input feature for sample $i$ | The variable we're predicting from — scaled by the residual |
+| $y_i - (mx_i + b)$ | Residual (error) for sample $i$ | How far the prediction is from the true value |
+| $-x_i (y_i - (mx_i + b))$ | Weighted residual | The error, weighted by the input — steeper slopes get larger corrections |
+| $\frac{2}{n} \sum_{i=1}^{n}$ | Average over all samples | We average the gradients to get a stable estimate of the true direction |
 
 This gradient tells us how the cost changes as we nudge the slope $m$. A negative gradient means increasing $m$ will decrease the cost.
 
 ### Partial Derivative w.r.t $b$
 $$
-\frac{\partial}{\partial b} = \frac{2}{n} \sum_{i=1}^{n} -\left( y_i - (mx_i + b) \right)
+\frac{\partial J}{\partial b} = \frac{2}{n} \sum_{i=1}^{n} -\left( y_i - (mx_i + b) \right)
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\frac{\partial J}{\partial b}$ | Partial derivative of cost w.r.t. intercept | How much the cost changes when we nudge the intercept $b$ |
+| $y_i - (mx_i + b)$ | Residual for sample $i$ | Same error signal as above, but without the $x_i$ scaling |
+| $-\left( y_i - (mx_i + b) \right)$ | Negative residual | If the prediction is too high (positive residual), we decrease $b$; if too low, we increase it |
 
 This gradient tells us how the cost changes as we nudge the intercept $b$.
 
@@ -65,7 +79,14 @@ Once we have the direction (gradient), we need to decide the size of the step to
 
 $$\theta_{\text{new}} = \theta_{\text{old}} - \alpha \cdot \frac{\partial J}{\partial \theta}$$
 
-* **Definition:** A user-defined hyperparameter that controls how much we adjust the weights with respect to the loss gradient.
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\theta_{\text{old}}$ | Current parameter value | Where we are now in parameter space |
+| $\theta_{\text{new}}$ | Updated parameter value | Where we'll be after this step |
+| $\alpha$ | Learning rate (hyperparameter) | Controls step size — too small = slow convergence, too large = overshooting/divergence |
+| $\frac{\partial J}{\partial \theta}$ | Gradient of cost w.r.t. parameter | The direction of steepest ascent — we move opposite to it (descent) |
+| $\alpha \cdot \frac{\partial J}{\partial \theta}$ | Step vector | The actual change applied to the parameter |
+
 * **Tuning:** It must be fine-tuned for accuracy; too small leads to slow convergence, while too large can cause divergence.
 
 ### Stopping Condition
@@ -83,6 +104,16 @@ The correlation coefficient quantifies the strength and direction of the linear 
 $$
 r = \frac{ \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}) }{ \sqrt{ \sum_{i=1}^{n} (x_i - \bar{x})^2 } \cdot \sqrt{ \sum_{i=1}^{n} (y_i - \bar{y})^2 } }
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $r$ | Pearson correlation coefficient | Measures linear relationship strength: $r = 1$ (perfect positive), $r = -1$ (perfect negative), $r = 0$ (no linear relationship) |
+| $x_i, y_i$ | Individual data points | Paired observations from the dataset |
+| $\bar{x}, \bar{y}$ | Sample means | The center of each variable's distribution |
+| $(x_i - \bar{x})(y_i - \bar{y})$ | Cross-product of deviations | Positive when both deviate in same direction, negative when opposite — captures co-movement |
+| $\sum_{i=1}^{n}$ | Sum over all $n$ samples | Aggregates the signal across the entire dataset |
+| $\sqrt{\sum (x_i - \bar{x})^2}$ | Standard deviation of $x$ (up to $\sqrt{n}$) | Normalizes by the spread of $x$ — ensures $r$ is dimensionless |
+| $\sqrt{\sum (y_i - \bar{y})^2}$ | Standard deviation of $y$ (up to $\sqrt{n}$) | Same normalization for $y$ |
 
 
 ---

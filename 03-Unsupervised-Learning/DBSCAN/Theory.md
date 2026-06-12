@@ -1,4 +1,4 @@
-# DBSCAN: Density-Based Clustering 📍
+# DBSCAN: Density-Based Clustering
 
 ## 1. Concept Overview
 **DBSCAN** (Density-Based Spatial Clustering of Applications with Noise) groups together points that are closely packed, marking as outliers points that lie alone in low-density regions.
@@ -29,13 +29,13 @@ Unlike K-Means, DBSCAN:
 
 ## 4. Advantages & Disadvantages
 
-### ✅ Pros
+### Pros
 * No need to specify $k$ in advance.
 * Finds non-linear, arbitrarily shaped clusters.
 * Robust to outliers (labels them as noise).
 * Works well with spatial data and geospatial datasets.
 
-### ❌ Cons
+### Cons
 * Struggles with clusters of varying densities.
 * Sensitive to `eps` and `min_samples` — poor choices yield bad results.
 * High-dimensional data requires careful distance metric selection (curse of dimensionality).

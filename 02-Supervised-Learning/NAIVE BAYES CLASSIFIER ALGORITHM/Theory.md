@@ -1,4 +1,4 @@
-# Naive Bayes Classifier 🧠
+# Naive Bayes Classifier
 
 ## 1. Concept Overview
 **Naive Bayes** is a probabilistic classifier based on **Bayes' Theorem**. It is called "Naive" because it makes a strong assumption: **conditional independence** between features (i.e., the presence of one feature does not affect the others).

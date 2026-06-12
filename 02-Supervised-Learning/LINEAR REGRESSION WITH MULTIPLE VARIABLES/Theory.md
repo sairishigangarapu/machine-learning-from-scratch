@@ -1,4 +1,4 @@
-# Multivariate Linear Regression 📉📈
+# Multivariate Linear Regression
 
 ## 1. Concept Overview
 **Multivariate Linear Regression** extends the simple linear model to accommodate multiple independent variables (features). Instead of fitting a **line** in 2D space, the algorithm fits a **hyperplane** in $n$-dimensional space.
@@ -41,7 +41,7 @@ Real-world datasets often have holes (NaN values). Before training, we must hand
 
 ---
 
-## 4. Mathematical Deep Dive 🧠
+## 4. Mathematical Deep Dive
 To understand the high-dimensional matrix algebra and the pseudo-inverse engine:
 * [Lecture 21: Least Squares & Over-determined Systems](../../00-Mathematics-Foundation/Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md)
 * [Lecture 22: Multiple Regression Matrix Form](../../00-Mathematics-Foundation/Lecture%2022%20Linear%20and%20Multiple%20Regression.md) (The Hyperplane Math)

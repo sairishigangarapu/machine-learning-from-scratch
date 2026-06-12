@@ -1,4 +1,4 @@
-# Ensemble Learning: Bagging & Validation 🧺
+# Ensemble Learning: Bagging & Validation
 
 ## 1. Concept Overview: The Wisdom of the Crowd
 **Ensemble Learning** is a meta-approach to machine learning that combines predictions from multiple models to achieve better predictive performance than any single constituent model.
@@ -11,11 +11,11 @@ Single models, especially Decision Trees, suffer from **High Variance**.
 ### The Solution: Bagging (Bootstrap Aggregating)
 Bagging reduces variance by training multiple models in parallel on different subsets of data and averaging their outputs.
 
-1.  **Bootstrapping (Resampling with Replacement):** We create $N$ new datasets by sampling from the original data. Some rows are repeated, and some are omitted.
-2.  **Parallel Training:** We train an independent model (e.g., a Decision Tree) on each bootstrap sample.
-3.  **Aggregation:**
-    * **Classification:** Majority Vote ("Hard Voting").
-    * **Regression:** Average of predictions ("Soft Voting").
+1. **Bootstrapping (Resampling with Replacement):** We create $N$ new datasets by sampling from the original data. Some rows are repeated, and some are omitted.
+2. **Parallel Training:** We train an independent model (e.g., a Decision Tree) on each bootstrap sample.
+3. **Aggregation:**
+ * **Classification:** Majority Vote ("Hard Voting").
+ * **Regression:** Average of predictions ("Soft Voting").
 
 ---
 

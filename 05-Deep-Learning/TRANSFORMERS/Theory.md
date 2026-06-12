@@ -1,4 +1,4 @@
-# Transformers & Self-Attention: "Attention Is All You Need" 🔄
+# Transformers & Self-Attention: "Attention Is All You Need"
 
 ## 1. Why Transformers?
 
@@ -30,6 +30,17 @@ $$
 \text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{Q}$ | Query matrix (sequence of query vectors) | Each row is a token asking "what should I attend to?" |
+| $\mathbf{K}$ | Key matrix (sequence of key vectors) | Each row is a token broadcasting "what I contain" |
+| $\mathbf{V}$ | Value matrix (sequence of value vectors) | Each row is a token's actual information to be aggregated |
+| $\mathbf{Q}\mathbf{K}^T$ | Raw attention scores matrix | Dot product of every query with every key — measures pairwise similarity |
+| $d_k$ | Dimension of each key vector | Used for scaling — prevents dot products from growing too large with dimension |
+| $\sqrt{d_k}$ | Scaling factor | Without this, for large $d_k$, the softmax would receive very large values, causing gradients to vanish |
+| $\text{softmax}(\cdot)$ | Softmax normalization (row-wise) | Converts raw scores to probabilities that sum to 1 — each token distributes its "attention" across all others |
+| $\times \mathbf{V}$ | Weighted sum of values | Each token's output is a weighted combination of all values, weighted by attention |
+
 | Step | What Happens |
 | :--- | :--- |
 | $\mathbf{Q}\mathbf{K}^T$ | Compute similarity between every query and every key → attention scores |
@@ -52,6 +63,16 @@ $$
 \text{head}_i = \text{Attention}(\mathbf{Q}\mathbf{W}_i^Q, \mathbf{K}\mathbf{W}_i^K, \mathbf{V}\mathbf{W}_i^V)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{Q}$ | Query matrix | What each token is "looking for" — derived from input embeddings |
+| $\mathbf{K}$ | Key matrix | What each token "offers" — used to compute compatibility with queries |
+| $\mathbf{V}$ | Value matrix | What each token actually "contains" — the information to be aggregated |
+| $\mathbf{W}_i^Q, \mathbf{W}_i^K, \mathbf{W}_i^V$ | Learned projection matrices for head $i$ | Transform the input into query/key/value spaces specific to this head |
+| $\mathbf{W}^O$ | Output projection matrix | Projects the concatenated head outputs back to model dimension |
+| $\text{head}_i$ | Output of attention head $i$ | One head's perspective on the relationships between tokens |
+| $h$ | Number of attention heads | More heads = more diverse relationship types captured |
+
 > Each head learns different **types of relationships** — syntactic, semantic, positional, etc.
 
 ---
@@ -61,20 +82,20 @@ $$
 ### Encoder (used in BERT)
 ```
 Input Tokens → Embedding + Positional Encoding
-    ↓
+ ↓
 [Multi-Head Self-Attention → Add & Norm → Feed Forward → Add & Norm] × N
-    ↓
+ ↓
 Contextual Representations
 ```
 
 ### Decoder (used in GPT)
 ```
 Input Tokens → Embedding + Positional Encoding
-    ↓
+ ↓
 [Masked Multi-Head Self-Attention → Add & Norm
  → Cross-Attention → Add & Norm
  → Feed Forward → Add & Norm] × N
-    ↓
+ ↓
 Output Probabilities (next token)
 ```
 
@@ -97,6 +118,14 @@ $$
 PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right), \quad
 PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d}}\right)
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $pos$ | Position of the token in the sequence (0, 1, 2, ...) | Gives the model awareness of word order — without this, "the cat sat" and "sat the cat" would be identical |
+| $i$ | Dimension index within the embedding | Different dimensions oscillate at different frequencies, encoding both fine and coarse position |
+| $d$ | Model embedding dimension | The total width of the positional encoding vector |
+| $10000^{2i/d}$ | Frequency scaling factor | Lower dimensions oscillate fast (capture local position), higher dimensions oscillate slow (capture global position) |
+| $\sin / \cos$ | Sinusoidal functions | Continuous and bounded — the model can generalize to sequence lengths unseen during training |
 
 Modern models often use **learned positional embeddings** instead.
 
@@ -125,39 +154,39 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class SelfAttention(nn.Module):
-    def __init__(self, embed_size, num_heads):
-        super().__init__()
-        self.num_heads = num_heads
-        self.head_dim = embed_size // num_heads
-        
-        self.W_q = nn.Linear(embed_size, embed_size)
-        self.W_k = nn.Linear(embed_size, embed_size)
-        self.W_v = nn.Linear(embed_size, embed_size)
-        self.W_o = nn.Linear(embed_size, embed_size)
-    
-    def forward(self, x, mask=None):
-        B, T, C = x.shape
-        
-        # Project to Q, K, V
-        q = self.W_q(x).view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
-        k = self.W_k(x).view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
-        v = self.W_v(x).view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
-        
-        # Scaled dot-product attention
-        scores = (q @ k.transpose(-2, -1)) / (self.head_dim ** 0.5)
-        if mask is not None:
-            scores = scores.masked_fill(mask == 0, float('-inf'))
-        attn = F.softmax(scores, dim=-1)
-        
-        # Weighted sum of values
-        out = (attn @ v).transpose(1, 2).contiguous().view(B, T, C)
-        return self.W_o(out)
+ def __init__(self, embed_size, num_heads):
+ super().__init__()
+ self.num_heads = num_heads
+ self.head_dim = embed_size // num_heads
+
+ self.W_q = nn.Linear(embed_size, embed_size)
+ self.W_k = nn.Linear(embed_size, embed_size)
+ self.W_v = nn.Linear(embed_size, embed_size)
+ self.W_o = nn.Linear(embed_size, embed_size)
+
+ def forward(self, x, mask=None):
+ B, T, C = x.shape
+
+ # Project to Q, K, V
+ q = self.W_q(x).view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
+ k = self.W_k(x).view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
+ v = self.W_v(x).view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
+
+ # Scaled dot-product attention
+ scores = (q @ k.transpose(-2, -1)) / (self.head_dim ** 0.5)
+ if mask is not None:
+ scores = scores.masked_fill(mask == 0, float('-inf'))
+ attn = F.softmax(scores, dim=-1)
+
+ # Weighted sum of values
+ out = (attn @ v).transpose(1, 2).contiguous().view(B, T, C)
+ return self.W_o(out)
 
 # Test
 attn = SelfAttention(embed_size=64, num_heads=8)
-x = torch.randn(2, 10, 64)  # batch=2, seq_len=10, embed=64
+x = torch.randn(2, 10, 64) # batch=2, seq_len=10, embed=64
 out = attn(x)
-print(f"Input: {x.shape}, Output: {out.shape}")  # Same shape (residual-friendly)
+print(f"Input: {x.shape}, Output: {out.shape}") # Same shape (residual-friendly)
 ```
 
 ---
@@ -166,8 +195,8 @@ print(f"Input: {x.shape}, Output: {out.shape}")  # Same shape (residual-friendly
 
 | Feature | RNN/LSTM | CNN | Transformer |
 | :--- | :--- | :--- | :--- |
-| Parallelism | ❌ Sequential | ✅ Parallel | ✅ Parallel |
-| Long-range dependencies | ⚠️ Degrades | ⚠️ Limited receptive field | ✅ Direct (O(1) path length) |
+| Parallelism | Sequential | Parallel | Parallel |
+| Long-range dependencies | Degrades | Limited receptive field | Direct (O(1) path length) |
 | Position information | Implicit (order) | Local only | Explicit (positional encoding) |
 | Computational cost | O(n) per step | O(k·n) | O(n²) attention (improved in variants) |
 | Best for | Streaming, edge | Images | NLP, vision, multimodal |
@@ -188,13 +217,13 @@ print(f"Input: {x.shape}, Output: {out.shape}")  # Same shape (residual-friendly
 
 ## 10. Advantages & Disadvantages
 
-### ✅ Pros
+### Pros
 * Fully parallelizable — much faster to train than RNNs.
 * Handles long-range dependencies via direct attention.
 * Scales massive — powers all frontier AI models.
 * Transfer learning king — pretrain once, fine-tune everywhere.
 
-### ❌ Cons
+### Cons
 * **O(n²) memory** for attention — quadratic in sequence length.
 * Requires large datasets and compute to shine.
 * Positional encoding is a workaround, not a solution.

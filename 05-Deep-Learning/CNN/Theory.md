@@ -1,4 +1,4 @@
-# Convolutional Neural Networks (CNNs) 🖼️
+# Convolutional Neural Networks (CNNs)
 
 ## 1. Why CNNs?
 
@@ -19,6 +19,14 @@ Applies a set of **filters** (kernels) to the input. Each filter slides across t
 $$
 \text{Output}(i,j) = \sum_{m}\sum_{n} \text{Input}(i+m, j+n) \cdot \text{Filter}(m,n) + b
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Output}(i,j)$ | Output feature map value at position $(i,j)$ | The result of applying the filter at this position — one number in the output |
+| $\text{Input}(i+m, j+n)$ | Input pixel value at position $(i+m, j+n)$ | The local patch of the image being processed |
+| $\text{Filter}(m,n)$ | Filter/kernel weight at position $(m,n)$ | Learned parameters that detect specific features (edges, textures, etc.) |
+| $b$ | Bias term | Allows the filter to shift its activation threshold |
+| $m, n$ | Indices over the filter dimensions | Loop over the spatial extent of the filter (e.g., 0..2 for a 3×3 filter) |
 
 | Parameter | Description |
 | :--- | :--- |
@@ -52,14 +60,14 @@ After convolution and pooling, the feature maps are **flattened** and fed into a
 
 ```
 Input Image
-    ↓
-[Conv → ReLU → Pool] × N    ← Feature extraction (convolutional base)
-    ↓
-[Flatten]                    ← Reshape for dense layers
-    ↓
+ ↓
+[Conv → ReLU → Pool] × N ← Feature extraction (convolutional base)
+ ↓
+[Flatten] ← Reshape for dense layers
+ ↓
 [Fully Connected → ReLU] × M ← Classification head
-    ↓
-[Softmax Output]             ← Class probabilities
+ ↓
+[Softmax Output] ← Class probabilities
 ```
 
 ### Classic Architectures
@@ -93,27 +101,27 @@ import torch
 import torch.nn as nn
 
 class SimpleCNN(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.features = nn.Sequential(
-            nn.Conv2d(1, 32, kernel_size=3, padding=1),  # 1→32 channels
-            nn.ReLU(),
-            nn.MaxPool2d(2),                              # 28x28 → 14x14
-            nn.Conv2d(32, 64, kernel_size=3, padding=1), # 32→64 channels
-            nn.ReLU(),
-            nn.MaxPool2d(2),                              # 14x14 → 7x7
-        )
-        self.classifier = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(64 * 7 * 7, 128),
-            nn.ReLU(),
-            nn.Linear(128, 10)  # 10 digits
-        )
-    
-    def forward(self, x):
-        x = self.features(x)
-        x = self.classifier(x)
-        return x
+ def __init__(self):
+ super().__init__()
+ self.features = nn.Sequential(
+ nn.Conv2d(1, 32, kernel_size=3, padding=1), # 1→32 channels
+ nn.ReLU(),
+ nn.MaxPool2d(2), # 28x28 → 14x14
+ nn.Conv2d(32, 64, kernel_size=3, padding=1), # 32→64 channels
+ nn.ReLU(),
+ nn.MaxPool2d(2), # 14x14 → 7x7
+ )
+ self.classifier = nn.Sequential(
+ nn.Flatten(),
+ nn.Linear(64 * 7 * 7, 128),
+ nn.ReLU(),
+ nn.Linear(128, 10) # 10 digits
+ )
+
+ def forward(self, x):
+ x = self.features(x)
+ x = self.classifier(x)
+ return x
 
 model = SimpleCNN()
 print(f"Parameters: {sum(p.numel() for p in model.parameters()):,}")
@@ -148,13 +156,13 @@ To prevent overfitting, CNNs benefit from artificially expanding the training se
 
 ## 8. Advantages & Disadvantages
 
-### ✅ Pros
+### Pros
 * Exploits spatial structure — far fewer parameters than fully connected.
 * Translation invariant by construction.
 * State-of-the-art for image tasks.
 * Hierarchical feature learning (edges → textures → objects).
 
-### ❌ Cons
+### Cons
 * Computationally expensive (GPU recommended).
 * Requires large datasets (mitigated by transfer learning).
 * Not naturally suited for sequential or tabular data.

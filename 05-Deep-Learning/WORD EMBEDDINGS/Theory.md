@@ -1,4 +1,4 @@
-# Word Embeddings: From One-Hot to Meaning 📖
+# Word Embeddings: From One-Hot to Meaning
 
 ## 1. The Problem with One-Hot Encoding
 
@@ -52,6 +52,17 @@ $$
 \mathcal{L} = -\log \sigma(\mathbf{v}_{w_O} \cdot \mathbf{v}_{w_I}) - \sum_{i=1}^{k} \mathbb{E}_{w_i \sim P_n(w)}[\log \sigma(-\mathbf{v}_{w_i} \cdot \mathbf{v}_{w_I})]
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathcal{L}$ | Total loss for one training example | We minimize this — it measures how well the model distinguishes real context words from noise |
+| $\sigma$ | Sigmoid function $\sigma(x) = \frac{1}{1+e^{-x}}$ | Converts dot product to a probability (0 to 1) — high dot product = high probability of being a real pair |
+| $\mathbf{v}_{w_O}$ | Embedding vector of the output (context) word | The word we want the model to predict as context |
+| $\mathbf{v}_{w_I}$ | Embedding vector of the input (target) word | The word we're using to predict context |
+| $\mathbf{v}_{w_I} \cdot \mathbf{v}_{w_O}$ | Dot product between target and context embeddings | Measures similarity — positive means they should be close in vector space |
+| $k$ | Number of negative samples per training step | More negatives = more robust learning, but slower training |
+| $w_i \sim P_n(w)$ | A word sampled from the noise distribution | Random words that should NOT be in the context — the model learns to push these away |
+| $P_n(w)$ | Noise distribution (typically unigram$^{3/4}$) | The unigram distribution raised to the 3/4 power — oversamples rare words, which are more informative as negatives |
+
 **Intuition:** The target word's embedding should be close to context words' embeddings and far from random "noise" words.
 
 ---
@@ -72,6 +83,14 @@ $$
 \vec{bigger} - \vec{big} + \vec{small} \approx \vec{smaller}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\vec{king}$ | Embedding vector of "king" | The 300-dimensional dense representation learned by the model |
+| $-$ | Vector subtraction | Removes the "gender" direction from the king vector, leaving the "royalty" concept |
+| $+$ | Vector addition | Adds the "gender" direction back, but now starting from "queen" |
+| $\approx$ | Approximate equality in vector space | Not exact — the nearest neighbor is "queen" after the arithmetic |
+| Nearest neighbor search | Finding the closest word in embedding space | After the arithmetic, we look up which word is closest to the resulting vector |
+
 This works because the embedding space captures **linear relationships** between semantic concepts.
 
 ---
@@ -83,6 +102,17 @@ GloVe learns embeddings from the **co-occurrence matrix** (how often words appea
 $$
 J = \sum_{i,j=1}^{V} f(X_{ij})(\mathbf{w}_i^T\tilde{\mathbf{w}}_j + b_i + \tilde{b}_j - \log X_{ij})^2
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $J$ | GloVe loss function | We minimize this — measures how well the dot product of two word vectors approximates their log co-occurrence |
+| $V$ | Vocabulary size | The sum runs over all word pairs in the vocabulary |
+| $X_{ij}$ | Co-occurrence count of words $i$ and $j$ | How many times word $j$ appears in the context of word $i$ (or vice versa) |
+| $\mathbf{w}_i$ | Embedding vector for word $i$ | The "word" vector — the final representation of word $i$ |
+| $\tilde{\mathbf{w}}_j$ | Context embedding vector for word $j$ | Separate "context" vector — in practice, often averaged with $\mathbf{w}_j$ for the final embedding |
+| $b_i$ | Bias for word $i$ | Allows each word to have a baseline co-occurrence level independent of the dot product |
+| $\tilde{b}_j$ | Context bias for word $j$ | Same as $b_i$ but for the context word |
+| $f(X_{ij})$ | Weighting function | Down-weights very frequent pairs (e.g., "the", "of") and very rare pairs — prevents them from dominating the loss |
 
 | Word2Vec | GloVe |
 | :--- | :--- |
@@ -120,22 +150,22 @@ model = api.load('word2vec-google-news-300')
 
 # Analogy: king - man + woman = ?
 result = model.most_similar(positive=['king', 'woman'], negative=['man'], topn=3)
-print("king - man + woman =", result)  # [('queen', 0.71), ...]
+print("king - man + woman =", result) # [('queen', 0.71), ...]
 
 # Semantic similarity
-print(f"cat-dog:  {model.similarity('cat', 'dog'):.3f}")
-print(f"cat-car:  {model.similarity('cat', 'car'):.3f}")
+print(f"cat-dog: {model.similarity('cat', 'dog'):.3f}")
+print(f"cat-car: {model.similarity('cat', 'car'):.3f}")
 
 # Visualize in 2D
 words = ['king', 'queen', 'man', 'woman', 'prince', 'princess',
-         'Paris', 'France', 'London', 'England', 'Berlin', 'Germany']
+ 'Paris', 'France', 'London', 'England', 'Berlin', 'Germany']
 vectors = np.array([model[w] for w in words])
 coords = PCA(n_components=2).fit_transform(vectors)
 
 plt.figure(figsize=(10, 7))
 plt.scatter(coords[:, 0], coords[:, 1], c='blue', alpha=0.5)
 for i, word in enumerate(words):
-    plt.annotate(word, (coords[i, 0], coords[i, 1]))
+ plt.annotate(word, (coords[i, 0], coords[i, 1]))
 plt.title('Word Embeddings (PCA to 2D)')
 plt.grid(True)
 plt.show()
@@ -171,13 +201,13 @@ Static embeddings (Word2Vec, GloVe) assign the **same vector** to each word rega
 
 ## 10. Advantages & Disadvantages
 
-### ✅ Pros
+### Pros
 * Capture semantic relationships that one-hot encoding cannot.
 * Transfer learning — pre-trained embeddings boost small datasets.
 * Dimensionality reduction — 300D embeddings vs 50K one-hot.
 * Enable analogy reasoning and semantic arithmetic.
 
-### ❌ Cons
+### Cons
 * **Static** — same word, different meanings get the same vector.
 * **Context-free** — can't handle polysemy (bank/river bank vs bank/money).
 * Pre-trained models are biased (gender, racial biases in training data).
