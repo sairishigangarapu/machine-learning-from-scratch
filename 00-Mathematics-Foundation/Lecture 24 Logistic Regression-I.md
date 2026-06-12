@@ -100,7 +100,7 @@ For problems with more than 2 classes:
 ---
 
 ### Practical Application
-- **Supervised Classification Lab:** Review the implementation logic in [Logistic Regression Theory Lab](../../02-Supervised-Learning/LOGISTIC%20REGRESSION/Theory.md).
+- **Supervised Classification Lab:** See the 02-Supervised-Learning module for the Logistic Regression implementation.
 - **Comparison:** Compare these derivations with [Lecture 22 (Linear Regression)](Lecture%2022%20Linear%20and%20Multiple%20Regression.md) to see the transition from Least Squares to Maximum Likelihood.
 
 ---
