@@ -153,7 +153,7 @@ $$
 
 A set is orthonormal if it satisfies two conditions:
 
-1. Mutally orthogonal ($\mathbf{v}_i \cdot \mathbf{v}_j = 0$).
+1. Mutually orthogonal ($\mathbf{v}_i \cdot \mathbf{v}_j = 0$).
 2. Unit magnitude ($\|\mathbf{v}\| = 1$).
 
 Orthonormal matrices preserve distances and don't amplify gradients, making them highly desirable when initializing weights in deep neural networks to prevent exploding/vanishing gradients.

@@ -204,7 +204,43 @@ for name, clf in classifiers.items():
 
 ---
 
-## 8. When to Use SVMs
+## 8. Handling Imbalanced Classes
+
+### The Problem
+When one class has far more samples than the other, the SVM bias toward the majority class leads to poor recall on the minority class.
+
+### The Solution: Class Weights
+Set `class_weight='balanced'` to automatically weight classes inversely proportional to their frequency:
+
+```python
+from sklearn.svm import SVC
+from sklearn.datasets import make_blobs
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+import numpy as np
+
+# Create imbalanced data
+X, y = make_blobs(n_samples=[200, 20], centers=2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+
+# Without class weights
+svm_unbalanced = SVC(kernel='rbf', C=1.0)
+svm_unbalanced.fit(X_train, y_train)
+print("Without class weights:")
+print(classification_report(y_test, svm_unbalanced.predict(X_test)))
+
+# With class weights
+svm_balanced = SVC(kernel='rbf', C=1.0, class_weight='balanced')
+svm_balanced.fit(X_train, y_train)
+print("With class weights='balanced':")
+print(classification_report(y_test, svm_balanced.predict(X_test)))
+```
+
+**Intuition:** The `balanced` mode assigns weight $w_c = n / (n_{\text{classes}} \times n_c)$ to each class $c$. If class 0 has 200 samples and class 1 has 20, class 1 gets 5x the weight — misclassifying a minority sample is penalized 5x more.
+
+---
+
+## 9. When to Use SVMs
 
 | Scenario | Recommendation |
 |:---|:---|

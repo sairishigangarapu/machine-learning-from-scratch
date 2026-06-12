@@ -118,6 +118,8 @@ $$
 K(\mathbf{x}, \mathbf{z}) = \tanh(\alpha \mathbf{x}^T\mathbf{z} + c)
 $$
 
+**Caveat:** The sigmoid kernel is NOT always a valid (positive semi-definite) kernel. It only satisfies Mercer's condition for certain values of $\alpha$ and $c$. In practice, prefer the RBF kernel — it's always valid and generally performs better. Use sigmoid only when you have a specific reason (e.g., approximating a neural network).
+
 ```python
 from sklearn.svm import SVC
 

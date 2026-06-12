@@ -158,7 +158,85 @@ plt.show()
 
 ---
 
-## 5. Summary and Next Steps
+## 5. Scree Plot — How Many Components?
+
+### Motivation and Intuition
+How do you decide how many principal components to keep? A **scree plot** shows the variance explained by each component. You look for the "elbow" — the point where additional components contribute negligible variance.
+
+```python
+from sklearn.decomposition import PCA
+from sklearn import datasets
+import matplotlib.pyplot as plt
+import numpy as np
+
+iris = datasets.load_iris()
+X = iris.data
+
+# Fit PCA with all components
+pca = PCA(n_components=4)
+pca.fit(X)
+
+# Scree plot
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+
+# Plot 1: Eigenvalues (variance per component)
+axes[0].bar(range(1, 5), pca.explained_variance_, color='steelblue')
+axes[0].set_xlabel("Principal Component")
+axes[0].set_ylabel("Variance Explained")
+axes[0].set_title("Scree Plot")
+
+# Plot 2: Cumulative explained variance
+axes[1].plot(range(1, 5), np.cumsum(pca.explained_variance_ratio_), 'ro-')
+axes[1].axhline(y=0.95, color='k', linestyle='--', label='95% threshold')
+axes[1].set_xlabel("Number of Components")
+axes[1].set_ylabel("Cumulative Variance Explained")
+axes[1].set_title("Cumulative Explained Variance")
+axes[1].legend()
+
+plt.tight_layout()
+plt.show()
+
+print(f"Variance per component: {pca.explained_variance_ratio_}")
+# e.g., [0.9246, 0.0531, 0.0171, 0.0052]
+# First component alone explains 92.5% — keep just 1 or 2 components
+```
+
+---
+
+## 6. PCA Whitening
+
+### Motivation and Intuition
+After PCA, the components are uncorrelated but may have different scales. **Whitening** rescales each component to have unit variance, producing a representation where features are uncorrelated and have equal variance. This is useful as a preprocessing step for algorithms sensitive to feature scaling.
+
+$$
+\mathbf{z} = \Lambda^{-1/2} U^T (\mathbf{x} - \boldsymbol{\mu})
+$$
+
+where $\Lambda$ is the diagonal eigenvalue matrix and $U$ is the eigenvector matrix.
+
+```python
+from sklearn.decomposition import PCA
+from sklearn import datasets
+
+iris = datasets.load_iris()
+X = iris.data
+
+# Standard PCA (no whitening)
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+# Whitened PCA
+pca_white = PCA(n_components=2, whiten=True)
+X_white = pca_white.fit_transform(X)
+
+print(f"Standard PCA — component variances: {np.var(X_pca, axis=0).round(4)}")
+print(f"Whitened PCA — component variances: {np.var(X_white, axis=0).round(4)}")
+# Whitened: both variances ≈ 1.0
+```
+
+---
+
+## 7. Summary and Next Steps
 
 We have proven that PCA is not just abstract theory:
 
@@ -171,8 +249,8 @@ However, PCA is utterly "blind" to class labels. It maximizes *variance*, not *c
 
 ### Applied Practice 🚀
 Now that you have mastered the foundational mathematics of PCA, see it applied to a real-world **Image Compression & Logistic Regression Pipeline** (The MNIST Digits Dataset) by running the lab in our specific Unsupervised Learning module:
-* **[Unsupervised Learning - PCA Lab](../../03-Unsupervised-Learning/PRINCIPAL%20COMPONENT%20ANALYSIS/pca_lab.py)**
-* **[Unsupervised Learning - PCA Theory](../../03-Unsupervised-Learning/PRINCIPAL%20COMPONENT%20ANALYSIS/Theory.md)**
+* **Unsupervised Learning - PCA Lab** — See the 03-Unsupervised-Learning module
+* **Unsupervised Learning - PCA Theory** — See the 03-Unsupervised-Learning module
 
 ---
 

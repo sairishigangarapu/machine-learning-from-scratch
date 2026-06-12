@@ -15,6 +15,30 @@ We have spent many lectures building the theory of convex optimization — KKT c
 pip install cvxopt
 ```
 
+### Note: CVXPY — A Modern Alternative
+
+While CVXopt gives you low-level control, **CVXPY** is a higher-level modeling language that lets you write optimization problems in near-mathematical notation. For most ML work, CVXPY is easier to use:
+
+```python
+import cvxpy as cp
+import numpy as np
+
+# Ridge regression with CVXPY
+np.random.seed(42)
+X = np.random.randn(100, 5)
+y = X @ np.array([1, 2, 3, 4, 5]) + 0.1 * np.random.randn(100)
+
+w = cp.Variable(5)
+loss = cp.sum_squares(X @ w - y)
+reg = 0.1 * cp.sum_squares(w)
+prob = cp.Problem(cp.Minimize(loss + reg))
+prob.solve()
+
+print(f"CVXPY: {w.value}")
+```
+
+CVXPY handles the conversion to standard form internally and supports a much wider range of problems. Use CVXopt for learning; use CVXPY for production.
+
 ### What CVXopt Solves
 * Linear programming (LP)
 * Quadratic programming (QP)

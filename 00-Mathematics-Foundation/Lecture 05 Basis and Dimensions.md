@@ -9,7 +9,7 @@
 ### Motivation and Intuition
 A $1024 \times 1024$ image dataset technically exists in a 1,000,000-dimensional space. However, most images of human faces don't use all those random dimensions—they share common structures like eyes, noses, and lighting gradients.
 
-What if we could find a core set of, say, 50 "eigen-faces" such that blending them together in different proportions could perfectly perfectly recreate any face in our dataset? That set of 50 core images is a **Basis**. 
+What if we could find a core set of, say, 50 "eigen-faces" such that blending them together in different proportions could perfectly recreate any face in our dataset? That set of 50 core images is a **Basis**. 
 
 By finding a compact basis, Deep Learning models (like Autoencoders) can compress data from 1,000,000 dimensions down to a 50-dimensional "latent space", discarding the noise entirely and dramatically accelerating training.
 
