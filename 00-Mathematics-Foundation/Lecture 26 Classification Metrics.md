@@ -337,7 +337,73 @@ print(f"F1 Score:  {f1:.2f}")
 
 ---
 
-## 8. Summary — Choosing the Right Metric
+## 8. ROC Curve and AUC
+
+### Motivation and Intuition
+Precision, recall, and F1 all depend on a **threshold** (typically 0.5 for binary classifiers). But what if you want to evaluate the classifier across *all possible thresholds*? The **ROC curve** does exactly that — it shows the trade-off between true positive rate and false positive rate at every threshold.
+
+### Definitions
+
+**True Positive Rate (Recall / Sensitivity):**
+$$
+\text{TPR} = \frac{TP}{TP + FN}
+$$
+
+**False Positive Rate:**
+$$
+\text{FPR} = \frac{FP}{FP + TN}
+$$
+
+### The ROC Curve
+Plot TPR vs FPR as the classification threshold varies from 0 to 1:
+* **Perfect classifier:** TPR = 1, FPR = 0 (top-left corner)
+* **Random classifier:** TPR = FPR (diagonal line)
+* **Better classifiers:** Curve bows toward top-left
+
+### AUC (Area Under the ROC Curve)
+$$
+\text{AUC} = \int_0^1 \text{TPR}(\text{FPR}) \, d\text{FPR}
+$$
+
+| AUC | Interpretation |
+|:---|:---|
+| 1.0 | Perfect classifier |
+| 0.9 - 1.0 | Excellent |
+| 0.7 - 0.9 | Good |
+| 0.5 - 0.7 | Poor |
+| 0.5 | Random guessing |
+
+**ML Connection:** AUC is threshold-independent, making it ideal for comparing classifiers. It equals the probability that a randomly chosen positive sample is ranked higher than a randomly chosen negative sample.
+
+```python
+from sklearn.metrics import roc_curve, auc
+from sklearn.datasets import make_classification
+from sklearn.linear_model import LogisticRegression
+import numpy as np
+
+# Generate data and get predicted probabilities
+X, y = make_classification(n_samples=200, n_features=10, random_state=42)
+model = LogisticRegression().fit(X, y)
+y_proba = model.predict_proba(X)[:, 1]  # probability of positive class
+
+# Compute ROC curve
+fpr, tpr, thresholds = roc_curve(y, y_proba)
+roc_auc = auc(fpr, tpr)
+
+print(f"AUC: {roc_auc:.4f}")
+print(f"Threshold range: [{thresholds.min():.3f}, {thresholds.max():.3f}]")
+print(f"TPR range: [{tpr.min():.3f}, {tpr.max():.3f}]")
+print(f"FPR range: [{fpr.min():.3f}, {fpr.max():.3f}]")
+```
+
+### Threshold Selection
+The ROC curve helps choose the operating threshold:
+* **Medical diagnosis:** Choose low threshold (high TPR, accept higher FPR) — don't miss positives
+* **Spam filtering:** Choose high threshold (low FPR) — don't flag legitimate emails
+
+---
+
+## 9. Summary — Choosing the Right Metric
 
 | If you care about...                              | Use this metric |
 |---------------------------------------------------|-----------------|
@@ -345,6 +411,7 @@ print(f"F1 Score:  {f1:.2f}")
 | Avoiding false alarms (FP is expensive)           | Precision       |
 | Not missing positives (FN is expensive)           | Recall          |
 | A balanced trade-off between precision and recall | F1 Score        |
+| Threshold-independent comparison                  | AUC-ROC         |
 
 **The golden rule:** Always look at more than one metric. Accuracy alone lies. Precision and Recall together tell the real story. F1 gives you a single number to compare models, but always understand *why* one model has a higher F1 before trusting it.
 

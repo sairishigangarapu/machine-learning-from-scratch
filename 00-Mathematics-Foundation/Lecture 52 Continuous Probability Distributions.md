@@ -119,16 +119,91 @@ $$
 
 ---
 
-## 6. Choosing the Right Distribution
+## 6. The Gamma Distribution
+
+### Motivation and Intuition
+The Gamma distribution generalizes the Exponential distribution. While the Exponential models waiting time for *one* event, the Gamma models waiting time for *k* events. It's the natural prior for positive-valued parameters in Bayesian models.
+
+### Definition
+$$
+f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}, \quad x > 0
+$$
+
+where $\Gamma(\alpha) = \int_0^\infty t^{\alpha-1} e^{-t} \, dt$ is the Gamma function.
+
+* Mean: $E[X] = \alpha / \beta$
+* Variance: $\text{Var}(X) = \alpha / \beta^2$
+
+### Special Cases
+
+| Parameters | Distribution |
+|:---|:---|
+| $\alpha = 1$ | Exponential($\beta$) |
+| $\alpha = n/2, \beta = 1/2$ | Chi-squared($n$) |
+| $\alpha$ large | Approaches Gaussian |
+
+**ML Connection:** Gamma priors for variance parameters in Bayesian models. The Chi-squared distribution (special case) appears in feature selection and goodness-of-fit tests.
+
+```python
+from scipy.stats import gamma
+import numpy as np
+
+# Gamma(α=2, β=1)
+print(f"E[X] = {gamma.mean(a=2, scale=1):.2f}")  # 2.0
+print(f"Var(X) = {gamma.var(a=2, scale=1):.2f}")  # 2.0
+print(f"P(X < 3) = {gamma.cdf(3, a=2, scale=1):.4f}")
+```
+
+---
+
+## 7. The Student-t Distribution
+
+### Motivation and Intuition
+The Student-t distribution has **heavier tails** than the Gaussian — it assigns more probability to extreme values. It arises when estimating the mean of a normally distributed population with unknown variance and small sample size. In ML, it's the foundation of robust regression and Bayesian inference.
+
+### Definition
+$$
+f(x) = \frac{\Gamma\left(\frac{\nu+1}{2}\right)}{\sqrt{\nu\pi}\,\Gamma\left(\frac{\nu}{2}\right)} \left(1 + \frac{x^2}{\nu}\right)^{-(\nu+1)/2}
+$$
+
+where $\nu$ is the **degrees of freedom**.
+
+* As $\nu \to \infty$: approaches $\mathcal{N}(0, 1)$
+* Small $\nu$: heavy tails, more outliers
+
+### Properties
+
+| $\nu$ | Tail weight | Use case |
+|:---|:---|:---|
+| 1 | Very heavy (Cauchy) | Rare, extreme events |
+| 5 | Heavy | Small-sample robust inference |
+| 30 | Nearly Gaussian | Large-sample approximation |
+
+**ML Connection:** Robust regression replaces Gaussian noise with Student-t to downweight outliers. Bayesian linear regression with unknown variance uses the Student-t posterior.
+
+```python
+from scipy.stats import t as student_t
+import numpy as np
+
+# Compare tails: Student-t(ν=5) vs Gaussian
+print(f"P(|X| > 3) for Gaussian:  {2 * (1 - student_t.cdf(3, df=100)):.4f}")
+print(f"P(|X| > 3) for t(ν=5):    {2 * (1 - student_t.cdf(3, df=5)):.4f}")
+# t-distribution assigns more probability to extreme values
+```
+
+---
+
+## 8. Choosing the Right Distribution
 
 | If your data... | Use distribution |
 |:---|:---|
 | Is symmetric, bell-shaped | Gaussian |
-| Is skewed, non-negative | Exponential, Log-normal |
+| Is skewed, non-negative | Exponential, Gamma |
 | Represents a probability | Beta |
 | Has heavy tails | Student-t |
 | Counts events | Poisson |
 | Is binary (0/1) | Bernoulli/Binomial |
+| Waiting time for k events | Gamma |
 
 > **Check your intuition:** Why does adding many small independent noise sources produce a Gaussian distribution? *(Answer: The Central Limit Theorem. Regardless of the individual distributions, the sum of many independent random variables converges to a Gaussian as the number of variables grows.)*
 

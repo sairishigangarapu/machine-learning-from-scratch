@@ -1,4 +1,4 @@
-## Numerical Optimization Algorithms
+## Numerical Optimization Algorithms (Constrained Optimization II)
 
 *Essential Mathematics for ML — Structured Notes*
 

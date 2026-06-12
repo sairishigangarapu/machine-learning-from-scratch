@@ -30,15 +30,15 @@ where $\varepsilon$ represents noise or model error.
 When there is a **single input variable** $X$, the model is:
 
 $$
-Y = \alpha_0 + \alpha_1 X + \varepsilon
+Y = \beta_0 + \beta_1 X + \varepsilon
 $$
 
-where $\alpha_1$ is the **slope** (the "weight" or "annual raise") and $\alpha_0$ is the **$Y$-intercept** (the "starting point").
+where $\beta_1$ is the **slope** (the "weight" or "annual raise") and $\beta_0$ is the **$Y$-intercept** (the "starting point").
 
 ### Intuition
-Given $m$ data points $\{(x_i, y_i)\}_{i=1}^{m}$, we find $\alpha_0$ and $\alpha_1$ that minimise the total squared error. Once the line is fit, we can **predict** $Y$ for any new $X$ value.
+Given $m$ data points $\{(x_i, y_i)\}_{i=1}^{m}$, we find $\beta_0$ and $\beta_1$ that minimise the total squared error. Once the line is fit, we can **predict** $Y$ for any new $X$ value.
 
-**Example:** If $X = \text{age}$ and $Y = \text{salary}$, $\alpha_0$ is your salary with zero experience, and $\alpha_1$ is how much your salary grows each year.
+**Example:** If $X = \text{age}$ and $Y = \text{salary}$, $\beta_0$ is your salary with zero experience, and $\beta_1$ is how much your salary grows each year.
 
 ---
 
@@ -47,7 +47,7 @@ Given $m$ data points $\{(x_i, y_i)\}_{i=1}^{m}$, we find $\alpha_0$ and $\alpha
 When there are **$k$ input variables** $X_1, X_2, \ldots, X_k$, the model generalises to:
 
 $$
-Y = \alpha_0 + \alpha_1 X_1 + \alpha_2 X_2 + \cdots + \alpha_k X_k
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k
 $$
 
 ### Matrix Formulation
@@ -55,13 +55,13 @@ $$
 For $n$ data points, each equation becomes one row:
 
 $$
-y_i = \alpha_0 + \alpha_1 x_{1i} + \alpha_2 x_{2i} + \cdots + \alpha_k x_{ki}, \quad i = 1, 2, \ldots, n
+y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}, \quad i = 1, 2, \ldots, n
 $$
 
 Stacking all $n$ equations:
 
 $$
-A\boldsymbol{\alpha} = \mathbf{y}
+A\boldsymbol{\beta} = \mathbf{y}
 $$
 
 where:
@@ -74,12 +74,12 @@ A =
 \vdots & \vdots & \vdots & \ddots & \vdots \\
 1 & x_{1n} & x_{2n} & \cdots & x_{kn}
 \end{bmatrix}, \quad
-\boldsymbol{\alpha} =
+\boldsymbol{\beta} =
 \begin{bmatrix}
-\alpha_0 \\
-\alpha_1 \\
+\beta_0 \\
+\beta_1 \\
 \vdots \\
-\alpha_k
+\beta_k
 \end{bmatrix}, \quad
 \mathbf{y} =
 \begin{bmatrix}
@@ -93,7 +93,7 @@ $$
 Since $n \gg k+1$ in practice (many observations, few parameters), this is an **over-determined system**. The least square solution from Lecture 21 applies directly:
 
 $$
-\boxed{\boldsymbol{\alpha} = (A^T A)^{-1} A^T \mathbf{y} = A^{+} \mathbf{y}}
+\boxed{\boldsymbol{\beta} = (A^T A)^{-1} A^T \mathbf{y} = A^{+} \mathbf{y}}
 $$
 
 ---
@@ -103,16 +103,16 @@ $$
 Equivalently, define the error (sum of squared residuals):
 
 $$
-E = \sum_{i=1}^{n} \left(y_i - \alpha_0 - \alpha_1 x_{1i} - \cdots - \alpha_k x_{ki}\right)^2
+E = \sum_{i=1}^{n} \left(y_i - \beta_0 - \beta_1 x_{1i} - \cdots - \beta_k x_{ki}\right)^2
 $$
 
 Apply the first-order conditions:
 
 $$
-\frac{\partial E}{\partial \alpha_0} = 0, \quad \frac{\partial E}{\partial \alpha_1} = 0, \quad \ldots, \quad \frac{\partial E}{\partial \alpha_k} = 0
+\frac{\partial E}{\partial \beta_0} = 0, \quad \frac{\partial E}{\partial \beta_1} = 0, \quad \ldots, \quad \frac{\partial E}{\partial \beta_k} = 0
 $$
 
-This yields $k+1$ linear equations in $k+1$ unknowns — exactly the **Normal Equations** $A^T A \boldsymbol{\alpha} = A^T \mathbf{y}$.
+This yields $k+1$ linear equations in $k+1$ unknowns — exactly the **Normal Equations** $A^T A \boldsymbol{\beta} = A^T \mathbf{y}$.
 
 ---
 
@@ -155,7 +155,7 @@ where $\bar{y} = \frac{1}{n}\sum y_i$ is the mean of the observed values.
 When data does not follow a linear trend, we fit a **polynomial**:
 
 $$
-Y = \alpha_0 + \alpha_1 X + \alpha_2 X^2 + \cdots + \alpha_d X^d
+Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \cdots + \beta_d X^d
 $$
 
 The mathematical process is identical to multiple regression — replace the feature columns $X_j$ with powers $X^j$. The design matrix becomes:
@@ -245,13 +245,13 @@ The L1 penalty can force some $\beta_j$ to be **exactly zero** when $\lambda$ is
 
 | Method | Model | Key Property |
 |---|---|---|
-| Simple Linear Regression | $Y = \alpha_0 + \alpha_1 X$ | One predictor |
-| Multiple Linear Regression | $Y = \alpha_0 + \sum \alpha_j X_j$ | Multiple predictors |
-| Polynomial Regression | $Y = \sum \alpha_j X^j$ | Non-linear fit |
+| Simple Linear Regression | $Y = \beta_0 + \beta_1 X$ | One predictor |
+| Multiple Linear Regression | $Y = \beta_0 + \sum \beta_j X_j$ | Multiple predictors |
+| Polynomial Regression | $Y = \sum \beta_j X^j$ | Non-linear fit |
 | Ridge Regression | LS + $\lambda\|\boldsymbol{\beta}\|_2^2$ | Shrinks all $\beta$; no sparsity |
 | Lasso Regression | LS + $\lambda\|\boldsymbol{\beta}\|_1$ | Sparsity; feature selection |
 
-All methods reduce to solving an over-determined linear system via the **least square pseudo-inverse** $\boldsymbol{\alpha} = (A^T A)^{-1} A^T \mathbf{y}$ covered in Lecture 21.
+All methods reduce to solving an over-determined linear system via the **least square pseudo-inverse** $\boldsymbol{\beta} = (A^T A)^{-1} A^T \mathbf{y}$ covered in Lecture 21.
 
 **Conclusion:** You have now completed the foundation of Linear Models. You understand how to find the "best fit" for any dataset using the power of the Pseudo-Inverse. Next, we step into the world of **Recursive and Iterative optimization**!
 

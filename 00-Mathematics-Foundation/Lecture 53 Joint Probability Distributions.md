@@ -166,7 +166,71 @@ Properties:
 
 ---
 
-## 7. Summary
+## 7. KL Divergence and Information Theory
+
+### Motivation and Intuition
+How different are two probability distributions? **KL divergence** measures the "surprise" of observing data from distribution $P$ when you expected distribution $Q$. It's asymmetric — the surprise of $P$ vs $Q$ differs from $Q$ vs $P$.
+
+### KL Divergence
+
+For discrete distributions:
+$$
+D_{\text{KL}}(P \| Q) = \sum_x P(x) \log \frac{P(x)}{Q(x)}
+$$
+
+For continuous distributions:
+$$
+D_{\text{KL}}(P \| Q) = \int p(x) \log \frac{p(x)}{q(x)} \, dx
+$$
+
+**Properties:**
+* $D_{\text{KL}}(P \| Q) \ge 0$ (always non-negative)
+* $D_{\text{KL}}(P \| Q) = 0$ if and only if $P = Q$
+* **Asymmetric:** $D_{\text{KL}}(P \| Q) \ne D_{\text{KL}}(Q \| P)$ in general
+
+### Cross-Entropy
+
+$$
+H(P, Q) = -\sum_x P(x) \log Q(x) = H(P) + D_{\text{KL}}(P \| Q)
+$$
+
+where $H(P) = -\sum P(x) \log P(x)$ is the entropy of $P$.
+
+**ML Connection:** Cross-entropy loss is the standard loss function for classification. Minimizing cross-entropy is equivalent to minimizing KL divergence between the true labels and predicted probabilities.
+
+### Jensen-Shannon Divergence
+
+A symmetric, bounded version of KL divergence:
+$$
+\text{JS}(P \| Q) = \frac{1}{2} D_{\text{KL}}(P \| M) + \frac{1}{2} D_{\text{KL}}(Q \| M), \quad M = \frac{P + Q}{2}
+$$
+
+**ML Connection:** Used in GANs (original formulation) and evaluating generative model quality.
+
+```python
+import numpy as np
+from scipy.stats import entropy
+
+# KL divergence between two distributions
+P = np.array([0.2, 0.3, 0.5])
+Q = np.array([0.1, 0.4, 0.5])
+
+kl_pq = entropy(P, Q)  # D_KL(P || Q)
+kl_qp = entropy(Q, P)  # D_KL(Q || P)
+print(f"D_KL(P || Q) = {kl_pq:.4f}")
+print(f"D_KL(Q || P) = {kl_qp:.4f}")
+print(f"Asymmetric: {kl_pq != kl_qp:.4f}")
+
+# Cross-entropy (standard loss for classification)
+ce = entropy(P, base=np.e)  # Wait, this is just entropy
+# For cross-entropy: -sum(P * log(Q))
+cross_ent = -np.sum(P * np.log(Q))
+print(f"Cross-entropy: {cross_ent:.4f}")
+```
+
+---
+
+## 8. Summary
 
 | Concept | Formula | Question Answered |
 |:---|:---|:---|
@@ -174,6 +238,7 @@ Properties:
 | **Marginal** | $p_X(x) = \sum_y p(x,y)$ | "What is $P(X=x)$ regardless of $Y$?" |
 | **Conditional** | $p(y|x) = p(x,y)/p_X(x)$ | "Given $X=x$, what is $P(Y=y)$?" |
 | **Independence** | $p(x,y) = p_X(x)p_Y(y)$ | "Does knowing $X$ tell me about $Y$?" |
+| **KL Divergence** | $D_{\text{KL}}(P \| Q)$ | "How different is $Q$ from the true distribution $P$?" |
 
 > **Check your intuition:** If $X$ and $Y$ are independent, is $\text{Cov}(X, Y) = 0$? *(Answer: Yes. Independence implies zero covariance. But zero covariance does NOT imply independence — only zero correlation for linear relationships.)*
 
