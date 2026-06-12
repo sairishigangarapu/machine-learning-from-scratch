@@ -436,3 +436,11 @@ This is why `np.linalg.qr` is the standard numerical implementation of Gram-Schm
 - **[Lecture 08: Orthogonal Complement and Projection Mapping](Lecture%2008%20Orthogonal%20Complement%20and%20Projection%20Mapping.md)** — The projection formula that Gram-Schmidt relies on
 - **[Lecture 12: Singular Value Decomposition](Lecture%2012%20Singular%20Value%20Decomposition.md)** — SVD gives you orthonormal bases for any matrix
 - **[Lecture 16: Principal Component Analysis](Lecture%2016%20Principal%20Component%20Analysis.md)** — PCA finds orthonormal directions of maximum variance
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 26: Classification Metrics](Lecture%2026%20Classification%20Metrics.md) — Evaluating classifier performance before moving to linear algebra
+- **Next:** [Lecture 28: Polar Decomposition](Lecture%2028%20Polar%20Decomposition.md) — Matrix factorization using orthogonal and positive semidefinite components
+- **Related:** [Lecture 08: Orthogonal Complement and Projection](Lecture%2008%20Orthogonal%20Complement%20and%20Projection%20Mapping.md) — Orthogonal projection underlying Gram-Schmidt
+- **Related:** [Lecture 12: Singular Value Decomposition](Lecture%2012%20Singular%20Value%20Decomposition.md) — SVD provides orthonormal bases via different mechanism

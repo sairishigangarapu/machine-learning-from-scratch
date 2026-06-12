@@ -99,3 +99,11 @@ $$
 $$
 
 This theorem guarantees that $P_W(v)$ is the absolute closest possible point to $v$ inside the subspace $W$. When an Ordinary Least Squares (OLS) algorithm runs, it doesn't arbitrarily guess a line. It executes exactly this orthogonal projection algebraically, guaranteeing it has mathematically achieved the lowest possible Mean Squared Error.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 07: Norms](Lecture%2007%20Norms%20and%20Spaces.md) — Norms and inner products provide the distance and angle measures that define orthogonality
+- **Next:** [Lecture 09: Eigenvalues](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) — Eigenvectors of symmetric matrices are mutually orthogonal, connecting projection to eigendecomposition
+- **Related:** [Lecture 27: Gram-Schmidt](Lecture%2027%20Gram%20Schmidt%20Process.md) — Algorithmic construction of orthogonal bases for projection
+- **Related:** [Lecture 21: Least Squares](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) — Direct application of orthogonal projection to solve overdetermined systems

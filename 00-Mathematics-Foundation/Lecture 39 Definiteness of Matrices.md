@@ -252,3 +252,12 @@ print(f"All eigenvalues >= 0: {np.all(eigenvalues >= -1e-10)}")  # True
 | **Indefinite** | Mixed | Mixed signs | Saddle point |
 
 > **Check your intuition:** If the Hessian at a critical point has eigenvalues $\{3, 0, -2\}$, is it a minimum, maximum, or saddle point? *(Answer: Saddle point. The positive eigenvalue (3) means the function curves up in one direction, the negative eigenvalue (-2) means it curves down in another, and the zero eigenvalue means it's flat in a third direction. It is neither a min nor a max.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 38: Convex Functions](Lecture%2038%20Convex%20Functions.md) — introduces the second-order condition for convexity, which requires positive semi-definiteness of the Hessian
+- **Next:** [Lecture 40: Optimality Conditions](Lecture%2040%20Optimality%20Conditions.md) — applies Hessian definiteness to classify critical points as minima, maxima, or saddle points
+- **Related:** [Lecture 10: Special Matrices and Properties](Lecture%2010%20Special%20Matrices%20and%20Properties.md) — provides the matrix algebra foundation (eigenvalues, spectral properties) for understanding definiteness
+- **Related:** [Lecture 38: Convex Functions](Lecture%2038%20Convex%20Functions.md) — convexity is characterized by the Hessian being positive semi-definite everywhere
+- **Related:** [Lecture 41: Unconstrained Optimization](Lecture%2041%20Unconstrained%20Optimization.md) — uses Hessian definiteness at critical points to determine if they are local minima

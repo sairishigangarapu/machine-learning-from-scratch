@@ -144,3 +144,10 @@ If $|A| = m$ and $|B| = n$, then $|A \times B| = mn$.
 | **Decision boundary** | Partition of feature space into subsets |
 
 > **Check your intuition:** If a dataset has 3 binary features (each can be 0 or 1), how many possible feature vectors exist? *(Answer: The feature space is $\{0,1\} \times \{0,1\} \times \{0,1\}$, so $|\mathcal{X}| = 2^3 = 8$. This is the Cartesian product of three copies of $\{0, 1\}$.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 46: Python Implementation of Convex Optimization](Lecture%2046%20Python%20Implementation%20of%20Convex%20Optimization.md) — Python implementation of mathematical optimization
+- **Next:** [Lecture 48: Introduction to Probability](Lecture%2048%20Introduction%20to%20Probability.md) — Applies set theory to probability spaces
+- **Related:** [Lecture 37: Convex Sets](Lecture%2037%20Convex%20Sets.md) — Specialized set concepts for optimization

@@ -111,3 +111,10 @@ $$
 $$
 
 By isolating $\cos \theta$, we can instantly measure how deeply "aligned" two sentence embeddings are in space, ignoring their magnitude.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 06: Linear Transforms](Lecture%2006%20Linear%20Transformations.md) — Transformations motivate the need to measure output magnitude
+- **Next:** [Lecture 08: Orthogonal](Lecture%2008%20Orthogonal%20Complement%20and%20Projection%20Mapping.md) — Orthogonality builds on inner product spaces for projection and best approximation
+- **Related:** [Lecture 21: Least Squares](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) — Norms define the error metric minimized in least squares

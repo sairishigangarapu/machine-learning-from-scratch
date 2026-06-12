@@ -117,3 +117,10 @@ The exact Rank is $2$ (since we have exactly two non-zero singular values).
 
 * **Weight Initialization:** Research shows initializing deep network weight matrices as purely orthogonal matrices $U$ and $V^T$ generated via SVD guarantees perfect, gradient-preserving information flow entirely free from vanishing gradients early in training.
 * **Regularization:** In Ridge Regression, adding an $L_2$ penalty mathematically shifts all singular values away from zero, violently neutralizing singularities and allowing the Pseudo-Inverse $A^+$ to compute stably.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 12: SVD](Lecture%2012%20Singular%20Value%20Decomposition.md) — The core factorization $A = U\Sigma V^T$ that these properties and applications build upon
+- **Next:** [Lecture 14: Low Rank](Lecture%2014%20Low%20Rank%20Approximations.md) — Truncates small singular values for efficient compression and approximation
+- **Related:** [Lecture 27: Gram-Schmidt](Lecture%2027%20Gram%20Schmidt%20Process.md) — Constructs orthonormal bases; the $U$ and $V$ matrices in SVD are orthonormal

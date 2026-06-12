@@ -355,3 +355,11 @@ print(f"F1 Score:  {f1:.2f}")
 - **[Lecture 24: Logistic Regression-I](Lecture%2024%20Logistic%20Regression-I.md)** — Theory of the Sigmoid and MLE
 - **[Lecture 25: Logistic Regression-II](Lecture%2025%20Logistic%20Regression-II.md)** — Python implementation of Logistic Regression
 - **[Supervised Learning Lab](../02-Supervised-Learning/LOGISTIC%20REGRESSION/Theory.md)** — Practical lab exercises
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 25: Logistic Regression-II](Lecture%2025%20Logistic%20Regression-II.md) — Python implementation of logistic regression
+- **Next:** [Lecture 27: Gram-Schmidt Process](Lecture%2027%20Gram%20Schmidt%20Process.md) — Orthogonalization procedure for vector spaces
+- **Related:** [Lecture 24: Logistic Regression-I](Lecture%2024%20Logistic%20Regression-I.md) — Classification model whose predictions these metrics evaluate
+- **Related:** [Lecture 54: Introduction to Support Vector Machines](Lecture%2054%20Introduction%20to%20Support%20Vector%20Machines.md) — Alternative classifier requiring similar evaluation

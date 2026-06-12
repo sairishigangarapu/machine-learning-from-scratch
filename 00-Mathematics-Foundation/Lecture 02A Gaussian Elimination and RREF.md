@@ -1,6 +1,6 @@
 ## Lecture 02A: Gaussian Elimination & RREF
 
-*The Mechanical Engine of Matrix Solving — Manual Mechanics*
+*Essential Mathematics for ML — Structured Notes*
 
 ---
 
@@ -74,6 +74,13 @@ If you end up with a row of all zeros (e.g., `[0 0 0]`), you have **Rank Deficie
 ---
 
 ### Practical Application
-- **Null Space Magic:** Use RREF to find the [Null Space (L04)](../../00-Mathematics-Foundation/Lecture%2004%20Vector%20Subspace.md). If you have free variables, your Null Space is non-trivial.
+- **Null Space Magic:** Use RREF to find the [Null Space (L04)](Lecture%2004%20Vector%20Subspace.md). If you have free variables, your Null Space is non-trivial.
 - **Inversion Check:** If RREF of an $n \times n$ matrix is the Identity ($I$), then the matrix is **Invertible**. If not, it's Singular.
-- **Syllabus Link:** This is the manual mechanical counterpart to [Lecture 21: Least Squares](../../00-Mathematics-Foundation/Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md).
+- **Syllabus Link:** This is the manual mechanical counterpart to [Lecture 21: Least Squares](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md).
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 02: Matrix Algebra](Lecture%2002%20Basics%20of%20Matrix%20Algebra.md) — Foundational matrix operations required before elimination
+- **Next:** [Lecture 03: Vector Spaces](Lecture%2003%20Vector%20Space%20Definitions.md) — Abstract framework built on the rank and null space concepts from RREF
+- **Related:** [Lecture 21: Least Squares](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) — Practical application of RREF to overdetermined systems

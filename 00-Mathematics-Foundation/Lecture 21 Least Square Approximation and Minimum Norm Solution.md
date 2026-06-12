@@ -166,3 +166,12 @@ The least square solution is the mathematical backbone of **linear regression**:
 - The least square solution $\mathbf{x}_{\text{LS}} = (A^T A)^{-1} A^T \mathbf{b}$ gives the **optimal regression coefficients** — the line (or hyperplane) that minimizes the total squared error across all data points.
 
 **Next Step:** We will apply this "Regression Engine" to solve complex forecasting problems in **Multiple and Polynomial Regression**.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 20: Python Implementation of LDA](Lecture%2020%20Python%20implementation%20of%20LDA.md) — Supervised dimensionality reduction before regression
+- **Next:** [Lecture 22: Linear and Multiple Regression](Lecture%2022%20Linear%20and%20Multiple%20Regression.md) — Applying least squares to regression models
+- **Related:** [Lecture 08: Orthogonal Complement and Projection](Lecture%2008%20Orthogonal%20Complement%20and%20Projection%20Mapping.md) — Projection interpretation of least squares
+- **Related:** [Lecture 12: Singular Value Decomposition](Lecture%2012%20Singular%20Value%20Decomposition.md) — SVD for computing the Moore-Penrose pseudoinverse
+- **Related:** [Lecture 35: Chain Rule](Lecture%2035%20Chain%20Rule.md) — Gradient derivation via chain rule for optimization

@@ -8,7 +8,7 @@ In this lecture, we transition from the theory of Maximum Likelihood Estimation 
 ---
 
 ### 2. Case Study 1: User Procurement (Binary)
-We use a company dataset containing info on 400 users.
+We simulate a company dataset containing info on 400 users.
 
 #### Data Selection
 Not all columns in a dataset are useful features. For this problem:
@@ -20,15 +20,23 @@ Not all columns in a dataset are useful features. For this problem:
 #### Workflow
 ```python
 import numpy as np
-import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, accuracy_score
 
-# 1. Prepare Data
-X = dataset.iloc[:, [2, 3]].values # Age and Salary
-y = dataset.iloc[:, 4].values      # Purchased (0/1)
+# 1. Generate Synthetic Data (replace with pd.read_csv for real data)
+np.random.seed(42)
+n = 400
+age = np.random.randint(18, 60, n)
+salary = np.random.randint(15000, 150000, n)
+# Purchase probability increases with age and salary
+logits = -5 + 0.08 * age + 0.00003 * salary
+probs = 1 / (1 + np.exp(-logits))
+purchased = (np.random.rand(n) < probs).astype(int)
+
+X = np.column_stack([age, salary])
+y = purchased
 
 # 2. Train/Test Split (75/25)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
@@ -61,10 +69,11 @@ classifier.fit(X_train, y_train)
 # 2. Predict on Test Data
 y_pred = classifier.predict(X_test)
 
-# 3. Evaluate via Confusion Matrix
+# 3. Evaluate
+accuracy = accuracy_score(y_test, y_pred)
 cm = confusion_matrix(y_test, y_pred)
-# Example result: 89% accuracy
-# 65 correct 0s, 24 correct 1s, 11 misclassified
+print(f"Accuracy: {accuracy:.2%}")
+print(f"Confusion Matrix:\n{cm}")
 ```
 
 ---
@@ -78,20 +87,32 @@ This advanced example uses the **LFW (Labeled Faces in the Wild)** dataset.
 #### Implementation Logic
 ```python
 from sklearn.datasets import fetch_lfw_people
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 
-# fetch images with at least 60 samples per person
+# Fetch images with at least 60 samples per person
 faces = fetch_lfw_people(min_faces_per_person=60)
 X = faces.data
 y = faces.target
+print(f"Dataset: {X.shape[0]} images, {X.shape[1]} features, {len(set(y))} classes")
 
-# The same LogisticRegression object handles multiclass via
-# 'one-vs-rest' (OvR) or 'multinomial' strategies internally.
-model = LogisticRegression()
+# Split and scale
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Train and evaluate
+model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+print(f"Accuracy: {accuracy_score(y_test, y_pred):.2%}")
 ```
 
 #### Outcome
-Even in high dimensions, Logistic Regression provides a solid baseline. In this exercise, the model achieved **81% accuracy** in identifying faces across 8 classes.
+Even in high dimensions, Logistic Regression provides a solid baseline. In this exercise, the model typically achieves **80-85% accuracy** in identifying faces across 8 classes.
 
 ---
 
@@ -104,4 +125,11 @@ We have now mastered the two pillars of foundational supervised learning:
 
 ### Practical Application
 - **Supervised Learning Lab:** [logistic_regression_lab.py](../02-Supervised-Learning/LOGISTIC%20REGRESSION/Theory.md)
-- **Math Deep-Dive:** Review [Lecture 24 (Theory)](../../00-Mathematics-Foundation/Lecture%2024%20Logistic%20Regression-I.md) to understand the MLE logic behind `model.fit()`.
+- **Math Deep-Dive:** Review [Lecture 24 (Theory)](Lecture%2024%20Logistic%20Regression-I.md) to understand the MLE logic behind `model.fit()`.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 24: Logistic Regression-I](Lecture%2024%20Logistic%20Regression-I.md) — Mathematical derivation of logistic regression via MLE
+- **Next:** [Lecture 26: Classification Metrics](Lecture%2026%20Classification%20Metrics.md) — Evaluating classifier performance with confusion matrix, precision, recall
+- **Related:** [Lecture 23: Linear and Multiple Regression-II](Lecture%2023%20Linear%20and%20Multiple%20Regression-II.md) — Python implementation of linear regression for comparison

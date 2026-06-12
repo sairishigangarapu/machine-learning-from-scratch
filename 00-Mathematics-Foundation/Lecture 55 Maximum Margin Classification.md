@@ -151,3 +151,12 @@ def svm_predict(X_new, X_sv, y_sv, alpha_sv, b):
 The constraint $\sum \alpha_i y_i = 0$ ensures the hyperplane is balanced between classes. The term $\mathbf{x}_i^T\mathbf{x}_j$ measures similarity between data points — points that are similar (large dot product) and from different classes compete for large $\alpha$ values.
 
 > **Check your intuition:** Why does the dual formulation only involve dot products $\mathbf{x}_i^T\mathbf{x}_j$ and not the raw data? *(Answer: The hyperplane orientation only depends on how data points relate to each other (similarities), not their absolute positions. This fact enables the kernel trick — we can replace dot products with kernel functions.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 54: Introduction to Support Vector Machines](Lecture%2054%20Introduction%20to%20Support%20Vector%20Machines.md) — Conceptual introduction to SVMs
+- **Next:** [Lecture 56: Duality and the Dual Problem](Lecture%2056%20Duality%20and%20the%20Dual%20Problem.md) — Theoretical foundation for dual formulation
+- **Related:** [Lecture 42: Constrained Optimization-I](Lecture%2042%20Constrained%20Optimization-I.md) — Lagrangian and KKT conditions
+- **Related:** [Lecture 56: Duality and the Dual Problem](Lecture%2056%20Duality%20and%20the%20Dual%20Problem.md) — Detailed derivation of dual
+- **Related:** [Lecture 57: Hard Margin SVM](Lecture%2057%20Hard%20Margin%20SVM.md) — Complete implementation of hard margin

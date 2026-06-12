@@ -123,3 +123,11 @@ Because $D$ is diagonal, $D^{1000}$ just takes $O(n)$ time! We literally raise t
 
 * By eigendecomposing $H$, the eigenvalues instantly tell us where we are. If all $\lambda > 0$, we are in a bowl (Global minimum). If signs are mixed, we are on a saddle point, which stalls SGD.
 * **The Condition Number:** The ratio $\kappa = \lambda_{\max}/\lambda_{\min}$ defines how "narrow" the loss bowl is. If $\kappa$ is huge, the gradient path oscillates violently, and Gradient Descent convergence crawls to a halt.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 10: Special Matrices](Lecture%2010%20Special%20Matrices%20and%20Properties.md) — Symmetric and orthogonal matrix properties guarantee diagonalizability
+- **Next:** [Lecture 12: SVD](Lecture%2012%20Singular%20Value%20Decomposition.md) — Generalizes eigendecomposition to rectangular matrices via singular values
+- **Related:** [Lecture 09: Eigenvalues](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) — Core eigenvalue computation that spectral decomposition builds upon
+- **Related:** [Lecture 16: PCA](Lecture%2016%20Principal%20Component%20Analysis.md) — Applies spectral decomposition of the covariance matrix for dimensionality reduction

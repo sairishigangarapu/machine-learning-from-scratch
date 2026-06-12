@@ -159,3 +159,12 @@ $$
 | **Normalization** | $\sum p(x) = 1$ | $\int f(x) dx = 1$ |
 
 > **Check your intuition:** Can a PDF value $f(x) = 2.5$? *(Answer: Yes! A density of 2.5 means the probability is concentrated around that point. It does NOT mean $P(X = x) = 2.5$ — for continuous variables, point probabilities are always 0.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 50: Expectation and Variance](Lecture%2050%20Expectation%20and%20Variance.md) — Statistical properties of distributions
+- **Next:** [Lecture 52: Continuous Probability Distributions](Lecture%2052%20Continuous%20Probability%20Distributions.md) — Specific continuous distributions
+- **Related:** [Lecture 49: Bayes Theorem and Random Variables](Lecture%2049%20Bayes%20Theorem%20and%20Random%20Variables.md) — Introduces PMF and PDF concepts
+- **Related:** [Lecture 50: Expectation and Variance](Lecture%2050%20Expectation%20and%20Variance.md) — Uses PMF/PDF for calculations
+- **Related:** [Lecture 53: Joint Probability Distributions](Lecture%2053%20Joint%20Probability%20Distributions.md) — Extends to multiple variables

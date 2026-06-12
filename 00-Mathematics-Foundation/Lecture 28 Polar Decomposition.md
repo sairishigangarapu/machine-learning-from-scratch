@@ -469,3 +469,11 @@ W^T W (should be identity):
 - **[Lecture 12: Singular Value Decomposition](Lecture%2012%20Singular%20Value%20Decomposition.md)** — SVD is the engine behind polar decomposition
 - **[Lecture 13: SVD — Properties and Applications](Lecture%2013%20SVD%20%20Properties%20and%20Applications.md)** — More on how SVD factorizations are used
 - **[Lecture 14: Low Rank Approximations](Lecture%2014%20Low%20Rank%20Approximations.md)** — Truncating SVD for compression
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 27: Gram-Schmidt Process](Lecture%2027%20Gram%20Schmidt%20Process.md) — Constructing orthonormal bases for vector spaces
+- **Next:** [Lecture 29: Minimal Polynomial and Jordan Canonical Form-I](Lecture%2029%20Minimal%20Polynomial%20and%20Jordan%20Canonical%20Form-I.md) — Jordan form via eigenvalue analysis
+- **Related:** [Lecture 12: Singular Value Decomposition](Lecture%2012%20Singular%20Value%20Decomposition.md) — SVD connection to polar decomposition
+- **Related:** [Lecture 13: SVD Properties and Applications](Lecture%2013%20SVD%20%20Properties%20and%20Applications.md) — Properties of SVD used in polar factorization

@@ -252,3 +252,12 @@ $$
 | **Chain rule** | $J_{f \circ g} = J_f \cdot J_g$ | Backpropagation |
 
 > **Check your intuition:** If the Jacobian of a transformation has $\det(J) = 0$ at some point, what does that mean geometrically? *(Answer: The transformation collapses space at that point — a 2D region gets squashed onto a 1D line or a point. The transformation is not invertible there, and information is lost. In a normalizing flow, this would be catastrophic — the probability density would be undefined.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 33: Functions of N Variables](Lecture%2033%20Functions%20of%20N%20Variables.md) — introduces partial derivatives and gradients that the Jacobian assembles into a matrix
+- **Next:** [Lecture 35: Chain Rule](Lecture%2035%20Chain%20Rule.md) — uses Jacobian multiplication to compose derivatives through network layers
+- **Related:** [Lecture 33: Functions of N Variables](Lecture%2033%20Functions%20of%20N%20Variables.md) — the multivariate function framework that the Jacobian extends
+- **Related:** [Lecture 35: Chain Rule](Lecture%2035%20Chain%20Rule.md) — the Jacobian chain rule is the mathematical foundation of backpropagation
+- **Related:** [Lecture 39: Definiteness of Matrices](Lecture%2039%20Definiteness%20of%20Matrices.md) — classifies Hessian matrices (a special Jacobian) to determine curvature of loss surfaces

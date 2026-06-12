@@ -192,3 +192,12 @@ def convergence_check(x_old, x_new, f_old, f_new, grad, tol=1e-8):
 | **Convergence** | Stop when gradient norm is small enough |
 
 > **Check your intuition:** Why does momentum help in narrow valleys? *(Answer: In a narrow valley, the gradient has a large component across the valley and a small component along it. Without momentum, the optimizer bounces across the valley. With momentum, the across-valley components cancel out (alternating signs) while the along-valley components accumulate, so the optimizer moves faster along the valley floor.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 42: Constrained Optimization-I](Lecture%2042%20Constrained%20Optimization-I.md) — establishes the KKT conditions that numerical methods aim to satisfy iteratively
+- **Next:** [Lecture 44: Steepest Descent Method](Lecture%2044%20Steepest%20Descent%20Method.md) — the most important first-order optimization algorithm, covering SGD, Adam, and convergence theory
+- **Related:** [Lecture 41: Unconstrained Optimization](Lecture%2041%20Unconstrained%20Optimization.md) — the optimality conditions that numerical methods converge toward
+- **Related:** [Lecture 44: Steepest Descent Method](Lecture%2044%20Steepest%20Descent%20Method.md) — steepest descent is the foundational first-order method described in this classification
+- **Related:** [Lecture 45: Newton's and Penalty Function Method](Lecture%2045%20Newton%27s%20and%20Penalty%20Function%20Method.md) — second-order methods and penalty approaches for constrained problems

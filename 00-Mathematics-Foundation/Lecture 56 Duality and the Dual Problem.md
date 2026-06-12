@@ -126,3 +126,12 @@ If $d \gg n$ (high dimensions, few samples), the dual has fewer variables than t
 The constraint $\sum \alpha_i y_i = 0$ can be rewritten as $\sum_{i: y_i=1} \alpha_i = \sum_{i: y_i=-1} \alpha_i$. This means the total "weight" assigned to positive class support vectors equals that of negative class support vectors.
 
 > **Check your intuition:** If the data is NOT linearly separable, does strong duality still hold? *(Answer: No. Slater's condition requires strict feasibility, which fails when no separating hyperplane exists. This is why we need soft margin SVMs — they reformulate the problem to restore strong duality.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 55: Maximum Margin Classification](Lecture%2055%20Maximum%20Margin%20Classification.md) — Primal formulation of SVM
+- **Next:** [Lecture 57: Hard Margin SVM](Lecture%2057%20Hard%20Margin%20SVM.md) — Complete hard margin implementation
+- **Related:** [Lecture 42: Constrained Optimization-I](Lecture%2042%20Constrained%20Optimization-I.md) — Theoretical foundation for duality
+- **Related:** [Lecture 55: Maximum Margin Classification](Lecture%2055%20Maximum%20Margin%20Classification.md) — Introduces dual formulation
+- **Related:** [Lecture 58: Soft Margin SVM](Lecture%2058%20Soft%20Margin%20SVM.md) — Extends dual to handle non-separable data

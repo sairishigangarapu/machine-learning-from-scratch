@@ -256,3 +256,12 @@ for epoch in range(100):
 | **AdamW** | Decoupled weight decay | Transformers, modern DL |
 
 > **Check your intuition:** Why does SGD with a fixed learning rate never truly converge to the exact minimum? *(Answer: The stochastic gradient is noisy — even at the minimum, the gradient estimate from a mini-batch is not zero. The optimizer oscillates around the minimum with variance proportional to $\alpha^2 / B$. Decaying the learning rate reduces this oscillation.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 43: Constrained Optimization-II](Lecture%2043%20Constrained%20Optimization-II.md) — classifies optimization methods and introduces gradient descent as the primary first-order approach
+- **Next:** [Lecture 45: Newton's and Penalty Function Method](Lecture%2045%20Newton%27s%20and%20Penalty%20Function%20Method.md) — extends to second-order methods and penalty-based approaches for constrained problems
+- **Related:** [Lecture 35: Chain Rule](Lecture%2035%20Chain%20Rule.md) — backpropagation computes the gradients that steepest descent uses via the chain rule
+- **Related:** [Lecture 41: Unconstrained Optimization](Lecture%2041%20Unconstrained%20Optimization.md) — the theoretical framework that steepest descent algorithms implement
+- **Related:** [Lecture 43: Constrained Optimization-II](Lecture%2043%20Constrained%20Optimization-II.md) — the optimization algorithm classification that places steepest descent in context

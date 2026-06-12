@@ -216,3 +216,12 @@ for name, clf in classifiers.items():
 | Multi-class | Use one-vs-one or one-vs-rest |
 
 > **Check your intuition:** Why should you standardize features before using SVM? *(Answer: SVM uses distances (via dot products) to define margins. If one feature has range [0, 1000] and another [0, 1], the first dominates the distance computation. Standardization ensures all features contribute equally.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 59: Kernels and the Kernel Trick](Lecture%2059%20Kernels%20and%20the%20Kernel%20Trick.md) — Theoretical foundation for non-linear SVMs
+- **Related:** [Lecture 54: Introduction to Support Vector Machines](Lecture%2054%20Introduction%20to%20Support%20Vector%20Machines.md) — SVM concepts
+- **Related:** [Lectures 55-59](Lecture%2055%20Maximum%20Margin%20Classification.md) through [Lecture 59: Kernels and the Kernel Trick](Lecture%2059%20Kernels%20and%20the%20Kernel%20Trick.md) — Complete SVM theory
+- **Related:** [Lecture 25: Logistic Regression-II](Lecture%2025%20Logistic%20Regression-II.md) — Alternative classification approach
+- **Related:** [Lecture 23: Linear and Multiple Regression-II](Lecture%2023%20Linear%20and%20Multiple%20Regression-II.md) — Regression counterpart

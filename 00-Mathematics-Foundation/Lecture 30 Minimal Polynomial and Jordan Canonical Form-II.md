@@ -660,3 +660,11 @@ Minimal polynomial structure from JCF:
 - **[Lecture 09: Eigenvalues and Eigenvectors](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md)** — Foundation for everything
 - **[Lecture 29: Minimal Polynomial and JCF - I](Lecture%2029%20Minimal%20Polynomial%20and%20Jordan%20Canonical%20Form-I.md)** — Previous lecture on JCF structure
 - **[Lecture 12: Singular Value Decomposition](Lecture%2012%20Singular%20Value%20Decomposition.md)** — The alternative universal factorization
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 29: Minimal Polynomial and Jordan Canonical Form-I](Lecture%2029%20Minimal%20Polynomial%20and%20Jordan%20Canonical%20Form-I.md) — Jordan block structure and minimal polynomial
+- **Next:** [Lecture 31: Functions](Lecture%2031%20Functions.md) — Transition from linear algebra to calculus and analysis
+- **Related:** [Lecture 09: Eigenvalues and Eigenvectors](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) — Eigenvalue foundation for JCF construction
+- **Related:** [Lecture 12: Singular Value Decomposition](Lecture%2012%20Singular%20Value%20Decomposition.md) — SVD as alternative factorization when diagonalization fails

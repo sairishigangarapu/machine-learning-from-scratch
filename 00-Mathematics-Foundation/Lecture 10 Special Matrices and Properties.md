@@ -93,3 +93,10 @@ print("Is Covariance Matrix PSD?", is_psd) # Output: True
 
 ### The Deep Learning Failure Mode: Saddle Points
 If the Hessian Matrix $H$ has both positive *and* negative eigenvalues, the loss landscape curves *up* in one direction, and *down* in another. This forms a **Saddle Point**. Gradient descent algorithms often get spectacularly stuck spinning in circles along saddle points. Positive Definite matrices guarantee the absence of saddle points.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 09: Eigenvalues](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) — Eigenvalue analysis is the tool used to classify special matrix properties
+- **Next:** [Lecture 11: Spectral](Lecture%2011%20Spectral%20decomposition.md) — Diagonalizes symmetric matrices using their orthogonal eigenvectors
+- **Related:** [Lecture 39: Definiteness](Lecture%2039%20Definiteness%20of%20Matrices.md) — Deep dive into positive definiteness tests and their role in convex optimization

@@ -350,3 +350,12 @@ For a constrained problem, the typical approach is:
 This combination is the foundation of **interior-point methods**, which are the dominant algorithm for convex constrained optimization (including SVMs and logistic regression with constraints).
 
 > **Check your intuition:** Why does the penalty method need $\mu \to \infty$ for an exact solution, and why is this problematic? *(Answer: For any finite $\mu$, the penalized solution still has a small constraint violation. But as $\mu$ grows, the condition number of the Hessian grows proportionally, making Newton's steps numerically unstable. The augmented Lagrangian method fixes this by adding explicit Lagrange multipliers.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 44: Steepest Descent Method](Lecture%2044%20Steepest%20Descent%20Method.md) — provides the first-order methods that Newton's method improves upon with second-order curvature information
+- **Next:** [Lecture 46: Python Implementation of Convex Optimization](Lecture%2046%20Python%20Implementation%20of%20Convex%20Optimization.md) — implements these optimization methods in Python for practical convex problems
+- **Related:** [Lecture 41: Unconstrained Optimization](Lecture%2041%20Unconstrained%20Optimization.md) — Newton's method solves unconstrained problems; penalty methods convert constrained to unconstrained
+- **Related:** [Lecture 42: Constrained Optimization-I](Lecture%2042%20Constrained%20Optimization-I.md) — KKT conditions provide the theoretical foundation that penalty methods approximate
+- **Related:** [Lecture 44: Steepest Descent Method](Lecture%2044%20Steepest%20Descent%20Method.md) — gradient descent is the practical alternative when Newton's method is too expensive

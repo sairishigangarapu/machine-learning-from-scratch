@@ -96,3 +96,10 @@ The dimension is 3, formally proving there are exactly 3 degrees of freedom ($a,
 * **Latent Spaces (Autoencoders):** A deep neural network encoder physically learns a new, customized, lower-dimensional basis that perfectly captures the underlying manifold of the training data.
 * **PCA (Principal Component Analysis):** A rigid mathematical method to find an *orthonormal* basis where the first few vectors point precisely along the axes of highest dataset variance.
 * **Sparsity:** Advanced regularization techniques (like L1 / Lasso) force neural networks to use as few basis vectors as possible, zeroing out the redundant ones to achieve model compression and interpretability.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 04: Subspaces](Lecture%2004%20Vector%20Subspace.md) — Subspaces provide the geometric containers that bases span
+- **Next:** [Lecture 06: Linear Transforms](Lecture%2006%20Linear%20Transformations.md) — Maps between spaces defined by bases; matrix representation depends on basis choice
+- **Related:** [Lecture 27: Gram-Schmidt](Lecture%2027%20Gram%20Schmidt%20Process.md) — Converts any basis into an orthonormal basis for stable computation

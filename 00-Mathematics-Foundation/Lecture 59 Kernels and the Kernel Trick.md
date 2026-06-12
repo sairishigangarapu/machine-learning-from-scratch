@@ -181,3 +181,12 @@ def kernel_decision(X_new, X_sv, y_sv, alpha_sv, b, kernel_fn):
 The kernel trick is more efficient when the implicit feature space dimension $D$ is very large (e.g., infinite for RBF), but the number of support vectors $n_s$ is small.
 
 > **Check your intuition:** Can you use any function $K(\mathbf{x}, \mathbf{z})$ as a kernel? *(Answer: No. $K$ must be positive semi-definite (Mercer's condition). For example, $K(\mathbf{x}, \mathbf{z}) = -||\mathbf{x} - \mathbf{z}||^2$ is not a valid kernel because it's not positive semi-definite.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 58: Soft Margin SVM](Lecture%2058%20Soft%20Margin%20SVM.md) — Handles non-separable data
+- **Next:** [Lecture 60: SVM Implementation in Python](Lecture%2060%20SVM%20Implementation%20in%20Python.md) — Practical implementation with kernels
+- **Related:** [Lecture 54: Introduction to Support Vector Machines](Lecture%2054%20Introduction%20to%20Support%20Vector%20Machines.md) — SVM fundamentals
+- **Related:** [Lecture 58: Soft Margin SVM](Lecture%2058%20Soft%20Margin%20SVM.md) — Combines with kernel trick
+- **Related:** [Lecture 60: SVM Implementation in Python](Lecture%2060%20SVM%20Implementation%20in%20Python.md) — Practical application of kernels

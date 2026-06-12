@@ -132,3 +132,11 @@ Specific matrix structures simplify theoretical and computational analysis:
 * **Diagonal Matrix:** Zeros everywhere except $a_{ii}$. Multiplying by a diagonal matrix is computationally cheap—it just scales the axes.
 * **Identity Matrix ($I_n$):** The ultimate neutral transformation ($AI = A$).
 * **Triangular Matrices:** Used heavily in LU decomposition for fast linear system solving.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 01: Vectors](Lecture%2001%20Vectors%20in%20Machine%20Learning.md) — Foundation of vector operations extended to matrices
+- **Next:** [Lecture 02A: Gaussian Elimination](Lecture%2002A%20Gaussian%20Elimination%20and%20RREF.md) — Systematic method for solving linear systems and analyzing matrix rank
+- **Related:** [Lecture 04: Subspaces](Lecture%2004%20Vector%20Subspace.md) — Explores column, null, and row spaces inherent in every matrix
+- **Related:** [Lecture 09: Eigenvalues](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) — Characterizes matrix behavior through its eigenstructure

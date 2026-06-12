@@ -174,3 +174,11 @@ Now that you have mastered the foundational mathematics of PCA, see it applied t
 * **[Unsupervised Learning - PCA Lab](../../03-Unsupervised-Learning/PRINCIPAL%20COMPONENT%20ANALYSIS/pca_lab.py)**
 * **[Unsupervised Learning - PCA Theory](../../03-Unsupervised-Learning/PRINCIPAL%20COMPONENT%20ANALYSIS/Theory.md)**
 
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 17: PCA Derivation and Examples](Lecture%2017%20PCA%20Derivation%20and%20Examples.md) — Mathematical derivation of the PCA objective
+- **Next:** [Lecture 19: Linear Discriminant Analysis](Lecture%2019%20Linear%20Discriminant%20Analysis.md) — Supervised dimensionality reduction that maximizes class separation
+- **Related:** [Lecture 16: Principal Component Analysis](Lecture%2016%20Principal%20Component%20Analysis.md) — Conceptual foundation for PCA
+- **Related:** [Lecture 20: Python Implementation of LDA](Lecture%2020%20Python%20implementation%20of%20LDA.md) — Hands-on coding of LDA for comparison
+

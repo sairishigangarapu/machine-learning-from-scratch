@@ -529,3 +529,11 @@ print(f"Minimal polynomial of A1: {m}")
 - **[Lecture 09: Eigenvalues and Eigenvectors](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md)** — The foundation for everything in this lecture
 - **[Lecture 11: Spectral Decomposition](Lecture%2011%20Spectral%20decomposition.md)** — Diagonalization of symmetric matrices
 - **[Lecture 30: Jordan Canonical Form - II](Lecture%2030%20Jordan%20Canonical%20Form-II.md)** — How to actually compute the transformation matrix $S$
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 28: Polar Decomposition](Lecture%2028%20Polar%20Decomposition.md) — Matrix factorization into orthogonal and PSD components
+- **Next:** [Lecture 30: Minimal Polynomial and Jordan Canonical Form-II](Lecture%2030%20Minimal%20Polynomial%20and%20Jordan%20Canonical%20Form-II.md) — Computing the Jordan transformation matrix S
+- **Related:** [Lecture 09: Eigenvalues and Eigenvectors](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) — Eigenvalue foundation for JCF
+- **Related:** [Lecture 11: Spectral Decomposition](Lecture%2011%20Spectral%20decomposition.md) — Diagonalization as special case of JCF

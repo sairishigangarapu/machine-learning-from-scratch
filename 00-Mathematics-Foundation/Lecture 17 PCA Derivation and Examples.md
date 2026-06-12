@@ -169,3 +169,11 @@ Your $100$-dimensional dataset could be reduced to $20$ dimensions exactly the s
 ## 5. Next Steps
 
 In solving PCA, we've developed an optimal method to reduce dimensions while maximizing variance indiscriminately. But what if we *want* to discriminate? In the next module, we will explore **Linear Discriminant Analysis (LDA)**—a technique that reduces dimensionality specifically to maximize class separation!
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 16: Principal Component Analysis](Lecture%2016%20Principal%20Component%20Analysis.md) — Conceptual overview and geometric intuition of PCA
+- **Next:** [Lecture 18: Python Implementation of PCA](Lecture%2018%20Python%20implementation%20of%20PCA.md) — Hands-on coding of the PCA algorithm
+- **Related:** [Lecture 12: Singular Value Decomposition](Lecture%2012%20Singular%20Value%20Decomposition.md) — SVD connection to PCA derivation
+- **Related:** [Lecture 21: Least Square Approximation](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) — Related minimization framework for approximation problems

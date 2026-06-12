@@ -164,3 +164,12 @@ Each $\xi_i$ measures the distance of point $i$ from its correct margin boundary
 | **Perceptron** | Min $\sum \max(0, -y_i f(\mathbf{x}_i))$ | No | Low |
 
 > **Check your intuition:** If $C$ is very large, does the soft margin SVM always find the hard margin solution? *(Answer: Only if the data is linearly separable. If it's not, even large $C$ cannot satisfy all constraints, and some $\xi_i$ will be positive. The model will be close to hard margin but with unavoidable violations.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 57: Hard Margin SVM](Lecture%2057%20Hard%20Margin%20SVM.md) — Idealized case for separable data
+- **Next:** [Lecture 59: Kernels and the Kernel Trick](Lecture%2059%20Kernels%20and%20the%20Kernel%20Trick.md) — Non-linear extensions
+- **Related:** [Lecture 54: Introduction to Support Vector Machines](Lecture%2054%20Introduction%20to%20Support%20Vector%20Machines.md) — SVM fundamentals
+- **Related:** [Lecture 57: Hard Margin SVM](Lecture%2057%20Hard%20Margin%20SVM.md) — Theoretical hard margin case
+- **Related:** [Lecture 59: Kernels and the Kernel Trick](Lecture%2059%20Kernels%20and%20the%20Kernel%20Trick.md) — Combines soft margin with kernels

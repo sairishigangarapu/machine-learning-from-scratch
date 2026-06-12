@@ -102,3 +102,10 @@ $$
 $$
 
 The abstract axioms of vector spaces are precisely what allow Large Language Models to "understand" geometry in human language.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 02A: Gaussian Elimination](Lecture%2002A%20Gaussian%20Elimination%20and%20RREF.md) — Concrete rank and null space analysis motivates the abstract framework
+- **Next:** [Lecture 04: Subspaces](Lecture%2004%20Vector%20Subspace.md) — Narrows vector spaces to origin-anchored flat slices critical for dimensionality reduction
+- **Related:** [Lecture 05: Basis](Lecture%2005%20Basis%20and%20Dimensions.md) — Identifies the minimal spanning set that defines a space's dimension

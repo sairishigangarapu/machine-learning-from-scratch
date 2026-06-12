@@ -179,3 +179,11 @@ A cone is **convex** if it also satisfies: $\mathbf{x}_1, \mathbf{x}_2 \in C \im
 | **Non-convex losses** | Neural networks → multiple local minima → no convergence guarantee |
 
 > **Check your intuition:** Is the set $\{(x, y) : y \ge x^2\}$ convex? *(Answer: Yes. For any two points above the parabola, the line segment connecting them stays above the parabola. This is the epigraph of a convex function, and epigraphs of convex functions are always convex sets.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 36: Python Implementation of Calculus](Lecture%2036%20Python%20Implementation%20of%20Calculus.md) — provides the computational tools for working with the geometric objects introduced here
+- **Next:** [Lecture 38: Convex Functions](Lecture%2038%20Convex%20Functions.md) — builds on convex sets to define convex functions, the key property for optimization
+- **Related:** [Lecture 38: Convex Functions](Lecture%2038%20Convex%20Functions.md) — convex functions are defined on convex sets and share the same geometric intuition
+- **Related:** [Lecture 42: Constrained Optimization-I](Lecture%2042%20Constrained%20Optimization-I.md) — constrained optimization operates over convex feasible regions defined by convex sets

@@ -101,4 +101,12 @@ For problems with more than 2 classes:
 
 ### Practical Application
 - **Supervised Classification Lab:** Review the implementation logic in [Logistic Regression Theory Lab](../../02-Supervised-Learning/LOGISTIC%20REGRESSION/Theory.md).
-- **Comparison:** Compare these derivations with [Lecture 22 (Linear Regression)](../../00-Mathematics-Foundation/Lecture%2022%20Linear%20and%20Multiple%20Regression.md) to see the transition from Least Squares to Maximum Likelihood.
+- **Comparison:** Compare these derivations with [Lecture 22 (Linear Regression)](Lecture%2022%20Linear%20and%20Multiple%20Regression.md) to see the transition from Least Squares to Maximum Likelihood.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 23: Linear and Multiple Regression-II](Lecture%2023%20Linear%20and%20Multiple%20Regression-II.md) — Python implementation of linear regression
+- **Next:** [Lecture 25: Logistic Regression-II](Lecture%2025%20Logistic%20Regression-II.md) — Python implementation of logistic regression with gradient descent
+- **Related:** [Lecture 22: Linear and Multiple Regression](Lecture%2022%20Linear%20and%20Multiple%20Regression.md) — Linear regression as the regression counterpart to logistic classification
+- **Related:** [Lecture 48: Introduction to Probability](Lecture%2048%20Introduction%20to%20Probability.md) — Probability foundations for MLE derivation

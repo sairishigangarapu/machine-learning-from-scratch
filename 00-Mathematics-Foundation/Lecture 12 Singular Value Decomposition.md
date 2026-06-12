@@ -107,3 +107,12 @@ SVD is the most important decomposition in modern data science:
 * **[Principal Component Analysis (PCA):](Lecture%2016%20Principal%20Component%20Analysis.md)** Most high-performance PCA implementations (like `sklearn`) use SVD internally because it is numerically more stable than eigendecomposition.
 * **[The Moore-Penrose Pseudo-Inverse:](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md)** As seen in Lecture 21, we solve impossible linear systems using $A^{+} = V \Sigma^{-1} U^T$.
 * **Low-Rank Approximation:** As explored in Lecture 14, SVD allows us to compress massive datasets (like images or user-item matrices in Recommenders) by throwing away small singular values.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 11: Spectral](Lecture%2011%20Spectral%20decomposition.md) — Eigendecomposition of symmetric matrices is the mathematical bridge to SVD
+- **Next:** [Lecture 13: SVD Properties](Lecture%2013%20SVD%20%3A%20Properties%20and%20Applications.md) — Explores matrix norms, pseudo-inverse, and subspace structure via SVD
+- **Related:** [Lecture 16: PCA](Lecture%2016%20Principal%20Component%20Analysis.md) — SVD is the computational backbone of modern PCA implementations
+- **Related:** [Lecture 21: Least Squares](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) — The pseudo-inverse from SVD solves overdetermined and underdetermined systems
+- **Related:** [Lecture 14: Low Rank](Lecture%2014%20Low%20Rank%20Approximations.md) — Truncating small singular values yields optimal low-rank approximations

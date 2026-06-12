@@ -126,3 +126,12 @@ Eigenvalues are not just for solving textbooks; they are the core engine of almo
 * **[Principal Component Analysis (PCA):](Lecture%2016%20Principal%20Component%20Analysis.md)** We find the directions of maximum variance by calculating the eigenvectors of the data's covariance matrix.
 * **[Linear Discriminant Analysis (LDA):](Lecture%2019%20Linear%20Discriminant%20Analysis.md)** We separate data classes by finding the eigenvectors of $S_W^{-1} S_B$.
 * **[Spectral Decomposition:](Lecture%2011%20Spectral%20decomposition.md)** Understanding how symmetric matrices can be "diagonalized" into their constituent components.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 08: Orthogonal](Lecture%2008%20Orthogonal%20Complement%20and%20Projection%20Mapping.md) — Orthogonal projections and inner product spaces motivate the search for invariant directions
+- **Next:** [Lecture 10: Special Matrices](Lecture%2010%20Special%20Matrices%20and%20Properties.md) — Classifies matrices (symmetric, orthogonal, PD) whose eigenvalues have special guarantees
+- **Related:** [Lecture 11: Spectral](Lecture%2011%20Spectral%20decomposition.md) — Decomposes a matrix into its eigenvalue-weighted rank-1 components
+- **Related:** [Lecture 16: PCA](Lecture%2016%20Principal%20Component%20Analysis.md) — Uses eigenvectors of the covariance matrix to find directions of maximum variance
+- **Related:** [Lecture 19: LDA](Lecture%2019%20Linear%20Discriminant%20Analysis.md) — Uses generalized eigenvalues to find class-separating projections

@@ -143,3 +143,12 @@ $$
 The distance between these boundaries is $\frac{2}{||\mathbf{w}||}$. Maximizing this distance is equivalent to minimizing $||\mathbf{w}||^2$.
 
 > **Check your intuition:** If you multiply all weights and bias by 2, how does the margin change? *(Answer: The decision boundary doesn't change (same hyperplane), but the functional margin doubles while the geometric margin stays the same since $||\mathbf{w}||$ also doubles. This is why SVMs use geometric margin.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 53: Joint Probability Distributions](Lecture%2053%20Joint%20Probability%20Distributions.md) — Probability foundations for classification
+- **Next:** [Lecture 55: Maximum Margin Classification](Lecture%2055%20Maximum%20Margin%20Classification.md) — Detailed optimization of SVM objective
+- **Related:** [Lecture 55: Maximum Margin Classification](Lecture%2055%20Maximum%20Margin%20Classification.md) — Formal optimization of the maximum margin concept
+- **Related:** [Lecture 56: Duality and the Dual Problem](Lecture%2056%20Duality%20and%20the%20Dual%20Problem.md) — Dual formulation enables kernel trick
+- **Related:** [Lecture 26: Classification Metrics](Lecture%2026%20Classification%20Metrics.md) — Evaluating SVM performance

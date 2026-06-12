@@ -257,3 +257,10 @@ In this lecture we implemented LDA with `scikit-learn` in two settings:
 LDA is the go-to method when class information is available and linear separability matters. For unlabelled data or purely exploratory analysis, PCA remains the appropriate tool.
 
 **End of Module:** You are now equipped to handle high-dimensional classification. In the next lecture, we move to the math behind **Linear Regression**—the engine of modern forecasting.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 19: Linear Discriminant Analysis](Lecture%2019%20Linear%20Discriminant%20Analysis.md) — Mathematical derivation of the Fisher criterion
+- **Next:** [Lecture 21: Least Square Approximation](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) — Foundation for regression via minimum norm solution
+- **Related:** [Lecture 18: Python Implementation of PCA](Lecture%2018%20Python%20implementation%20of%20PCA.md) — Hands-on PCA for unsupervised reduction comparison

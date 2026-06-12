@@ -170,3 +170,10 @@ To summarize, datasets are matrices of stacked vectors:
 **Feature Vector:** For sample $E_i$, $\mathbf{x}_i = [f_1, f_2, \dots, f_n]$.
 
 > **Check your intuition:** If a dataset tracks coordinates of cars driving strictly straight along a 1D highway, but the data is recorded in 3D $(x, y, z)$, are the feature columns linearly independent? *(Answer: No. The motion is effectively 1D, meaning two columns are entirely predictable combinations of the other. The intrinsic dimensionality is 1.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Next:** [Lecture 02: Matrix Algebra](Lecture%2002%20Basics%20of%20Matrix%20Algebra.md) — Extends vector operations to matrices, enabling batch processing of data points
+- **Related:** [Lecture 07: Norms](Lecture%2007%20Norms%20and%20Spaces.md) — Generalizes vector magnitude to higher-level loss functions and regularization
+- **Related:** [Lecture 08: Orthogonal](Lecture%2008%20Orthogonal%20Complement%20and%20Projection%20Mapping.md) — Builds on dot product and angle concepts to projection and best-fit

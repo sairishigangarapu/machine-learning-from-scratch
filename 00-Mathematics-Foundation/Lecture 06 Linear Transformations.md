@@ -155,3 +155,11 @@ Solve $T(\mathbf{x}) = \mathbf{0}$:
 **Verification:** $\text{Rank}(2) + \text{Nullity}(1) = \dim(\mathbb{R}^3) = 3$.
 
 > **Check your intuition:** What kind of linear transformation has a rank of 0? *(Answer: The zero matrix. It crushes everything to the origin, meaning Nullity equals the entire input dimension.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 05: Basis](Lecture%2005%20Basis%20and%20Dimensions.md) — Bases define the coordinate systems in which transformations are represented
+- **Next:** [Lecture 07: Norms](Lecture%2007%20Norms%20and%20Spaces.md) — Measures the magnitude of transformed vectors and defines distance in ML loss functions
+- **Related:** [Lecture 09: Eigenvalues](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) — Eigenvectors are the invariant directions of a linear transformation
+- **Related:** [Lecture 16: PCA](Lecture%2016%20Principal%20Component%20Analysis.md) — Finds optimal linear projections that maximize variance

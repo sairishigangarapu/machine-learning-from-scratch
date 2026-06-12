@@ -92,3 +92,11 @@ The span of the rows of $A$ (lives in $\mathbb{R}^n$).
 The Null space of $A^T$.
 
 **Deep Learning Failure Mode (Rank Deficiency):** If your matrix $A$ is $1000 \times 1000$, but its Column Space is only a 10D subspace (Rank = 10), then 990 dimensions of your data input will fall straight into the Null Space and be annihilated to 0. A near-rank-deficient weight matrix causes catastrophic information bottlenecks in deep neural networks.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 03: Vector Spaces](Lecture%2003%20Vector%20Space%20Definitions.md) — Formal axioms that subspaces must satisfy
+- **Next:** [Lecture 05: Basis](Lecture%2005%20Basis%20and%20Dimensions.md) — Finds the minimal set of vectors that span a subspace
+- **Related:** [Lecture 02A: RREF](Lecture%2002A%20Gaussian%20Elimination%20and%20RREF.md) — Provides the algorithmic tool to identify null and column spaces
+- **Related:** [Lecture 21: Least Squares](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) — Projects data onto column spaces when exact solutions don't exist

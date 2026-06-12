@@ -222,3 +222,11 @@ $$
 | **Optimizer** | Updates parameters to minimize $\mathcal{L}(f_\theta(\mathbf{x}), y)$ |
 
 > **Check your intuition:** Why must the sigmoid function be bounded between 0 and 1? *(Answer: Because it is interpreted as a probability. If it were unbounded, the output could not be a valid probability, and the cross-entropy loss would produce nonsensical gradients.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 30: Minimal Polynomial and Jordan Canonical Form-II](Lecture%2030%20Minimal%20Polynomial%20and%20Jordan%20Canonical%20Form-II.md) — concludes the linear algebra foundation needed for understanding functions and their derivatives
+- **Next:** [Lecture 32: Limits and Continuity](Lecture%2032%20Limits%20and%20Continuity.md) — extends function concepts to limits, which are essential for defining derivatives
+- **Related:** [Lecture 33: Functions of N Variables](Lecture%2033%20Functions%20of%20N%20Variables.md) — generalizes single-variable functions to multivariate settings used in ML
+- **Related:** [Lecture 34: Jacobian](Lecture%2034%20Jacobian.md) — describes how vector-valued functions change, building on the function framework

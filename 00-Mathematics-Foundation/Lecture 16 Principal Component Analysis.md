@@ -128,3 +128,12 @@ reduced_data = C @ W  # Now shaped (100, 2)
 * **Failure Mode (Feature Scaling):** If feature $X_1$ is measured in millimeters, and $X_2$ in kilometers, $X_1$ will mathematically dominate the variance. PCA will blindly align PC1 across $X_1$, completely ruining the analysis. **Always scale/normalize features to unit variance before PCA.**
 
 > **Check your intuition:** If a dataset is a completely uniform, perfectly spherical cloud of noise in 3D, what does PCA do? *(Answer: It does absolutely nothing useful. All eigenvalues of the covariance matrix will be identical, meaning there are no "principal" directions since the variance is equal in every direction.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 14: Low Rank Approximations](Lecture%2014%20Low%20Rank%20Approximations.md) — Low-rank theory motivates why PCA discards small singular values
+- **Next:** [Lecture 17: PCA Derivation and Examples](Lecture%2017%20PCA%20Derivation%20and%20Examples.md) — Rigorous mathematical derivation of the PCA objective
+- **Related:** [Lecture 09: Eigenvalues and Eigenvectors](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) — Eigendecomposition of the covariance matrix
+- **Related:** [Lecture 12: Singular Value Decomposition](Lecture%2012%20Singular%20Value%20Decomposition.md) — SVD provides an alternative computational route for PCA
+- **Related:** [Lecture 19: Linear Discriminant Analysis](Lecture%2019%20Linear%20Discriminant%20Analysis.md) — Supervised counterpart to unsupervised PCA

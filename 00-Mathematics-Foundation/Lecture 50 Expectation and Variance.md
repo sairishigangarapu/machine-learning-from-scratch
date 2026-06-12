@@ -146,3 +146,11 @@ This gives a worst-case bound on how far $X$ can be from its mean.
 | **Bias-variance tradeoff** | Decomposition of expected error into bias and variance |
 
 > **Check your intuition:** If $X$ and $Y$ are independent with $\text{Var}(X) = 3$ and $\text{Var}(Y) = 5$, what is $\text{Var}(X + Y)$? *(Answer: $3 + 5 = 8$. Independence means the covariance is zero.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 49: Bayes Theorem and Random Variables](Lecture%2049%20Bayes%20Theorem%20and%20Random%20Variables.md) — Defines random variables and distributions
+- **Next:** [Lecture 51: PMF and PDF](Lecture%2051%20PMF%20and%20PDF.md) — Formalizes distribution functions
+- **Related:** [Lecture 49: Bayes Theorem and Random Variables](Lecture%2049%20Bayes%20Theorem%20and%20Random%20Variables.md) — Context for expectation calculations
+- **Related:** [Lecture 52: Continuous Probability Distributions](Lecture%2052%20Continuous%20Probability%20Distributions.md) — Applies expectation to continuous distributions

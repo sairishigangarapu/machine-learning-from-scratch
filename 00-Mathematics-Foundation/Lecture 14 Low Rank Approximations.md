@@ -107,3 +107,10 @@ Digital images are massive matrices of raw pixel intensities.
 * **Input Image:** A high-res facial photo might technically have rank $1000$.
 * **SVD Rank 1-10 Approximation:** We only see vague "ghostly" sweeping blob colors representing broad lighting and skin tone layouts.
 * **SVD Rank 50 Approximation:** The shape of the eyes, nose, and mouth snap into terrifying clarity. The reconstruction is nearly indistinguishable from reality to the human eye, entirely mathematically assembled using just 5% of the original structural information.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 13: SVD Properties](Lecture%2013%20SVD%20%3A%20Properties%20and%20Applications.md) — Matrix norms and pseudo-inverse concepts underpin the error guarantees of low-rank approximation
+- **Next:** [Lecture 16: PCA](Lecture%2016%20Principal%20Component%20Analysis.md) — Applies low-rank structure to find directions of maximum variance for dimensionality reduction
+- **Related:** [Lecture 12: SVD](Lecture%2012%20Singular%20Value%20Decomposition.md) — The Eckart-Young-Mirsky theorem uses SVD to find optimal rank-$k$ approximations

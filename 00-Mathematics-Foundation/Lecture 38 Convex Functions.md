@@ -164,3 +164,12 @@ $$
 | **Neural network loss** | Non-convex → Training is an art |
 
 > **Check your intuition:** Is $f(x) = x^3$ convex on $\mathbb{R}$? *(Answer: No. $f''(x) = 6x$, which is negative for $x < 0$ and positive for $x > 0$. The Hessian is not positive semi-definite everywhere, so the function is not convex. It is convex on $[0, \infty)$ but not on $\mathbb{R}$.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 37: Convex Sets](Lecture%2037%20Convex%20Sets.md) — provides the geometric foundation (convex domains) required for defining convex functions
+- **Next:** [Lecture 39: Definiteness of Matrices](Lecture%2039%20Definiteness%20of%20Matrices.md) — classifies the Hessian to test the second-order condition for convexity
+- **Related:** [Lecture 37: Convex Sets](Lecture%2037%20Convex%20Sets.md) — convex functions are defined on convex sets; their epigraphs are convex sets
+- **Related:** [Lecture 41: Unconstrained Optimization](Lecture%2041%20Unconstrained%20Optimization.md) — convexity guarantees that local minima are global minima in unconstrained problems
+- **Related:** [Lecture 42: Constrained Optimization-I](Lecture%2042%20Constrained%20Optimization-I.md) — KKT conditions are sufficient for global optimality when the problem is convex

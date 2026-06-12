@@ -152,3 +152,11 @@ The connection is direct:
 | $A \subseteq B$ | $A$ implies $B$ |
 
 > **Check your intuition:** If you flip a fair coin 3 times, what is the probability of getting at least one head? *(Answer: $P(\text{at least 1 H}) = 1 - P(\text{all tails}) = 1 - (1/2)^3 = 7/8$. Using the complement is often easier than summing individual cases.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 47: Sets and Basic Operations](Lecture%2047%20Sets%20and%20Basic%20Operations.md) — Foundational set theory for probability spaces
+- **Next:** [Lecture 49: Bayes Theorem and Random Variables](Lecture%2049%20Bayes%20Theorem%20and%20Random%20Variables.md) — Extends probability with conditional reasoning
+- **Related:** [Lecture 49: Bayes Theorem and Random Variables](Lecture%2049%20Bayes%20Theorem%20and%20Random%20Variables.md) — Direct application of probability concepts
+- **Related:** [Lecture 24: Logistic Regression-I](Lecture%2024%20Logistic%20Regression-I.md) — Uses probability for classification

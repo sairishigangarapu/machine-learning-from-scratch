@@ -176,3 +176,13 @@ Properties:
 | **Independence** | $p(x,y) = p_X(x)p_Y(y)$ | "Does knowing $X$ tell me about $Y$?" |
 
 > **Check your intuition:** If $X$ and $Y$ are independent, is $\text{Cov}(X, Y) = 0$? *(Answer: Yes. Independence implies zero covariance. But zero covariance does NOT imply independence — only zero correlation for linear relationships.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 52: Continuous Probability Distributions](Lecture%2052%20Continuous%20Probability%20Distributions.md) — Continuous single-variable distributions
+- **Next:** [Lecture 54: Introduction to Support Vector Machines](Lecture%2054%20Introduction%20to%20Support%20Vector%20Machines.md) — Applies probability to classification
+- **Related:** [Lecture 50: Expectation and Variance](Lecture%2050%20Expectation%20and%20Variance.md) — Covariance and correlation concepts
+- **Related:** [Lecture 51: PMF and PDF](Lecture%2051%20PMF%20and%20PDF.md) — Distribution functions for multiple variables
+- **Related:** [Lecture 52: Continuous Probability Distributions](Lecture%2052%20Continuous%20Probability%20Distributions.md) — Continuous multivariate distributions
+- **Related:** [Lecture 16: Principal Component Analysis](Lecture%2016%20Principal%20Component%20Analysis.md) — Uses covariance matrix for dimensionality reduction

@@ -88,7 +88,8 @@ P = matrix(X.T @ X + 2 * lam * np.eye(5))
 q = matrix(-X.T @ y)
 
 # No inequality constraints (unconstrained QP)
-G = matrix(np.zeros((5, 1)))  # dummy
+# CVXopt requires G and h even if empty — pass dummy arrays of correct shape
+G = matrix(np.zeros((1, 5)))  # shape (m, n) where m=0 real constraints
 h = matrix(np.zeros(1))
 A = matrix(np.zeros((1, 5)))
 b = matrix([0.0])
@@ -109,13 +110,15 @@ print(f"Sklearn: {ridge.coef_}")
 
 The dual of the SVM problem is a QP:
 
-$$
+$$$
 \min_{\alpha} \frac{1}{2}\boldsymbol{\alpha}^T (y_i y_j \mathbf{x}_i^T \mathbf{x}_j) \boldsymbol{\alpha} - \mathbf{1}^T \boldsymbol{\alpha}
 $$
 
 $$
 \text{s.t.} \quad 0 \le \alpha_i \le C, \quad \sum \alpha_i y_i = 0
-```python
+$$
+
+```pythonpython
 import numpy as np
 from cvxopt import matrix, solvers
 
@@ -166,3 +169,11 @@ print(f"Support vectors: {np.sum(alpha > 1e-5)}")
 | `solvers.sdp` | Semidefinite programming | Kernel learning, graph problems |
 
 > **Check your intuition:** Why is SVM a QP and not an LP? *(Answer: The objective involves $\|\mathbf{w}\|^2 = \mathbf{w}^T\mathbf{w}$, which is quadratic in the variables. LP objectives must be linear — they cannot have squared terms.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 45: Newton's and Penalty Function Method](Lecture%2045%20Newton's%20and%20Penalty%20Function%20Method.md) — Builds on theoretical optimization foundations
+- **Next:** [Lecture 47: Sets and Basic Operations](Lecture%2047%20Sets%20and%20Basic%20Operations.md) — Mathematical prerequisites for probability theory
+- **Related:** [Lecture 36: Python Implementation of Calculus](Lecture%2036%20Python%20Implementation%20of%20Calculus.md) — Python implementation techniques for mathematical concepts
+- **Related:** [Lecture 55: Maximum Margin Classification](Lecture%2055%20Maximum%20Margin%20Classification.md) — SVM optimization problem that uses CVXopt

@@ -261,3 +261,11 @@ All methods reduce to solving an over-determined linear system via the **least s
 - **Supervised Learning Lab (Simple):** [linear_regression_lab.py](../02-Supervised-Learning/LINEAR%20REGRESSION/linear_regression_lab.py)
 - **Supervised Learning Lab (Multiple Variables):** [multivariate_regression_lab.py](../02-Supervised-Learning/LINEAR%20REGRESSION%20WITH%20MULTIPLE%20VARIABLES/multivariate_regression_lab.py)
 - **Core Concept Link:** Deep dive into the [Bias-Variance Tradeoff](../01-Core-Concepts/Bias-Variance-Tradeoff.md) to understand why $L_1/L_2$ regularization is needed.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 21: Least Square Approximation](Lecture%2021%20Least%20Square%20Approximation%20and%20Minimum%20Norm%20Solution.md) — Normal equations and pseudoinverse derivation
+- **Next:** [Lecture 23: Linear and Multiple Regression-II](Lecture%2023%20Linear%20and%20Multiple%20Regression-II.md) — Python implementation and advanced regression techniques
+- **Related:** [Lecture 24: Logistic Regression-I](Lecture%2024%20Logistic%20Regression-I.md) — Classification counterpart to linear regression
+- **Related:** [Lecture 41: Unconstrained Optimization](Lecture%2041%20Unconstrained%20Optimization.md) — Gradient descent for fitting regression models

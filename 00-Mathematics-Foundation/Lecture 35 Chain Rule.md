@@ -290,3 +290,11 @@ The gradient neither shrinks nor grows through active neurons — it flows clean
 | **Backpropagation** | Multiply upstream gradient by local Jacobian at each layer |
 
 > **Check your intuition:** If a network has 50 layers and the Jacobian at each layer has a spectral norm of $0.9$, what happens to the gradient magnitude after backpropagating through all 50 layers? *(Answer: It shrinks by $0.9^{50} \approx 0.005$. The gradient is essentially gone — this is the vanishing gradient problem in its purest form.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 34: Jacobian](Lecture%2034%20Jacobian.md) — provides the matrix formulation of derivatives that the chain rule composes through layers
+- **Next:** [Lecture 36: Python Implementation of Calculus](Lecture%2036%20Python%20Implementation%20of%20Calculus.md) — shows how to verify and implement chain rule computations using SymPy and autodiff
+- **Related:** [Lecture 34: Jacobian](Lecture%2034%20Jacobian.md) — the Jacobian chain rule $J_{f \circ g} = J_f \cdot J_g$ is the multivariate generalization
+- **Related:** [Lecture 44: Steepest Descent Method](Lecture%2044%20Steepest%20Descent%20Method.md) — gradient descent relies on chain rule gradients computed via backpropagation

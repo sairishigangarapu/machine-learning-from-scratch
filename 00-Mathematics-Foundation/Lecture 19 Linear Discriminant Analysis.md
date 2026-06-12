@@ -166,3 +166,11 @@ For $C$ classes, LDA can reduce dimensionality to **at most $C - 1$ dimensions**
 ### Practical Application
 - **Unsupervised Learning Lab:** See how PCA (LDA's cousin) is implemented in [pca_lab.py](../03-Unsupervised-Learning/PRINCIPAL%20COMPONENT%20ANALYSIS/pca_lab.py).
 - **Theory Comparison:** Read the [PCA Theory](../03-Unsupervised-Learning/PRINCIPAL%20COMPONENT%20ANALYSIS/Theory.md) to understand the Unsupervised vs. Supervised extraction gap.
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 18: Python Implementation of PCA](Lecture%2018%20Python%20implementation%20of%20PCA.md) — Hands-on PCA implementation for unsupervised reduction
+- **Next:** [Lecture 20: Python Implementation of LDA](Lecture%2020%20Python%20implementation%20of%20LDA.md) — Hands-on coding of LDA using Moore-Penrose pseudoinverse
+- **Related:** [Lecture 09: Eigenvalues and Eigenvectors](Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) — Eigenvalue problem for solving LDA
+- **Related:** [Lecture 16: Principal Component Analysis](Lecture%2016%20Principal%20Component%20Analysis.md) — Unsupervised counterpart to supervised LDA

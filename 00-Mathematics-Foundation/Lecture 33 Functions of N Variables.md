@@ -255,3 +255,12 @@ This is a function of $n$ variables $(w_1, w_2, \dots, w_n)$.
 * **Hessian:** $H = \frac{1}{m} X^T X$ — always positive semi-definite, confirming convexity
 
 > **Check your intuition:** If $f(x, y) = x^2 + y^2$, what is the directional derivative at $(1, 1)$ in the direction $\mathbf{u} = \frac{1}{\sqrt{2}}(1, -1)$? *(Answer: $\nabla f = (2, 2)$, so $D_{\mathbf{u}} f = (2)(1/\sqrt{2}) + (2)(-1/\sqrt{2}) = 0$. We're moving along a level set — the contour circle — so the function doesn't change.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 32: Limits and Continuity](Lecture%2032%20Limits%20and%20Continuity.md) — provides the limit framework needed to define partial derivatives
+- **Next:** [Lecture 34: Jacobian](Lecture%2034%20Jacobian.md) — builds on partial derivatives to describe how vector-valued multivariate functions change
+- **Related:** [Lecture 31: Functions](Lecture%2031%20Functions.md) — the single-variable function foundation extended to n variables
+- **Related:** [Lecture 34: Jacobian](Lecture%2034%20Jacobian.md) — assembles partial derivatives into a matrix describing local linear behavior
+- **Related:** [Lecture 38: Convex Functions](Lecture%2038%20Convex%20Functions.md) — applies multivariate calculus to characterize convexity and optimization

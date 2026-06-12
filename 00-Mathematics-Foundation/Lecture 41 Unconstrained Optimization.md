@@ -19,7 +19,7 @@ $$
 where $f: \mathbb{R}^n \to \mathbb{R}$ is the **objective function**.
 
 * If $C = \mathbb{R}^n$ (no restrictions on $\mathbf{x}$), the problem is unconstrained.
-* If $C \subset \mathbb{R}^n$, the problem is constrained (Lecture 41).
+* If $C \subset \mathbb{R}^n$, the problem is constrained (Lecture 42).
 
 ### Key Terminology
 
@@ -234,3 +234,12 @@ for point in crit:
 | $\nabla^2 f$ indefinite | Saddle point — NOT a minimum |
 
 > **Check your intuition:** For $f(x) = x^3$, the critical point is at $x = 0$. Is it a minimum, maximum, or saddle? *(Answer: None of the above in the strict sense. $f''(0) = 0$, so the second-order test is inconclusive. Since $f$ is increasing on both sides of $x = 0$ (it's an inflection point), it is neither a min nor a max.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 40: Optimality Conditions](Lecture%2040%20Optimality%20Conditions.md) — establishes the first- and second-order conditions that define when a point is optimal
+- **Next:** [Lecture 42: Constrained Optimization-I](Lecture%2042%20Constrained%20Optimization-I.md) — extends unconstrained optimization to problems with inequality constraints via KKT conditions
+- **Related:** [Lecture 40: Optimality Conditions](Lecture%2040%20Optimality%20Conditions.md) — provides the theoretical conditions that unconstrained optimization algorithms seek to satisfy
+- **Related:** [Lecture 43: Constrained Optimization-II](Lecture%2043%20Constrained%20Optimization-II.md) — covers numerical algorithms for iteratively solving optimization problems
+- **Related:** [Lecture 44: Steepest Descent Method](Lecture%2044%20Steepest%20Descent%20Method.md) — the primary algorithm for unconstrained optimization in deep learning

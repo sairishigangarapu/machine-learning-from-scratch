@@ -210,3 +210,11 @@ Each $P(\text{word}_i | \text{spam})$ is estimated from training data.
 | **Gaussian** | $\mathcal{N}(\mu, \sigma^2)$ | Ubiquitous in ML |
 
 > **Check your intuition:** If $X \sim \mathcal{N}(0, 1)$, what is $P(-1 < X < 1)$? *(Answer: About 68%. The 68-95-99.7 rule says one standard deviation from the mean captures ~68% of the probability.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 48: Introduction to Probability](Lecture%2048%20Introduction%20to%20Probability.md) — Basic probability axioms and rules
+- **Next:** [Lecture 50: Expectation and Variance](Lecture%2050%20Expectation%20and%20Variance.md) — Quantifies properties of distributions
+- **Related:** [Lecture 48: Introduction to Probability](Lecture%2048%20Introduction%20to%20Probability.md) — Foundation for Bayes' theorem
+- **Related:** [Lecture 51: PMF and PDF](Lecture%2051%20PMF%20and%20PDF.md) — Mathematical representation of random variables

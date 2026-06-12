@@ -131,3 +131,12 @@ $$
 | Is binary (0/1) | Bernoulli/Binomial |
 
 > **Check your intuition:** Why does adding many small independent noise sources produce a Gaussian distribution? *(Answer: The Central Limit Theorem. Regardless of the individual distributions, the sum of many independent random variables converges to a Gaussian as the number of variables grows.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 51: PMF and PDF](Lecture%2051%20PMF%20and%20PDF.md) — General distribution functions
+- **Next:** [Lecture 53: Joint Probability Distributions](Lecture%2053%20Joint%20Probability%20Distributions.md) — Extensions to multiple random variables
+- **Related:** [Lecture 49: Bayes Theorem and Random Variables](Lecture%2049%20Bayes%20Theorem%20and%20Random%20Variables.md) — Introduces continuous distributions
+- **Related:** [Lecture 50: Expectation and Variance](Lecture%2050%20Expectation%20and%20Variance.md) — Statistical properties of these distributions
+- **Related:** [Lecture 51: PMF and PDF](Lecture%2051%20PMF%20and%20PDF.md) — Mathematical foundation for these distributions

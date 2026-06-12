@@ -156,3 +156,12 @@ print(f"Min distance (should be ~margin/2): {np.min(distances):.4f}")
 **ML Connection:** These limitations motivate **soft margin SVM** (Lecture 58), which allows some violations of the margin constraint. Most real-world datasets are not perfectly linearly separable, making soft margin SVM the practical choice.
 
 > **Check your intuition:** If you add a single outlier far from the existing data, how does the hard margin SVM change? *(Answer: The margin shrinks dramatically to accommodate the outlier. The entire decision boundary may rotate. This is why hard margin SVM is rarely used in practice — soft margin SVM handles outliers gracefully.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 56: Duality and the Dual Problem](Lecture%2056%20Duality%20and%20the%20Dual%20Problem.md) — Theoretical foundation for dual formulation
+- **Next:** [Lecture 58: Soft Margin SVM](Lecture%2058%20Soft%20Margin%20SVM.md) — Handles non-separable data
+- **Related:** [Lecture 55: Maximum Margin Classification](Lecture%2055%20Maximum%20Margin%20Classification.md) — Introduces maximum margin concept
+- **Related:** [Lecture 56: Duality and the Dual Problem](Lecture%2056%20Duality%20and%20the%20Dual%20Problem.md) — Dual derivation
+- **Related:** [Lecture 58: Soft Margin SVM](Lecture%2058%20Soft%20Margin%20SVM.md) — Practical extension for real-world data

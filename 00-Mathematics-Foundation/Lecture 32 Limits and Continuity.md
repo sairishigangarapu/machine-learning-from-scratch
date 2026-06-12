@@ -183,3 +183,11 @@ If $f$ is continuous on $[a, b]$ and $k$ is any value between $f(a)$ and $f(b)$,
 | **Infinite discontinuity** | Vertical asymptote | Exploding gradients |
 
 > **Check your intuition:** Is ReLU continuous at $x = 0$? *(Answer: Yes. $\lim_{x \to 0^-} \max(0,x) = 0$ and $\lim_{x \to 0^+} \max(0,x) = 0$, and $\text{ReLU}(0) = 0$. All three conditions are satisfied. It is continuous but not differentiable at $x = 0$.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 31: Functions](Lecture%2031%20Functions.md) — provides the function definitions that limits extend to derivatives
+- **Next:** [Lecture 33: Functions of N Variables](Lecture%2033%20Functions%20of%20N%20Variables.md) — generalizes limits and derivatives to multivariate functions
+- **Related:** [Lecture 31: Functions](Lecture%2031%20Functions.md) — the foundational function concepts that continuity builds upon
+- **Related:** [Lecture 35: Chain Rule](Lecture%2035%20Chain%20Rule.md) — uses limits to derive the chain rule for differentiating composed functions

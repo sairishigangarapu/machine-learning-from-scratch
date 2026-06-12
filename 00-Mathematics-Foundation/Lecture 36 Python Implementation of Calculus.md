@@ -273,3 +273,11 @@ print(f"SymPy: {f_prime.subs(xs, 3)}")  # 90
 ```
 
 > **Check your intuition:** Why can't SymPy differentiate a PyTorch neural network? *(Answer: SymPy works on symbolic expressions — it needs a closed-form formula. A neural network with stochastic activation functions and learned weights is a numerical computation graph, not a simple algebraic expression. Autodiff is the correct tool for that.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 35: Chain Rule](Lecture%2035%20Chain%20Rule.md) — the chain rule computations that SymPy and autodiff frameworks implement automatically
+- **Next:** [Lecture 37: Convex Sets](Lecture%2037%20Convex%20Sets.md) — introduces the geometric foundation for convex optimization
+- **Related:** [Lecture 35: Chain Rule](Lecture%2035%20Chain%20Rule.md) — the calculus concepts being implemented symbolically and numerically
+- **Related:** [Lecture 46: Python Implementation of Convex Optimization](Lecture%2046%20Python%20Implementation%20of%20Convex%20Optimization.md) — extends Python calculus tools to solve convex optimization problems

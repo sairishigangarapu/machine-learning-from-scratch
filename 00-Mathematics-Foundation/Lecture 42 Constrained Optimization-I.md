@@ -206,3 +206,12 @@ print(f"Objective: {0.5*(x**2 + y**2)}")
 | **Convex + KKT** | KKT conditions are sufficient for global optimality |
 
 > **Check your intuition:** In an SVM, why do most Lagrange multipliers $\lambda_i$ equal zero? *(Answer: By complementary slackness, $\lambda_i = 0$ for all points NOT on the margin. Only the support vectors (points exactly on the margin) have $\lambda_i > 0$. This is why SVMs are memory-efficient — only support vectors matter.)*
+
+---
+
+## Prerequisites and Further Reading
+- **Previous:** [Lecture 41: Unconstrained Optimization](Lecture%2041%20Unconstrained%20Optimization.md) — provides the unconstrained foundation that constrained optimization extends with KKT conditions
+- **Next:** [Lecture 43: Constrained Optimization-II](Lecture%2043%20Constrained%20Optimization-II.md) — covers numerical algorithms for solving constrained problems
+- **Related:** [Lecture 41: Unconstrained Optimization](Lecture%2041%20Unconstrained%20Optimization.md) — the unconstrained framework that penalty methods and KKT build upon
+- **Related:** [Lecture 45: Newton's and Penalty Function Method](Lecture%2045%20Newton%27s%20and%20Penalty%20Function%20Method.md) — penalty methods convert constrained problems to unconstrained subproblems
+- **Related:** [Lecture 56: Duality and the Dual Problem](Lecture%2056%20Duality%20and%20the%20Dual%20Problem.md) — KKT conditions connect to the dual formulation of constrained problems
