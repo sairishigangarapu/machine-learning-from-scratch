@@ -3,8 +3,6 @@
 ## 1. The Core Problem: Overfitting vs. Underfitting
 In Machine Learning, we aim for the **Goldilocks Zone**: a model that is not too simple (Underfitting) and not too complex (Overfitting).
 
-
-
 ### 😴 Underfitting (High Bias)
 * **The Lazy Student:** Barely studies. Fails practice tests *and* the real exam.
 * **Technical:** The model is too simple to capture the underlying trend (e.g., fitting a straight line to curved data).
@@ -31,8 +29,6 @@ $$
 * **Superpower:** **Feature Selection**. Lasso can shrink coefficients completely to **zero**, effectively removing useless features.
 * **Use Case:** When you have many features, and you suspect only a few are important (Sparse data).
 
-
-
 ### B. L2 Regularization (Ridge)
 * **Mechanism:** Adds the **Squared Magnitude** of coefficients as a penalty.
 * **Formula:** $\lambda \sum \theta_i^2$
@@ -42,8 +38,6 @@ $$
 ---
 
 ## 3. The Bias-Variance Tradeoff ⚖️
-
-
 
 * **High Model Complexity** $\rightarrow$ Low Bias, High Variance (Overfitting).
 * **Low Model Complexity** $\rightarrow$ High Bias, Low Variance (Underfitting).

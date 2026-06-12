@@ -11,8 +11,6 @@ Single models, especially Decision Trees, suffer from **High Variance**.
 ### The Solution: Bagging (Bootstrap Aggregating)
 Bagging reduces variance by training multiple models in parallel on different subsets of data and averaging their outputs.
 
-
-
 1.  **Bootstrapping (Resampling with Replacement):** We create $N$ new datasets by sampling from the original data. Some rows are repeated, and some are omitted.
 2.  **Parallel Training:** We train an independent model (e.g., a Decision Tree) on each bootstrap sample.
 3.  **Aggregation:**
@@ -40,8 +38,6 @@ To ensure our model generalizes well, we need robust validation techniques.
 Systematically splits the data into $K$ "folds."
 * **Process:** Train on $K-1$ folds, test on the remaining 1 fold. Repeat $K$ times.
 * **Result:** The average score represents the model's true performance.
-
-
 
 ### B. Out-of-Bag (OOB) Score
 Specific to Bagging. Since bootstrapping omits ~37% of data in each sample, these "unused" (Out-of-Bag) data points can be used as a built-in validation set.

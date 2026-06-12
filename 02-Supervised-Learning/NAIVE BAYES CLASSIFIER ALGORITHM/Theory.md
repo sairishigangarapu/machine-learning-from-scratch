@@ -16,7 +16,7 @@ $$
 P(A \mid B) = \frac{P(B \mid A) \cdot P(A)}{P(B)}
 $$
 
-
+> **Naive Assumption:** All features are conditionally independent given the class: $P(x_1, x_2, \dots, x_n \mid C) = \prod_i P(x_i \mid C)$. This is "naive" but works surprisingly well in practice (e.g., spam filtering, text classification).
 
 | Term | Definition | Context (Spam Example) |
 | :--- | :--- | :--- |

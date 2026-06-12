@@ -3,8 +3,6 @@
 ## 1. Concept Overview: Dimensionality Reduction
 **Principal Component Analysis (PCA)** is an unsupervised learning technique used for **Dimensionality Reduction**. It transforms a large set of correlated variables into a smaller set of uncorrelated variables called **Principal Components**, while retaining as much of the original information (variance) as possible.
 
-
-
 ### The Goal
 To reduce the number of features (compress data) to:
 1.  **Reduce Overfitting:** Fewer features = less noise (`Curse of Dimensionality`).
@@ -56,6 +54,6 @@ PCA relies on Linear Algebra to find the "directions" of maximum variance.
 To deeply understand the linear algebra engine driving this algorithm (Covariance Matrices, Eigenvectors, Representation Error), please reference our **Mathematics Foundation** knowledge bank:
 * [Lecture 09: Eigenvalues & Eigenvectors](../../00-Mathematics-Foundation/Lecture%2009%20Eigenvalues%20and%20Eigenvectors.md) (The Core Engines)
 * [Lecture 12: Singular Value Decomposition](../../00-Mathematics-Foundation/Lecture%2012%20Singular%20Value%20Decomposition.md) (The Robust Implementation Engine)
-* [Lecture 16: PCA - Part I](../../00-Mathematics-Foundation/Lecture%2016%20Principal%20Component%20Analysis%20-%20I.md) (Covariance Geometry & High-Level Intuition)
+* [Lecture 16: PCA](../../00-Mathematics-Foundation/Lecture%2016%20Principal%20Component%20Analysis.md) (Covariance Geometry & High-Level Intuition)
 * [Lecture 17: PCA - Part II](../../00-Mathematics-Foundation/Lecture%2017%20PCA%20Derivation%20and%20Examples.md) (Optimization Proofs & Calculus)
 * [Lecture 18: PCA - Python](../../00-Mathematics-Foundation/Lecture%2018%20Python%20implementation%20of%20PCA.md) (NumPy From-Scratch)

@@ -12,10 +12,10 @@
 * **Goal:** Discover hidden structures, patterns, or groupings.
 * **Examples:** Clustering (Customer Segmentation), Dimensionality Reduction (PCA).
 
-
-
-[Image of Supervised vs Unsupervised diagram]
-
+| Supervised | Unsupervised |
+| :--- | :--- |
+| Labels available | No labels |
+| Classification, Regression | Clustering, Dimensionality Reduction |
 
 ---
 

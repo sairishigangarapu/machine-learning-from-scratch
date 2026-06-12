@@ -36,8 +36,6 @@ $$
 \text{Monroe} = 1 - (\text{West Windsor} + \text{Robbinsville})
 $$
 
-
-
 This linear dependency breaks the mathematics of Linear Regression (Matrix Inversion becomes unstable).
 
 ### ✅ The Solution: Drop One Column

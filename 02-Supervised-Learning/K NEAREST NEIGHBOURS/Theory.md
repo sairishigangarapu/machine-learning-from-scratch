@@ -50,4 +50,33 @@ Since KNN relies on distance, features with larger magnitudes (e.g., Salary: 100
 * **Curse of Dimensionality:** Performance degrades rapidly as the number of features increases (distance becomes meaningless in high dimensions).
 
 ---
+
+## 5. Code Example
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+
+iris = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    iris.data, iris.target, test_size=0.2, random_state=42
+)
+
+# Scaling is mandatory for KNN
+scaler = StandardScaler()
+X_train_s = scaler.fit_transform(X_train)
+X_test_s = scaler.transform(X_test)
+
+# Compare different K values
+for k in [1, 3, 5, 10, 20]:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train_s, y_train)
+    acc = knn.score(X_test_s, y_test)
+    print(f"  K={k:2d} — Accuracy: {acc:.3f}")
+```
+
+---
+
 **External Exercise:** [Codebasics KNN Lab](https://github.com/codebasics/py/blob/master/ML/17_knn_classification/17_knn_classification.ipynb)

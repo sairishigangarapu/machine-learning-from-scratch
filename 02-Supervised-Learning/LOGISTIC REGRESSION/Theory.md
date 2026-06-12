@@ -22,7 +22,7 @@ $$
 * If $\sigma(z) \ge 0.5 \rightarrow$ Class 1
 * If $\sigma(z) < 0.5 \rightarrow$ Class 0
 
-
+> **Key Insight:** The sigmoid function squashes any real number into the range (0, 1), making it interpretable as a probability. The decision boundary is at $z = 0$ (i.e., $\mathbf{w}^T\mathbf{x} + b = 0$).
 
 ---
 

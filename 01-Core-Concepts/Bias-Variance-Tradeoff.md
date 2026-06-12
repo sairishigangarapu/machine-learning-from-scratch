@@ -35,7 +35,6 @@ In Machine Learning, the goal is to build a model that generalizes well to new, 
 ## 3. Visualizing the Tradeoff
 
 ![Bias Variance Diagram](assets/bias-variance.png)
-*(Note: Ensure you download the standard bullseye diagram to your assets folder)*
 
 | State | Training Error | Test Error | Diagnosis |
 | :--- | :--- | :--- | :--- |
