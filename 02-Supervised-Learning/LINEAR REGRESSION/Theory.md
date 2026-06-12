@@ -16,6 +16,13 @@ $$
 y = mx + c
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $y$ | Dependent variable (target) | What we want to predict (e.g., house price) |
+| $x$ | Independent variable (feature) | The input we use to predict (e.g., area) |
+| $m$ | Slope (weight) | How much $y$ changes for each unit increase in $x$ — the "learned" parameter |
+| $c$ | Intercept (bias) | The value of $y$ when $x = 0$ — the baseline prediction |
+
 In Machine Learning notation, this is often written as:
 
 $$

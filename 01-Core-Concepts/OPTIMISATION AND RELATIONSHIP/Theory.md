@@ -33,14 +33,24 @@ $$
 \beta_1 = \frac{ \sum (x_i - \bar{x})(y_i - \bar{y}) }{ \sum (x_i - \bar{x})^2 }
 $$
 
-> **Rate of Change.** The estimated change in $y$ for a 1-unit increase in $x$.
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\beta_1$ | Slope coefficient | The estimated change in $y$ for a 1-unit increase in $x$ |
+| $x_i, y_i$ | Individual data points | Paired observations from the dataset |
+| $\bar{x}, \bar{y}$ | Sample means | The center of each variable's distribution |
+| $(x_i - \bar{x})(y_i - \bar{y})$ | Cross-product of deviations | Positive when both co-move — captures the covariance |
+| $(x_i - \bar{x})^2$ | Squared deviation of $x$ | Normalizes by the spread of $x$ — ensures the slope has correct units |
 
 **Intercept ($\beta_0$):**
 $$
 \beta_0 = \bar{y} - \beta_1 \bar{x}
 $$
 
-> **Bias.** The baseline value of $y$ when $x=0$.
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\beta_0$ | Intercept coefficient | The baseline value of $y$ when $x = 0$ |
+| $\bar{y}$ | Mean of $y$ | The average target value |
+| $\beta_1 \bar{x}$ | Slope times mean of $x$ | The contribution of $x$ at its average — subtracted so the regression line passes through $(\bar{x}, \bar{y})$ |
 
 ---
 
