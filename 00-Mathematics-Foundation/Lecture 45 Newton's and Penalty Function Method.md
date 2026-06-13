@@ -111,10 +111,22 @@ print(f"Minimum at x = {result[0]:.6f}")  # ≈ 2.000000
 
 ## 3. Convergence Properties
 
+**Gradient Descent** converges linearly:
+
+$$
+\|\mathbf{x}_{k+1} - \mathbf{x}^*\| \le c\|\mathbf{x}_k - \mathbf{x}^*\|, \quad c < 1
+$$
+
+**Newton's Method** converges quadratically near the solution:
+
+$$
+\|\mathbf{x}_{k+1} - \mathbf{x}^*\| \le C\|\mathbf{x}_k - \mathbf{x}^*\|^2
+$$
+
 | Method | Convergence Rate | Condition |
 |:---|:---|:---|
-| **Gradient Descent** | Linear: $\|\mathbf{x}_{k+1} - \mathbf{x}^*\| \le c\|\mathbf{x}_k - \mathbf{x}^*\|$ | $c < 1$ |
-| **Newton's Method** | **Quadratic:** $\|\mathbf{x}_{k+1} - \mathbf{x}^*\| \le C\|\mathbf{x}_k - \mathbf{x}^*\|^2$ | Near solution |
+| **Gradient Descent** | Linear | $c < 1$ |
+| **Newton's Method** | Quadratic | Near solution |
 
 **Quadratic convergence** means the number of correct digits roughly doubles each step. Newton's method converges in ~5 iterations where gradient descent needs hundreds.
 

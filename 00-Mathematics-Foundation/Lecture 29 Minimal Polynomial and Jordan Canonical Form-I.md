@@ -380,14 +380,19 @@ $$
 $$
 
 
-| Term | Definition | Significance |
-| :--- | :--- | :--- |
-| $\begin{bmatrix}
+$$
+
+\begin{bmatrix}
 0 & 1 & 1 \\
 0 & 0 & 1 \\
 0 & 0 & 0
 \end{bmatrix}
-\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+$$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A x$ | Matrix times vector | Applying $(A-I)$ to the eigenvector |
 | Result | Computed matrix | Matrix with specific numerical entries |
 This gives $x_2 = 0$, $x_3 = 0$, $x_1$ free. So only **one** eigenvector: $x = (1, 0, 0)^T$.
 
@@ -443,14 +448,19 @@ $$
 $$
 
 
-| Term | Definition | Significance |
-| :--- | :--- | :--- |
-| $\begin{bmatrix}
+$$
+
+\begin{bmatrix}
 0 & 1 & 0 \\
 0 & 0 & 0 \\
 0 & 0 & 0
 \end{bmatrix}
-\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+$$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $B x$ | Matrix times vector | Applying $(B-I)$ to the eigenvector |
 | Result | Computed matrix | Matrix with specific numerical entries |
 This gives $x_2 = 0$, $x_1$ and $x_3$ free. So **two** eigenvectors: $x = (1, 0, 0)^T$ and $x = (0, 0, 1)^T$.
 

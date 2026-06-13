@@ -1,0 +1,6 @@
+.venv/
+tools/
+*.pyc
+__pycache__/
+scan_latex.py
+scan_latex_v2.py

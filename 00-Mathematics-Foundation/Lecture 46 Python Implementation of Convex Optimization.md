@@ -164,7 +164,7 @@ print(f"Sklearn: {ridge.coef_}")
 
 The dual of the SVM problem is a QP:
 
-$$$
+$$
 \min_{\alpha} \frac{1}{2}\boldsymbol{\alpha}^T (y_i y_j \mathbf{x}_i^T \mathbf{x}_j) \boldsymbol{\alpha} - \mathbf{1}^T \boldsymbol{\alpha}
 $$
 

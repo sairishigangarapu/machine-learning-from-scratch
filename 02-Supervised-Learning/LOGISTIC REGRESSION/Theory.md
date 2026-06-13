@@ -53,7 +53,6 @@ $$
 | $e^{z_i}$ | Exponential of the logit for class $i$ | Converts any real number to a positive value — preserves ordering |
 | $\sum_{j=1}^K e^{z_j}$ | Sum of exponentials across all $K$ classes | The normalization constant — ensures probabilities sum to 1 |
 | $K$ | Total number of classes | The number of possible categories (e.g., 10 for digit classification) |
-$$
 
 ---
 

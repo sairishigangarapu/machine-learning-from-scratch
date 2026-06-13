@@ -187,14 +187,19 @@ $$
 $$
 
 
-| Term | Definition | Significance |
-| :--- | :--- | :--- |
-| $\begin{bmatrix}
+$$
+
+\begin{bmatrix}
 -2 & 1 & 1 \\
 0 & -1 & 1 \\
 0 & 0 & 0
 \end{bmatrix}
-\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+$$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $(A - \lambda I)x$ | Matrix times vector | Applying $(A-2I)$ to the eigenvector |
 | Result | Computed matrix | Matrix with specific numerical entries |
 $x_2 = x_3$, $-2x_1 + x_2 + x_3 = -2x_1 + 2x_3 = 0 \implies x_1 = x_3$. So:
 
@@ -218,14 +223,19 @@ $$
 $$
 
 
-| Term | Definition | Significance |
-| :--- | :--- | :--- |
-| $\begin{bmatrix}
+$$
+
+\begin{bmatrix}
 0 & 1 & 1 \\
 0 & 1 & 1 \\
 0 & 0 & 2
 \end{bmatrix}
-\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+$$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $(A - \lambda I)x$ | Matrix times vector | Applying $(A-2I)$ to find eigenvector |
 | Result | Computed matrix | Matrix with specific numerical entries |
 $x_3 = 0$, $x_2 = 0$, $x_1$ free. So:
 
@@ -249,14 +259,19 @@ $$
 $$
 
 
-| Term | Definition | Significance |
-| :--- | :--- | :--- |
-| $\begin{bmatrix}
+$$
+
+\begin{bmatrix}
 -1 & 1 & 1 \\
 0 & 0 & 1 \\
 0 & 0 & 1
 \end{bmatrix}
-\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+$$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $(A - \lambda I)x$ | Matrix times vector | Applying $(A-I)$ to find eigenvector |
 | Result | Computed matrix | Matrix with specific numerical entries |
 $x_3 = 0$, $-x_1 + x_2 = 0 \implies x_1 = x_2$. So:
 
@@ -326,16 +341,10 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
 $$
 
-
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| $\begin{bmatrix}
-0 & 1 & 0 \\
-0 & 0 & 0 \\
-0 & 0 & 0
-\end{bmatrix}
-\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
-| Result | Computed matrix | Matrix with specific numerical entries |
+| $(B - I)x = 0$ | Eigenvector equation for $\lambda = 1$ | Homogeneous system for finding geometric multiplicity |
+| Result | $x_2 = 0$, $x_1$ and $x_3$ free | Geometric multiplicity = 2 (two free variables) |
 $x_2 = 0$, $x_1$ and $x_3$ free. So geometric multiplicity = 2 (two ordinary eigenvectors).
 
 $$
@@ -364,16 +373,9 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
 $$
 
-
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| $\begin{bmatrix}
-0 & 1 & 0 \\
-0 & 0 & 0 \\
-0 & 0 & 0
-\end{bmatrix}
-\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
-| Result | Computed matrix | Matrix with specific numerical entries |
+| $(B - I)x = v_1$ | Generalized eigenvector equation | Finding vector that extends the Jordan chain |
 This gives $x_2 = 1$, $x_1$ and $x_3$ free. Pick $x_1 = 0$, $x_3 = 0$:
 
 $$
@@ -457,16 +459,10 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
 $$
 
-
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| $\begin{bmatrix}
-0 & 1 & 1 \\
-0 & 0 & 1 \\
-0 & 0 & 2
-\end{bmatrix}
-\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
-| Result | Computed matrix | Matrix with specific numerical entries |
+| $(A - I)x = 0$ | Eigenvector equation for $\lambda = 1$ | Solving yields the ordinary eigenvector |
+| Result | $x_3 = 0$, $x_2 = 0$, $x_1$ free | One eigenvector: geometric multiplicity = 1 |
 $x_3 = 0$, $x_2 = 0$, $x_1$ free. So **one** eigenvector:
 
 $$
@@ -492,16 +488,10 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
 $$
 
-
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| $\begin{bmatrix}
-0 & 1 & 1 \\
-0 & 0 & 1 \\
-0 & 0 & 2
-\end{bmatrix}
-\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
-| Result | Computed matrix | Matrix with specific numerical entries |
+| $(A - I)x = x_2$ | Generalized eigenvector equation | Extends the Jordan chain for $\lambda = 1$ |
+| $x_3$ | Generalized eigenvector | Completes the size-2 Jordan block |
 From row 2: $x_3 = 0$. From row 3: $2x_3 = 0$ (consistent). From row 1: $x_2 + x_3 = 1 \implies x_2 = 1$.
 
 So $x_1$ is free. Pick $x_1 = 0$:
