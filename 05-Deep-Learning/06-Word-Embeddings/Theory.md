@@ -55,9 +55,9 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| P(w_t | .) | Probability of the target word given context | What the model predicts — the conditional distribution over the entire vocabulary |
-| w_t | Target word at position t | The word we are trying to predict — the "center" word |
-| w_{t-2}, w_{t-1}, w_{t+1}, w_{t+2} | Context words (2 before, 2 after) | The surrounding words that provide context — a window of size 2 around the target |
+| $P(w_t \mid \text{context})$ | Probability of the target word given context | What the model predicts — the conditional distribution over the entire vocabulary |
+| $w_t$ | Target word at position $t$ | The word we are trying to predict — the "center" word |
+| $w_{t-2}, w_{t-1}, w_{t+1}, w_{t+2}$ | Context words (2 before, 2 after) | The surrounding words that provide context — a window of size 2 around the target |
 
 **CBOW Architecture:**
 1. Each context word is mapped to its embedding vector (lookup table).
@@ -75,9 +75,9 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| w_t | Target word at position t | The input word — used to predict each surrounding context word |
-| w_{t+j} | Context word at offset j | A word within the window (j = +/-1, +/-2) — what we predict for each position |
-| j in {-2, -1, 1, 2} | Window offsets | The set of positions relative to the target — j=0 is excluded (that is the target itself) |
+| $w_t$ | Target word at position $t$ | The input word — used to predict each surrounding context word |
+| $w_{t+j}$ | Context word at offset $j$ | A word within the window ($j = \pm 1, \pm 2$) — what we predict for each position |
+| $j \in \{-2, -1, 1, 2\}$ | Window offsets | The set of positions relative to the target — $j=0$ is excluded (that is the target itself) |
 
 **Skip-Gram Architecture:**
 1. The target word is mapped to its embedding vector.
@@ -104,14 +104,14 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| L | Total loss for one training example | Minimized; measures how well the model distinguishes real context words from noise |
-| sigma | Sigmoid function sigma(x) = 1/(1 + e^{-x}) | Converts dot product to a probability (0 to 1) — high dot product = high probability of being a real pair |
-| v_{w_O} | Embedding vector of the output (context) word | The word the model should predict as valid context |
-| v_{w_I} | Embedding vector of the input (target) word | The word used to predict context |
-| v_{w_I} . v_{w_O} | Dot product between target and context embeddings | Measures similarity — positive means they should be close in vector space |
-| k | Number of negative samples per training step | More negatives = more robust learning, but slower (typical: 5-20) |
-| w_i ~ P_n(w) | A word sampled from the noise distribution | Random words that should NOT be in the context — the model learns to push these away |
-| P_n(w) | Noise distribution (typically unigram^{3/4}) | The unigram distribution raised to the 3/4 power — oversamples rare words, which are more informative as negatives |
+| $\mathcal{L}$ | Total loss for one training example | Minimized; measures how well the model distinguishes real context words from noise |
+| $\sigma$ | Sigmoid function $\sigma(x) = 1/(1 + e^{-x})$ | Converts dot product to a probability (0 to 1) — high dot product = high probability of being a real pair |
+| $\mathbf{v}_{w_O}$ | Embedding vector of the output (context) word | The word the model should predict as valid context |
+| $\mathbf{v}_{w_I}$ | Embedding vector of the input (target) word | The word used to predict context |
+| $\mathbf{v}_{w_I} \cdot \mathbf{v}_{w_O}$ | Dot product between target and context embeddings | Measures similarity — positive means they should be close in vector space |
+| $k$ | Number of negative samples per training step | More negatives = more robust learning, but slower (typical: 5-20) |
+| $w_i \sim P_n(w)$ | A word sampled from the noise distribution | Random words that should NOT be in the context — the model learns to push these away |
+| $P_n(w)$ | Noise distribution (typically $\text{unigram}^{3/4}$) | The unigram distribution raised to the 3/4 power — oversamples rare words, which are more informative as negatives |
 
 **Intuition:** The target word's embedding should be close to context words' embeddings (high dot product -> sigmoid near 1) and far from random "noise" words (low dot product -> sigmoid near 0).
 
@@ -145,8 +145,8 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| a . b | Dot product of the two vectors | Measures raw alignment — how much the vectors point in the same direction |
-| ||a|| | Magnitude (L2 norm) of vector a | Normalizes out vector length — cosine similarity only cares about direction |
+| $\mathbf{a} \cdot \mathbf{b}$ | Dot product of the two vectors | Measures raw alignment — how much the vectors point in the same direction |
+| $\|\mathbf{a}\|$ | Magnitude (L2 norm) of vector $\mathbf{a}$ | Normalizes out vector length — cosine similarity only cares about direction |
 
 ### Semantic Analogies
 
@@ -160,10 +160,10 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| king_vec | Embedding vector of "king" | The 300-dimensional dense representation learned by the model |
-| Vector subtraction (- man) | Removes the "gender" direction | Isolates the "royalty" concept independent of gender |
-| Vector addition (+ woman) | Adds the "gender" direction back | Now applies the "royalty" concept to the female gender |
-| Approximate equality | Nearest neighbor in vector space | The closest word to the resulting vector is typically "queen" |
+| $\vec{\text{king}}$ | Embedding vector of "king" | The 300-dimensional dense representation learned by the model |
+| $-$ (subtract $\vec{\text{man}}$) | Removes the "gender" direction | Isolates the "royalty" concept independent of gender |
+| $+$ (add $\vec{\text{woman}}$) | Adds the "gender" direction back | Now applies the "royalty" concept to the female gender |
+| $\approx$ (nearest neighbor) | Closest word in vector space | The closest word to the resulting vector is typically "queen" |
 
 ### Why Embedding Arithmetic Works
 
@@ -187,14 +187,14 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| J | GloVe loss function | Measures how well the dot product of two word vectors approximates their log co-occurrence |
-| V | Vocabulary size | The sum runs over all word pairs in the vocabulary |
-| X_{ij} | Co-occurrence count of words i and j | How many times word j appears in the context of word i |
-| w_i | Embedding vector for word i | The "word" vector — the final representation of word i |
-| w_j_tilde | Context embedding vector for word j | Separate "context" vector — often averaged with w_j for the final embedding |
-| b_i | Bias for word i | Allows each word to have a baseline co-occurrence level independent of the dot product |
-| b_j_tilde | Context bias for word j | Same as b_i but for the context word |
-| f(X_{ij}) | Weighting function | Down-weights very frequent pairs (e.g., "the", "of") and very rare pairs |
+| $J$ | GloVe loss function | Measures how well the dot product of two word vectors approximates their log co-occurrence |
+| $V$ | Vocabulary size | The sum runs over all word pairs in the vocabulary |
+| $X_{ij}$ | Co-occurrence count of words $i$ and $j$ | How many times word $j$ appears in the context of word $i$ |
+| $\mathbf{w}_i$ | Embedding vector for word $i$ | The "word" vector — the final representation of word $i$ |
+| $\tilde{\mathbf{w}}_j$ | Context embedding vector for word $j$ | Separate "context" vector — often averaged with $\mathbf{w}_j$ for the final embedding |
+| $b_i$ | Bias for word $i$ | Allows each word to have a baseline co-occurrence level independent of the dot product |
+| $\tilde{b}_j$ | Context bias for word $j$ | Same as $b_i$ but for the context word |
+| $f(X_{ij})$ | Weighting function | Down-weights very frequent pairs (e.g., "the", "of") and very rare pairs |
 
 ### Word2Vec vs GloVe
 
@@ -226,8 +226,8 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| "where" | The target word | Decomposed into character n-grams for subword information |
-| {wh, whe, her, ere, re} | Set of character 3-grams for "where" | Each n-gram gets its own embedding vector; the word's final embedding is the sum of its n-gram embeddings |
+| $\text{"where"}$ | The target word | Decomposed into character n-grams for subword information |
+| $\{\text{wh}, \text{whe}, \text{her}, \text{ere}, \text{re}\}$ | Set of character 3-grams for "where" | Each n-gram gets its own embedding vector; the word's final embedding is the sum of its n-gram embeddings |
 
 ### Key Advantages
 

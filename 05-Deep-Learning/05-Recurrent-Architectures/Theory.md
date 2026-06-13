@@ -103,10 +103,10 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| L | Total loss across all time steps | The sum of losses at each time step — what we minimize |
-| L_t | Loss at time step t | How wrong the prediction is at this specific step |
-| W | All model weights (shared across time steps) | The same weights are used at every step — gradients are accumulated across time |
-| T | Total number of time steps | The length of the input sequence |
+| $L$ | Total loss across all time steps | The sum of losses at each time step — what we minimize |
+| $L_t$ | Loss at time step t | How wrong the prediction is at this specific step |
+| $W$ | All model weights (shared across time steps) | The same weights are used at every step — gradients are accumulated across time |
+| $T$ | Total number of time steps | The length of the input sequence |
 
 ### The Vanishing Gradient Problem
 
@@ -165,17 +165,17 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| f_t | Forget gate (0 to 1 per element) | Decides what to discard from the cell state — 0 = forget, 1 = keep |
-| i_t | Input gate (0 to 1 per element) | Decides what new information to store — controls candidate admission |
-| o_t | Output gate (0 to 1 per element) | Decides what to output from the cell state — controls hidden state exposure |
-| C_tilda_t | Candidate cell state | New information that could be added to the cell state (before gating) |
-| C_t | Current cell state | The "conveyor belt" — carries information across time with minimal modification |
-| C_{t-1} | Previous cell state | Memory from the last time step |
-| h_t | Final hidden output | The visible output of the LSTM cell at this time step |
-| sigma | Sigmoid activation | Squashes to (0, 1) — acts as a soft switch for gates |
-| tanh | Hyperbolic tangent | Squashes to (-1, 1) — normalizes values for cell state and candidate |
-| * | Hadamard (element-wise) product | Each element is multiplied independently — gates operate per-dimension |
-| [h_{t-1}, x_t] | Concatenated input | The previous hidden state and current input combined into a single vector |
+| $\mathbf{f}_t$ | Forget gate (0 to 1 per element) | Decides what to discard from the cell state — 0 = forget, 1 = keep |
+| $\mathbf{i}_t$ | Input gate (0 to 1 per element) | Decides what new information to store — controls candidate admission |
+| $\mathbf{o}_t$ | Output gate (0 to 1 per element) | Decides what to output from the cell state — controls hidden state exposure |
+| $\tilde{\mathbf{C}}_t$ | Candidate cell state | New information that could be added to the cell state (before gating) |
+| $\mathbf{C}_t$ | Current cell state | The "conveyor belt" — carries information across time with minimal modification |
+| $\mathbf{C}_{t-1}$ | Previous cell state | Memory from the last time step |
+| $\mathbf{h}_t$ | Final hidden output | The visible output of the LSTM cell at this time step |
+| $\sigma$ | Sigmoid activation | Squashes to (0, 1) — acts as a soft switch for gates |
+| $\tanh$ | Hyperbolic tangent | Squashes to (-1, 1) — normalizes values for cell state and candidate |
+| $\odot$ | Hadamard (element-wise) product | Each element is multiplied independently — gates operate per-dimension |
+| $[\mathbf{h}_{t-1}, \mathbf{x}_t]$ | Concatenated input | The previous hidden state and current input combined into a single vector |
 
 ### How LSTM Solves the Vanishing Gradient
 
@@ -229,12 +229,12 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| z_t | Update gate (0 to 1 per element) | Controls the blend between old state and new candidate — like a learned interpolation |
-| r_t | Reset gate (0 to 1 per element) | Controls how much of the past to forget when generating the candidate |
-| h_tilda_t | Candidate hidden state | New information proposed for the hidden state (after reset gating) |
-| h_t | New hidden state | Linear interpolation between old state and candidate, controlled by z_t |
-| (1 - z_t) * h_{t-1} | Retained portion of old state | What we keep from the past — how much the old state persists |
-| z_t * h_tilda_t | New information added | What we accept from the candidate — how much the new input influences the state |
+| $\mathbf{z}_t$ | Update gate (0 to 1 per element) | Controls the blend between old state and new candidate — like a learned interpolation |
+| $\mathbf{r}_t$ | Reset gate (0 to 1 per element) | Controls how much of the past to forget when generating the candidate |
+| $\tilde{\mathbf{h}}_t$ | Candidate hidden state | New information proposed for the hidden state (after reset gating) |
+| $\mathbf{h}_t$ | New hidden state | Linear interpolation between old state and candidate, controlled by z_t |
+| $(1 - \mathbf{z}_t) \odot \mathbf{h}_{t-1}$ | Retained portion of old state | What we keep from the past — how much the old state persists |
+| $\mathbf{z}_t \odot \tilde{\mathbf{h}}_t$ | New information added | What we accept from the candidate — how much the new input influences the state |
 
 GRUs have **fewer parameters** than LSTMs (2 gates vs 3, no separate cell state) and often perform comparably, making them a good default choice for many sequence tasks.
 

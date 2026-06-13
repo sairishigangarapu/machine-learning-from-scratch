@@ -46,11 +46,11 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| (I * K)_{ij} | Output feature map value at position (i,j) | The result of applying the filter at this position — one number in the output activation map |
-| I_{i+u, j+v} | Input pixel value at position (i+u, j+v) | The local patch of the image being processed — defines the receptive field |
-| K_{u, v} | Filter/kernel weight at position (u,v) | Learned parameters that detect specific features (edges, textures, etc.) |
-| h, w | Height and width of the filter | Spatial extent of the local pattern being detected (typically 3x3 or 5x5) |
-| H, W | Height and width of the input | Spatial dimensions of the full input image |
+| $(\mathbf{I} * \mathbf{K})_{ij}$ | Output feature map value at position $(i,j)$ | The result of applying the filter at this position — one number in the output activation map |
+| $\mathbf{I}_{i+u, j+v}$ | Input pixel value at position $(i+u, j+v)$ | The local patch of the image being processed — defines the receptive field |
+| $\mathbf{K}_{u, v}$ | Filter/kernel weight at position $(u,v)$ | Learned parameters that detect specific features (edges, textures, etc.) |
+| $h, w$ | Height and width of the filter | Spatial extent of the local pattern being detected (typically 3x3 or 5x5) |
+| $H, W$ | Height and width of the input | Spatial dimensions of the full input image |
 
 ### Worked Numerical Example
 
@@ -191,10 +191,10 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| y_{ij} | Output at position (i,j) | Downsampled value after pooling |
-| x_{i*s+u, j*s+v} | Input pixel in the pooling window | The local region being aggregated |
-| p | Pooling window size | Spatial extent of the aggregation (typically 2x2) |
-| s | Stride of pooling | Step between windows (typically 2, same as p) |
+| $y_{ij}$ | Output at position $(i,j)$ | Downsampled value after pooling |
+| $x_{i \cdot s + u, j \cdot s + v}$ | Input pixel in the pooling window | The local region being aggregated |
+| $p$ | Pooling window size | Spatial extent of the aggregation (typically 2x2) |
+| $s$ | Stride of pooling | Step between windows (typically 2, same as p) |
 
 Typical: 2x2 window with stride 2 halves spatial dimensions. A 28x28 feature map becomes 14x14, then 7x7 after two pooling layers.
 
@@ -268,10 +268,10 @@ $$
 
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
-| Z^{(l)} | Pre-activation at layer l | Convolution output before non-linearity |
-| A^{(l)} | Activation at layer l | Feature map after ReLU |
-| W^{(l)} | Convolutional kernel at layer l | Learned filter weights |
-| b^{(l)} | Bias at layer l | Shift parameter |
+| $\mathbf{Z}^{(l)}$ | Pre-activation at layer $l$ | Convolution output before non-linearity |
+| $\mathbf{A}^{(l)}$ | Activation at layer $l$ | Feature map after ReLU |
+| $\mathbf{W}^{(l)}$ | Convolutional kernel at layer $l$ | Learned filter weights |
+| $\mathbf{b}^{(l)}$ | Bias at layer $l$ | Shift parameter |
 
 ---
 
