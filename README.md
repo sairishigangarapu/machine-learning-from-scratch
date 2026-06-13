@@ -21,6 +21,7 @@ This repository heavily emphasizes theoretical intuition before code. Our **Math
 | **02-Supervised-Learning** | The implementations. | Linear Regression, Logistic Regression, Decision Trees. |
 | **03-Unsupervised-Learning** | Finding patterns. | K-Means, Clustering Algorithms. |
 | **04-Data-Engineering-and-Eval** | Tying it together. | Feature Engineering, Pipelines, Evaluation Metrics. |
+| **05-Deep-Learning** | Comprehensive deep learning from first principles. | NN Fundamentals, Activation Functions, CNNs, RNNs/LSTMs/GRUs, Word Embeddings, Seq2Seq+Attention, Transformers/GPT/BERT, RL/RLHF, Advanced Math for DL, PyTorch Projects (11 topic dirs). |
 
 ## Tech Stack
 
