@@ -48,6 +48,13 @@ $$
 A = U \Sigma V^T
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Original matrix | Matrix being decomposed |
+| $U$ | Left singular vectors | Output-space orthonormal basis |
+| $\Sigma$ | Singular value matrix | Diagonal with singular values $\sigma_i \ge 0$ |
+| $V^T$ | Right singular vectors transposed | Input-space orthonormal basis |
 - $U$, $V$ are orthogonal matrices.
 - $\Sigma$ is diagonal with **singular values** $\sigma_1 \ge \sigma_2 \ge \dots \ge \sigma_r \ge 0$ on the diagonal.
 
@@ -69,6 +76,13 @@ $$
 z = r e^{i\theta}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $z$ | Complex number | Expressed in polar form as magnitude and rotation |
+| $r$ | Modulus | Non-negative magnitude; distance from origin |
+| $e^{i\theta}$ | Unit complex number | Pure rotation; encodes angle |
+| $\theta$ | Argument (angle) | Angle with positive real axis |
 where $r = \sqrt{x^2 + y^2} \ge 0$ is the magnitude and $e^{i\theta} = \cos\theta + i\sin\theta$ is a unit complex number (a rotation on the unit circle). You're decomposing the complex number into a **non-negative scaling factor** and a **pure rotation**.
 
 Polar decomposition does the exact same thing for matrices. It factorizes any matrix $A$ into:
@@ -77,6 +91,11 @@ $$
 A = WP
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $W$ | Orthogonal matrix | Rotation/reflection component; $W^T W = I$ |
+| $P$ | Positive semi-definite matrix | Stretch component; symmetric with $\lambda \ge 0$ |
 where $W$ is an **orthogonal matrix** (a rotation/reflection — the analogue of $e^{i\theta}$) and $P$ is a **positive semi-definite matrix** (the analogue of $r \ge 0$).
 
 ### Why This Matters
@@ -93,6 +112,11 @@ $$
 \boxed{A = WP}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $W$ | Orthogonal matrix | Rotation/reflection component; $W^T W = I$ |
+| $P$ | Positive semi-definite matrix | Stretch component; symmetric with $\lambda \ge 0$ |
 - $W$ is orthogonal: $W^T W = W W^T = I$ (its columns are orthonormal).
 - $P$ is positive semi-definite: $P^T = P$ and $x^T P x \ge 0$ for all $x$.
 
@@ -108,6 +132,13 @@ $$
 A = U \Sigma V^T
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Original matrix | Matrix being decomposed |
+| $U$ | Left singular vectors | Output-space orthonormal basis |
+| $\Sigma$ | Singular value matrix | Diagonal with singular values $\sigma_i \ge 0$ |
+| $V^T$ | Right singular vectors transposed | Input-space orthonormal basis |
 where $U$ and $V$ are orthogonal and $\Sigma$ is diagonal with singular values $\sigma_1 \ge \sigma_2 \ge \dots \ge \sigma_n \ge 0$.
 
 Now, insert $V^T V = I$ between $U$ and $\Sigma$:
@@ -116,6 +147,12 @@ $$
 A = U (V^T V) \Sigma V^T = (U V^T) (V \Sigma V^T)
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $V^T V = I$ | Orthogonality identity | Inserted to regroup factors for polar form |
+| $W = U V^T$ | Polar orthogonal factor | Product of SVD factors; the rotation |
+| $P = V \Sigma V^T$ | Polar PSD factor | Similarity transform of $\Sigma$; the stretch |
 Look at what we've got:
 
 - **$W = U V^T$**: Product of two orthogonal matrices. Still orthogonal.
@@ -133,12 +170,22 @@ $$
 A = W_1 P_1 = W_2 P_2
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $W_1, W_2$ | Candidate orthogonal factors | Two candidates compared in uniqueness proof |
+| $P_1, P_2$ | Candidate PSD factors | Shown equal by uniqueness of square root |
 Multiply both sides on the left by $W_2^T$:
 
 $$
 W_2^T W_1 P_1 = P_2
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $W_2^T W_1$ | Product of orthogonal matrices | Also orthogonal; relates candidates |
+| $P_1, P_2$ | PSD factors | Equality proven by uniqueness of PSD square root |
 Since $W_2^T W_1$ is orthogonal (product of orthogonal matrices), we have $P_2 = Q P_1$ where $Q$ is orthogonal.
 
 Now $P_2^T P_2 = P_1 Q^T Q P_1 = P_1^2$. But $P_2^2 = P_2^T P_2 = P_1^2$ as well. Taking positive semi-definite square roots (which are unique for PSD matrices), we get:
@@ -147,6 +194,10 @@ $$
 P_1 = P_2
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P_1, P_2$ | PSD factors | Equality proven by uniqueness of PSD square root |
 And then $W_1 = W_2$ follows immediately. The decomposition is unique.
 
 ---
@@ -161,6 +212,11 @@ $$
 A = \begin{bmatrix} 11 & -5 \\ -2 & 10 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Matrix result | Numerical value of the computation |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
 ### Solution via SVD
 
 **Step 1:** Compute $A^T A$.
@@ -169,6 +225,11 @@ $$
 A^T A = \begin{bmatrix} 125 & -75 \\ -75 & 125 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A^T A$ | Gram matrix | Product encoding pairwise column dot products; key in normal equations |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
 Eigenvalues of $A^T A$ are $\lambda = 200$ and $\lambda = 50$.
 
 **Step 2:** Singular values.
@@ -177,6 +238,10 @@ $$
 \sigma_1 = \sqrt{200} = 10\sqrt{2}, \quad \sigma_2 = \sqrt{50} = 5\sqrt{2}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| Expression | Numerical computation step | Result of arithmetic operation |
 **Step 3:** Right singular vectors (eigenvectors of $A^T A$).
 
 $$
@@ -184,6 +249,10 @@ v_1 = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ -1 \end{bmatrix}, \quad
 v_2 = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $v_1, v_2$ | Right singular vectors | Eigenvectors of $A^T A$ |
 **Step 4:** Left singular vectors.
 
 $$
@@ -191,6 +260,10 @@ u_1 = \frac{A v_1}{\sigma_1} = \frac{1}{5} \begin{bmatrix} 4 \\ -3 \end{bmatrix}
 u_2 = \frac{A v_2}{\sigma_2} = \frac{1}{5} \begin{bmatrix} 3 \\ 4 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $u_1, u_2$ | Left singular vectors | Eigenvectors of $AA^T$; $u_i = Av_i / \sigma_i$ |
 **Step 5:** Assemble SVD.
 
 $$
@@ -199,16 +272,32 @@ A = U \Sigma V^T = \frac{1}{5} \begin{bmatrix} 4 & 3 \\ -3 & 4 \end{bmatrix}
 \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Matrix result | Numerical value of the computation |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
+| $U$ | Left singular vectors | Output-space orthonormal basis |
+| $\Sigma$ | Singular value matrix | Diagonal with singular values $\sigma_i \ge 0$ |
+| $V^T$ | Right singular vectors transposed | Input-space orthonormal basis |
 **Step 6:** Extract $W$ and $P$.
 
 $$
 W = U V^T = \frac{1}{5\sqrt{2}} \begin{bmatrix} 7 & -1 \\ 1 & 7 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $W = U V^T$ | Polar orthogonal factor | Rotation / reflection computed from SVD factors |
 $$
 P = V \Sigma V^T = \frac{5}{\sqrt{2}} \begin{bmatrix} 3 & -1 \\ -1 & 3 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P = V \Sigma V^T$ | Polar PSD factor | Stretch computed from SVD factors |
 **Verification:**
 
 $$
@@ -217,6 +306,11 @@ W P = \frac{1}{5\sqrt{2}} \begin{bmatrix} 7 & -1 \\ 1 & 7 \end{bmatrix}
 = \begin{bmatrix} 11 & -5 \\ -2 & 10 \end{bmatrix} = A
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $W P$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 $W$ is orthogonal ($W^T W = I$) and $P$ is symmetric with eigenvalues $10\sqrt{2}, 5\sqrt{2} \ge 0$.
 
 ---
@@ -233,6 +327,12 @@ $$
 \boxed{A = U P}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Tall matrix ($m \ge n$) | Right polar decomposition form |
+| $U$ | Orthonormal column matrix | $m \times n$ with $U^T U = I_n$ |
+| $P$ | PSD factor ($n \times n$) | Stretch in input space |
 - $U$ is $m \times n$ with orthonormal columns ($U^T U = I_n$).
 - $P$ is $n \times n$ positive semi-definite.
 
@@ -246,6 +346,12 @@ $$
 \boxed{A = H U}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Fat matrix ($m \le n$) | Left polar decomposition form |
+| $H$ | PSD factor ($m \times m$) | Stretch in output space |
+| $U$ | Orthonormal row matrix | $m \times n$ with $U U^T = I_m$ |
 - $H$ is $m \times m$ positive semi-definite.
 - $U$ is $m \times n$ with orthonormal rows ($U U^T = I_m$).
 
@@ -263,6 +369,11 @@ $$
 A = \begin{bmatrix} 3 & 1 \\ 0 & 1 \\ 1 & 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Matrix result | Numerical value of the computation |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
 This is a $3 \times 2$ matrix ($m = 3 > n = 2$), so we use the **right polar decomposition** $A = U P$.
 
 ### Solution
@@ -273,12 +384,23 @@ $$
 A^T A = \begin{bmatrix} 10 & 3 \\ 3 & 2 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A^T A$ | Gram matrix | Product encoding pairwise column dot products; key in normal equations |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
 **Step 2:** Eigendecomposition of $A^T A$.
 
 $$
 A^T A = S B S^T
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A^T A$ | Gram matrix | Product encoding pairwise column dot products; key in normal equations |
+| $S$ | Eigenvector matrix | Columns: eigenvectors of $A^T A$ |
+| $B$ | Eigenvalue matrix | Diagonal with eigenvalues |
 where
 
 $$
@@ -289,6 +411,11 @@ S = \begin{bmatrix}
 B = \begin{bmatrix} 11 & 0 \\ 0 & 1 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $S$ | Eigenvector matrix of $A^T A$ | Columns: eigenvectors; used to diagonalize |
+| $B$ | Eigenvalue matrix | Diagonal with eigenvalues of $A^T A$ |
 **Step 3:** Compute $P = \sqrt{A^T A}$.
 
 Since $A^T A = S B S^T$, the square root is:
@@ -297,6 +424,11 @@ $$
 P = S B^{1/2} S^T
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P$ | PSD factor via sqrt | $P = \sqrt{A^T A}$; computed via eigendecomposition |
+| $B^{1/2}$ | Square root of eigenvalues | Diagonal with $\sqrt{\text{eigenvalues}}$ |
 where $B^{1/2} = \begin{bmatrix} \sqrt{11} & 0 \\ 0 & 1 \end{bmatrix}$.
 
 $$
@@ -306,12 +438,22 @@ P = \frac{1}{10} \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 **Step 4:** Compute $U = A P^{-1}$.
 
 $$
 U = A P^{-1}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $U$ | Orthonormal column factor | Recovered as $A P^{-1}$; $U^T U = I$ |
+| $U = A$ | Orthogonal factor (tall case) | $U^T U = I$ since columns already orthonormal |
 The resulting $U$ is $3 \times 2$ with orthonormal columns, and $A = U P$ is the right polar decomposition.
 
 ---
@@ -326,6 +468,11 @@ $$
 A = \begin{bmatrix} 1 & 0 & 1 \\ 1 & 1 & 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Matrix result | Numerical value of the computation |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
 This is a $2 \times 3$ matrix ($m = 2 < n = 3$), so we use the **left polar decomposition** $A = H U$.
 
 ### Solution
@@ -336,12 +483,24 @@ $$
 A A^T = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A A^T$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 **Step 2:** Eigendecomposition of $A A^T$.
 
 $$
 A A^T = S B S^T
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A A^T$ | Row Gram matrix | Product $AA^T$; $2 \\times 2$ in this example |
+| $S$ | Eigenvector matrix | Columns: eigenvectors of $AA^T$ |
+| $B$ | Eigenvalue matrix | Diagonal with eigenvalues of $AA^T$ |
+| $SB S^T$ | Eigendecomposition | Diagonalization $AA^T = S B S^T$ |
 where
 
 $$
@@ -349,6 +508,11 @@ S = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}, \quad
 B = \begin{bmatrix} 3 & 0 \\ 0 & 1 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $S$ | Eigenvector matrix of $AA^T$ | Columns: eigenvectors |
+| $B$ | Diagonal eigenvalue matrix | Contains eigenvalues of $AA^T$ |
 **Step 3:** Compute $H = \sqrt{A A^T}$.
 
 $$
@@ -358,6 +522,10 @@ H = S B^{1/2} S^T = \frac{1}{2} \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H$ | PSD factor via sqrt | $H = \sqrt{A A^T}$ |
 **Step 4:** Compute $U = H^{-1} A$.
 
 The resulting $U$ is $2 \times 3$ with orthonormal rows, and $A = H U$ is the left polar decomposition.

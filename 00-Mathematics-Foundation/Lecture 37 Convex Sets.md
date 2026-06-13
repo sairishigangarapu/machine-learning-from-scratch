@@ -16,7 +16,12 @@ $$
 \lambda \mathbf{x}_1 + (1 - \lambda)\mathbf{x}_2 \in S
 $$
 
-**Geometric meaning:** The straight line segment connecting any two points in $S$ lies entirely inside $S$. No part of the segment "dips outside" the set.
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $S$ | A subset of $\mathbb{R}^n$ | The set being tested for convexity (e.g., feasible region, domain) |
+| $\mathbf{x}_1, \mathbf{x}_2 \in S$ | Two arbitrary points in $S$ | The definition must hold for ALL pairs of points in the set |
+| $\lambda \in [0, 1]$ | Convex combination parameter | Interpolates between the two points — $\lambda=0$ gives $\mathbf{x}_2$, $\lambda=1$ gives $\mathbf{x}_1$ |
+| $\lambda \mathbf{x}_1 + (1 - \lambda)\mathbf{x}_2$ | Convex combination | The point on the line segment between $\mathbf{x}_1$ and $\mathbf{x}_2$ — must lie in $S$ for convexity |
 
 ```python
 import numpy as np
@@ -64,6 +69,12 @@ $$
 S_1 \cap S_2 \cap \dots \cap S_k \text{ is convex if each } S_i \text{ is convex.}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $S_1, S_2, \dots, S_k$ | Collection of convex sets | Individual convex sets (e.g., half-spaces, ellipsoids) |
+| $S_1 \cap S_2 \cap \dots \cap S_k$ | Intersection of all sets | The set of points belonging to ALL individual sets |
+| $\text{is convex}$ | The intersection preserves convexity | Critical for ML: feasible regions from multiple constraints are intersections of convex sets, hence convex |
+
 **ML Connection:** Feasible regions defined by multiple linear constraints (like $a_i^T\mathbf{x} \le b_i$ for $i = 1, \dots, m$) are intersections of half-spaces — always convex. This is why **linear programming** (constrained optimization with linear objective and constraints) always has a convex feasible region.
 
 ### Property 2: Union (NOT guaranteed)
@@ -83,12 +94,25 @@ $$
 H = \{\mathbf{x} \in \mathbb{R}^n : \mathbf{a}^T\mathbf{x} = b\}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H$ | Hyperplane | An $(n-1)$-dimensional flat surface in $\mathbb{R}^n$ — a line in 2D, plane in 3D |
+| $\mathbf{a} \in \mathbb{R}^n$ | Normal vector | Perpendicular to the hyperplane — defines its orientation |
+| $\mathbf{x} \in \mathbb{R}^n$ | Variable point | Points satisfying the equation lie on the hyperplane |
+| $b \in \mathbb{R}$ | Offset | Shifts the hyperplane away from the origin |
+
 A flat $(n-1)$-dimensional subspace. It divides $\mathbb{R}^n$ into two half-spaces. **Support Vector Machines** find the optimal hyperplane that separates two classes with maximum margin.
 
 ### Half-Space
 $$
 H^+ = \{\mathbf{x} \in \mathbb{R}^n : \mathbf{a}^T\mathbf{x} \le b\}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H^+$ | Half-space | The region on one side of a hyperplane — includes the boundary |
+| $\mathbf{a}^T\mathbf{x} \le b$ | Linear inequality | All points on one side of the hyperplane $\mathbf{a}^T\mathbf{x} = b$ |
+| Always convex | Half-spaces are convex | Any line segment between two points in a half-space stays in the half-space |
 
 Always convex. The decision boundary of a linear classifier is a half-space.
 
@@ -99,12 +123,27 @@ $$
 P = \{\mathbf{x} : A\mathbf{x} \le \mathbf{b}\}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P$ | Polytope (polyhedron) | A bounded convex set defined by linear inequalities — a polygon in 2D, polyhedron in 3D |
+| $A \in \mathbb{R}^{m \times n}$ | Constraint matrix | Each row $a_i^T$ is a normal vector of a half-space |
+| $\mathbf{b} \in \mathbb{R}^m$ | Offset vector | Each $b_i$ is the offset of the corresponding half-space |
+| $A\mathbf{x} \le \mathbf{b}$ | System of linear inequalities | The intersection of $m$ half-spaces — defines the feasible region of an LP |
+
 Always convex. Used in constrained optimization problems.
 
 ### Ellipsoid
 $$
 E = \{\mathbf{x} : (\mathbf{x} - \mathbf{c})^T Q^{-1} (\mathbf{x} - \mathbf{c}) \le 1\}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $E$ | Ellipsoid | A generalization of an ellipse to $n$ dimensions — a "stretched" sphere |
+| $\mathbf{c} \in \mathbb{R}^n$ | Center | The center of the ellipsoid — the "mean" in statistical interpretation |
+| $Q \in \mathbb{R}^{n \times n}$ | Positive definite shape matrix | Defines the axes lengths and orientation — square roots of eigenvalues are semi-axes lengths |
+| $Q^{-1}$ | Inverse shape matrix | In the quadratic form, $Q^{-1}$ weights distances along each axis |
+| $(\mathbf{x} - \mathbf{c})^T Q^{-1} (\mathbf{x} - \mathbf{c}) \le 1$ | Quadratic form | Points inside satisfy this — the Mahalanobis distance from $\mathbf{c}$ is $\le 1$ |
 
 where $Q$ is positive definite. Always convex. **Covariance matrices** define ellipsoidal confidence regions in multivariate statistics.
 
@@ -135,22 +174,13 @@ $$
 \text{conv}(S) = \left\{ \sum_{i=1}^{k} \lambda_i \mathbf{x}_i : \mathbf{x}_i \in S, \; \lambda_i \ge 0, \; \sum \lambda_i = 1 \right\}
 $$
 
-**Geometric intuition:** Stretch a rubber band around all points in $S$ — the region inside the rubber band is the convex hull.
-
-**ML Connection:** The convex hull of training data points from two classes defines the region where a linear classifier can potentially separate them. If the convex hulls of the two classes overlap, no linear separator exists.
-
-```python
-from scipy.spatial import ConvexHull
-import numpy as np
-
-# Generate random points
-points = np.random.randn(20, 2)
-
-# Compute convex hull
-hull = ConvexHull(points)
-print(f"Vertices: {hull.vertices}")
-print(f"Area: {hull.volume}")  # In 2D, volume = area
-```
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{conv}(S)$ | Convex hull of $S$ | The smallest convex set containing $S$ — the "tightest" convex enclosure |
+| $\mathbf{x}_i \in S$ | Points from the original set | The "extreme points" or "vertices" that define the hull |
+| $\lambda_i \ge 0$ | Non-negative weights | Only positive combinations allowed — no "going outside" the set |
+| $\sum \lambda_i = 1$ | Convex combination constraint | Weights sum to 1 — ensures we stay in the affine hull of $S$ |
+| $\sum_{i=1}^{k} \lambda_i \mathbf{x}_i$ | Convex combination | A weighted average of points in $S$ — any such average lies in the hull |
 
 ---
 
@@ -161,6 +191,13 @@ A set $C$ is a **cone** if for every $\mathbf{x} \in C$ and $\lambda \ge 0$:
 $$
 \lambda \mathbf{x} \in C
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $C$ | Cone | A set closed under non-negative scaling — if $\mathbf{x}$ is in it, the entire ray from origin through $\mathbf{x}$ is in it |
+| $\mathbf{x} \in C$ | Element of the cone | Any point in the cone |
+| $\lambda \ge 0$ | Non-negative scalar | Scaling factor — the ray extends infinitely in the positive direction |
+| $\lambda \mathbf{x} \in C$ | Closure under scaling | The defining property of a cone — scaling stays in the cone |
 
 A cone is **convex** if it also satisfies: $\mathbf{x}_1, \mathbf{x}_2 \in C \implies \mathbf{x}_1 + \mathbf{x}_2 \in C$.
 

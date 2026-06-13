@@ -15,12 +15,12 @@ $$
 P(A | B) = \frac{P(B | A) \cdot P(A)}{P(B)}
 $$
 
-| Term | Name | Meaning |
-|:---|:---|:---|
-| $P(A)$ | **Prior** | Initial belief about $A$ before seeing evidence |
-| $P(B | A)$ | **Likelihood** | How likely is the evidence if $A$ is true? |
-| $P(B)$ | **Evidence** | Overall probability of the evidence |
-| $P(A | B)$ | **Posterior** | Updated belief about $A$ after seeing evidence |
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P(A \mid B)$ | **Posterior** — updated probability of $A$ given evidence $B$ | The output of Bayes' theorem; combines prior knowledge with observed data to produce an updated belief |
+| $P(B \mid A)$ | **Likelihood** — probability of evidence $B$ assuming $A$ is true | Connects observed data to the hypothesis; estimated from training data in ML |
+| $P(A)$ | **Prior** — initial belief about $A$ before seeing evidence | Encodes domain knowledge or historical base rates; crucial in medical diagnosis and spam filtering |
+| $P(B)$ | **Evidence** — total probability of $B$ across all hypotheses | Normalizes the posterior; computed via the law of total probability: $\sum P(B \mid A)P(A)$ |
 
 ### Derivation
 
@@ -30,11 +30,26 @@ $$
 P(A | B) = \frac{P(A \cap B)}{P(B)}, \quad P(B | A) = \frac{P(A \cap B)}{P(A)}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $P(A \mid B)$ | Conditional probability of $A$ given $B$ | Defines the posterior in Bayesian inference — updated belief after seeing evidence |
+| $P(B \mid A)$ | Conditional probability of $B$ given $A$ | The likelihood — how probable the evidence is under the assumption $A$ is true |
+| $P(A \cap B)$ | Joint probability of both $A$ and $B$ | Connects both conditional formulas; is the same quantity in both numerators |
+| $P(A)$ | Marginal probability of $A$ | The prior — belief before seeing evidence |
+| $P(B)$ | Marginal probability of $B$ | The evidence — normalizing constant that ensures the posterior sums to 1 |
+
 Solving: $P(A \cap B) = P(A | B) \cdot P(B) = P(B | A) \cdot P(A)$
 
 $$
 \therefore \quad P(A | B) = \frac{P(B | A) \cdot P(A)}{P(B)}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $P(A \mid B)$ | **Posterior** probability — belief about $A$ after seeing $B$ | The output of Bayes' theorem; combines prior knowledge with observed evidence |
+| $P(B \mid A)$ | **Likelihood** — probability of evidence $B$ under hypothesis $A$ | Connects the observed data to the hypothesis; estimated from training data in ML |
+| $P(A)$ | **Prior** probability — initial belief about $A$ before any evidence | Encodes domain knowledge or historical base rates; crucial in medical diagnosis and spam filtering |
+| $P(B)$ | **Evidence** — total probability of $B$ across all hypotheses | Normalizes the result; computed via the law of total probability: $\sum P(B \mid A) P(A)$ |
 
 ```python
 def bayes_theorem(p_a, p_b_given_a, p_b):
@@ -67,6 +82,13 @@ $$
 X: \Omega \to \mathbb{R}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $X$ | **Random variable** — a function from outcomes to real numbers | Bridges sample space (abstract outcomes) to real-valued quantities we can manipulate algebraically |
+| $\Omega$ | **Sample space** — set of all possible outcomes | The domain of $X$; every outcome $\omega \in \Omega$ maps to a real number $X(\omega)$ |
+| $\mathbb{R}$ | **Real numbers** — the codomain of $X$ | Random variables map to $\mathbb{R}$ so we can compute expectations, variances, and use calculus on distributions |
+| $\to$ | Function mapping | Indicates $X$ assigns a numerical value to each outcome; the machinery for translating uncertainty into numbers |
+
 ### Types
 
 | Type | Description | Example |
@@ -80,6 +102,12 @@ $$
 p(x) = P(X = x)
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $p(x)$ | **Probability Mass Function** — probability that $X$ equals exactly $x$ | Defines the distribution of a discrete random variable; every discrete distribution is characterized by its PMF |
+| $P(X = x)$ | Probability that random variable $X$ takes the specific value $x$ | For discrete $X$, this can be non-zero; for continuous $X$, $P(X = x) = 0$ always |
+| $X$ | Discrete random variable | Takes values from a countable set (e.g., number of heads, class label) |
+
 Properties: $p(x) \ge 0$ and $\sum_x p(x) = 1$.
 
 ### Probability Density Function (PDF) — Continuous
@@ -87,6 +115,13 @@ Properties: $p(x) \ge 0$ and $\sum_x p(x) = 1$.
 $$
 P(a \le X \le b) = \int_a^b f(x) \, dx
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $P(a \le X \le b)$ | **Probability** that $X$ falls in interval $[a, b]$ | For continuous variables, probability is only defined over intervals, not at single points |
+| $\int_a^b f(x) \, dx$ | **Integral** of the PDF from $a$ to $b$ | Area under the PDF gives probability; the total area under $f(x)$ from $-\infty$ to $\infty$ must be $1$ |
+| $f(x)$ | **Probability Density Function** — density at point $x$ | Not a probability itself ($f(x) > 1$ is possible); it is the rate at which probability accumulates |
+| $a, b$ | Interval endpoints | Define the range over which we integrate to compute probability |
 
 Properties: $f(x) \ge 0$ and $\int_{-\infty}^{\infty} f(x) \, dx = 1$.
 
@@ -111,6 +146,12 @@ print(f"PMF: {dict(zip(x, pmf.round(4)))}")
 $$
 F(x) = P(X \le x)
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $F(x)$ | **Cumulative Distribution Function** — probability that $X$ is at most $x$ | Uniquely defines any distribution (discrete or continuous); always exists and is well-defined |
+| $P(X \le x)$ | Probability that the random variable takes a value less than or equal to $x$ | Monotonic non-decreasing function; $F(-\infty) = 0$ and $F(\infty) = 1$ |
+| $X$ | Random variable (discrete or continuous) | The CDF works for both types, making it the universal representation of a distribution |
 
 Properties:
 * Non-decreasing
@@ -168,6 +209,13 @@ $$
 \phi(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\phi(x)$ | **Standard normal PDF** — density of $Z \sim \mathcal{N}(0, 1)$ | The Gaussian in its simplest form; any normal $X \sim \mathcal{N}(\mu, \sigma^2)$ can be standardized to $Z$ |
+| $\frac{1}{\sqrt{2\pi}}$ | **Normalization constant** | Ensures $\int_{-\infty}^{\infty} \phi(x) \, dx = 1$; makes $\phi$ a valid probability density |
+| $e^{-x^2/2}$ | **Exponential kernel** | Gives the bell shape; decays rapidly for large $x$, making extreme values unlikely |
+| $x$ | Value of the standard normal variable | Measured in standard deviations from the mean (which is $0$ for $Z$) |
+
 ```python
 import numpy as np
 from scipy.stats import norm
@@ -189,11 +237,26 @@ $$
 P(y | x_1, \dots, x_n) \propto P(y) \prod_{i=1}^{n} P(x_i | y)
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $P(y \mid x_1, \dots, x_n)$ | **Posterior** probability of class $y$ given all features | What the Naive Bayes classifier computes for each possible class; the argmax over $y$ is the predicted label |
+| $P(y)$ | **Prior** probability of class $y$ | Captures class imbalance before seeing any features |
+| $P(x_i \mid y)$ | **Likelihood** of feature $x_i$ given class $y$ | The "naive" assumption: features are conditionally independent given the class, so their likelihoods multiply |
+| $\prod_{i=1}^{n}$ | Product over all $n$ features | Multiplying instead of computing a full joint distribution reduces parameters from exponential to linear in $n$ |
+| $\propto$ | Proportional to | The denominator $P(x_1, \dots, x_n)$ is constant across classes and does not affect the argmax decision |
+
 For text classification (spam detection):
 
 $$
 P(\text{spam} | \text{words}) \propto P(\text{spam}) \prod_{i} P(\text{word}_i | \text{spam})
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $P(\text{spam} \mid \text{words})$ | **Posterior** — probability an email is spam given its words | The actual output used to classify each incoming email |
+| $P(\text{spam})$ | **Prior** — overall spam rate in the email corpus | Encodes base-rate information; if 80% of email is spam, this term dominates |
+| $P(\text{word}_i \mid \text{spam})$ | **Likelihood** of the $i$-th word in a spam email | Estimated from the frequency of each word in spam training emails |
+| $\prod_{i}$ | Product over all words in the email | The naive independence assumption lets us multiply word probabilities instead of modeling word co-occurrence |
 
 Each $P(\text{word}_i | \text{spam})$ is estimated from training data.
 

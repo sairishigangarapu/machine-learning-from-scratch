@@ -17,6 +17,14 @@ $$
 \frac{dz}{dx} = \frac{dz}{dy} \cdot \frac{dy}{dx} = f'(g(x)) \cdot g'(x)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $z = f(y)$ | Outer function | The function applied to the intermediate result |
+| $y = g(x)$ | Inner function | The function applied to the input variable $x$ |
+| $\frac{dz}{dy}$ | Derivative of outer w.r.t. inner | How $z$ changes as $y$ changes |
+| $\frac{dy}{dx}$ | Derivative of inner w.r.t. input | How $y$ changes as $x$ changes |
+| $\frac{dz}{dx}$ | Total derivative | The rate of change of the final output with respect to the original input — the product of the two derivatives |
+
 ```python
 # Single variable chain rule in action
 import numpy as np
@@ -48,13 +56,27 @@ $$
 \frac{dz}{dt} = \frac{\partial f}{\partial x} \cdot \frac{dx}{dt} + \frac{\partial f}{\partial y} \cdot \frac{dy}{dt}
 $$
 
-**Intuition:** The total rate of change of $z$ with respect to $t$ is the sum of two pathways: the direct effect through $x$ plus the direct effect through $y$.
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $z = f(x, y)$ | Function of two variables | The outer function depending on $x$ and $y$ |
+| $\frac{\partial f}{\partial x}$ | Partial derivative w.r.t. $x$ | How $f$ changes when $x$ changes, holding $y$ fixed |
+| $\frac{\partial f}{\partial y}$ | Partial derivative w.r.t. $y$ | How $f$ changes when $y$ changes, holding $x$ fixed |
+| $\frac{dx}{dt}$ | Derivative of $x$ w.r.t. $t$ | How the first intermediate variable changes with $t$ |
+| $\frac{dy}{dt}$ | Derivative of $y$ w.r.t. $t$ | How the second intermediate variable changes with $t$ |
+| $\frac{dz}{dt}$ | Total derivative | Sum of all paths through which $t$ influences $z$ — this IS the chain rule |
 
 ### Worked Example
 
 $$
 z = x^2 y, \quad x = t^2, \quad y = \sin(t)
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $z = x^2 y$ | Outer function $f(x, y)$ | The function of two variables whose total derivative we want |
+| $x = t^2$ | First intermediate variable | $x$ depends on $t$ via a quadratic |
+| $y = \sin(t)$ | Second intermediate variable | $y$ depends on $t$ via a trigonometric function |
+| Substitution $z(t) = t^4 \sin(t)$ | Direct composition | Verifying the chain rule by substituting both intermediates |
 
 **Step 1:** Substitute to verify $z(t) = (t^2)^2 \sin(t) = t^4 \sin(t)$.
 
@@ -63,10 +85,23 @@ $$
 \frac{\partial z}{\partial x} = 2xy, \quad \frac{\partial z}{\partial y} = x^2
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\frac{\partial z}{\partial x} = 2xy$ | Partial derivative w.r.t. $x$ | Differentiate $x^2 y$ treating $y$ as constant: $2x \cdot y$ |
+| $\frac{\partial z}{\partial y} = x^2$ | Partial derivative w.r.t. $y$ | Differentiate $x^2 y$ treating $x$ as constant: $x^2 \cdot 1$ |
+
 **Step 3:** Compute total derivative:
 $$
 \frac{dz}{dt} = 2xy \cdot 2t + x^2 \cdot \cos(t) = 4t^3\sin(t) + t^4\cos(t)
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $2xy \cdot 2t$ | First path: $\frac{\partial z}{\partial x} \cdot \frac{dx}{dt}$ | $2xy$ (from partial) $\times$ $2t$ (since $x = t^2$) |
+| $x^2 \cdot \cos(t)$ | Second path: $\frac{\partial z}{\partial y} \cdot \frac{dy}{dt}$ | $x^2$ (from partial) $\times$ $\cos(t)$ (since $y = \sin(t)$) |
+| $4t^3\sin(t)$ | First path after substitution | Substitute $x = t^2$, $y = \sin(t)$: $2(t^2)(\sin(t))(2t) = 4t^3\sin(t)$ |
+| $t^4\cos(t)$ | Second path after substitution | Substitute $x = t^2$: $(t^2)^2 \cos(t) = t^4\cos(t)$ |
+| $\frac{dz}{dt}$ | Total derivative | Sum of all paths: $4t^3\sin(t) + t^4\cos(t)$ — matches direct differentiation of $t^4\sin(t)$ |
 
 ```python
 import sympy as sp
@@ -102,6 +137,14 @@ $$
 \frac{dz}{dt} = \frac{\partial f}{\partial x}\frac{dx}{dt} + \frac{\partial f}{\partial y}\frac{dy}{dt} + \frac{\partial f}{\partial w}\frac{dw}{dt}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $z = f(x, y, w)$ | Function of three intermediates | The outer function depends on three variables instead of two |
+| $\frac{\partial f}{\partial x}\frac{dx}{dt}$ | Path through $x$ | How $z$ changes via the $x$ intermediate |
+| $\frac{\partial f}{\partial y}\frac{dy}{dt}$ | Path through $y$ | How $z$ changes via the $y$ intermediate |
+| $\frac{\partial f}{\partial w}\frac{dw}{dt}$ | Path through $w$ | How $z$ changes via the $w$ intermediate |
+| $+$ | Sum of all paths | The total derivative is the sum over ALL intermediate variables |
+
 **Pattern:** Sum over all intermediate variables, multiplying the partial derivative of the outer function by the derivative of the inner function.
 
 ---
@@ -117,35 +160,13 @@ $$
 \frac{\partial z}{\partial t_j} = \sum_{i=1}^{n} \frac{\partial f}{\partial x_i} \cdot \frac{\partial x_i}{\partial t_j}
 $$
 
-### Matrix Form
-This is exactly the Jacobian chain rule (Lecture 34):
-
-$$
-J_{f \circ g} = J_f \cdot J_g
-$$
-
-The Jacobian of a composition is the matrix product of the individual Jacobians.
-
-```python
-import numpy as np
-
-# Layer composition: z = f(g(x))
-# g: R^3 -> R^4 (linear + ReLU)
-# f: R^4 -> R^2 (linear)
-
-W1 = np.random.randn(4, 3)
-W2 = np.random.randn(2, 4)
-x = np.array([1.0, 2.0, 3.0])
-
-# Forward
-g_out = np.maximum(0, W1 @ x)  # ReLU
-z = W2 @ g_out
-
-# Jacobian of composition = J_f @ J_g
-# J_g = diag(relu'(W1@x)) @ W1
-# J_f = W2
-# J_total = W2 @ diag(relu'(W1@x)) @ W1
-```
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $z = f(x_1, \dots, x_n)$ | Function of $n$ intermediate variables | The outer function (e.g., loss) depending on all intermediate values (e.g., layer outputs) |
+| $\frac{\partial f}{\partial x_i}$ | Partial derivative of outer function | How the output changes when the $i$-th intermediate variable changes |
+| $x_i = x_i(t_1, \dots, t_m)$ | Intermediate variable as function of $m$ inputs | Each $x_i$ depends on all inputs (e.g., weights, data) |
+| $\frac{\partial x_i}{\partial t_j}$ | Partial derivative of intermediate w.r.t. input | How the $i$-th intermediate changes when the $j$-th input changes |
+| $\sum_{i=1}^{n}$ | Sum over all intermediate variables | Accounts for ALL paths from input $t_j$ to output $z$ — the total derivative |
 
 ---
 
@@ -158,32 +179,27 @@ $$
 z = f(u, v), \quad u = g(x, y), \quad v = h(x, y)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $z = f(u, v)$ | Output depends on two intermediates | The outer function takes $u$ and $v$ as arguments |
+| $u = g(x, y)$ | First intermediate function | $u$ depends on both $x$ and $y$ |
+| $v = h(x, y)$ | Second intermediate function | $v$ also depends on both $x$ and $y$ |
+| Two intermediate paths | Multiple dependency paths | Both $u$ and $v$ connect $x$ to $z$ |
+
 Then:
 
 $$
 \frac{\partial z}{\partial x} = \frac{\partial f}{\partial u}\frac{\partial u}{\partial x} + \frac{\partial f}{\partial v}\frac{\partial v}{\partial x}
 $$
 
-$$
-\frac{\partial z}{\partial y} = \frac{\partial f}{\partial u}\frac{\partial u}{\partial y} + \frac{\partial f}{\partial v}\frac{\partial v}{\partial y}
-$$
-
-**Intuition:** Both $u$ and $v$ are affected by $x$, and $z$ depends on both $u$ and $v$. The total effect of $x$ on $z$ is the sum of all paths.
-
-### Worked Example
-
-$$
-z = u^2 + v^3, \quad u = xy, \quad v = x + y
-$$
-
-**Step 1:** $\frac{\partial f}{\partial u} = 2u$, $\frac{\partial f}{\partial v} = 3v^2$
-
-**Step 2:** $\frac{\partial u}{\partial x} = y$, $\frac{\partial v}{\partial x} = 1$
-
-**Step 3:**
-$$
-\frac{\partial z}{\partial x} = 2u \cdot y + 3v^2 \cdot 1 = 2xy \cdot y + 3(x+y)^2 = 2xy^2 + 3(x+y)^2
-$$
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $z = f(u, v)$ | Function of two intermediates | The output depends on $u$ and $v$ |
+| $u = g(x, y), v = h(x, y)$ | Intermediates depend on $x, y$ | Each intermediate depends on both inputs |
+| $\frac{\partial f}{\partial u}$ | Partial of outer w.r.t. first intermediate | How output changes with $u$ |
+| $\frac{\partial u}{\partial x}$ | Partial of first intermediate w.r.t. $x$ | How $u$ changes with $x$ |
+| $\frac{\partial f}{\partial v}\frac{\partial v}{\partial x}$ | Second path contribution | The alternative path from $x$ to $z$ through $v$ |
+| $+$ | Sum of paths | Both paths contribute to the total derivative |
 
 ---
 
@@ -202,12 +218,29 @@ $$
 \end{aligned}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{x}$ | Network input | Raw feature vector (e.g., image pixels) |
+| $W_i, \mathbf{b}_i$ | Weight matrix and bias of layer $i$ | Learnable parameters that transform the input at each layer |
+| $\sigma$ | Activation function | Element-wise non-linearity (e.g., ReLU, sigmoid) |
+| $\mathbf{h}_i$ | Hidden activations of layer $i$ | Intermediate representations learned by the network |
+| $\hat{y}$ | Network prediction | Final output of the forward pass |
+| $\mathcal{L}$ | Loss function | Scalar measure of prediction error, e.g., MSE $= \frac{1}{2}(\hat{y} - y)^2$ |
+
 ### Forward Pass (Composition)
 $\mathcal{L}$ is a function of $\hat{y}$, which is a function of $\mathbf{h}_2$, which is a function of $\mathbf{h}_1$, which is a function of $\mathbf{x}$. The chain rule decomposes the total derivative:
 
 $$
 \frac{\partial \mathcal{L}}{\partial W_1} = \frac{\partial \mathcal{L}}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial \mathbf{h}_2} \cdot \frac{\partial \mathbf{h}_2}{\partial \mathbf{h}_1} \cdot \frac{\partial \mathbf{h}_1}{\partial W_1}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\frac{\partial \mathcal{L}}{\partial \hat{y}}$ | Gradient of loss w.r.t. output | The "error signal" — how wrong the prediction is |
+| $\frac{\partial \hat{y}}{\partial \mathbf{h}_2}$ | Jacobian of output w.r.t. hidden layer | How output changes when hidden activations change — typically $W_3$ |
+| $\frac{\partial \mathbf{h}_2}{\partial \mathbf{h}_1}$ | Jacobian of layer 2 w.r.t. layer 1 | How second hidden layer changes with first — includes activation derivative $\sigma'$ |
+| $\frac{\partial \mathbf{h}_1}{\partial W_1}$ | Jacobian of layer 1 w.r.t. weights | How first hidden layer changes with weights — typically $\mathbf{x}^T$ |
+| Product of all | Chain rule through all layers | The gradient of loss w.r.t. $W_1$ — what we need for weight updates |
 
 ### Backward Pass (Chain Rule in Reverse)
 Each term is computed by multiplying the upstream gradient by the local Jacobian:
@@ -219,6 +252,16 @@ $$
 \frac{\partial \mathcal{L}}{\partial W_1} &= \frac{\partial \mathcal{L}}{\partial \mathbf{h}_1} \cdot \text{diag}(\sigma'(\mathbf{z}_1)) \cdot \mathbf{x}^T
 \end{aligned}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\frac{\partial \mathcal{L}}{\partial \mathbf{h}_2}$ | Gradient at layer 2 | The error signal propagated back from the output |
+| $W_3$ | Weight matrix of layer 3 | Transposes to propagate gradients backward |
+| $\frac{\partial \mathcal{L}}{\partial \mathbf{h}_1}$ | Gradient at layer 1 | Error signal further back — multiplied by activation derivative and $W_2$ |
+| $\text{diag}(\sigma'(\mathbf{z}_2))$ | Diagonal matrix of activation derivatives | The ReLU/sigmoid derivative — zeros out gradients for inactive neurons |
+| $W_2$ | Weight matrix of layer 2 | Propagates gradients to previous layer |
+| $\frac{\partial \mathcal{L}}{\partial W_1}$ | Gradient w.r.t. weights | Final result — what we use to update $W_1$ via gradient descent |
+| $\mathbf{x}^T$ | Input transpose | The outer product with the error signal gives the weight gradient |
 
 This is literally the chain rule applied layer by layer, in reverse order.
 
@@ -252,6 +295,13 @@ $$
 \prod_{i=1}^{L} \|\sigma'(z_i) \cdot W_i\| \to 0 \quad \text{as } L \to \infty
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\prod_{i=1}^{L}$ | Product over all $L$ layers | Gradients multiply through every layer in the chain |
+| $\|\sigma'(z_i) \cdot W_i\|$ | Spectral norm of layer $i$ Jacobian | Measures how much the gradient shrinks ($<1$) or grows ($>1$) at layer $i$ |
+| $\to 0$ | Vanishes as $L \to \infty$ | Product of many entries $<1$ goes to zero exponentially — the vanishing gradient |
+| $L$ | Number of layers | Deeper networks suffer more severe vanishing gradients |
+
 **Fix:** Use ReLU activations ($\sigma'(z) = 1$ for $z > 0$), batch normalization, residual connections.
 
 ### Exploding Gradients
@@ -261,6 +311,13 @@ $$
 \prod_{i=1}^{L} \|\sigma'(z_i) \cdot W_i\| \to \infty
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\prod_{i=1}^{L}$ | Product over all layers | Same chain rule product structure |
+| $\|\sigma'(z_i) \cdot W_i\|$ | Per-layer Jacobian norm | If this value $> 1$ at each layer, the product grows exponentially |
+| $\to \infty$ | Explodes as $L \to \infty$ | Gradients become astronomically large — causes NaN, divergence |
+| Exploding gradient | Unstable training | Weights receive massive updates, overshooting minima |
+
 **Fix:** Gradient clipping, weight decay, orthogonal initialization.
 
 ### The ReLU Advantage
@@ -269,6 +326,13 @@ For ReLU, $\sigma'(z) = 1$ when $z > 0$. The chain rule product becomes:
 $$
 \prod_{i=1}^{L} \mathbf{1}_{z_i > 0} \cdot W_i
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{1}_{z_i > 0}$ | Indicator for active neurons | $1$ if pre-activation $z_i > 0$, $0$ otherwise — ReLU derivative |
+| $W_i$ | Weight matrix of layer $i$ | The linear part of the layer Jacobian |
+| $\mathbf{1}_{z_i > 0} \cdot W_i$ | ReLU layer Jacobian | Activation derivative $=1$ for active neurons (no shrinkage), $=0$ for inactive (no gradient) |
+| Clean gradient flow | No exponential shrinkage | Active ReLU neurons pass gradients with magnitude $1$ — vanishing/exploding is mitigated |
 
 The gradient neither shrinks nor grows through active neurons — it flows cleanly through the chain. This is why ReLU became the default activation function.
 

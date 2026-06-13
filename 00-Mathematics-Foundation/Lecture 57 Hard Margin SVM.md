@@ -17,6 +17,11 @@ $$
 \end{aligned}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\frac{1}{2}||\mathbf{w}||^2$ | Convex objective | Minimizing $||\mathbf{w}||^2$ is equivalent to maximizing the margin $\frac{2}{||\mathbf{w}||}$ |
+| $y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1$ | Hard margin constraints | Ensure correct classification with distance $\ge 1/||\mathbf{w}||$ from boundary |
+
 **Note:** The constraint $y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1$ ensures:
 1. Correct classification ($y_i(\mathbf{w}^T\mathbf{x}_i + b) > 0$)
 2. Minimum distance of $\frac{1}{||\mathbf{w}||}$ from the boundary
@@ -32,6 +37,13 @@ $$
 \end{aligned}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\boldsymbol{\alpha}$ | Lagrange multipliers | $\alpha_i \ge 0$; non-zero only for support vectors — sparsity property |
+| $\sum_{i=1}^n \alpha_i$ | Linear term | Maximizing this pushes the margin wider |
+| $\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \mathbf{x}_i^T\mathbf{x}_j$ | Quadratic term | Pairwise interactions; only depends on dot products — enables the kernel trick |
+| $\sum_{i=1}^n \alpha_i y_i = 0$ | Balance constraint | Ensures the hyperplane is centered between classes |
+
 ### Solution Recovery
 $$
 \begin{aligned}
@@ -39,6 +51,12 @@ $$
 b^* &= y_s - \mathbf{w}^{*T}\mathbf{x}_s \quad \text{for any support vector } \mathbf{x}_s
 \end{aligned}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\mathbf{w}^*$ | Optimal weight vector | Weighted combination of support vectors; $\mathbf{w}^* = \sum \alpha_i^* y_i \mathbf{x}_i$ |
+| $b^*$ | Optimal bias | Computed from any support vector; $b^* = y_s - \mathbf{w}^{*T}\mathbf{x}_s$ |
+| $\alpha_i^*$ | Optimal dual variables | Only support vectors ($\alpha_i^* > 0$) contribute to $\mathbf{w}^*$ and the decision function |
 
 ---
 
@@ -109,6 +127,12 @@ $$
 f(\mathbf{x}) = \text{sign}(\mathbf{w}^{*T}\mathbf{x} + b^*)
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $f(\mathbf{x})$ | Hard margin SVM prediction for new point $\mathbf{x}$ | Returns $\pm 1$ using only the weight vector and bias from the primal solution |
+| $\mathbf{w}^*$ | Optimal weight vector from primal training | Defines the orientation of the maximum-margin hyperplane |
+| $b^*$ | Optimal bias from primal training | Determines the offset of the decision boundary from the origin |
+
 ```python
 def predict(X_new, w, b):
     return np.sign(X_new @ w + b)
@@ -126,12 +150,24 @@ $$
 \text{Margin} = \frac{2}{||\mathbf{w}^*||}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\text{Margin}$ | Total width of the margin region | The distance between the two margin boundaries $\mathbf{w}^T\mathbf{x} + b = \pm 1$ |
+| $\mathbf{w}^*$ | Optimal weight vector | Minimizing $||\mathbf{w}^*||$ maximizes this margin — the core optimization goal |
+| $\frac{2}{||\mathbf{w}^*||}$ | Margin formula | Directly links the optimization objective to the geometric quantity we want to maximize |
+
 ### Perpendicular Distance
 The distance from any point $\mathbf{x}_0$ to the decision boundary:
 
 $$
 d = \frac{|\mathbf{w}^{*T}\mathbf{x}_0 + b^*|}{||\mathbf{w}^*||}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $d$ | Perpendicular distance from point $\mathbf{x}_0$ to the decision boundary | Measures how far a point is from the separating hyperplane in Euclidean space |
+| $\mathbf{x}_0$ | Any data point (could be training or test) | Used to compute distances for margin analysis and to check which points are support vectors |
+| $|\mathbf{w}^{*T}\mathbf{x}_0 + b^*|$ | Absolute decision score at $\mathbf{x}_0$ | Numerator is the functional margin's magnitude; dividing by $||\mathbf{w}^*||$ makes it scale-invariant |
 
 ```python
 margin_width = 2 / np.linalg.norm(w)

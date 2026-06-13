@@ -18,12 +18,12 @@ $$
 
 > **Naive Assumption:** All features are conditionally independent given the class: $P(x_1, x_2, \dots, x_n \mid C) = \prod_i P(x_i \mid C)$. This is "naive" but works surprisingly well in practice (e.g., spam filtering, text classification).
 
-| Term | Definition | Context (Spam Example) |
+| Term | Definition | Significance |
 | :--- | :--- | :--- |
-| **$P(A \mid B)$** | **Posterior** | Prob. email is Spam given word "Lottery" exists. |
-| **$P(B \mid A)$** | **Likelihood** | Prob. word "Lottery" appears in Spam emails. |
-| **$P(A)$** | **Prior** | Prob. any random email is Spam. |
-| **$P(B)$** | **Evidence** | Prob. word "Lottery" appears in *any* email. |
+| $P(A \mid B)$ | **Posterior** — probability of $A$ given $B$ | The updated belief after seeing evidence; what the classifier computes for each class |
+| $P(B \mid A)$ | **Likelihood** — probability of $B$ assuming $A$ is true | How likely the evidence is under the hypothesis; estimated from training data |
+| $P(A)$ | **Prior** — initial probability of $A$ before seeing evidence | Encodes base-rate information; e.g., overall spam rate in email traffic |
+| $P(B)$ | **Evidence** — total probability of $B$ across all hypotheses | Normalizes the posterior so probabilities sum to 1 |
 
 ---
 

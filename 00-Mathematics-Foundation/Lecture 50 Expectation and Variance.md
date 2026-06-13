@@ -14,10 +14,24 @@ $$
 E[X] = \sum_x x \cdot p(x)
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $E[X]$ | **Expected value** (mean) of $X$ | The center of mass of a distribution; in ML, we minimize expected loss $\mathbb{E}[\ell(f(\mathbf{x}), y)]$ over the data distribution |
+| $x$ | Possible value of the random variable | Each outcome $x$ contributes to the average weighted by its probability |
+| $p(x)$ | **Probability Mass Function** — $P(X = x)$ | Weights each outcome by how likely it is; more probable outcomes dominate the expectation |
+| $\sum_x$ | Sum over all possible values of $X$ | For discrete variables, expectation is a weighted sum |
+
 ### Continuous Case
 $$
 E[X] = \int_{-\infty}^{\infty} x \cdot f(x) \, dx
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $E[X]$ | **Expected value** (mean) of continuous random variable $X$ | The center of mass of a continuous distribution; in ML, we minimize the expected loss $\mathbb{E}[\ell(f(\mathbf{x}), y)]$ over the data distribution |
+| $x$ | Value of the continuous random variable | Integrated over all possible real numbers weighted by the density |
+| $f(x)$ | **Probability Density Function** (PDF) of $X$ | Describes the relative likelihood of $X$ taking values near $x$ |
+| $\int_{-\infty}^{\infty}$ | Integral over the entire real line | For continuous variables, expectation is an integral rather than a sum |
 
 ### Properties
 
@@ -48,10 +62,23 @@ $$
 \text{Var}(X) = E[(X - \mu)^2] = E[X^2] - (E[X])^2
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Var}(X)$ | **Variance** — expected squared deviation from the mean | Measures the spread/dispersion of a distribution; fundamental for understanding model uncertainty and the bias-variance tradeoff in ML |
+| $\mu$ | Mean $E[X]$ | The center point around which variance is measured |
+| $E[(X - \mu)^2]$ | Definitional formula for variance | Directly captures the average squared distance from the mean |
+| $E[X^2] - (E[X])^2$ | Computational formula for variance | Often easier to compute in practice; derived by expanding the square inside the expectation |
+
 ### Standard Deviation
 $$
 \sigma = \sqrt{\text{Var}(X)}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\sigma$ | **Standard deviation** — square root of the variance | Measures spread in the same units as $X$; $\sigma$ is the natural scale for confidence intervals, normalization (z-scores), and the 68-95-99.7 rule |
+| $\text{Var}(X)$ | Variance of $X$ | The squared standard deviation |
+| $\sqrt{\cdot}$ | Square root operation | Converts variance back to the original units of $X$ |
 
 ### Properties
 
@@ -76,6 +103,12 @@ $$
 \text{Cov}(X, Y) = E[XY] - E[X]E[Y]
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Cov}(X, Y)$ | **Covariance** — measure of joint variability between $X$ and $Y$ | Positive: $X$ and $Y$ move together; negative: they move oppositely; zero: uncorrelated. Essential for PCA and understanding feature relationships |
+| $E[XY]$ | Expected value of the product $XY$ | Joint moment that captures the product of deviations |
+| $E[X]E[Y]$ | Product of individual expectations | Subtracted to center the covariance; for independent variables, $\text{Cov}(X, Y) = 0$ |
+
 * Positive: variables move together. Negative: variables move oppositely. Zero: uncorrelated.
 
 ### Covariance Matrix
@@ -85,12 +118,27 @@ $$
 \Sigma = \text{Cov}(\mathbf{X}) = E[(\mathbf{X} - \boldsymbol{\mu})(\mathbf{X} - \boldsymbol{\mu})^T]
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\Sigma$ | **Covariance matrix** of random vector $\mathbf{X}$ | The matrix at the heart of PCA, Mahalanobis distance, and multivariate Gaussian distributions; captures both variances (diagonal) and covariances (off-diagonal) |
+| $\mathbf{X}$ | Random vector in $\mathbb{R}^n$ | A collection of $n$ random variables, each representing a feature |
+| $\boldsymbol{\mu}$ | Mean vector $E[\mathbf{X}]$ | The vector of individual feature means |
+| $(\mathbf{X} - \boldsymbol{\mu})(\mathbf{X} - \boldsymbol{\mu})^T$ | Outer product of deviation vectors | Produces an $n \times n$ matrix; the $(i,j)$ entry is $\text{Cov}(X_i, X_j)$ |
+| $E[\cdot]$ | Expectation of a matrix | Applied element-wise to yield the covariance matrix |
+
 This is the matrix at the heart of PCA (Lecture 16).
 
 ### Correlation Coefficient
 $$
 \rho_{XY} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y} \in [-1, 1]
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\rho_{XY}$ | **Correlation coefficient** — normalized covariance between $X$ and $Y$ | Scale-invariant measure of linear dependence; always in $[-1, 1]$; $\rho = \pm 1$ means perfect linear relationship |
+| $\text{Cov}(X, Y)$ | Covariance between $X$ and $Y$ | Unnormalized measure of joint variability |
+| $\sigma_X$ | Standard deviation of $X$ | Normalizes $X$'s contribution to unit scale |
+| $\sigma_Y$ | Standard deviation of $Y$ | Normalizes $Y$'s contribution to unit scale |
 
 ```python
 import numpy as np
@@ -129,6 +177,14 @@ For any random variable with mean $\mu$ and variance $\sigma^2$:
 $$
 P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P(|X - \mu| \ge k\sigma)$ | Probability that $X$ deviates from its mean by at least $k$ standard deviations | The quantity bounded by Chebyshev's inequality; used in ML for proving generalization bounds via concentration inequalities |
+| $k$ | Number of standard deviations | Positive real number; larger $k$ gives a tighter upper bound |
+| $\frac{1}{k^2}$ | Chebyshev bound | Universal upper bound valid for ANY distribution with finite variance; $k=2$ gives $\le 0.25$, $k=3$ gives $\le 0.11$ |
+| $\mu$ | Mean of $X$ | Center of the distribution |
+| $\sigma$ | Standard deviation of $X$ | Scale of the distribution |
 
 This gives a worst-case bound on how far $X$ can be from its mean.
 

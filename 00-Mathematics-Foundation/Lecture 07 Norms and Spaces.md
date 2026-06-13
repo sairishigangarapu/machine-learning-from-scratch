@@ -35,12 +35,25 @@ $$
 \lVert x \rVert_p = \left( \sum_{i=1}^{n} |x_i|^p \right)^{1/p}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\lVert x \rVert_p$ | $p$-norm of vector $x$ | Generalized measure of vector magnitude |
+| $|x_i|$ | Absolute value of component $i$ | Ensures non-negative contribution from each element |
+| $p$ | Norm order parameter | Determines sensitivity to large components ($p>1$) or sparsity ($p=1$) |
+| $1/p$ | Normalization exponent | Scales the sum back to linear units |
+
 ### 1. L2 Norm (Euclidean Norm)
 The standard straight-line "as the crow flies" distance. This is the foundation of **Mean Squared Error (MSE)** loss functions and Ridge (L2) Regularization.
 
 $$
 \lVert x \rVert_2 = \sqrt{\sum x_i^2}
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\lVert x \rVert_2$ | L2 (Euclidean) norm | Straight-line distance from origin; foundation of MSE loss |
+| $x_i^2$ | Squared component | Penalizes large errors quadratically |
+| $\sqrt{\cdot}$ | Square root | Returns to original scale |
 
 ### 2. L1 Norm (Manhattan Norm)
 The "city block" distance, summing the absolute steps across each axis. It is the foundation of **Mean Absolute Error (MAE)** and Lasso (L1) Regularization.
@@ -49,12 +62,23 @@ $$
 \lVert x \rVert_1 = \sum |x_i|
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\lVert x \rVert_1$ | L1 (Manhattan) norm | Sum of absolute values; promotes sparsity in weights |
+| $|x_i|$ | Absolute value of component | Linear penalty regardless of sign |
+
 ### 3. $L_\infty$ Norm (Max Norm)
 Simply the largest single component in the vector. 
 
 $$
 \lVert x \rVert_\infty = \max |x_i|
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\lVert x \rVert_\infty$ | $L_\infty$ (max) norm | Largest absolute component; bounds worst-case feature magnitude |
+| $\max$ | Maximum operator | Selects the single most extreme value |
+| $|x_i|$ | Absolute value of component | Ensures positive magnitude comparison |
 
 ```python
 import numpy as np
@@ -89,6 +113,12 @@ $$
 \|x\|_0 = |\{i : x_i \neq 0\}|
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\|x\|_0$ | $L_0$ pseudo-norm | Counts non-zero elements (sparsity measure) |
+| $|\{i : x_i \neq 0\}|$ | Cardinality of non-zero index set | Number of active features |
+| $x_i \neq 0$ | Non-zero component condition | Identifies which features contribute |
+
 Strictly speaking, $L_0$ is **not a formal norm** because it fails scalar multiplication ($\|2x\|_0 = \|x\|_0$). It is also completely non-convex and non-differentiable (a piecewise step function). Attempting to use $L_0$ in Deep Learning backpropagation will crash the optimizer because the gradient is either zero everywhere or infinitely undefined. We universally use L1 as a convex, differentiable approximation of L0 to achieve sparsity.
 
 ---
@@ -109,6 +139,13 @@ The most critical relationship in NLP (Cosine Similarity) is derived directly fr
 $$
 \langle x, y \rangle = \|x\| \|y\| \cos \theta
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\langle x, y \rangle$ | Inner product of vectors $x$ and $y$ | Generalized dot product capturing alignment |
+| $\|x\|, \|y\|$ | Norms of vectors | Magnitudes used for normalization |
+| $\cos \theta$ | Cosine of angle between vectors | Directional similarity measure (-1 to 1) |
+| $\theta$ | Angle between vectors | Geometric interpretation of alignment |
 
 By isolating $\cos \theta$, we can instantly measure how deeply "aligned" two sentence embeddings are in space, ignoring their magnitude.
 

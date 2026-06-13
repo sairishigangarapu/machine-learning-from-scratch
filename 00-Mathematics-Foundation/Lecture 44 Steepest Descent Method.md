@@ -15,10 +15,13 @@ $$
 \theta_{k+1} = \theta_k - \alpha_k \nabla_\theta \mathcal{L}(\theta_k)
 $$
 
-where:
-* $\theta$: Model parameters
-* $\alpha_k$: Learning rate at step $k$
-* $\nabla_\theta \mathcal{L}$: Gradient of the loss
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\theta_k$ | Current parameter vector | The model's state at iteration $k$ — where we are in parameter space |
+| $\theta_{k+1}$ | Next parameter vector | The updated state after one step |
+| $\alpha_k$ | Learning rate (step size) | Controls how far we move — too large causes divergence, too small slows convergence |
+| $\nabla_\theta \mathcal{L}(\theta_k)$ | Gradient of loss at $\theta_k$ | Direction of steepest increase — we move opposite (descent) |
+| $-$ | Negative sign | We subtract the gradient to minimize, not maximize |
 
 ---
 
@@ -31,6 +34,13 @@ $$
 \nabla_\theta \mathcal{L} = \frac{1}{N} \sum_{i=1}^{N} \nabla_\theta \ell(\theta; \mathbf{x}_i, y_i)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\nabla_\theta \mathcal{L}$ | Full-batch gradient of loss w.r.t. $\theta$ | Exact descent direction — no approximation error |
+| $N$ | Total number of training examples | Each step requires summing over ALL data — scales poorly |
+| $\ell(\theta; \mathbf{x}_i, y_i)$ | Per-example loss for the $i$-th sample | The contribution of a single training point to the total gradient |
+| $\frac{1}{N} \sum_{i=1}^{N}$ | Mean over all examples | Normalizes gradient to be independent of dataset size |
+
 * **Pros:** Exact gradient, smooth convergence.
 * **Cons:** Extremely slow for large datasets ($N = 10^6$ → sum over 1M examples per step).
 
@@ -41,6 +51,11 @@ $$
 \nabla_\theta \mathcal{L} \approx \nabla_\theta \ell(\theta; \mathbf{x}_i, y_i)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\nabla_\theta \ell(\theta; \mathbf{x}_i, y_i)$ | Per-sample gradient at one random point | Unbiased estimate of full gradient — noisy but fast |
+| $\approx$ | Approximation symbol | Signal-to-noise ratio is low per step, but direction is correct on average |
+
 * **Pros:** Extremely fast per iteration, introduces noise that helps escape local minima.
 * **Cons:** Noisy updates, high variance, may never fully converge.
 
@@ -50,6 +65,12 @@ Computes the gradient over a **mini-batch** of $B$ samples:
 $$
 \nabla_\theta \mathcal{L} \approx \frac{1}{B} \sum_{i \in \text{batch}} \nabla_\theta \ell(\theta; \mathbf{x}_i, y_i)
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $B$ | Batch size | Trade-off parameter — variance decays as $\sigma^2/B$, while computation grows linearly |
+| $\sum_{i \in \text{batch}}$ | Sum over the mini-batch | Averages $B$ independent gradient estimates, reducing noise |
+| $\frac{1}{B}$ | Batch normalization factor | Keeps gradient magnitude independent of batch size |
 
 * **Compromise:** $B = 32$ to $512$ is typical. GPU-friendly, low variance, fast.
 
@@ -133,6 +154,14 @@ $$
 \theta_{k+1} = \theta_k - \frac{\alpha}{\sqrt{\sum_{i=1}^k g_i^2 + \epsilon}} \odot g_k
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $g_k$ | Gradient at step $k$ | Current descent direction for parameter $i$ |
+| $\sum_{i=1}^k g_i^2$ | Sum of squared gradients from all past steps | Accumulates the history — frequently updated parameters get larger sums, shrinking their learning rate |
+| $\epsilon$ | Small smoothing constant | Prevents division by zero (typically $10^{-8}$) |
+| $\odot$ | Element-wise (Hadamard) product | Each parameter gets its own scaled learning rate independently |
+| $\frac{\alpha}{\sqrt{\sum g_i^2 + \epsilon}}$ | Per-parameter adaptive learning rate | Rare features (small sum) get large updates; frequent features get small updates |
+
 * **Pros:** Adapts per-parameter, good for sparse data.
 * **Cons:** Learning rate monotonically decreases → eventually stops learning.
 
@@ -146,6 +175,12 @@ v_k &= \beta v_{k-1} + (1-\beta) g_k^2 \\
 \end{aligned}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $v_k$ | Running average of squared gradients | Exponentially decaying memory of gradient magnitudes |
+| $\beta$ | Decay rate | Controls how far back the memory goes ($\beta=0.9$ remembers ~10 steps) |
+| $\sqrt{v_k + \epsilon}$ | RMS (root mean square) of recent gradients | Normalizes step size by recent gradient variability — avoids the monotonic decay of AdaGrad |
+
 ### Adam (Adaptive Moment Estimation)
 Combines momentum (first moment) with RMSprop (second moment):
 
@@ -157,6 +192,14 @@ v_k &= \beta_2 v_{k-1} + (1-\beta_2) g_k^2 \quad \text{(adaptive LR)} \\
 \theta_{k+1} &= \theta_k - \frac{\alpha}{\sqrt{\hat{v}_k} + \epsilon} \odot \hat{m}_k
 \end{aligned}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $m_k$ | First moment (mean) of gradients | Momentum term — accelerates along consistent directions, dampens oscillations |
+| $v_k$ | Second moment (uncentered variance) of gradients | Adaptive learning rate — shrinks steps for noisy/oscillating parameters |
+| $\beta_1, \beta_2$ | Exponential decay rates for moments | $\beta_1=0.9$ (momentum decays in ~10 steps), $\beta_2=0.999$ (variance decays in ~1000 steps) |
+| $\hat{m}_k, \hat{v}_k$ | Bias-corrected moments | Correction for initialization bias (moments start at zero, so early estimates are shrunk toward zero) |
+| $1 - \beta_1^k, 1 - \beta_2^k$ | Bias correction factors | $\to 1$ as $k$ grows; only matters in early iterations
 
 **Default hyperparameters:** $\beta_1 = 0.9$, $\beta_2 = 0.999$, $\epsilon = 10^{-8}$, $\alpha = 0.001$.
 

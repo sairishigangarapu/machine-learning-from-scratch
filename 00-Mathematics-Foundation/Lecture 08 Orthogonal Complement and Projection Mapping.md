@@ -18,6 +18,12 @@ $$
 \langle v_i, v_j \rangle = 0
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\langle v_i, v_j \rangle$ | Inner product of vectors $v_i$ and $v_j$ | Zero value indicates perpendicularity |
+| $0$ | Zero result | No alignment between the vectors |
+| $v_i, v_j$ | Vectors in inner product space | Distinct basis directions |
+
 If $\langle v_i, v_j \rangle = 0$, they are entirely independent of each other. Moving along axis $v_i$ gets you zero distance along axis $v_j$.
 
 ---
@@ -30,6 +36,13 @@ $$
 W^\perp = \{ v \in V \mid \langle v, w \rangle = 0, \forall w \in W \}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $W^\perp$ | Orthogonal complement of subspace $W$ | Subspace of all vectors perpendicular to $W$ |
+| $v \in V$ | Vector in ambient space $V$ | Candidate vector tested for orthogonality |
+| $\langle v, w \rangle = 0$ | Inner product condition | Must hold for every $w$ in $W$ |
+| $\forall w \in W$ | Universal quantifier | Ensures orthogonality to entire subspace |
+
 **Why it matters:** In Linear Regression, if $W$ is our model's feature space, then $W^\perp$ is the exact space where our unexplainable "residual error" lives.
 
 ### Direct Sum Decomposition
@@ -39,9 +52,22 @@ $$
 V = W \oplus W^\perp
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $V$ | Ambient vector space | The entire space being decomposed |
+| $W$ | Subspace (e.g., model's feature space) | The "signal" component of vectors |
+| $W^\perp$ | Orthogonal complement | The "noise" or residual component |
+| $\oplus$ | Direct sum operator | Combines subspaces with trivial intersection |
+
 $$
 v = v_w + v_{w^\perp}
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $v$ | Original vector | Any point in ambient space |
+| $v_w$ | Projection onto $W$ | Component captured by the model |
+| $v_{w^\perp}$ | Component in $W^\perp$ | Residual error orthogonal to model |
 
 ---
 
@@ -54,6 +80,14 @@ Let $\{w_1, \dots, w_k\}$ be an orthogonal basis of $W$. The projection operator
 $$
 P_W(v) = \sum_{i=1}^{k} \frac{\langle v, w_i \rangle}{\|w_i\|^2} w_i
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $P_W(v)$ | Orthogonal projection of $v$ onto $W$ | Closest point in $W$ to $v$ |
+| $\langle v, w_i \rangle$ | Inner product with basis vector $w_i$ | Measures alignment with each basis direction |
+| $\|w_i\|^2$ | Squared norm of basis vector | Normalizes the projection coefficient |
+| $w_i$ | Orthogonal basis vectors of $W$ | Directions defining the subspace |
+| $k$ | Dimension of subspace $W$ | Number of basis vectors |
 
 ```python
 import numpy as np
@@ -80,6 +114,14 @@ $$
 P_W(v) = 1(3, 0, 1) + 3(0, 1, 0) = (3, 3, 1)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P_W(v)$ | Orthogonal projection of $v$ onto $W$ | The closest point in subspace $W$ to the original vector $v$ |
+| $1, 3$ | Projection coefficients | Scalar weights computed as $\langle v, w_i \rangle / \|w_i\|^2$ |
+| $(3, 0, 1)$ | Basis vector $w_1$ | First direction spanning the subspace $W$ |
+| $(0, 1, 0)$ | Basis vector $w_2$ | Second direction spanning the subspace $W$ |
+| $(3, 3, 1)$ | Resulting projected point | The shadow of $v$ onto the plane spanned by $w_1, w_2$ |
+
 ### The Residual Error
 The residual vector is exactly $v - P_W(v) = (0, 3, 10) - (3, 3, 1) = (-3, 0, 9)$.
 If we take the dot product of this residual with our plane vectors, the universe demands it be zero.
@@ -97,6 +139,13 @@ Orthogonal projections have distinct mathematical properties that algorithms rou
 $$
 \|v - P_W(v)\| \le \|v - w\| \quad \forall w \in W
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\|v - P_W(v)\|$ | Distance from $v$ to its projection | Minimum possible error in subspace $W$ |
+| $\|v - w\|$ | Distance from $v$ to arbitrary $w \in W$ | Error of any other candidate point |
+| $\le$ | Less than or equal | Projection is at least as good as any alternative |
+| $\forall w \in W$ | Universal quantifier | Holds for every point in the subspace |
 
 This theorem guarantees that $P_W(v)$ is the absolute closest possible point to $v$ inside the subspace $W$. When an Ordinary Least Squares (OLS) algorithm runs, it doesn't arbitrarily guess a line. It executes exactly this orthogonal projection algebraically, guaranteeing it has mathematically achieved the lowest possible Mean Squared Error.
 

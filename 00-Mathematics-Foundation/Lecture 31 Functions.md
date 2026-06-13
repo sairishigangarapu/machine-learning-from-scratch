@@ -63,6 +63,13 @@ $$
 f(x_1) = f(x_2) \implies x_1 = x_2
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(x_1) = f(x_2)$ | Equal output values | Assumes two inputs produce the same output |
+| $\implies$ | Implication arrow | "Implies that" — logical consequence |
+| $x_1 = x_2$ | Equal inputs | Conclusion that the two inputs must be the same |
+| Injective (one-to-one) | Distinct inputs → distinct outputs | No two different inputs map to the same output; critical for encoding uniqueness |
+
 **ML Connection:** An injective encoding function ensures no two distinct inputs collapse to the same representation — critical for embedding layers in deep learning.
 
 ### Onto (Surjective)
@@ -72,6 +79,13 @@ A function is **onto** if every element in the codomain is the image of at least
 $$
 \forall y \in B, \; \exists x \in A \text{ such that } f(x) = y
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\forall y \in B$ | For every element $y$ in codomain $B$ | Universal quantifier — the condition must hold for ALL possible outputs |
+| $\exists x \in A$ | There exists an element $x$ in domain $A$ | Existence quantifier — for each output there is at least one input |
+| $\text{such that } f(x) = y$ | Mapping condition | Each codomain element is "hit" by some domain element |
+| Surjective (onto) | Codomain = Range | Every possible output is actually achieved by some input |
 
 **ML Connection:** A classification head that maps to the full probability simplex (every class has a non-zero probability path) is effectively surjective.
 
@@ -87,6 +101,12 @@ $$
 f(x) = x
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(x)$ | Identity function | Returns its input unchanged |
+| $x$ | Input variable | The domain element is passed through without transformation |
+| Identity function | Neutral element of composition | Composing any function $g$ with identity gives $g$; basis of residual connections (ResNet) |
+
 Trivial, but essential — it is the neutral element under function composition and the basis of residual connections in deep neural networks.
 
 ### Exponential Function
@@ -95,11 +115,25 @@ $$
 f(x) = e^x
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(x)$ | Exponential function | A function where the independent variable $x$ appears in the exponent |
+| $e$ | Euler's number ($\approx 2.718$) | The base of natural exponentials; has the unique property $\frac{d}{dx}e^x = e^x$ |
+| $e^x$ | Exponential growth | Grows faster than any polynomial; used in softmax, sigmoid, and probability models |
+
 The foundation of the **Softmax function** used in virtually every classification network:
 
 $$
 \text{Softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Softmax}(z_i)$ | Softmax output for class $i$ | Converts a vector of raw scores (logits) into a probability distribution |
+| $z_i$ | Logit (raw score) for class $i$ | The unnormalized output of the last linear layer before classification |
+| $e^{z_i}$ | Exponentiated logit | Maps any real number to a positive value; ensures all outputs are positive |
+| $\sum_j e^{z_j}$ | Sum over all classes | Normalization factor guaranteeing the output sums to 1 |
+| $\frac{e^{z_i}}{\sum_j e^{z_j}}$ | Normalized probability | Produces a valid probability distribution over $K$ classes |
 
 ```python
 import numpy as np
@@ -122,6 +156,12 @@ $$
 f(-x) = f(x)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(-x)$ | Function evaluated at $-x$ | The function value when the input is negated |
+| $f(x)$ | Function evaluated at $x$ | The original function value at the positive input |
+| $f(-x) = f(x)$ | Even function condition | The graph is symmetric about the $y$-axis; only even powers in polynomial expansion |
+
 Symmetric about the $y$-axis.
 
 ### Odd Functions
@@ -129,6 +169,12 @@ Symmetric about the $y$-axis.
 $$
 f(-x) = -f(x)
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(-x)$ | Function evaluated at $-x$ | Function value at the negated input |
+| $-f(x)$ | Negated function value | The negative of the function value at the positive input |
+| $f(-x) = -f(x)$ | Odd function condition | The graph is symmetric about the origin; only odd powers in polynomial expansion |
 
 Symmetric about the origin.
 
@@ -144,11 +190,27 @@ $$
 f(x + T) = f(x) \quad \forall x
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(x + T)$ | Function value shifted by period $T$ | The function at input $x + T$ |
+| $f(x)$ | Original function value | The function at input $x$ |
+| $T$ | Period | The smallest positive constant for which $f(x+T) = f(x)$ holds |
+| $\forall x$ | For all $x$ | The equality must hold for every input in the domain |
+| Periodic function | Repeating pattern | Function repeats its values at regular intervals of length $T$ |
+
 **ML Connection:** Positional encodings in Transformers use periodic functions (sines and cosines) to encode sequence positions, allowing the model to generalize to sequences longer than those seen during training:
 
 $$
 PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right)
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $PE_{(pos, 2i)}$ | Positional encoding at position $pos$, dimension $2i$ | Encodes the position of a token in a sequence for the Transformer model |
+| $pos$ | Position index | The token's position in the sequence (0, 1, 2, ...) |
+| $i$ | Dimension index | Which frequency band of the encoding ($0 \le i < d/2$) |
+| $d$ | Model dimension | The total dimension of the embedding space |
+| $\frac{pos}{10000^{2i/d}}$ | Frequency scaling | Higher dimensions get lower frequencies, creating a unique encoding per position |
 
 ---
 
@@ -159,6 +221,14 @@ A function $f$ is **bounded** if there exists a constant $M$ such that:
 $$
 |f(x)| \le M \quad \forall x \in \text{Domain}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $|f(x)|$ | Absolute value of $f(x)$ | Measures the magnitude of the function's output |
+| $M$ | Bound constant | A finite number that caps the function's output magnitude |
+| $\le M$ | Inequality condition | The function never exceeds this bound |
+| $\forall x \in \text{Domain}$ | For all domain elements | The bound must hold for every valid input |
+| Bounded function | Output stays within $[-M, M]$ | Outputs are confined to a finite range; essential for stable activations |
 
 * The **sigmoid function** $\sigma(x) = \frac{1}{1+e^{-x}}$ is bounded: $\sigma(x) \in (0, 1)$.
 * The **ReLU function** $f(x) = \max(0, x)$ is unbounded above.
@@ -175,11 +245,27 @@ $$
 (g \circ f)(x) = g(f(x))
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $(g \circ f)$ | Composite function $g$ composed with $f$ | Read as "$g$ after $f$" — apply $f$ first, then $g$ |
+| $g(f(x))$ | Nested function evaluation | $f$ is evaluated at $x$, then $g$ is evaluated at $f(x)$ |
+| $f: A \to B$ | First (inner) function | Maps domain $A$ to intermediate set $B$ |
+| $g: B \to C$ | Second (outer) function | Maps intermediate set $B$ to final codomain $C$ |
+| Function composition | Building complex functions from simple ones | The mathematical foundation of neural network layers — a network is one giant composition |
+
 **Deep Learning Connection:** A neural network with $L$ layers is literally a composition of $L$ functions:
 
 $$
 \hat{y} = (f_L \circ f_{L-1} \circ \dots \circ f_1)(\mathbf{x})
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\hat{y}$ | Network output (prediction) | The final prediction after all $L$ layers |
+| $f_i$ | $i$-th layer function | Each layer is a function: $f_i(\mathbf{x}) = \sigma(W_i\mathbf{x} + \mathbf{b}_i)$ |
+| $\circ$ | Composition operator | Layers are applied sequentially; output of one is input to the next |
+| $\mathbf{x}$ | Network input | The raw feature vector (e.g., pixel values) |
+| $L$ | Number of layers | Network depth — deeper networks can learn more abstract features |
 
 Each layer $f_i(\mathbf{x}) = \sigma(W_i \mathbf{x} + \mathbf{b}_i)$ is a function, and the entire network is their composition. Backpropagation computes gradients through this composition using the **Chain Rule**.
 
@@ -207,6 +293,14 @@ If $f: A \to B$ is bijective, the **inverse function** $f^{-1}: B \to A$ satisfi
 $$
 f^{-1}(f(x)) = x \quad \text{and} \quad f(f^{-1}(y)) = y
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f^{-1}$ | Inverse function | The function that "undoes" $f$, mapping each output back to its original input |
+| $f^{-1}(f(x)) = x$ | Left inverse property | Applying $f$ then $f^{-1}$ recovers the original $x$ — the composition equals identity |
+| $f(f^{-1}(y)) = y$ | Right inverse property | Applying $f^{-1}$ then $f$ recovers the original $y$ |
+| Bijective $f$ | One-to-one and onto | Only bijective functions have a true inverse (both left and right) |
+| Invertible | Bidirectional mapping | Normalizing flows learn invertible transformations for exact density estimation |
 
 **ML Connection:** Invertible neural networks (used in normalizing flows) learn both a forward transformation and its exact inverse, enabling both generation and density estimation. The determinant of the Jacobian (Lecture 34) measures how the function stretches or compresses volume — essential for computing likelihoods.
 

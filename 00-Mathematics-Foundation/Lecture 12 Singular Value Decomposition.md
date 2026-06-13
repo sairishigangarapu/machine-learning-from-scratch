@@ -23,6 +23,13 @@ $$
 \boxed{A = U \Sigma V^T}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $A$ | Any real $m \times n$ matrix | SVD works for all matrices regardless of shape or rank |
+| $U$ | $m \times m$ orthogonal matrix of left singular vectors | Defines the output coordinate system after scaling |
+| $\Sigma$ | $m \times n$ rectangular diagonal matrix of singular values | Contains the scaling factors $\sigma_1 \ge \sigma_2 \ge \dots \ge 0$ |
+| $V^T$ | $n \times n$ orthogonal matrix of right singular vectors | Defines the input coordinate system before scaling |
+
 * **$V^T$ ($n \times n$):** An orthogonal matrix of **Right Singular Vectors**.
 * **$\Sigma$ ($m \times n$):** A rectangular diagonal matrix containing **Singular Values** $\sigma_1 \ge \sigma_2 \ge \dots \ge 0$.
 * **$U$ ($m \times m$):** An orthogonal matrix of **Left Singular Vectors**.
@@ -48,6 +55,12 @@ $$
 \sigma_i = \sqrt{\lambda_i}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\sigma_i$ | The $i$-th singular value of matrix $A$ | Measures the "strength" of the $i$-th principal component |
+| $\sqrt{\cdot}$ | The positive square root function | Ensures singular values are non-negative |
+| $\lambda_i$ | Eigenvalue of $A^T A$ or $A A^T$ | Relates rectangular matrix properties to symmetric matrix eigenvalues |
+
 ---
 
 ## 4. Comprehensive Worked Example (Rectangular Matrix)
@@ -60,6 +73,11 @@ $$
 A^T A = \begin{bmatrix} 80 & 100 & 40 \\ 100 & 170 & 140 \\ 40 & 140 & 200 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A^T A$ | Product of $A^T$ and $A$ | $3 \times 3$ symmetric matrix whose eigenvectors give the right singular vectors $V$ |
+| $80, 100, 40, \dots$ | Entries of $A^T A$ | Inner products of the columns of $A$; encode feature correlations |
+
 The eigenvalues of this symmetric matrix are $\lambda = \{360, 90, 0\}$.
 
 * **Singular Values:** $\sigma_1 = \sqrt{360} \approx 18.97$, $\sigma_2 = \sqrt{90} \approx 9.48$.
@@ -71,12 +89,23 @@ $$
 V = \begin{bmatrix} 1/3 & -2/3 & 2/3 \\ 2/3 & -1/3 & -2/3 \\ 2/3 & 2/3 & 1/3 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $V$ | Right singular vector matrix ($3 \times 3$) | Orthogonal matrix whose columns are eigenvectors of $A^T A$ |
+| $1/3, 2/3, \dots$ | Components of the right singular vectors | Define the orthonormal basis for the input (row) space of $A$ |
+
 **Step 3: Construct The Diagonal ($\Sigma$)**
 $\Sigma$ strictly matches the shape of $A$ ($2 \times 3$):
 
 $$
 \Sigma = \begin{bmatrix} 18.97 & 0 & 0 \\ 0 & 9.48 & 0 \end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\Sigma$ | Rectangular diagonal singular value matrix ($2 \times 3$) | Contains singular values $\sigma_1, \sigma_2$ on the diagonal |
+| $18.97$ | First singular value $\sigma_1$ | Largest scaling factor; square root of the largest eigenvalue of $A^T A$ |
+| $9.48$ | Second singular value $\sigma_2$ | Second scaling factor; square root of the second eigenvalue of $A^T A$ |
 
 ```python
 import numpy as np

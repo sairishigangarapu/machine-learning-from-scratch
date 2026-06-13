@@ -16,13 +16,26 @@ $$
 \lim_{x \to a} f(x) = L
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\lim_{x \to a} f(x)$ | Limit of $f(x)$ as $x$ approaches $a$ | The value $f(x)$ gets arbitrarily close to as $x$ gets arbitrarily close to $a$ |
+| $x \to a$ | $x$ approaches $a$ | $x$ gets infinitely close to $a$ from either side, but never equals $a$ |
+| $L$ | Limit value | The number that $f(x)$ converges to; may differ from $f(a)$ |
+| $\lim_{x \to a} f(x) = L$ | Limit exists and equals $L$ | Both left and right limits exist and equal $L$ |
+
 if and only if the **left-hand limit** and **right-hand limit** both exist and are equal:
 
 $$
 \lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L
 $$
 
-**Key distinction:** The limit describes what $f(x)$ approaches as $x$ gets arbitrarily close to $a$ — it says nothing about $f(a)$ itself. The function may not even be defined at $x = a$.
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\lim_{x \to a^-} f(x)$ | Left-hand limit | Value $f(x)$ approaches as $x$ approaches $a$ from values $x < a$ |
+| $\lim_{x \to a^+} f(x)$ | Right-hand limit | Value $f(x)$ approaches as $x$ approaches $a$ from values $x > a$ |
+| $L$ | Common limit value | The left and right limits must agree for the overall limit to exist |
+
+**Key distinction:**** The limit describes what $f(x)$ approaches as $x$ gets arbitrarily close to $a$ — it says nothing about $f(a)$ itself. The function may not even be defined at $x = a$.
 
 ---
 
@@ -74,6 +87,13 @@ $$
 \lim_{x \to a^-} f(x) \neq \lim_{x \to a^+} f(x)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\lim_{x \to a^-} f(x)$ | Left-hand limit at $a$ | Approach from below — values with $x < a$ |
+| $\lim_{x \to a^+} f(x)$ | Right-hand limit at $a$ | Approach from above — values with $x > a$ |
+| $\neq$ | Not equal | The two one-sided limits differ, so the two-sided limit does NOT exist |
+| Jump discontinuity | Discontinuous jump | The function has a sudden jump at $a$; not fixable by redefining a single point |
+
 **Example:** The step function $\text{sgn}(x)$ jumps from $-1$ to $+1$ at $x = 0$.
 
 ### Oscillatory Behavior
@@ -83,6 +103,13 @@ $$
 f(x) = \sin\left(\frac{1}{x}\right) \quad \text{as } x \to 0
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(x) = \sin(1/x)$ | Oscillating function | The sine of $1/x$ oscillates infinitely often as $x \to 0$ |
+| $\sin$ | Sine function | Bounded between $-1$ and $1$, but oscillates periodically |
+| $1/x$ | Reciprocal | As $x \to 0$, $1/x \to \infty$, causing infinitely fast oscillations |
+| $x \to 0$ | Approaching zero | The function never settles on any single value — the limit does not exist |
+
 ### Unbounded Growth
 The function grows without bound:
 
@@ -90,7 +117,14 @@ $$
 \lim_{x \to 0} \frac{1}{x^2} = \infty
 $$
 
-**Deep Learning Failure Mode:** During training, if a weight grows without bound, the pre-activation $z = W\mathbf{x} + \mathbf{b}$ can produce $\sin(1/z)$-style oscillations in gradient signals, causing the optimizer to oscillate wildly and never converge. Gradient clipping exists precisely to prevent this.
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\lim_{x \to 0}$ | Limit as $x$ approaches $0$ | We examine behavior arbitrarily close to $x = 0$ |
+| $1/x^2$ | Reciprocal square | Grows without bound as $x \to 0$ because the denominator shrinks to zero |
+| $\infty$ | Infinity (unbounded growth) | Not a finite number — indicates the function grows arbitrarily large |
+| Unbounded limit | Limit does not exist (diverges) | The function has a vertical asymptote at $x = 0$ |
+
+**Deep Learning Failure Mode:**** During training, if a weight grows without bound, the pre-activation $z = W\mathbf{x} + \mathbf{b}$ can produce $\sin(1/z)$-style oscillations in gradient signals, causing the optimizer to oscillate wildly and never converge. Gradient clipping exists precisely to prevent this.
 
 ---
 
@@ -118,6 +152,13 @@ The limit exists, but $f(a)$ is either undefined or defined to be a different va
 $$
 f(x) = \frac{x^2 - 1}{x - 1} \quad \text{has a removable discontinuity at } x = 1
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(x) = \frac{x^2 - 1}{x - 1}$ | Rational function | Numerator factors as $(x-1)(x+1)$; the $(x-1)$ factor cancels for $x \neq 1$ |
+| $x = 1$ | Point of discontinuity | The function is undefined at $x = 1$ (division by zero) |
+| Removable discontinuity | "Hole" in the graph | The limit exists ($\lim_{x\to 1} f(x) = 2$) but $f(1)$ is undefined or mismatched |
+| $\frac{x^2-1}{x-1} = x+1$ (for $x \neq 1$) | Cancelled form | The function simplifies to $x+1$ everywhere except $x = 1$ |
 
 The limit is $2$, but $f(1)$ is undefined.
 
@@ -156,7 +197,15 @@ $$
 \sigma(x) = \frac{1}{1 + e^{-x}}
 $$
 
-* **Continuous?** Yes — smooth curve with no breaks.
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\sigma(x)$ | Sigmoid (logistic) function | Standard S-shaped activation function in neural networks |
+| $x$ | Input (pre-activation) | The weighted sum of inputs: $x = \mathbf{w}^T \mathbf{a} + b$ |
+| $e^{-x}$ | Exponential of $-x$ | As $x \to \infty$, $e^{-x} \to 0$; as $x \to -\infty$, $e^{-x} \to \infty$ |
+| $1 + e^{-x}$ | Denominator | Always $> 1$, ensuring the output stays in $(0, 1)$ |
+| $\frac{1}{1 + e^{-x}}$ | Sigmoid output | Squashes any real input to the interval $(0, 1)$, interpretable as a probability |
+
+* **Continuous?**** Yes — smooth curve with no breaks.
 * **Differentiable?** Yes — everywhere, with derivative $\sigma'(x) = \sigma(x)(1 - \sigma(x))$.
 * **Bounded?** Yes — output always in $(0, 1)$.
 

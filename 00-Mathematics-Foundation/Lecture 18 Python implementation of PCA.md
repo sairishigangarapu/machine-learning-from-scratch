@@ -212,6 +212,13 @@ $$
 \mathbf{z} = \Lambda^{-1/2} U^T (\mathbf{x} - \boldsymbol{\mu})
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\mathbf{z}$ | The whitened output vector | Features are uncorrelated with unit variance |
+| $\Lambda^{-1/2}$ | Inverse square root of the eigenvalue matrix | Rescales each component to have variance 1 |
+| $U^T$ | Transpose of the eigenvector matrix | Rotates data to the principal component axes |
+| $\mathbf{x} - \boldsymbol{\mu}$ | Mean-centered input vector | Removes the mean before rotation and scaling |
+
 where $\Lambda$ is the diagonal eigenvalue matrix and $U$ is the eigenvector matrix.
 
 ```python

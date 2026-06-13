@@ -29,6 +29,14 @@ To classify a new data point, the algorithm identifies the $K$ closest data poin
 How do we define "Close"?
 * **Euclidean Distance:** (Standard) Straight-line distance.
  $$d(p, q) = \sqrt{\sum (p_i - q_i)^2}$$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $d(p, q)$ | **Euclidean distance** between points $p$ and $q$ | The standard straight-line distance metric; default choice for KNN — sensitive to feature scale, so normalization is mandatory |
+| $p_i$ | $i$-th coordinate of point $p$ | One feature dimension of the first data point |
+| $q_i$ | $i$-th coordinate of point $q$ | The corresponding feature of the second data point |
+| $\sum (p_i - q_i)^2$ | Sum of squared differences across all dimensions | The squared Euclidean distance (before the square root); always non-negative |
+
 * **Manhattan Distance:** Grid-like path (sum of absolute differences).
 * **Minkowski Distance:** A generalization of both.
 

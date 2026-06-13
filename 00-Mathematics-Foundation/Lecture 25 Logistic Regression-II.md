@@ -52,6 +52,13 @@ We shift the data to have a mean ($\mu$) of 0 and a standard deviation ($\sigma$
 
 $$ z = \frac{x - \mu}{\sigma} $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $z$ | Standardized (z-score) value | Transformed feature with mean 0 and standard deviation 1 |
+| $x$ | Original feature value | Raw input before standardization |
+| $\mu$ | Mean of the feature | Average value; subtracted to center the data |
+| $\sigma$ | Standard deviation of the feature | Scale factor; divides to normalize variance |
 ```python
 sc = StandardScaler()
 X_train = sc.fit_transform(X_train)

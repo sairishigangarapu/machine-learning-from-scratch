@@ -50,6 +50,13 @@ $$
 \|Q\mathbf{x}\| = \|\mathbf{x}\|
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $Q$ | An orthogonal matrix whose columns are orthonormal vectors | Preserves vector lengths and angles under transformation |
+| $\mathbf{x}$ | An arbitrary input vector in $\mathbb{R}^n$ | Represents any data point being transformed |
+| $\|\cdot\|$ | The Euclidean norm (L2 norm) of a vector | Measures the magnitude or length of a vector |
+| $Q\mathbf{x}$ | The transformed vector after applying $Q$ | The output after rotation/reflection by $Q$ |
+
 **Why it matters:** If you initialize the weights of a 100-layer Recurrent Neural Network (RNN) using orthogonal matrices, the gradients passed backwards during backpropagation will never arbitrarily shrink or expand. This fundamentally solves the Vanishing Gradient problem.
 
 ---
@@ -64,6 +71,13 @@ A symmetric matrix $A$ is **Positive Definite (PD)** if, for absolutely any non-
 $$
 \mathbf{x}^T A \mathbf{x} > 0
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\mathbf{x}$ | Any non-zero vector in $\mathbb{R}^n$ | Tests the matrix behavior in every possible direction |
+| $A$ | A symmetric $n \times n$ matrix | The matrix whose definiteness property we are testing |
+| $\mathbf{x}^T A \mathbf{x}$ | The quadratic form associated with $A$ | Returns a scalar representing the "energy" in direction $\mathbf{x}$ |
+| $> 0$ | Strictly positive for all non-zero $\mathbf{x}$ | Guarantees a unique global minimum in optimization landscapes |
 
 It is **Positive Semi-Definite (PSD)** if $\mathbf{x}^T A \mathbf{x} \ge 0$.
 

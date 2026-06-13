@@ -19,6 +19,12 @@ $$
 \end{aligned}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\frac{1}{2}||\mathbf{w}||^2$ | Objective — half squared norm of weight vector | Minimizing this maximizes the margin; convex quadratic — guarantees global optimum |
+| $y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1$ | Margin constraint | Forces all points to be correctly classified with functional margin at least 1 |
+| $\{(\mathbf{x}_i, y_i)\}_{i=1}^n$ | Training dataset | $n$ labeled examples; $y_i \in \{-1, +1\}$ encodes class membership |
+
 ---
 
 ## 2. Lagrangian Formulation
@@ -27,6 +33,13 @@ $$
 $$
 \mathcal{L}(\mathbf{w}, b, \boldsymbol{\alpha}) = \frac{1}{2}||\mathbf{w}||^2 - \sum_{i=1}^n \alpha_i \left[ y_i(\mathbf{w}^T\mathbf{x}_i + b) - 1 \right]
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\mathcal{L}(\mathbf{w}, b, \boldsymbol{\alpha})$ | Lagrangian function | Encodes both the objective and constraints into a single unconstrained function; enables dual derivation |
+| $\frac{1}{2}||\mathbf{w}||^2$ | Regularization term (half squared norm of weights) | Minimizing this maximizes the margin; convex and differentiable — easy to optimize |
+| $\alpha_i$ | Lagrange multiplier for constraint $i$ | $\alpha_i \ge 0$; only support vectors have $\alpha_i > 0$; controls how hard each constraint is enforced |
+| $y_i(\mathbf{w}^T\mathbf{x}_i + b) - 1$ | Slack form of the margin constraint | At optimum, $= 0$ for support vectors, $> 0$ for points outside margin |
 
 where $\alpha_i \ge 0$ are Lagrange multipliers.
 
@@ -66,6 +79,13 @@ $$
 \end{aligned}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\boldsymbol{\alpha}$ | Vector of Lagrange multipliers | Dual variables; $\alpha_i \ge 0$; only support vectors have $\alpha_i > 0$ |
+| $\sum_{i=1}^n \alpha_i$ | Linear term in dual objective | Encourages large margin; maximized in the dual |
+| $-\frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \mathbf{x}_i^T \mathbf{x}_j$ | Quadratic penalty term | Captures pairwise interactions between points; depends only on dot products |
+| $\sum_{i=1}^n \alpha_i y_i = 0$ | Equality constraint | Balances total weight of positive and negative support vectors |
+
 ### Why the Dual?
 * Only depends on dot products $\mathbf{x}_i^T\mathbf{x}_j$ — enables the kernel trick
 * Number of variables equals number of data points (not dimensionality)
@@ -80,6 +100,13 @@ b^* &= y_s - \mathbf{w}^{*T}\mathbf{x}_s \quad \text{(for any support vector $\m
 \end{aligned}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\mathbf{w}^*$ | Optimal weight vector | Expressed as weighted sum of support vectors — sparse representation |
+| $\alpha_i^*$ | Optimal Lagrange multiplier for point $i$ | Non-zero only for support vectors; measures influence of each point |
+| $b^*$ | Optimal bias | Computed from any support vector on the margin; ensures decision boundary is centered |
+| $\mathbf{x}_s$ | A support vector (point on the margin) | Any point with $\alpha_s > 0$ can be used to compute $b^*$ |
+
 ---
 
 ## 4. Quadratic Programming
@@ -92,6 +119,13 @@ $$
 \text{s.t.} \quad &\mathbf{y}^T\boldsymbol{\alpha} = 0, \quad \boldsymbol{\alpha} \ge 0
 \end{aligned}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $Q$ | Gram matrix with $Q_{ij} = y_i y_j \mathbf{x}_i^T \mathbf{x}_j$ | Encodes all pairwise similarities scaled by label agreement; must be positive semi-definite |
+| $\mathbf{1}$ | Vector of all ones | Used in linear term $\mathbf{1}^T\boldsymbol{\alpha}$; equivalently $\sum \alpha_i$ |
+| $\mathbf{y}^T\boldsymbol{\alpha} = 0$ | Equality constraint in QP form | Compact representation of $\sum \alpha_i y_i = 0$ |
+| $\boldsymbol{\alpha} \ge 0$ | Non-negativity constraint | Ensures dual feasibility |
 
 where $Q_{ij} = y_i y_j \mathbf{x}_i^T \mathbf{x}_j$.
 
@@ -131,6 +165,13 @@ Once we have $\mathbf{w}^*$ and $b^*$:
 $$
 f(\mathbf{x}) = \text{sign}\left(\sum_{i=1}^n \alpha_i^* y_i \mathbf{x}_i^T \mathbf{x} + b^*\right)
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $f(\mathbf{x})$ | Decision function for a new point $\mathbf{x}$ | Outputs predicted class ($\pm 1$) based on support vectors only |
+| $\alpha_i^*$ | Optimal Lagrange multiplier for point $i$ | Only non-zero for support vectors; makes prediction sparse — only a few training points matter |
+| $\mathbf{x}_i^T \mathbf{x}$ | Dot product between support vector and new point | Measures similarity; this is what the kernel trick replaces with $K(\mathbf{x}_i, \mathbf{x})$ |
+| $b^*$ | Optimal bias term | Computed from any support vector on the margin; shifts decision threshold |
 
 Only the support vectors (where $\alpha_i^* > 0$) contribute to this sum.
 

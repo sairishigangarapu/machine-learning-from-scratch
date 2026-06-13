@@ -16,6 +16,13 @@ One might question why we cannot simply use the Least Square method (Linear Regr
 
 $$ \min_{\beta} \sum_{i=1}^{n} (y_i - \beta^T x_i)^2 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\beta$ | Coefficient vector | Parameters minimizing sum of squared residuals |
+| $\beta^T x_i$ | Linear prediction for $i$-th sample | Inner product of coefficients with features |
+| $y_i$ | Observed output | Actual class label for $i$-th sample |
+| $n$ | Number of samples | Total training examples |
 This produces a model $y = \beta^T x$. For any new input $x$, the model returns a value $y$ from the set of real numbers $(-\infty, \infty)$. However, in binary classification, we need $y$ to be strictly 0 or 1. Mapping a continuous real line to discrete classes is problematic. Instead of predicting the class directly, we must think in terms of **Probability**.
 
 ---
@@ -51,16 +58,32 @@ Instead of modeling $y$ directly as a linear combination, we model the probabili
 
 $$ p(x) = P(y=1|x) = \frac{e^{\alpha^T x}}{1 + e^{\alpha^T x}} = \sigma(\alpha^T x) $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $p(x)$ | Probability of class 1 given $x$ | $P(y=1|x)$; bounded in $[0, 1]$ |
+| $\alpha$ | Coefficient vector | Parameters learned via MLE |
+| $\alpha^T x$ | Linear score | Weighted sum of features passed through sigmoid |
+| $\sigma(\alpha^T x)$ | Sigmoid function | Maps real-valued score to probability interval $[0, 1]$ |
 #### Deriving the Logit (Log-Odds)
 If $p(x)$ is the probability of class 1, then the probability of class 0 is:
 $$ 1 - p(x) = 1 - \frac{e^{\alpha^T x}}{1 + e^{\alpha^T x}} = \frac{1}{1 + e^{\alpha^T x}} $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $1 - p(x)$ | Probability of class 0 | $P(y=0|x)$; complement of $p(x)$ |
 Taking the ratio (the Odds Ratio):
 $$ \frac{p(x)}{1 - p(x)} = \frac{e^{ \alpha^T x} / (1 + e^{\alpha^T x})}{1 / (1 + e^{\alpha^T x})} = e^{\alpha^T x} $$
 
 Taking the natural logarithm:
 $$ \log\left(\frac{p(x)}{1 - p(x)}\right) = \alpha^T x = \alpha_0 + \alpha_1 x_1 + \dots + \alpha_p x_p $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\log\left(\frac{p}{1-p}\right)$ | Log-odds (logit) | Logarithm of odds; linear in features |
+| $\alpha^T x$ | Linear score | Log-odds equals linear combination of features |
 The left-hand side is called the **Logit** (or **Logos**) of $p(x)$. It shows that the log-odds of the probability are a linear combination of the features.
 
 ---
@@ -70,6 +93,13 @@ To find the optimal coefficients $\alpha$, we use Maximum Likelihood Estimation.
 
 $$ L(\alpha) = \prod_{i=1}^{n} p(x_i)^{y_i} (1 - p(x_i))^{1 - y_i} $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $L(\alpha)$ | Likelihood function | Probability of observing data given $\alpha$ |
+| $p(x_i)$ | Predicted probability for $i$-th sample | Sigmoid output for $i$-th feature vector |
+| $y_i$ | True label (0 or 1) | Actual class for $i$-th sample |
+| $n$ | Number of samples | Total training examples |
 #### Final Log-Likelihood Form
 To maximize $L(\alpha)$, we maximize its logarithm $l(\alpha)$:
 $$ l(\alpha) = \sum_{i=1}^{n} \left[ y_i \log p(x_i) + (1 - y_i) \log(1 - p(x_i)) \right] $$
@@ -77,6 +107,12 @@ $$ l(\alpha) = \sum_{i=1}^{n} \left[ y_i \log p(x_i) + (1 - y_i) \log(1 - p(x_i)
 Substituting $p(x_i)$ and simplifying:
 $$ l(\alpha) = \sum_{i=1}^{n} \left[ y_i (\alpha^T x_i) - \log(1 + e^{\alpha^T x_i}) \right] $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $l(\alpha)$ | Simplified log-likelihood | Equivalent form after substituting $p(x_i)$ |
+| $y_i (\alpha^T x_i)$ | Label-weighted score | Contribution from true label times linear score |
+| $\log(1 + e^{\alpha^T x_i})$ | Log-partition function | Normalizing term ensuring probabilities sum to one |
 #### The Optimization Wall
 Setting the derivative $\frac{\partial l}{\partial \alpha} = 0$ does not result in a closed-form solution (like the Pseudo-inverse in OLS). We must use numerical optimization techniques, such as **Gradient Descent**, to find the optimal $\alpha$.
 

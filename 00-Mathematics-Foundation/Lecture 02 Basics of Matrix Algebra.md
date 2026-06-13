@@ -29,9 +29,20 @@ $$
 (A \pm B)_{ij} = a_{ij} \pm b_{ij}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $(A \pm B)_{ij}$ | Element at row $i$, column $j$ of the sum/difference matrix | Result of combining two matrices element-wise |
+| $a_{ij}, b_{ij}$ | Corresponding elements from matrices $A$ and $B$ | Individual values being added or subtracted |
+
 $$
 (\alpha A)_{ij} = \alpha \cdot a_{ij}
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $(\alpha A)_{ij}$ | Element at row $i$, column $j$ of the scaled matrix | Result of multiplying every element by a scalar |
+| $\alpha$ | Scalar multiplier | Single value that scales the entire matrix uniformly |
+| $a_{ij}$ | Original element from matrix $A$ | Individual value being scaled |
 
 ```python
 import numpy as np
@@ -58,6 +69,13 @@ The entry $c_{ij}$ is the dot product of the $i$-th row of $A$ and the $j$-th co
 $$
 c_{ij} = \sum_{k=1}^{n} a_{ik}b_{kj}
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $c_{ij}$ | Element at row $i$, column $j$ of product matrix $C$ | Output of multiplying row $i$ of $A$ with column $j$ of $B$ |
+| $a_{ik}$ | Element from row $i$, column $k$ of matrix $A$ | Component from the left matrix's row |
+| $b_{kj}$ | Element from row $k$, column $j$ of matrix $B$ | Component from the right matrix's column |
+| $n$ | Inner dimension (columns of $A$, rows of $B$) | Must match for multiplication to be defined |
 
 ```python
 # The foundational operation of deep learning: X @ W (Matrix Multiply)
@@ -104,6 +122,12 @@ A scalar representing the scaling factor of a linear transformation. If a matrix
 $$
 \det \begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\det$ | Determinant operator | Scalar value encoding properties of the linear transformation |
+| $a, b, c, d$ | Elements of the 2x2 matrix | Individual entries used to compute the determinant |
+| $ad - bc$ | Cross-product difference | Formula yielding the signed area scaling factor |
 
 * If $\det=0$, the transformation crushed the 2D square perfectly flat into a 1D line (or a point), obliterating dimensional information. You cannot mathematically uncrush a line back into a square, which is the geometric reason why matrices with $\det=0$ have no inverse!
 

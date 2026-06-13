@@ -20,6 +20,13 @@ $$
 \boxed{A \approx B \times C^T}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $A$ | The original $m \times n$ matrix | The full-rank matrix we wish to compress |
+| $B$ | $m \times r$ basis matrix (left factor) | Stores the low-dimensional column space representation |
+| $C^T$ | $r \times n$ coordinate matrix (right factor) | Stores the low-dimensional row space representation |
+| $r$ | The bottleneck rank ($r \ll \min(m,n)$) | Controls the compression ratio and approximation quality |
+
 * **$B$ ($m \times r$):** A tight, low-dimensional basis matrix.
 * **$C^T$ ($r \times n$):** The linear coordinates.
 
@@ -39,6 +46,13 @@ $$
 \min_{A_k} \|A - A_k\|_F \quad \text{subject to} \quad \text{rank}(A_k) \le k
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $A_k$ | The rank-$k$ approximating matrix | The compressed representation we are optimizing |
+| $\|A - A_k\|_F$ | Frobenius norm of the approximation error | Measures how closely $A_k$ reconstructs the original $A$ |
+| $\text{rank}(A_k)$ | The rank of the approximating matrix | Constrains $A_k$ to a lower-dimensional subspace |
+| $k$ | The target rank (compression parameter) | Trades off between compression and reconstruction fidelity |
+
 **The Optimization Hurdle:** This constraint problem is strictly geometrically **non-convex**. Traditional optimization strategies (like standard gradient descent) tend to fail massively on non-convex hard-constraints. Fortunately, Linear Algebra provides a pristine shortcut.
 
 ---
@@ -53,11 +67,26 @@ $$
 \boxed{A_k = \sum_{i=1}^{k} \sigma_i \mathbf{u}_i \mathbf{v}_i^T}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $A_k$ | The optimal rank-$k$ approximation to $A$ | Minimizes reconstruction error among all rank-$k$ matrices |
+| $\sigma_i$ | The $i$-th singular value (sorted descending) | Weights the contribution of each rank-1 component |
+| $\mathbf{u}_i$ | The $i$-th left singular vector | Defines the output direction of the $i$-th component |
+| $\mathbf{v}_i$ | The $i$-th right singular vector | Defines the input direction of the $i$-th component |
+| $k$ | Number of singular values retained | Determines the compression level and approximation quality |
+
 In matrix form, we blindly truncate columns from $U$ and $V$:
 
 $$
 A_k = U_k \Sigma_k V_k^T
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $A_k$ | The rank-$k$ approximation of $A$ | Computed by truncating the full SVD |
+| $U_k$ | First $k$ columns of $U$ | Retains only the most important left singular vectors |
+| $\Sigma_k$ | $k \times k$ diagonal matrix of top $k$ singular values | Contains the dominant scaling factors |
+| $V_k^T$ | First $k$ rows of $V^T$ | Retains only the most important right singular vectors |
 
 ---
 
@@ -68,6 +97,11 @@ $$
 $$
 A = \begin{bmatrix} 3 & 2 & 1 \\ 0 & 2 & 1 \\ 0 & 0 & 1 \end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Original full-rank matrix ($3 \times 3$) | Upper triangular matrix to be approximated by a rank-$k$ matrix |
+| $3, 2, 1, \dots$ | Entries of $A$ | Coefficients of the linear transformation |
 
 ```python
 import numpy as np
@@ -95,6 +129,11 @@ print(Ak)
 $$
 A_2 \approx \begin{bmatrix} 2.99 & 2.01 & 0.98 \\ 0.01 & 1.99 & 1.02 \\ 0.00 & 0.01 & 0.99 \end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A_2$ | Optimal rank-2 approximation of $A$ | Closest rank-2 matrix to the original $A$ under Frobenius norm |
+| $2.99, 2.01, 0.98, \dots$ | Entries of $A_2$ | Nearly identical to original $A$ despite discarding the third singular value |
 
 Notice how stunningly close $A_2$ perfectly mimics original $A$, despite losing an entire dimension of variance. The error $\|A - A_2\|$ is strictly minimized.
 

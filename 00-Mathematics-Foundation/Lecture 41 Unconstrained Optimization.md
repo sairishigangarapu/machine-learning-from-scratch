@@ -16,6 +16,13 @@ $$
 \min_{\mathbf{x} \in \mathbb{R}^n} f(\mathbf{x})
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\mathbf{x}$ | Decision variable vector | The parameters we are free to choose; lives in $\mathbb{R}^n$ |
+| $\mathbb{R}^n$ | $n$-dimensional Euclidean space | The entire space of real vectors — the unconstrained domain means no restrictions on $\mathbf{x}$ |
+| $f(\mathbf{x})$ | Objective function | Maps parameters to a scalar loss/cost; we seek the $\mathbf{x}$ that makes this as small as possible |
+| $\min$ | Minimization operator | Indicates we are searching for the **minimum** value of $f$ over its domain |
+
 where $f: \mathbb{R}^n \to \mathbb{R}$ is the **objective function**.
 
 * If $C = \mathbb{R}^n$ (no restrictions on $\mathbf{x}$), the problem is unconstrained.
@@ -50,6 +57,11 @@ $$
 \nabla f(\bar{\mathbf{x}}) = \mathbf{0}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\nabla f(\bar{\mathbf{x}})$ | Gradient vector of $f$ at $\bar{\mathbf{x}}$ | Contains all first partial derivatives; the FONC requires every component to be zero at a local minimum |
+| $\bar{\mathbf{x}}$ | Local minimum candidate | Any point where gradient is zero is a **critical point** — the condition is necessary but not sufficient |
+
 **Intuition:** At a local minimum, the gradient must be zero — the function is "flat" in every direction. If the gradient pointed somewhere, you could move that way and decrease the function further, contradicting the local minimum.
 
 A point where $\nabla f = \mathbf{0}$ is called a **critical point** (or stationary point).
@@ -78,6 +90,12 @@ If $f$ is twice differentiable and at a critical point $\bar{\mathbf{x}}$ (where
 $$
 \nabla^2 f(\bar{\mathbf{x}}) \succ 0 \quad \text{(Hessian is positive definite)}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\nabla^2 f(\bar{\mathbf{x}})$ | Hessian matrix of second partial derivatives at $\bar{\mathbf{x}}$ | Contains all curvature information; positive definiteness means the function curves upward in every direction |
+| $\succ 0$ | Positive definite | All eigenvalues are strictly positive, guaranteeing a bowl-shaped landscape around the critical point |
+| $\bar{\mathbf{x}}$ | Strict local minimum | When FONC ($\nabla f=0$) and SOSC ($\nabla^2 f \succ 0$) both hold, the point is guaranteed to be a strict local minimum |
 
 then $\bar{\mathbf{x}}$ is a **strict local minimum**.
 
@@ -126,6 +144,11 @@ $$
 \text{Local minimum} \implies \text{Global minimum}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| Local minimum | A point where $f$ is at least as low as all nearby points | For convex functions, this simple property magically upgrades to global optimality — the key reason convex optimization is tractable |
+| Global minimum | The absolute lowest point of $f$ over its entire domain | The holy grail of optimization; in non-convex problems (neural networks), finding this is NP-hard in general |
+
 For **non-convex functions** (like neural network loss landscapes), local minima may not be global minima.
 
 ### The Non-Convex Reality of Deep Learning
@@ -169,6 +192,14 @@ $$
 \mathcal{L}_{\text{reg}}(\mathbf{w}) = \mathcal{L}(\mathbf{w}) + \lambda \|\mathbf{w}\|^2
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathcal{L}_{\text{reg}}(\mathbf{w})$ | Regularized loss | The original loss plus a penalty on weight magnitude |
+| $\mathcal{L}(\mathbf{w})$ | Original loss (e.g., MSE) | The data-fitting term (e.g., $\frac{1}{n}\|X\mathbf{w} - \mathbf{y}\|^2$) |
+| $\lambda$ | Regularization strength | Hyperparameter controlling how much to penalize large weights |
+| $\|\mathbf{w}\|^2$ | Squared $L_2$ norm of weights | $\sum_j w_j^2$ — penalizes large weights, encourages smaller values |
+| $\lambda \|\mathbf{w}\|^2$ | Weight decay term | Grows without bound as $\|\mathbf{w}\| \to \infty$, guaranteeing a finite minimum exists |
+
 The $\lambda \|\mathbf{w}\|^2$ term grows without bound as $\|\mathbf{w}\| \to \infty$, ensuring the minimum exists.
 
 ---
@@ -183,9 +214,21 @@ $$
 \frac{\partial f}{\partial x} = 3x^2 - 3y = 0 \implies y = x^2
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\frac{\partial f}{\partial x} = 3x^2 - 3y$ | Partial derivative w.r.t. $x$ | Set to zero (FONC): $3x^2 - 3y = 0 \implies y = x^2$ |
+| $3x^2$ | Derivative of $x^3$ term | $\frac{\partial}{\partial x}(x^3) = 3x^2$ |
+| $-3y$ | Derivative of $-3xy$ term | $\frac{\partial}{\partial x}(-3xy) = -3y$ (treat $y$ as constant) |
+
 $$
 \frac{\partial f}{\partial y} = 3y^2 - 3x = 0 \implies x = y^2
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\frac{\partial f}{\partial y} = 3y^2 - 3x$ | Partial derivative w.r.t. $y$ | Set to zero: $3y^2 - 3x = 0 \implies x = y^2$ |
+| $3y^2$ | Derivative of $y^3$ term | $\frac{\partial}{\partial y}(y^3) = 3y^2$ |
+| $-3x$ | Derivative of $-3xy$ term | $\frac{\partial}{\partial y}(-3xy) = -3x$ (treat $x$ as constant) |
 
 Substituting: $x = (x^2)^2 = x^4$, so $x^4 - x = 0 \implies x(x^3 - 1) = 0$.
 
@@ -196,6 +239,13 @@ Substituting: $x = (x^2)^2 = x^4$, so $x^4 - x = 0 \implies x(x^3 - 1) = 0$.
 $$
 H = \begin{bmatrix} 6x & -3 \\ -3 & 6y \end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H$ | Hessian of $f(x,y) = x^3 + y^3 - 3xy$ | Matrix of second partial derivatives — depends on $x$ and $y$ |
+| $6x$ | $\frac{\partial^2 f}{\partial x^2} = 6x$ | Second derivative w.r.t. $x$; varies linearly with $x$ |
+| $6y$ | $\frac{\partial^2 f}{\partial y^2} = 6y$ | Second derivative w.r.t. $y$; varies linearly with $y$ |
+| $-3$ (off-diagonal) | $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x} = -3$ | Mixed partial is constant ($-3$); symmetric as expected |
 
 **Step 3: Classify**
 

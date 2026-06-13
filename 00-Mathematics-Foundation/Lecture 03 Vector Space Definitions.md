@@ -101,6 +101,14 @@ $$
 \text{vec}(\text{King}) - \text{vec}(\text{Man}) + \text{vec}(\text{Woman}) \approx \text{vec}(\text{Queen})
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\text{vec}(\cdot)$ | Vector embedding function mapping words to $\mathbb{R}^n$ | Converts discrete tokens into continuous vector representations |
+| $\text{King}, \text{Man}, \text{Woman}, \text{Queen}$ | Words embedded as vectors | Example tokens demonstrating semantic arithmetic |
+| $-$ | Vector subtraction | Removes the "gender" component from the King vector |
+| $+$ | Vector addition | Adds the "gender" component back |
+| $\approx$ | Approximate equality | Indicates the result is close to but not exactly the target |
+
 The abstract axioms of vector spaces are precisely what allow Large Language Models to "understand" geometry in human language.
 
 ---

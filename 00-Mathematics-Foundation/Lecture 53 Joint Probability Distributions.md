@@ -16,6 +16,10 @@ $$
 p(x, y) = P(X = x, Y = y)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $p(x,y)$ | Joint probability mass function | Probability that $X=x$ AND $Y=y$ simultaneously |
+
 **Properties:**
 * $p(x, y) \ge 0$
 * $\sum_x \sum_y p(x, y) = 1$
@@ -25,6 +29,11 @@ $$
 $$
 P(a \le X \le b, \; c \le Y \le d) = \int_c^d \int_a^b f(x, y) \, dx \, dy
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(x,y)$ | Joint probability density function | Density at $(x,y)$; integrates to probability over a region |
+| $P(a \le X \le b, c \le Y \le d)$ | Joint probability over rectangle | Probability $X$ in $[a,b]$ and $Y$ in $[c,d]$ |
 
 ```python
 import numpy as np
@@ -51,10 +60,20 @@ $$
 p_X(x) = \sum_y p(x, y)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $p_X(x)$ | Marginal PMF of X | Probability of $X=x$ regardless of $Y$ |
+| $\sum_y p(x,y)$ | Summing joint PMF over Y | Eliminates Y to get distribution of X alone |
+
 ### Continuous
 $$
 f_X(x) = \int_{-\infty}^{\infty} f(x, y) \, dy
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f_X(x)$ | Marginal PDF of X | Probability density of X alone (Y integrated out) |
+| $\int_{-\infty}^{\infty} f(x,y) \, dy$ | Integral of joint PDF over Y | Eliminates Y to get marginal density of X |
 
 **Intuition:** The marginal distribution answers: "What is the probability of $X$ regardless of what $Y$ is?"
 
@@ -83,6 +102,11 @@ $$
 p(y | x) = \frac{p(x, y)}{p_X(x)}, \quad p_X(x) > 0
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $p(y \mid x)$ | Conditional PMF/PDF of Y given X | Probability distribution of Y after observing $X=x$ |
+| $\frac{p(x,y)}{p_X(x)}$ | Ratio of joint to marginal | Normalizes joint by marginal to condition on X |
+
 **Intuition:** Given that we observed $X = x$, what is the probability distribution of $Y$?
 
 ```python
@@ -109,6 +133,10 @@ $$
 p(x, y) = p_X(x) \cdot p_Y(y) \quad \forall x, y
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $p(x,y) = p_X(x) \cdot p_Y(y)$ | Factorization condition | X and Y are independent iff joint equals product of marginals |
+
 Equivalently: $p(y | x) = p_Y(y)$ — knowing $X$ tells you nothing about $Y$.
 
 **ML Connection:** The Naive Bayes classifier assumes conditional independence of features given the class label. This is almost always violated in practice, but the classifier still works.
@@ -122,10 +150,22 @@ $$
 \text{Cov}(X, Y) = E[XY] - E[X]E[Y]
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Cov}(X,Y)$ | Covariance of X and Y | Measures direction of linear relationship |
+| $E[XY] - E[X]E[Y]$ | Computational formula | Alternative way to compute covariance |
+
 ### Correlation
 $$
 \rho(X, Y) = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y} \in [-1, 1]
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\rho(X, Y)$ | Pearson correlation coefficient | Standardized measure of linear dependence — scale-invariant |
+| $\text{Cov}(X, Y)$ | Covariance of $X$ and $Y$ | Raw (unscaled) measure of how $X$ and $Y$ vary together |
+| $\sigma_X, \sigma_Y$ | Standard deviations of $X$ and $Y$ | Normalize covariance to $[-1, 1]$ |
+| $\rho \in [-1, 1]$ | Bounded range | $\rho=1$: perfect positive linear; $\rho=-1$: perfect negative; $\rho=0$: no linear dependence |
 
 | $\rho$ | Meaning |
 |:---|:---|
@@ -157,6 +197,11 @@ $$
 \Sigma_{ij} = \text{Cov}(X_i, X_j)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\Sigma$ | Covariance matrix | Matrix of all pairwise covariances |
+| $\Sigma_{ij}$ | (i,j)-th entry of covariance matrix | Covariance between $X_i$ and $X_j$ |
+
 Properties:
 * Symmetric: $\Sigma = \Sigma^T$
 * Positive semi-definite: $\mathbf{a}^T \Sigma \mathbf{a} \ge 0$
@@ -178,10 +223,20 @@ $$
 D_{\text{KL}}(P \| Q) = \sum_x P(x) \log \frac{P(x)}{Q(x)}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $D_{\text{KL}}(P \| Q)$ | KL divergence from Q to P | Expected log-ratio of P to Q under P |
+| $\sum_x P(x) \log \frac{P(x)}{Q(x)}$ | Discrete KL formula | Sum over all outcomes of weighted log-ratio |
+
 For continuous distributions:
 $$
 D_{\text{KL}}(P \| Q) = \int p(x) \log \frac{p(x)}{q(x)} \, dx
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $D_{\text{KL}}(P \| Q)$ | KL divergence (continuous) | Same as discrete but with integral |
+| $\int p(x) \log \frac{p(x)}{q(x)} \, dx$ | Continuous KL formula | Integral of weighted log-density ratio |
 
 **Properties:**
 * $D_{\text{KL}}(P \| Q) \ge 0$ (always non-negative)
@@ -194,6 +249,12 @@ $$
 H(P, Q) = -\sum_x P(x) \log Q(x) = H(P) + D_{\text{KL}}(P \| Q)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H(P,Q)$ | Cross-entropy of P and Q | Average number of bits to encode P using Q's distribution |
+| $-\sum_x P(x) \log Q(x)$ | Cross-entropy formula | Sum of negative log-probabilities weighted by true distribution |
+| $H(P) + D_{\text{KL}}(P \| Q)$ | Decomposition | Cross-entropy = entropy + KL divergence |
+
 where $H(P) = -\sum P(x) \log P(x)$ is the entropy of $P$.
 
 **ML Connection:** Cross-entropy loss is the standard loss function for classification. Minimizing cross-entropy is equivalent to minimizing KL divergence between the true labels and predicted probabilities.
@@ -204,6 +265,12 @@ A symmetric, bounded version of KL divergence:
 $$
 \text{JS}(P \| Q) = \frac{1}{2} D_{\text{KL}}(P \| M) + \frac{1}{2} D_{\text{KL}}(Q \| M), \quad M = \frac{P + Q}{2}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{JS}(P \| Q)$ | Jensen-Shannon divergence | Symmetric measure of divergence between P and Q |
+| $\frac{1}{2} D_{\text{KL}}(P \| M) + \frac{1}{2} D_{\text{KL}}(Q \| M)$ | JS formula | Average KL of each distribution to the midpoint M |
+| $M = \frac{P+Q}{2}$ | Midpoint distribution | Equal mixture of P and Q |
 
 **ML Connection:** Used in GANs (original formulation) and evaluating generative model quality.
 

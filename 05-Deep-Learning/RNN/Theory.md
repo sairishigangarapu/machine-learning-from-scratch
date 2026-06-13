@@ -11,7 +11,7 @@ y_t &= W_{hy} h_t + c
 \end{aligned}
 $$
 
-| Symbol | Definition | Significance |
+| Term | Definition | Significance |
 | :--- | :--- | :--- |
 | $x_t$ | Input vector at time step $t$ | The current token/feature being processed |
 | $h_t$ | Hidden state at time step $t$ | The network's "memory" — encodes all past information up to step $t$ |

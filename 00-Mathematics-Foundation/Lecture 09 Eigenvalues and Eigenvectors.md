@@ -24,6 +24,14 @@ $$
 A\mathbf{v} = \lambda \mathbf{v}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $A$ | Square matrix transformation | Linear operator acting on vectors |
+| $\mathbf{v}$ | Eigenvector (nonzero) | Direction preserved by transformation |
+| $\lambda$ | Eigenvalue (scalar) | Factor by which eigenvector is stretched/shrunk |
+| $A\mathbf{v}$ | Matrix-vector product | Result of applying transformation to eigenvector |
+| $\lambda \mathbf{v}$ | Scalar multiplication | Equivalent effect to full matrix operation |
+
 where $\lambda$ is a scalar called the **eigenvalue**. The matrix transformation acts on $\mathbf{v}$ exactly as if it were just a simple scalar multiplication.
 
 > **Note:** The zero vector mathematically satisfies $A\mathbf{0} = \lambda \mathbf{0}$, but it provides no geometric information about the rigid rotational axes of the matrix, so it is strictly excluded from being an eigenvector.
@@ -38,15 +46,35 @@ $$
 A\mathbf{v} - \lambda \mathbf{v} = \mathbf{0}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $A\mathbf{v}$ | Matrix-vector product | Transformation result |
+| $\lambda \mathbf{v}$ | Scalar multiple of eigenvector | Equivalent scalar effect |
+| $\mathbf{0}$ | Zero vector | Target of homogeneous system |
+
 $$
 (A - \lambda I)\mathbf{v} = \mathbf{0}
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $A - \lambda I$ | Shifted matrix | Matrix adjusted by eigenvalue |
+| $I$ | Identity matrix | Preserves vector space structure |
+| $\mathbf{v}$ | Eigenvector | Nonzero solution to homogeneous system |
+| $\mathbf{0}$ | Zero vector | Null space condition |
 
 For a nonzero solution $\mathbf{v}$ to exist, the matrix $(A - \lambda I)$ must crush space to 0 (meaning it has a valid Null Space). It can only do that if its determinant is exactly zero. This is the **Characteristic Equation**:
 
 $$
 \det(A - \lambda I) = 0
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\det$ | Determinant operator | Measures matrix singularity |
+| $A - \lambda I$ | Shifted matrix | Must be singular for nonzero eigenvector |
+| $\lambda$ | Eigenvalue | Root of the characteristic polynomial |
+| $0$ | Zero determinant | Condition for nontrivial null space |
 
 ### Step-by-Step Procedure
 
@@ -81,12 +109,24 @@ $$
 A = \begin{bmatrix} 2 & -2 & 3 \\ 1 & 1 & 1 \\ 1 & 3 & -1 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Square matrix being analyzed | $3 \times 3$ transformation whose eigenvalues and eigenvectors are sought |
+| $2, -2, 3, \dots$ | Entries of $A$ | Coefficients defining the linear transformation |
+
 **Step 1: Eigenvalues**
 Solving $\det(A - \lambda I) = 0$ results in polynomial roots:
 
 $$
 (\lambda - 3)(\lambda - 1)(\lambda + 2) = 0
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\lambda - 3$ | Factor for eigenvalue 3 | Root indicating stretch by factor 3 |
+| $\lambda - 1$ | Factor for eigenvalue 1 | Root indicating no scaling |
+| $\lambda + 2$ | Factor for eigenvalue -2 | Root indicating reflection and stretch |
+| $= 0$ | Zero product | Each factor yields an eigenvalue |
 
 **Eigenvalues:** $\lambda_1 = 3, \lambda_2 = 1, \lambda_3 = -2$.
 
@@ -97,12 +137,23 @@ $$
 \begin{bmatrix} -1 & -2 & 3 \\ 1 & -2 & 1 \\ 1 & 3 & -4 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix} -1 & -2 & 3 \\ 1 & -2 & 1 \\ 1 & 3 & -4 \end{bmatrix}$ | Shifted matrix $A - 3I$ for $\lambda = 3$ | Must be singular for a non-trivial eigenvector to exist |
+| $v_1, v_2, v_3$ | Components of the eigenvector | Unknown values to be solved from the null space |
+| $\begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$ | Zero vector | Right-hand side of the homogeneous system |
+
 Applying Gaussian elimination reveals $v_1 = v_2 = v_3$.
 **Basis Eigenvector:** 
 
 $$
 \mathbf{v} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{v}$ | Eigenvector for $\lambda = 3$ | Direction preserved by $A$; satisfies $A\mathbf{v} = 3\mathbf{v}$ |
+| $1, 1, 1$ | Components of the eigenvector | All components equal, indicating equal contribution from each dimension |
 
 ---
 

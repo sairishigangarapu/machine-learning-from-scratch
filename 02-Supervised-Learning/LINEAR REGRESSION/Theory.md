@@ -29,6 +29,13 @@ $$
 h_\theta(x) = \theta_1 x + \theta_0
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $h_\theta(x)$ | **Hypothesis function** — the linear model's prediction | Maps input $x$ to predicted output $y$; in ML notation, $h$ stands for hypothesis |
+| $\theta_1$ | **Weight** (slope) parameter | How much $y$ changes per unit increase in $x$; learned from training data by minimizing the cost function |
+| $\theta_0$ | **Bias** (intercept) parameter | The predicted value when $x = 0$; allows the regression line to shift up/down independently of the input |
+| $x$ | Input feature | The independent variable used to predict the target |
+
 ### Variable Definitions
 
 | Variable | ML Term | Definition |

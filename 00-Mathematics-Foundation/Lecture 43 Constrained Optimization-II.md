@@ -17,6 +17,13 @@ $$
 \mathbf{x}_{k+1} = \mathbf{x}_k + \alpha_k \mathbf{d}_k
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\mathbf{x}_k$ | Current iterate | Current model parameters at iteration $k$ |
+| $\mathbf{x}_{k+1}$ | Next iterate | Updated parameters after one optimization step |
+| $\alpha_k$ | Step size / learning rate | Controls how far to move; too large diverges, too small stalls |
+| $\mathbf{d}_k$ | Search direction | Direction of movement; defines the algorithm (GD, Newton, etc.) |
+
 where:
 * $\mathbf{x}_k$: Current point (current model parameters)
 * $\mathbf{d}_k$: Search direction (which way to move)
@@ -49,6 +56,11 @@ $$
 \mathbf{d}_k = -\nabla f(\mathbf{x}_k)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{d}_k$ | Search direction | Negative gradient gives steepest descent direction |
+| $-\nabla f(\mathbf{x}_k)$ | Negative gradient | Direction of fastest local decrease of $f$ |
+
 The negative gradient is the direction of **steepest descent** — it points in the direction where $f$ decreases fastest.
 
 ### Convergence Properties
@@ -74,6 +86,12 @@ $$
 \alpha_k = \arg\min_{\alpha > 0} f(\mathbf{x}_k + \alpha \mathbf{d}_k)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\alpha_k$ | Optimal step size | Minimizes $f$ along search direction $\mathbf{d}_k$ |
+| $\arg\min$ | Argument of the minimum | Returns the $\alpha$ that gives the smallest $f$ |
+| $f(\mathbf{x}_k + \alpha \mathbf{d}_k)$ | Objective along direction | Measures progress as a function of step length |
+
 Computationally expensive — requires evaluating $f$ at many candidate points.
 
 ### Backtracking Line Search (Armijo Rule)
@@ -82,6 +100,13 @@ Start with a large $\alpha$ and shrink until the **sufficient decrease** conditi
 $$
 f(\mathbf{x}_k + \alpha \mathbf{d}_k) \le f(\mathbf{x}_k) + c \alpha \nabla f(\mathbf{x}_k)^T \mathbf{d}_k
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(\mathbf{x}_k + \alpha \mathbf{d}_k)$ | Candidate objective | Value of $f$ after trial step |
+| $f(\mathbf{x}_k)$ | Current objective | Baseline value before moving |
+| $c$ | Sufficient decrease constant | Small constant ($\approx 10^{-4}$) ensuring meaningful reduction |
+| $\nabla f(\mathbf{x}_k)^T \mathbf{d}_k$ | Directional derivative | Slope of $f$ along $\mathbf{d}_k$; must be negative for descent |
 
 where $c \in (0, 1)$ is a small constant (typically $c = 10^{-4}$).
 
@@ -114,6 +139,12 @@ $$
 \end{aligned}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{v}_{k+1}$ | Velocity / momentum | Accumulates past gradients to smooth oscillations |
+| $\beta$ | Momentum coefficient | Fraction of previous velocity retained ($\beta \in [0,1)$) |
+| $\alpha$ | Learning rate | Scales the gradient contribution to velocity |
+
 where $\beta \in [0, 1)$ is the momentum coefficient.
 
 **Intuition:** The optimizer builds up "velocity" in consistent directions and slows down in oscillating directions — like a ball rolling down a hill.
@@ -126,6 +157,13 @@ $$
 \mathbf{x}_{k+1} &= \mathbf{x}_k + \mathbf{v}_{k+1}
 \end{aligned}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{v}_{k+1}$ | Lookahead velocity | Velocity computed with gradient at predicted future position |
+| $\beta$ | Momentum coefficient | Same role as heavy ball, but gradient is shifted |
+| $\mathbf{x}_k + \beta \mathbf{v}_k$ | Lookahead position | Gradient evaluated here instead of current $\mathbf{x}_k$ |
+| $\nabla f(\mathbf{x}_k + \beta \mathbf{v}_k)$ | Lookahead gradient | Provides correction to prevent overshooting |
 
 **Key difference:** Evaluates the gradient at the *lookahead* position $\mathbf{x}_k + \beta \mathbf{v}_k$, not at $\mathbf{x}_k$. This "look ahead" provides faster convergence: $O(1/k^2)$ for convex functions vs $O(1/k)$ for standard gradient descent.
 

@@ -141,6 +141,11 @@ $$
 \text{"where"} = \{wh, whe, her, ere, re\}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{"where"}$ | The target word being decomposed into character n-grams | FastText represents words as bags of character n-grams to handle out-of-vocabulary words and morphologically rich languages |
+| $\{wh, whe, her, ere, re\}$ | Set of character 3-grams for "where" | Each n-gram gets its own embedding vector; the word's final embedding is the sum of its constituent n-gram embeddings, enabling generalization to unseen words |
+
 * Handles **out-of-vocabulary** words (can embed misspelled words).
 * Better for **morphologically rich** languages (agglutinative, compounding).
 

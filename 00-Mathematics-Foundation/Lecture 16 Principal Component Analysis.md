@@ -28,12 +28,26 @@ $$
 \mu = \frac{1}{n} \sum_{i=1}^{n} \mathbf{x}_i
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\mu$ | The sample mean vector | Central tendency of the data; PCA requires centering around this |
+| $n$ | Number of data samples | Determines the weight of each observation in the average |
+| $\mathbf{x}_i$ | The $i$-th data vector (sample) | Individual observations contributing to the mean |
+| $\sum_{i=1}^{n}$ | Sum over all $n$ samples | Aggregates all observations for mean computation |
+
 * **Variance/Standard Deviation:** Measures the spread of a single feature.
 * **Covariance ($\text{cov}(X, Y)$):** Measures how two variables change dynamically together.
 
 $$
 \sigma_{XY} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu_X)(y_i - \mu_Y)
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\sigma_{XY}$ | Covariance between features $X$ and $Y$ | Measures linear dependence; zero means uncorrelated |
+| $x_i, y_i$ | The $i$-th observations of features $X$ and $Y$ | Paired data points contributing to the covariance |
+| $\mu_X, \mu_Y$ | Sample means of features $X$ and $Y$ | Centers the data so covariance measures deviation from mean |
+| $n$ | Number of paired observations | Normalizes the sum to produce an unbiased estimate |
 
 ---
 
@@ -53,12 +67,26 @@ $$
 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\Sigma$ | $d \times d$ covariance matrix | Encodes all pairwise feature variances and covariances |
+| $\text{var}(X_i)$ | Variance of feature $X_i$ | Diagonal entries; measure spread of each individual feature |
+| $\text{cov}(X_i, X_j)$ | Covariance between features $X_i$ and $X_j$ | Off-diagonal entries; measure linear dependence between features |
+| $d$ | Number of features | Dimensionality of the dataset |
+
 ### Algebraic Computation
 If $C$ is the **centered data matrix** of size $n \times d$ (mean subtracted from columns):
 
 $$
 \Sigma = \frac{1}{n} C^T C
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\Sigma$ | The $d \times d$ covariance matrix | Encodes all pairwise feature correlations for PCA |
+| $C$ | The $n \times d$ centered data matrix | Data with mean subtracted from each column |
+| $C^T$ | Transpose of the centered data matrix | Enables efficient matrix multiplication for covariance |
+| $n$ | Number of samples | Normalizes to produce the average outer product |
 
 ```python
 import numpy as np

@@ -38,6 +38,11 @@ $$
 \text{span}\{v_1, \dots, v_k\} = \{\alpha_1 v_1 + \dots + \alpha_k v_k : \alpha_i \in \mathbb{R}\}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{span}\{v_1,\dots,v_k\}$ | Span of vectors | Set of all linear combinations |
+| $\alpha_i$ | Scalar coefficients | Arbitrary real numbers scaling each vector |
 ### Subspace ($V_0$)
 
 A subset of a vector space that is itself a vector space (closed under addition and scalar multiplication). Think of it as a flat plane or line passing through the origin inside a larger space.
@@ -58,6 +63,10 @@ $$
 p = \frac{\langle x, v_1 \rangle}{\langle v_1, v_1 \rangle} v_1 + \dots + \frac{\langle x, v_k \rangle}{\langle v_k, v_k \rangle} v_k
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| Expression | Inner product computation | Numerical value of dot product |
 This is the **closest point** in $V_0$ to $x$.
 
 ### Orthogonal Complement ($V_0^\perp$)
@@ -100,6 +109,10 @@ $$
 \langle v_i, v_j \rangle = 0 \quad \text{whenever } i \neq j
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\langle v_i, v_j \rangle$ | Inner product of $v_i$ and $v_j$ | Zero means vectors are orthogonal |
 If, in addition, each vector has unit norm ($\|v_i\| = 1$ for all $i$), they form an **orthonormal set**.
 
 ### Key Fact
@@ -116,6 +129,12 @@ $$
 x = p + o
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x$ | Original vector | Vector being decomposed |
+| $p$ | Projection onto subspace | Component lying in the subspace |
+| $o$ | Orthogonal component | Component perpendicular to subspace; approximation error |
 where:
 - $p \in V_0$ is the orthogonal projection of $x$ onto $V_0$
 - $o \in V_0^\perp$ is perpendicular to every vector in $V_0$
@@ -128,6 +147,10 @@ $$
 p = \frac{\langle x, v_1 \rangle}{\langle v_1, v_1 \rangle} v_1 + \frac{\langle x, v_2 \rangle}{\langle v_2, v_2 \rangle} v_2 + \dots + \frac{\langle x, v_n \rangle}{\langle v_n, v_n \rangle} v_n
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| Expression | Inner product computation | Numerical value of dot product |
 This formula is the engine that drives Gram-Schmidt.
 
 ---
@@ -146,24 +169,41 @@ $$
 v_1 = x_1
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $v_1$ | First orthogonal vector | Initialized as first input vector |
 **Step 2:** For the second vector, take $x_2$ and **subtract its projection** onto $v_1$. This removes any component of $x_2$ that points in the $v_1$ direction, leaving only the part that's orthogonal to $v_1$.
 
 $$
 v_2 = x_2 - \frac{\langle x_2, v_1 \rangle}{\langle v_1, v_1 \rangle} v_1
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $v_2$ | Second orthogonal vector | Result after removing projection onto $v_1$ |
+| $\frac{\langle x_2, v_1 \rangle}{\langle v_1, v_1 \rangle} v_1$ | Projection of $x_2$ onto $v_1$ | Component removed to ensure orthogonality |
 **Step 3:** For the third vector, subtract the projections onto both $v_1$ and $v_2$.
 
 $$
 v_3 = x_3 - \frac{\langle x_3, v_1 \rangle}{\langle v_1, v_1 \rangle} v_1 - \frac{\langle x_3, v_2 \rangle}{\langle v_2, v_2 \rangle} v_2
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $v_3$ | Third orthogonal vector | After removing projections onto $v_1$ and $v_2$ |
 **General Step:** For the $k$-th vector, subtract the projection onto all previously constructed $v_i$.
 
 $$
 v_k = x_k - \sum_{i=1}^{k-1} \frac{\langle x_k, v_i \rangle}{\langle v_i, v_i \rangle} v_i
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $v_k$ | $k$-th orthogonal vector | General formula: subtract all previous projections |
 At the end, $\{v_1, v_2, \dots, v_n\}$ is an **orthogonal set** spanning the same space as $\{x_1, x_2, \dots, x_n\}$.
 
 ### Why Does This Work?
@@ -176,6 +216,10 @@ $$
 \langle v_1, v_2 \rangle = \left\langle v_1, x_2 - \frac{\langle x_2, v_1 \rangle}{\langle v_1, v_1 \rangle} v_1 \right\rangle = \langle v_1, x_2 \rangle - \frac{\langle x_2, v_1 \rangle}{\langle v_1, v_1 \rangle} \langle v_1, v_1 \rangle = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\langle v_1, v_2 \rangle$ | Orthogonality check | Verifies $v_1 \perp v_2$ |
 ---
 
 ## 5. Properties of Gram-Schmidt
@@ -201,6 +245,11 @@ w_2 = \frac{v_2}{\|v_2\|}, \quad
 w_n = \frac{v_n}{\|v_n\|}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $w_1$ | First orthonormal vector | $v_1$ normalized to unit length |
+| $w_2$ | Second orthonormal vector | $v_2$ normalized to unit length |
 The process then becomes:
 
 1. $v_1 = x_1$, $\quad w_1 = v_1 / \|v_1\|$
@@ -222,6 +271,10 @@ x_1 = \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix}, \quad
 x_2 = \begin{bmatrix} -1 \\ 0 \\ 2 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x_1, x_2$ | Input vectors | Span the plane $P$ in $\mathbb{R}^3$ |
 **Part (a):** Find an orthonormal basis for $P$.
 **Part (b):** Extend it to an orthonormal basis for $\mathbb{R}^3$.
 
@@ -234,16 +287,28 @@ v_1 = \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix}, \quad
 \|v_1\| = \sqrt{1 + 4 + 4} = 3
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\|v_1\|$ | Norm of first vector | Length used for normalization |
 $$
 w_1 = \frac{v_1}{\|v_1\|} = \frac{1}{3} \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $w_1$ | First orthonormal vector | $v_1$ normalized to unit length |
 **Step 2:** Subtract the projection of $x_2$ onto $w_1$.
 
 $$
 \langle x_2, w_1 \rangle = (-1)(1/3) + (0)(2/3) + (2)(2/3) = -\frac{1}{3} + \frac{4}{3} = 1
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\langle x_2, w_1 \rangle$ | Inner product value | Component of $x_2$ along $w_1$ |
 $$
 v_2 = x_2 - \langle x_2, w_1 \rangle w_1
 = \begin{bmatrix} -1 \\ 0 \\ 2 \end{bmatrix} - 1 \cdot \frac{1}{3} \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix}
@@ -251,17 +316,31 @@ v_2 = x_2 - \langle x_2, w_1 \rangle w_1
 = \begin{bmatrix} -\frac{4}{3} \\ -\frac{2}{3} \\ \frac{4}{3} \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $v_2$ | Second orthogonal vector | Result after removing projection onto $v_1$ |
+| $\frac{\langle x_2, v_1 \rangle}{\langle v_1, v_1 \rangle} v_1$ | Projection of $x_2$ onto $v_1$ | Component removed to ensure orthogonality |
+| $\langle x_2, w_1 \rangle$ | Inner product value | Component of $x_2$ along $w_1$ |
 Now normalize $v_2$:
 
 $$
 \|v_2\| = \sqrt{\frac{16}{9} + \frac{4}{9} + \frac{16}{9}} = \sqrt{\frac{36}{9}} = \sqrt{4} = 2
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\|v_2\|$ | Norm of second vector | Length for normalization |
 $$
 w_2 = \frac{v_2}{\|v_2\|} = \frac{1}{2} \begin{bmatrix} -\frac{4}{3} \\ -\frac{2}{3} \\ \frac{4}{3} \end{bmatrix}
 = \begin{bmatrix} -\frac{2}{3} \\ -\frac{1}{3} \\ \frac{2}{3} \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $w_2$ | Second orthonormal vector | $v_2$ normalized to unit length |
 So $\{w_1, w_2\}$ is an orthonormal basis for $P$.
 
 **Part (b):** Extend to $\mathbb{R}^3$.
@@ -272,10 +351,18 @@ $$
 \langle x_3, w_1 \rangle = (0)(1/3) + (0)(2/3) + (1)(2/3) = \frac{2}{3}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\langle x_3, w_1 \rangle$ | Inner product with $w_1$ | Component of $x_3$ along $w_1$ |
 $$
 \langle x_3, w_2 \rangle = (0)(-2/3) + (0)(-1/3) + (1)(2/3) = \frac{2}{3}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\langle x_3, w_2 \rangle$ | Inner product with $w_2$ | Component of $x_3$ along $w_2$ |
 $$
 v_3 = x_3 - \langle x_3, w_1 \rangle w_1 - \langle x_3, w_2 \rangle w_2
 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
@@ -283,6 +370,12 @@ v_3 = x_3 - \langle x_3, w_1 \rangle w_1 - \langle x_3, w_2 \rangle w_2
 - \frac{2}{3} \cdot \frac{1}{3} \begin{bmatrix} -2 \\ -1 \\ 2 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\langle x_3, w_1 \rangle$ | Inner product with $w_1$ | Component of $x_3$ along $w_1$ |
+| $\langle x_3, w_2 \rangle$ | Inner product with $w_2$ | Component of $x_3$ along $w_2$ |
+| $v_3$ | Third orthogonal vector | Numerical result after removing two projections |
 $$
 v_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
 - \begin{bmatrix} 2/9 \\ 4/9 \\ 4/9 \end{bmatrix}
@@ -291,16 +384,29 @@ v_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
 = \frac{1}{9} \begin{bmatrix} 2 \\ -2 \\ 1 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $v_3$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 Normalize:
 
 $$
 \|v_3\| = \frac{\sqrt{4 + 4 + 1}}{9} = \frac{3}{9} = \frac{1}{3}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| Expression | Numerical computation step | Result of arithmetic operation |
 $$
 w_3 = \frac{v_3}{\|v_3\|} = \frac{1}{3} \begin{bmatrix} 2 \\ -2 \\ 1 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $w_3$ | Third orthonormal vector | $v_3$ normalized; completes $\mathbb{R}^3$ basis |
 Now $\{w_1, w_2, w_3\}$ is an orthonormal basis for $\mathbb{R}^3$.
 
 ---
@@ -406,6 +512,12 @@ $$
 A = QR
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Original matrix | Input with linearly independent columns |
+| $Q$ | Orthogonal matrix | Orthonormal columns from Gram-Schmidt |
+| $R$ | Upper triangular matrix | Encodes projection coefficients |
 where $Q$ has orthonormal columns (the Gram-Schmidt output) and $R$ is an upper-triangular matrix containing the projection coefficients.
 
 $$
@@ -416,6 +528,12 @@ R_{ij} = \begin{cases}
 \end{cases}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $R_{ij}$ | Entry in $R$ | Encodes GS coefficients |
+| $\|v_i\|$ | Diagonal entry | Norm of $i$-th orthogonal vector before normalization |
+| $\langle x_j, w_i \rangle$ | Super-diagonal entry | Projection of $x_j$ onto $w_i$ |
 This is why `np.linalg.qr` is the standard numerical implementation of Gram-Schmidt.
 
 > **Check your intuition:** What happens if you try to apply Gram-Schmidt to a set of vectors that are *not* linearly independent? *(Answer: At some step $k$, the vector $x_k$ will be entirely in the span of the previous vectors, so $v_k = 0$ and you can't normalize. Gram-Schmidt will detect linear dependence by producing a zero vector.)*

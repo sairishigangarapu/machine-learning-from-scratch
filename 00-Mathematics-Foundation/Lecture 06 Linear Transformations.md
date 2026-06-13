@@ -48,6 +48,13 @@ $$
 T(\mathbf{x}) = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $T(\mathbf{x})$ | Rotated output vector | Result of applying the rotation transformation to input $\mathbf{x}$ |
+| $\begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}$ | Rotation matrix | Rotates vectors by angle $\theta$ counterclockwise |
+| $\theta$ | Rotation angle | Determines how much the space is rotated |
+| $x_1, x_2$ | Input coordinates | Original vector components before rotation |
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -83,6 +90,12 @@ $$
 A = \begin{bmatrix} 2 & -7 \\ 4 & 3 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Transformation matrix | Encodes the linear map $T$ in matrix form |
+| $2, 4$ | First column of $A$ ($T(\mathbf{e}_1)$) | Image of the first standard basis vector $(1,0)$ |
+| $-7, 3$ | Second column of $A$ ($T(\mathbf{e}_2)$) | Image of the second standard basis vector $(0,1)$ |
+
 ```python
 # The transformation matrix A
 A = np.array([[2, -7],
@@ -105,6 +118,12 @@ $$
 \text{Null}(T) = \{\mathbf{v} \in V : T(\mathbf{v}) = \mathbf{0}\}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\text{Null}(T)$ | Null space (kernel) of transformation $T$ | Subspace of inputs annihilated to zero |
+| $\mathbf{v} \in V$ | Input vector from domain $V$ | Candidate vector tested for null space membership |
+| $T(\mathbf{v}) = \mathbf{0}$ | Transformation maps $\mathbf{v}$ to zero vector | Condition defining information loss |
+
 * **Dimension:** Nullity($T$).
 
 ### Range (Image)
@@ -115,6 +134,13 @@ $$
 \text{Range}(T) = \{\mathbf{w} \in W : \exists \mathbf{v} \in V \text{ such that } T(\mathbf{v}) = \mathbf{w}\}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\text{Range}(T)$ | Range (image) of transformation $T$ | Subspace of all possible outputs |
+| $\mathbf{w} \in W$ | Output vector in codomain $W$ | Any vector that is a valid output |
+| $\exists \mathbf{v} \in V$ | Existence of preimage in domain $V$ | At least one input produces this output |
+| $T(\mathbf{v}) = \mathbf{w}$ | Transformation maps $\mathbf{v}$ to $\mathbf{w}$ | Condition defining reachable outputs |
+
 * **Dimension:** Rank($T$).
 
 ---
@@ -124,6 +150,12 @@ $$
 $$
 \boxed{\text{Rank}(T) + \text{Nullity}(T) = \dim(V)}
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\text{Rank}(T)$ | Dimension of the range of $T$ | Number of independent output dimensions |
+| $\text{Nullity}(T)$ | Dimension of the null space of $T$ | Number of input dimensions lost to zero |
+| $\dim(V)$ | Dimension of the domain $V$ | Total input dimensions before transformation |
 
 This theorem proves information conservation. The dimensions you map onto (Rank) plus the dimensions you crush to zero (Nullity) must perfectly add up to the original dimensionality of your input space.
 

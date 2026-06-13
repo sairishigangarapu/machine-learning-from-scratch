@@ -34,6 +34,12 @@ $$
 \mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{v}$ | Column vector | Represents a data point or direction in n-dimensional space |
+| $v_1, v_2, \dots, v_n$ | Components of the vector | Individual feature values or coordinates |
+| $n$ | Dimension of the vector | Number of features in the dataset |
+
 ```python
 import numpy as np
 
@@ -82,6 +88,12 @@ $$
 \mathbf{v} \cdot \mathbf{w} = \sum_{i=1}^{n} x_i y_i
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\mathbf{v} \cdot \mathbf{w}$ | Dot product (inner product) of vectors $\mathbf{v}$ and $\mathbf{w}$ | Measures alignment between two vectors; foundation of neural network computation |
+| $x_i, y_i$ | Components of vectors $\mathbf{v}$ and $\mathbf{w}$ at index $i$ | Individual feature values being multiplied together |
+| $n$ | Dimension of the vectors | Number of features in the feature space |
+
 **The Neuron Analogy:** A biological neuron firing can be modeled mathematically as a dot product. An input vector $\mathbf{x}$ passes through a weight vector $\mathbf{w}$. The neuron computes $\mathbf{w} \cdot \mathbf{x} + b$ (where $b$ is a bias). A high dot product means the input strongly activated the neuron's learned pattern.
 
 **Example in $\mathbb{R}^3$:**
@@ -100,6 +112,12 @@ $$
 \|\mathbf{v}\| = \sqrt{\mathbf{v} \cdot \mathbf{v}} = \sqrt{x_1^2 + x_2^2 + \dots + x_n^2}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\|\mathbf{v}\|$ | L2 norm (Euclidean length) of vector $\mathbf{v}$ | Quantifies the magnitude/size of a feature vector |
+| $\mathbf{v} \cdot \mathbf{v}$ | Dot product of $\mathbf{v}$ with itself | Equals the sum of squared components |
+| $x_i^2$ | Squared component at index $i$ | Each feature's contribution to overall magnitude |
+
 ```python
 magnitude = np.linalg.norm(v)  # sqrt(1^2 + 2^2 + 3^2) ≈ 3.74
 ```
@@ -111,6 +129,12 @@ The dot product and the geometric angle $\theta$ are related by:
 $$
 \cos \theta = \frac{\mathbf{v} \cdot \mathbf{w}}{\|\mathbf{v}\| \|\mathbf{w}\|}
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\cos \theta$ | Cosine of angle between vectors | Measures directional similarity, ranging from -1 (opposite) to 1 (aligned) |
+| $\mathbf{v} \cdot \mathbf{w}$ | Dot product of vectors | Numerator capturing alignment between vectors |
+| $\|\mathbf{v}\|, \|\mathbf{w}\|$ | L2 norms of vectors | Denominator normalizing for vector magnitudes |
 
 In NLP, this exact formula is known as **Cosine Similarity**, heavily used to measure the similarity between two word embeddings (like "king" and "queen").
 
@@ -125,6 +149,12 @@ Given a set of vectors $\{\mathbf{v}_1, \dots, \mathbf{v}_k\}$, a linear combina
 $$
 \mathbf{u} = \alpha_1\mathbf{v}_1 + \dots + \alpha_k\mathbf{v}_k
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\mathbf{u}$ | Resulting vector from the combination | The output vector produced by scaling and adding basis vectors |
+| $\alpha_i$ | Scalar coefficient for vector $\mathbf{v}_i$ | Weight determining how much each basis vector contributes |
+| $\mathbf{v}_1, \dots, \mathbf{v}_k$ | Set of vectors being combined | Basis vectors spanning a subspace |
 
 where $\alpha_i$ are scalars.
 
@@ -148,6 +178,12 @@ Two vectors are orthogonal if they are perpendicular, meaning they share no alig
 $$
 \mathbf{v}_i \cdot \mathbf{v}_j = 0, \quad \text{for } i \neq j
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\mathbf{v}_i \cdot \mathbf{v}_j$ | Dot product between vectors $\mathbf{v}_i$ and $\mathbf{v}_j$ | Zero value indicates perpendicularity |
+| $i \neq j$ | Condition that vectors are distinct | Orthogonality applies between different vectors in the set |
+| $0$ | Zero result | Indicates no alignment between the two vectors |
 
 ### Orthonormal Vectors
 

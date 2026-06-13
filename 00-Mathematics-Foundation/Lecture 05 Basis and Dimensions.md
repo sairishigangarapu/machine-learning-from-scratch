@@ -23,6 +23,12 @@ $$
 \mathbf{v} = \alpha_1 \mathbf{v}_1 + \dots + \alpha_k \mathbf{v}_k
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\mathbf{v}$ | Arbitrary vector in the space | Any point reachable by the basis |
+| $\alpha_1, \dots, \alpha_k$ | Scalar coordinates | Unique weights expressing $\mathbf{v}$ in this basis |
+| $\mathbf{v}_1, \dots, \mathbf{v}_k$ | Basis vectors | Minimal spanning set for the vector space |
+
 ---
 
 ## 2. Finite vs. Infinite Dimensional Spaces
@@ -58,6 +64,12 @@ We can change our perspective. For a symmetric $2 \times 2$ matrix $\begin{bmatr
 $$
 \begin{bmatrix}1&0\\0&0\end{bmatrix}, \begin{bmatrix}0&1\\1&0\end{bmatrix}, \begin{bmatrix}0&0\\0&1\end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix}1&0\\0&0\end{bmatrix}$ | Basis matrix for the diagonal component | Captures the $a$ degree of freedom in a symmetric $2 \times 2$ matrix |
+| $\begin{bmatrix}0&1\\1&0\end{bmatrix}$ | Basis matrix for the off-diagonal component | Captures the $b$ degree of freedom |
+| $\begin{bmatrix}0&0\\0&1\end{bmatrix}$ | Basis matrix for the second diagonal component | Captures the $c$ degree of freedom |
 
 The dimension is 3, formally proving there are exactly 3 degrees of freedom ($a, b, c$) in a $2 \times 2$ symmetric matrix.
 

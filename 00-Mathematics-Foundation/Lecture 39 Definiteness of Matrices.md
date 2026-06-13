@@ -137,6 +137,13 @@ $$
 H = \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H$ | Hessian matrix (example) | $2 \times 2$ symmetric matrix with positive diagonal entries |
+| $3$ (diagonal) | Self-curvature: $\partial^2 f / \partial x_1^2$ | Positive diagonal suggests upward curvature |
+| $1$ (off-diagonal) | Cross-curvature: $\partial^2 f / \partial x_1 \partial x_2$ | Interaction between variables |
+| $\lambda_1 = 4, \lambda_2 = 2$ | Eigenvalues | Both positive $\implies$ positive definite |
+
 **Eigenvalues:** $\lambda_1 = 4, \lambda_2 = 2$ — both positive.
 
 **Direct check:** $\mathbf{x}^T H \mathbf{x} = 3x_1^2 + 2x_1 x_2 + 3x_2^2 = 2x_1^2 + (x_1 + x_2)^2 + 2x_2^2 > 0$ for $\mathbf{x} \neq \mathbf{0}$.
@@ -149,6 +156,13 @@ $$
 H = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H$ | Indefinite Hessian (saddle) | A diagonal matrix with mixed signs on the diagonal |
+| $1$ (top-left) | Positive curvature in $x_1$ direction | Function curves UP along the $x_1$ axis |
+| $-1$ (bottom-right) | Negative curvature in $x_2$ direction | Function curves DOWN along the $x_2$ axis |
+| $\lambda_1 = 1, \lambda_2 = -1$ | Mixed-sign eigenvalues | One positive, one negative $\implies$ indefinite $\implies$ saddle point |
+
 **Eigenvalues:** $\lambda_1 = 1, \lambda_2 = -1$ — mixed signs.
 
 **Direct check:** $\mathbf{x}^T H \mathbf{x} = x_1^2 - x_2^2$. At $(1, 0)$ this is $+1$, at $(0, 1)$ this is $-1$.
@@ -160,6 +174,13 @@ $$
 $$
 H = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H$ | Positive semi-definite (singular) | Rows/columns are linearly dependent (identical rows) |
+| $1$ (all entries) | Constant entries | $H$ has rank 1 (all rows are multiples of each other) |
+| $\lambda_1 = 2, \lambda_2 = 0$ | One zero eigenvalue | PSD: all eigenvalues $\ge 0$, but at least one is zero |
+| Flat direction | Zero-curvature direction | The function is flat along the eigenvector $(1, -1)$; minimum is a line, not a point |
 
 **Eigenvalues:** $\lambda_1 = 2, \lambda_2 = 0$.
 
@@ -207,6 +228,14 @@ A differentiable function $f$ is convex if and only if its Hessian is positive s
 $$
 f \text{ convex} \iff \nabla^2 f(\mathbf{x}) \succeq 0 \quad \forall \mathbf{x}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f$ convex | Convex function | The function satisfies the definition: chord lies above the graph |
+| $\iff$ | If and only if (equivalence) | Convexity and PSD Hessian are equivalent for twice-differentiable $f$ |
+| $\nabla^2 f(\mathbf{x})$ | Hessian at $\mathbf{x}$ | Second derivative information — curvature at a single point |
+| $\succeq 0$ | Positive semi-definite | All eigenvalues $\ge 0$ — the function never curves downward |
+| $\forall \mathbf{x}$ | At every point | The Hessian must be PSD everywhere, not just at some points |
 
 | Hessian Properties | Loss Surface | Optimization Behavior |
 |:---|:---|:---|

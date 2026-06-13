@@ -31,6 +31,13 @@ $$
 \mathbf{x} = \sum_{i=1}^{n} y_i \phi_i
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\mathbf{x}$ | An $n$-dimensional data vector | The original data point to be represented |
+| $y_i$ | The coordinate (projection) of $\mathbf{x}$ along $\phi_i$ | Computed as $y_i = \mathbf{x}^T \phi_i$ via dot product |
+| $\phi_i$ | The $i$-th orthonormal basis vector | Defines a direction in the coordinate system |
+| $\sum_{i=1}^{n}$ | Sum over all $n$ basis vectors | Full-rank representation with no information loss |
+
 * **What does this mean?** $y_i$ is simply the "coordinate" of $\mathbf{x}$ along the direction $\phi_i$. Mathematically, you find it via the dot product: $y_i = \mathbf{x}^T \phi_i$. We haven't compressed anything yet; we've just rewritten $\mathbf{x}$ in a new coordinate system.
 
 ### Step 2: The Lower-Dimensional Approximation (Compression)
@@ -42,6 +49,13 @@ $$
 \hat{\mathbf{x}} = \sum_{i=1}^{m} y_i \phi_i + \sum_{i=m+1}^{n} b_i \phi_i
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\hat{\mathbf{x}}$ | The compressed approximation of $\mathbf{x}$ | Uses fewer dimensions to represent the original data |
+| $y_i$ | Retained coordinates for the first $m$ dimensions | Preserve the actual data values in kept dimensions |
+| $b_i$ | Fixed constants replacing dropped coordinates | Model parameters baked in; not stored per sample |
+| $m$ | Number of retained dimensions ($m < n$) | Controls the compression ratio |
+
 * **Why constants?** Because we are not allowed to store the actual, varying data points $y_i$ for those dropped dimensions anymore! We have to replace them with a "best guess" constant $b_i$ that is baked into the model.
 
 ### Step 3: Defining the Representation Error (The "Oops" Factor)
@@ -51,11 +65,25 @@ $$
 \Delta \mathbf{x} = \mathbf{x} - \hat{\mathbf{x}} = \sum_{i=m+1}^{n} (y_i - b_i) \phi_i
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\Delta \mathbf{x}$ | The representation error vector | Quantifies information lost during compression |
+| $\mathbf{x}$ | The original data vector | The ground truth before dimensionality reduction |
+| $\hat{\mathbf{x}}$ | The compressed approximation | The reconstructed data from only $m$ dimensions |
+| $y_i - b_i$ | Difference between true coordinate and constant replacement | The error introduced by discarding the $i$-th dimension |
+
 We define the overall "badness" of our compression as the **Expected Mean Square Error (MSE)** of this magnitude across all samples:
 
 $$
 E[\|\Delta \mathbf{x}\|^2] = E\left[ \sum_{i=m+1}^{n} (y_i - b_i)^2 \right]
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $E[\cdot]$ | Expectation operator (averaging over all samples) | Provides a single aggregate measure of compression quality |
+| $\|\Delta \mathbf{x}\|^2$ | Squared Euclidean norm of the error vector | Penalizes larger errors more heavily (L2 penalty) |
+| $y_i$ | True coordinate along the $i$-th basis direction | The actual data value we are discarding |
+| $b_i$ | The optimal constant replacement ($b_i = E[y_i]$) | Minimizes expected squared error for dropped dimensions |
 
 *(Note: Because the basis vectors $\phi_i$ are all perfectly perpendicular, their cross-multiplied terms cleanly cancel out to 0, leaving this beautiful sum of squares).*
 
@@ -66,6 +94,13 @@ $$
 \frac{\partial}{\partial b_i} E[\|\Delta \mathbf{x}\|^2] = -2 E[y_i - b_i] = 0 \implies b_i = E[y_i]
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\frac{\partial}{\partial b_i}$ | Partial derivative with respect to $b_i$ | Finds the optimal constant that minimizes expected error |
+| $E[\|\Delta \mathbf{x}\|^2]$ | Expected mean squared representation error | The objective function being minimized |
+| $-2 E[y_i - b_i]$ | Gradient of the error with respect to $b_i$ | Set to zero to find the critical point |
+| $b_i = E[y_i]$ | Optimal constant equals the sample mean | Proves mean is the best replacement for dropped features |
+
 * **The Intuition:** The math perfectly aligns with common sense! If you have to throw away a feature (like the "number of bathrooms" in a house dataset), the best constant "guess" to replace it with for every single house is simply the **average (mean)** number of bathrooms across the whole dataset.
 
 ### Step 5: The Covariance Matrix Emerges
@@ -75,6 +110,13 @@ $$
 E[\|\Delta \mathbf{x}\|^2] = \sum_{i=m+1}^{n} E[(y_i - E[y_i])^2] = \sum_{i=m+1}^{n} \phi_i^T E[(\mathbf{x} - E[\mathbf{x}])(\mathbf{x} - E[\mathbf{x}])^T] \phi_i
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $E[(y_i - E[y_i])^2]$ | Variance of the $i$-th projected coordinate | Measures how much data varies along direction $\phi_i$ |
+| $\phi_i^T \Sigma_x \phi_i$ | Quadratic form with covariance matrix | Projects the data covariance onto direction $\phi_i$ |
+| $(\mathbf{x} - E[\mathbf{x}])(\mathbf{x} - E[\mathbf{x}])^T$ | Outer product forming the covariance matrix | Captures all pairwise feature correlations |
+| $\Sigma_x$ | The data covariance matrix | Central object whose eigenvectors give optimal directions |
+
 Look closely at that massive central term: $E[(\mathbf{x} - E[\mathbf{x}])(\mathbf{x} - E[\mathbf{x}])^T]$. **That is the exact, literal definition of the Data Covariance Matrix ($\Sigma_x$)!** 
 
 Thus, the entire terrifying error equation we are trying to minimize collapses beautifully to:
@@ -83,6 +125,13 @@ $$
 E[\|\Delta \mathbf{x}\|^2] = \sum_{i=m+1}^{n} \phi_i^T \Sigma_x \phi_i
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $E[\|\Delta \mathbf{x}\|^2]$ | Total expected representation error | The quantity PCA minimizes |
+| $\Sigma_x$ | The $d \times d$ data covariance matrix | Encodes variance structure used to find optimal directions |
+| $\phi_i^T \Sigma_x \phi_i$ | Variance of data projected onto $\phi_i$ | Equals the eigenvalue $\lambda_i$ when $\phi_i$ is an eigenvector |
+| $\sum_{i=m+1}^{n}$ | Sum over discarded dimensions | Error equals the sum of discarded eigenvalues |
+
 ### Step 6: Finding the Optimal Basis (Lagrange Optimization)
 We now have one final task: choose the remaining spatial directions $\phi_i$ to make that error equation as close to 0 as possible. We must enforce the rule that they remain unit vectors ($\phi_i^T \phi_i = 1$). To solve constrained optimization problems, we form the Lagrangian:
 
@@ -90,11 +139,24 @@ $$
 \mathcal{L} = \phi_i^T \Sigma_x \phi_i + \lambda_i (1 - \phi_i^T \phi_i)
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\mathcal{L}$ | The Lagrangian function | Combines the objective and constraint into one function |
+| $\phi_i^T \Sigma_x \phi_i$ | The variance along direction $\phi_i$ (objective) | What we want to maximize/minimize |
+| $\lambda_i$ | The Lagrange multiplier | Enforces the unit-norm constraint $\phi_i^T \phi_i = 1$ |
+| $1 - \phi_i^T \phi_i$ | The constraint term | Forces $\phi_i$ to remain a unit vector |
+
 Taking the derivative of $\mathcal{L}$ with respect to the vector $\phi_i$ and setting it to zero yields the most famous equation in linear algebra:
 
 $$
 \Sigma_x \phi_i = \lambda_i \phi_i
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\Sigma_x$ | The data covariance matrix | The matrix whose eigenvectors are the optimal PCA directions |
+| $\phi_i$ | The $i$-th eigenvector of $\Sigma_x$ | The $i$-th principal component direction |
+| $\lambda_i$ | The $i$-th eigenvalue | Variance of data along the $i$-th principal component |
 
 **The Grand Conclusion:** 
 The math has spoken. The optimal basis vectors $\phi_i$ that we should project our data onto are exclusively the **eigenvectors** of the Covariance Matrix! 
@@ -114,11 +176,26 @@ $$
 \Sigma_C = \frac{1}{n-1} C^T C
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\Sigma_C$ | Sample covariance matrix (with Bessel's correction) | Unbiased estimate of population covariance |
+| $C$ | $n \times p$ mean-centered data matrix | Data with each column mean-subtracted |
+| $C^T$ | Transpose of the centered data matrix | Enables efficient matrix multiplication |
+| $n-1$ | Degrees of freedom correction | Bessel's correction ensures unbiased variance estimate |
+
 If the SVD of the centered data matrix is $C = U S V^T$, then:
 
 $$
 \Sigma_C = \frac{1}{n-1} (V S U^T)(U S V^T) = V \left( \frac{S^2}{n-1} \right) V^T
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\Sigma_C$ | The sample covariance matrix | Expressed in terms of SVD components of centered data |
+| $V$ | Right singular vectors of $C$ | Columns are the principal component directions |
+| $S$ | Diagonal matrix of singular values | $\sigma_i^2/(n-1)$ gives the eigenvalues of $\Sigma_C$ |
+| $U$ | Left singular vectors of $C$ | Orthogonal; cancels with $U^T$ in the product |
+| $S^2/(n-1)$ | Scaled squared singular values | Equals the eigenvalues of the covariance matrix |
 
 Because $\Sigma_C$ is symmetric, this equation is exactly its strictly orthogonal diagonalization!
 
@@ -132,6 +209,13 @@ When reducing to $K$ dimensions, the percentage of retained variance is exact:
 $$
 \text{Preserved Variance (\%)} = \left( \frac{\sum_{i=1}^{K} \lambda_i}{\sum_{i=1}^{p} \lambda_i} \right) \times 100
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| Preserved Variance (%) | Percentage of total variance retained after reduction | Metric for evaluating PCA quality |
+| $\lambda_i$ | The $i$-th eigenvalue of the covariance matrix | Variance captured by the $i$-th principal component |
+| $K$ | Number of principal components kept | The target dimensionality after reduction |
+| $p$ | Total number of original features | Full dimensionality before PCA |
 
 ---
 
@@ -148,6 +232,14 @@ $$
 \Sigma_C = \begin{bmatrix} 6.25 & 4.25 \\ 4.25 & 3.5 \end{bmatrix} \implies \lambda_1 \approx 9.34, \lambda_2 \approx 0.48
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\Sigma_C$ | Sample covariance matrix ($2 \times 2$) | Encodes variance and correlation of the 2D dataset |
+| $6.25, 3.5$ | Variances of the two features | Diagonal entries; spread of each feature individually |
+| $4.25$ | Covariance between features | Off-diagonal entry; strength of linear dependence |
+| $\lambda_1 \approx 9.34$ | First eigenvalue | Variance captured by the first principal component |
+| $\lambda_2 \approx 0.48$ | Second eigenvalue | Variance captured by the second principal component |
+
 * **Principal Directions:** The dominant eigenvector ($\lambda_1 = 9.34$) points in the direction of $[0.83, 0.55]^T$. 
 * **Projection:** Multiplying the original data by this single dominant eigenvector perfectly collapses the 2D cloud into a 1D line that retains maximum geometric spread.
 
@@ -161,6 +253,12 @@ Given a raw $10 \times 2$ coordinate matrix:
 $$
 y_{\text{new}} = 0.67(x) + 0.73(y)
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $y_{\text{new}}$ | The projected 1D coordinate | The compressed representation of the 2D point |
+| $0.67, 0.73$ | Components of the dominant eigenvector | Defines the direction of maximum variance |
+| $x, y$ | Original 2D feature values | The raw data before projection |
 
 Your $100$-dimensional dataset could be reduced to $20$ dimensions exactly the same way: find a $100 \times 100$ covariance matrix, select the top $20$ large eigenvectors, and project your data onto that $20$-dimensional orthogonal basis.
 

@@ -37,6 +37,15 @@ $$
 \hat{y} = \text{sign}(\mathbf{w}^T\mathbf{x} + b)
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\hat{y}$ | Predicted class label ($+1$ or $-1$) | Output of the classifier; sign of the decision function determines the class |
+| $\mathbf{w}$ | Weight vector (normal to hyperplane) | Orientation of the decision boundary; learned during training to maximize margin |
+| $\mathbf{x}$ | Input feature vector | The data point being classified |
+| $b$ | Bias term (intercept) | Shifts the decision boundary away from origin; prevents constraint that boundary must pass through origin |
+| $\text{sign}(\cdot)$ | Sign function: returns $+1$ if argument $> 0$, $-1$ otherwise | Converts real-valued decision score into discrete class prediction |
+| $\mathbf{w}^T\mathbf{x} + b$ | Decision function; signed distance from $\mathbf{x}$ to the hyperplane | Magnitude indicates confidence (distance from boundary), sign indicates side (which class) |
+
 * $\mathbf{w}^T\mathbf{x} + b > 0 \Rightarrow \hat{y} = +1$
 * $\mathbf{w}^T\mathbf{x} + b < 0 \Rightarrow \hat{y} = -1$
 * $\mathbf{w}^T\mathbf{x} + b = 0$ is the **decision boundary**
@@ -48,6 +57,13 @@ $$
 \hat{\gamma}_i = y_i(\mathbf{w}^T\mathbf{x}_i + b)
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\hat{\gamma}_i$ | Functional margin for point $i$ | A positive value means correct classification; scale depends on $||\mathbf{w}||$, so it's not a true distance |
+| $y_i$ | True class label ($+1$ or $-1$) for point $i$ | Encodes which side of the boundary the point should be on |
+| $\mathbf{x}_i$ | The $i$-th training example | Each data point contributes to the margin constraints |
+| $\mathbf{w}^T\mathbf{x}_i + b$ | Unscaled score at point $\mathbf{x}_i$ | Combined with $y_i$, this product must be $\ge 1$ for correct classification with margin |
+
 This is positive if classified correctly, negative if misclassified.
 
 ### Geometric Margin
@@ -56,6 +72,12 @@ The actual perpendicular distance from point $\mathbf{x}_i$ to the hyperplane:
 $$
 \gamma_i = \frac{y_i(\mathbf{w}^T\mathbf{x}_i + b)}{||\mathbf{w}||}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\gamma_i$ | Geometric margin for point $i$ | The actual Euclidean distance from $\mathbf{x}_i$ to the hyperplane; invariant to scaling of $\mathbf{w}$ and $b$ |
+| $||\mathbf{w}||$ | Euclidean norm (magnitude) of weight vector | Normalizing by $||\mathbf{w}||$ removes the scale dependence; this is what SVMs maximize |
+| $\frac{1}{||\mathbf{w}||}$ | Normalization factor | Converts the unscaled functional margin into a true distance; key insight: minimizing $||\mathbf{w}||$ maximizes margin |
 
 The factor $\frac{1}{||\mathbf{w}||}$ converts functional margin to geometric distance.
 
@@ -69,6 +91,14 @@ VC dimension theory shows that the generalization error is bounded by:
 $$
 R(\mathbf{w}) \le R_{\text{emp}}(\mathbf{w}) + O\left(\sqrt{\frac{d_{\text{VC}} \log(n)}{n}}\right)
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $R(\mathbf{w})$ | True (generalization) error of classifier with weights $\mathbf{w}$ | The actual risk on unseen data; what we ultimately care about |
+| $R_{\text{emp}}(\mathbf{w})$ | Empirical (training) error | Error measured on the training set; always an overestimate of true performance |
+| $d_{\text{VC}}$ | VC dimension — a measure of model capacity/complexity | Larger VC dimension means the model can fit more complex patterns but may overfit |
+| $n$ | Number of training samples | More data reduces the gap between training and generalization error |
+| $O(\sqrt{\cdot})$ | Big-O complexity bound | Describes how quickly the generalization gap shrinks as $n$ increases |
 
 where $d_{\text{VC}}$ is the VC dimension. Maximizing the margin **reduces the effective VC dimension**, providing tighter generalization bounds.
 
@@ -86,6 +116,13 @@ $$
 \text{s.t.} \quad &y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1 \quad \forall i
 \end{aligned}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\frac{1}{2}||\mathbf{w}||^2$ | Objective — half squared norm of weight vector | Minimizing this maximizes the margin $\frac{2}{||\mathbf{w}||}$; convex quadratic ensures unique global optimum |
+| $\mathbf{w}$ | Weight vector (normal to hyperplane) | Learned to maximize margin; its norm $||\mathbf{w}||$ is minimized in the objective |
+| $b$ | Bias term (intercept) | Shifts the decision boundary; ensures flexibility when data is not centered at origin |
+| $y_i(\mathbf{w}^T\mathbf{x}_i + b) \ge 1$ | Margin constraint for point $i$ | Enforces correct classification with functional margin $\ge 1$; active ($=1$) for support vectors |
 
 **Key Insight:** Minimizing $||\mathbf{w}||^2$ is equivalent to maximizing the margin $\frac{2}{||\mathbf{w}||}$.
 
@@ -123,6 +160,11 @@ $$
 y_i(\mathbf{w}^T\mathbf{x}_i + b) = 1
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $y_i(\mathbf{w}^T\mathbf{x}_i + b)$ | Functional margin of point $i$ | When $= 1$, the point lies exactly on the margin boundary — it is a support vector |
+| $y_i$, $\mathbf{x}_i$, $\mathbf{w}$, $b$ | As defined above | Only points satisfying this equality determine the optimal hyperplane; all other points can be removed without changing the solution |
+
 These are the only points that affect the optimal hyperplane. Removing any non-support-vector point does not change the solution.
 
 **ML Connection:** This sparsity makes SVMs memory-efficient. Only support vectors need to be stored for prediction.
@@ -139,6 +181,12 @@ $$
 \mathbf{w}^T\mathbf{x} + b &= -1 \quad \text{(negative boundary)}
 \end{aligned}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\mathbf{w}^T\mathbf{x} + b = +1$ | Positive margin hyperplane | Boundary for class $+1$; points on this plane have functional margin $= 1$ |
+| $\mathbf{w}^T\mathbf{x} + b = -1$ | Negative margin hyperplane | Boundary for class $-1$; points on this plane have functional margin $= -1$ |
+| $\frac{2}{||\mathbf{w}||}$ | Margin width | Distance between the two margin boundaries; maximizing this is equivalent to minimizing $||\mathbf{w}||^2$ |
 
 The distance between these boundaries is $\frac{2}{||\mathbf{w}||}$. Maximizing this distance is equivalent to minimizing $||\mathbf{w}||^2$.
 

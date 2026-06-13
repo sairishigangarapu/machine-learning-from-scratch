@@ -52,6 +52,13 @@ $$
 \text{span}(S) = \{c_1 \mathbf{v}_1 + \dots + c_n \mathbf{v}_n : c_i \in \mathbb{R}\}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\text{span}(S)$ | Set of all linear combinations of vectors in $S$ | Smallest subspace containing all vectors in $S$ |
+| $c_1, \dots, c_n$ | Scalar coefficients | Weights determining contribution of each vector |
+| $\mathbf{v}_1, \dots, \mathbf{v}_n$ | Generating vectors | Basis-like vectors that define the subspace |
+| $c_i \in \mathbb{R}$ | Scalars are real numbers | Ensures the span lives in a real vector space |
+
 * **Property:** The span is mathematically defined as the **smallest possible subspace** that contains all vectors in $S$.
 
 ```python
@@ -82,6 +89,13 @@ The set of all vectors $\mathbf{x}$ that $A$ crushes entirely to zero.
 $$
 N(A) = \{ \mathbf{x} \in \mathbb{R}^n : A\mathbf{x} = \mathbf{0} \}
 $$
+
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $N(A)$ | Null space of matrix $A$ | Subspace of inputs that produce zero output |
+| $\mathbf{x} \in \mathbb{R}^n$ | Input vector in $n$-dimensional space | Candidate vector tested for null space membership |
+| $A\mathbf{x} = \mathbf{0}$ | Linear transformation yields zero vector | Condition defining null space membership |
+| $\mathbf{0}$ | Zero vector | Target output indicating input is annihilated |
 
 **ML Connection:** Any feature variance lying in the Null Space is permanently deleted by this matrix. It represents data loss.
 

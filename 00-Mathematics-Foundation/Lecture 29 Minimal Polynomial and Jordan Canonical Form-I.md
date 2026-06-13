@@ -34,6 +34,11 @@ $$
 A \oplus B = \begin{bmatrix} A & 0 \\ 0 & B \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A \oplus B$ | Direct sum | Block diagonal matrix placing $A$ and $B$ on diagonal |
+| $A, B$ | Square matrix blocks | Placed on diagonal of block diagonal matrix |
 ### Algebraic Multiplicity
 
 The number of times an eigenvalue $\lambda$ appears as a root of the characteristic polynomial. It's the "count" of that eigenvalue including repetitions.
@@ -57,6 +62,11 @@ J_2(\lambda) = \begin{bmatrix} \lambda & 1 \\ 0 & \lambda \end{bmatrix}, \quad
 J_3(\lambda) = \begin{bmatrix} \lambda & 1 & 0 \\ 0 & \lambda & 1 \\ 0 & 0 & \lambda \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $J_k(\lambda)$ | Jordan block of size $k$ | $k \times k$; $\lambda$ on diagonal, $1$ on super-diagonal |
+| $\lambda$ | Eigenvalue | Repeated along main diagonal |
 A Jordan block has exactly **one** eigenvector (geometric multiplicity $1$) but its eigenvalue $\lambda$ has algebraic multiplicity $k$.
 
 ### Jordan Canonical Form ($J$)
@@ -67,6 +77,12 @@ $$
 A = S J S^{-1}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $S$ | Similarity transformation matrix | Columns: eigenvectors / generalized eigenvectors |
+| $J$ | Jordan canonical form | Block diagonal of Jordan blocks |
+| $S^{-1}$ | Inverse of $S$ | Converts from Jordan basis back to original |
 where $J$ is a direct sum of Jordan blocks. If $A$ is diagonalizable, $J$ is just a diagonal matrix (each Jordan block is size $1$).
 
 ### Generalized Eigenvector
@@ -85,6 +101,11 @@ $$
 A = P D P^{-1}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P$ | Eigenvector matrix | Columns: $n$ linearly independent eigenvectors |
+| $D$ | Diagonal eigenvalue matrix | Eigenvalues on diagonal; simplest representation |
 Beautiful. Clean. Easy to work with.
 
 But here's the ugly truth: **not every matrix is diagonalizable**. Consider:
@@ -93,6 +114,11 @@ $$
 A = \begin{bmatrix} 2 & 1 \\ 0 & 2 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Matrix result | Numerical value of the computation |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
 This matrix has eigenvalue $\lambda = 2$ (repeated twice), but only **one** eigenvector. You can't form $P$ with only one column. The matrix refuses to be diagonalized.
 
 So what do we do? We relax the rules. Instead of forcing $A$ into a strictly diagonal form, we allow $1$'s on the super-diagonal. That's the **Jordan canonical form** — the closest thing to a diagonal matrix that every matrix can achieve.
@@ -113,6 +139,11 @@ $$
 m_A(A) = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $m_A(\lambda)$ | Minimal polynomial | Unique monic polynomial of smallest degree annihilating $A$ |
+| $0$ | $n \times n$ zero matrix | Result of evaluating $m_A$ at $A$ |
 where $0$ is the $n \times n$ zero matrix.
 
 ### Key Properties
@@ -132,6 +163,10 @@ $$
 A_1 = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A_1$ | Example matrix | Used for minimal polynomial illustration |
 **Characteristic polynomial:** $c_{A_1}(\lambda) = (\lambda - 2)^2$
 
 **Check:** Does $A_1 - 2I = 0$? Yes:
@@ -140,6 +175,10 @@ $$
 A_1 - 2I = \begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A_1 - 2I$ | Shifted diagonal matrix | Zero; confirms $(\lambda-2)$ annihilates $A_1$ |
 So the minimal polynomial is $m_{A_1}(\lambda) = \lambda - 2$ (degree 1).
 
 ### Example 2: A Non-Diagonalizable Matrix
@@ -148,6 +187,10 @@ $$
 A_2 = \begin{bmatrix} 2 & 1 \\ 0 & 2 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A_2$ | Example matrix | Used for minimal polynomial illustration |
 **Characteristic polynomial:** $c_{A_2}(\lambda) = (\lambda - 2)^2$
 
 **Check:** Does $A_2 - 2I = 0$?
@@ -156,12 +199,20 @@ $$
 A_2 - 2I = \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix} \neq 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A_2 - 2I$ | Shifted Jordan block | Non-zero; need higher power for annihilation |
 Now check $(A_2 - 2I)^2$:
 
 $$
 (A_2 - 2I)^2 = \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}^2 = \begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $(A_2 - 2I)^2$ | Square of shifted matrix | Zero; confirms $(\lambda-2)^2$ is minimal polynomial |
 So the minimal polynomial is $m_{A_2}(\lambda) = (\lambda - 2)^2$ (degree 2) — same as the characteristic polynomial.
 
 The difference? In Example 1, the eigenvalue $2$ has two eigenvectors. In Example 2, it has only one. The **largest Jordan block** for $\lambda = 2$ in $A_2$ is size $2$, which is why the minimal polynomial needs the square.
@@ -178,6 +229,11 @@ $$
 A \oplus B = \begin{bmatrix} A & 0 \\ 0 & B \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A \oplus B$ | Direct sum | Block diagonal matrix placing $A$ and $B$ on diagonal |
+| $A, B$ | Square matrix blocks | Placed on diagonal of block diagonal matrix |
 ### Why This Matters
 
 The Jordan canonical form is a direct sum of Jordan blocks. When you understand how properties behave under direct sums, you understand Jordan forms.
@@ -202,6 +258,10 @@ C = A_1 \oplus A_2 = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $C$ | Direct sum example | $4 \times 4$ combining diagonal and Jordan blocks |
 - $c_{A_1}(\lambda) = (\lambda - 2)^2$, $c_{A_2}(\lambda) = (\lambda - 2)^2$ $\implies$ $c_C(\lambda) = (\lambda - 2)^4$
 - $m_{A_1}(\lambda) = (\lambda - 2)$, $m_{A_2}(\lambda) = (\lambda - 2)^2$ $\implies$ $m_C(\lambda) = \text{lcm}(\lambda - 2, (\lambda - 2)^2) = (\lambda - 2)^2$
 
@@ -229,6 +289,10 @@ J_k(\lambda) = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $J_k(\lambda)$ | General Jordan block | $k \times k$ with $\lambda$ on diagonal, $1$s on super-diagonal |
 ### Examples
 
 - **Size 1:** $J_1(\lambda) = \begin{bmatrix} \lambda \end{bmatrix}$ (just the eigenvalue — this IS diagonalization)
@@ -255,6 +319,12 @@ $$
 A = S J S^{-1}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $S$ | Similarity transformation matrix | Columns: eigenvectors / generalized eigenvectors |
+| $J$ | Jordan canonical form | Block diagonal of Jordan blocks |
+| $S^{-1}$ | Inverse of $S$ | Converts from Jordan basis back to original |
 where $J$ is the **Jordan canonical form** of $A$ — a block diagonal matrix:
 
 $$
@@ -266,6 +336,10 @@ J_{k_1}(\lambda_1) & 0 & \dots & 0 \\
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $J$ | Jordan canonical form | Block diagonal matrix; each block is a Jordan block |
 with $k_1 + k_2 + \dots + k_m = n$.
 
 ### How to Determine the JCF
@@ -287,6 +361,11 @@ A = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Matrix result | Numerical value of the computation |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
 **Eigenvalues:** $\lambda = 1$ with algebraic multiplicity 3.
 
 **Eigenvectors:** Solve $(A - I)x = 0$:
@@ -300,6 +379,16 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix}
+0 & 1 & 1 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 This gives $x_2 = 0$, $x_3 = 0$, $x_1$ free. So only **one** eigenvector: $x = (1, 0, 0)^T$.
 
 **Geometric multiplicity:** 1.
@@ -318,6 +407,11 @@ J = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $J$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 One Jordan block of size 3.
 
 ### Worked Example 2: Two Jordan Blocks
@@ -330,6 +424,11 @@ B = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $B$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 **Eigenvalues:** $\lambda = 1$ with algebraic multiplicity 3.
 
 **Eigenvectors:** Solve $(B - I)x = 0$:
@@ -343,6 +442,16 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 This gives $x_2 = 0$, $x_1$ and $x_3$ free. So **two** eigenvectors: $x = (1, 0, 0)^T$ and $x = (0, 0, 1)^T$.
 
 **Geometric multiplicity:** 2.
@@ -361,6 +470,11 @@ J = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $J$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 or equivalently (reordering blocks):
 
 $$
@@ -371,6 +485,11 @@ J = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $J$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 ---
 
 ## 7. Python Implementation

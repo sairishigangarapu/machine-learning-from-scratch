@@ -50,6 +50,12 @@ $$
 \text{Precision} = \frac{TP}{TP + FP}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Precision}$ | Positive predictive value | Fraction of predicted positives that are correct |
+| $TP$ | True Positives | Correctly identified positive cases |
+| $FP$ | False Positives | Incorrectly flagged negatives |
 ### Recall (Sensitivity / True Positive Rate)
 
 Out of all actually positive samples, how many did we catch? Focuses on **not missing positives**.
@@ -58,6 +64,11 @@ $$
 \text{Recall} = \frac{TP}{TP + FN}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Recall}$ | Sensitivity / True Positive Rate | Fraction of actual positives caught |
+| $FN$ | False Negatives | Missed positive cases |
 ### F1 Score
 
 The **harmonic mean** of precision and recall. A single number that balances both. Unlike the arithmetic mean, it punishes extreme imbalance — if either precision or recall is 0, F1 is 0.
@@ -66,6 +77,10 @@ $$
 F_1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $F_1$ | F1 Score | Harmonic mean of precision and recall |
 ### Harmonic Mean
 
 A type of average that gives more weight to small values. Used in F1 because it harshly penalizes situations where one metric is high but the other is very low.
@@ -156,12 +171,28 @@ $$
 \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}} \times 100
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Accuracy}$ | Classification accuracy | Fraction of all predictions that are correct |
+| $TP$ | True Positives | Correct positive predictions |
+| $TN$ | True Negatives | Correct negative predictions |
+| $FP$ | False Positives | Incorrect positive predictions |
+| $FN$ | False Negatives | Incorrect negative predictions |
 For our COVID example:
 
 $$
 \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} = \frac{90 + 940}{90 + 940 + 60 + 10} = \frac{1030}{1100} \approx 93.6\%
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Accuracy}$ | Classification accuracy | Fraction of all predictions that are correct |
+| $TP$ | True Positives | Correct positive predictions |
+| $TN$ | True Negatives | Correct negative predictions |
+| $FP$ | False Positives | Incorrect positive predictions |
+| $FN$ | False Negatives | Incorrect negative predictions |
 ```python
 from sklearn.metrics import accuracy_score
 
@@ -177,6 +208,14 @@ $$
 \text{Accuracy} = \frac{1000}{1100} \approx 90.9\%
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Accuracy}$ | Classification accuracy | Fraction of all predictions that are correct |
+| $TP$ | True Positives | Correct positive predictions |
+| $TN$ | True Negatives | Correct negative predictions |
+| $FP$ | False Positives | Incorrect positive predictions |
+| $FN$ | False Negatives | Incorrect negative predictions |
 That's over 90% accuracy for a model that learned *literally nothing*. It never identifies a single positive case. This is why accuracy alone is dangerously misleading when your classes are imbalanced — a common scenario in fraud detection, rare disease diagnosis, and spam filtering.
 
 > **Check your intuition:** If 99% of your emails are legitimate and your spam filter classifies everything as "Not Spam", what's its accuracy? *(Answer: 99%. But it's completely useless — it catches zero spam.)*
@@ -193,12 +232,22 @@ $$
 \text{Precision} = \frac{TP}{TP + FP}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Precision}$ | Positive predictive value | Fraction of predicted positives that are correct |
+| $TP$ | True Positives | Correctly identified positive cases |
+| $FP$ | False Positives | Incorrectly flagged negatives |
 In our COVID example:
 
 $$
 \text{Precision} = \frac{90}{90 + 60} = \frac{90}{150} = 0.6
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| Expression | Algebraic relation | Part of the current solution step |
 Precision is your friend when **false positives are expensive**. If you're classifying emails as "Important", a false positive (flagging a casual email as urgent) is annoying but tolerable. But if you're classifying tumors as "Malignant", a false positive causes unnecessary patient trauma and invasive biopsies — you want high precision.
 
 ---
@@ -213,12 +262,21 @@ $$
 \text{Recall} = \frac{TP}{TP + FN}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{Recall}$ | Sensitivity / True Positive Rate | Fraction of actual positives caught |
+| $FN$ | False Negatives | Missed positive cases |
 In our COVID example:
 
 $$
 \text{Recall} = \frac{90}{90 + 10} = \frac{90}{100} = 0.9
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| Expression | Algebraic relation | Part of the current solution step |
 Recall is your friend when **false negatives are expensive**. In COVID-19 detection, a false negative means sending an infected person home to spread the virus. You want recall as close to 1.0 as possible, even if it means flagging some healthy people for follow-up testing.
 
 ### The Precision-Recall Trade-off
@@ -242,12 +300,20 @@ $$
 F_1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $F_1$ | F1 Score | Harmonic mean of precision and recall |
 For our COVID example:
 
 $$
 F_1 = 2 \times \frac{0.6 \times 0.9}{0.6 + 0.9} = 2 \times \frac{0.54}{1.5} = 0.72
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $F_1$ | F1 Score | Harmonic mean of precision and recall |
 ### Why Harmonic Mean?
 
 The harmonic mean is harsh on extreme values. Consider a model with Precision = 1.0 and Recall = 0.0:
@@ -349,11 +415,19 @@ $$
 \text{TPR} = \frac{TP}{TP + FN}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{TPR}$ | True Positive Rate | Same as Recall; y-axis of ROC curve |
 **False Positive Rate:**
 $$
 \text{FPR} = \frac{FP}{FP + TN}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{FPR}$ | False Positive Rate | Fraction of negatives incorrectly predicted as positive; x-axis of ROC curve |
 ### The ROC Curve
 Plot TPR vs FPR as the classification threshold varies from 0 to 1:
 * **Perfect classifier:** TPR = 1, FPR = 0 (top-left corner)
@@ -365,6 +439,12 @@ $$
 \text{AUC} = \int_0^1 \text{TPR}(\text{FPR}) \, d\text{FPR}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{TPR}$ | True Positive Rate | Same as Recall; y-axis of ROC curve |
+| $\text{FPR}$ | False Positive Rate | Fraction of negatives incorrectly predicted as positive; x-axis of ROC curve |
+| $\text{AUC}$ | Area Under ROC Curve | Threshold-independent performance measure; $1.0$ = perfect |
 | AUC | Interpretation |
 |:---|:---|
 | 1.0 | Perfect classifier |

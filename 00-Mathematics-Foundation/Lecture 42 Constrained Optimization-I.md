@@ -14,6 +14,13 @@ $$
 \min_{\mathbf{x} \in \mathbb{R}^n} f(\mathbf{x}) \quad \text{subject to} \quad g_i(\mathbf{x}) \le 0, \; i = 1, \dots, m
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\mathbf{x} \in \mathbb{R}^n$ | Decision variables (model parameters) | The vector we optimize over; represents all learnable parameters |
+| $f(\mathbf{x})$ | Objective function | The loss or cost function we want to minimize (e.g., empirical risk) |
+| $g_i(\mathbf{x}) \le 0$ | Inequality constraints | Restrictions on feasible solutions (e.g., margin $\ge$ 1, norm $\le$ budget) |
+| $i = 1, \dots, m$ | Constraint index | $m$ constraints define the feasible region $C = \{\mathbf{x} : g_i(\mathbf{x}) \le 0\}$ |
+
 * $f(\mathbf{x})$: **Objective function** (the loss we want to minimize)
 * $g_i(\mathbf{x}) \le 0$: **Inequality constraints** (restrictions on the parameters)
 * The set $C = \{\mathbf{x} : g_i(\mathbf{x}) \le 0\}$ is the **feasible region**
@@ -41,6 +48,12 @@ $$
 \min f(\mathbf{x}) \quad \text{subject to} \quad h_j(\mathbf{x}) = 0, \; j = 1, \dots, p
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $f(\mathbf{x})$ | Objective function | The function to minimize (e.g., loss, energy) |
+| $h_j(\mathbf{x}) = 0$ | Equality constraints | Hard constraints that must be exactly satisfied (e.g., $\sum w_i = 1$) |
+| $j = 1, \dots, p$ | Constraint index | $p$ equality constraints define the feasible manifold |
+
 ### The Method
 Define the **Lagrangian**:
 
@@ -48,11 +61,24 @@ $$
 \mathcal{L}(\mathbf{x}, \boldsymbol{\lambda}) = f(\mathbf{x}) + \sum_{j=1}^{p} \lambda_j h_j(\mathbf{x})
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\mathcal{L}(\mathbf{x}, \boldsymbol{\lambda})$ | Lagrangian function | Combines objective and constraints into a single unconstrained function |
+| $f(\mathbf{x})$ | Original objective | The function we want to minimize |
+| $\lambda_j$ | Lagrange multipliers | Sensitivity of optimal value to constraint $j$; "shadow prices" |
+| $h_j(\mathbf{x})$ | Equality constraint functions | Must equal zero at the solution |
+
 **Necessary condition:** At the optimal point $(\bar{\mathbf{x}}, \bar{\boldsymbol{\lambda}})$:
 
 $$
 \nabla_\mathbf{x} \mathcal{L} = \mathbf{0}, \quad \nabla_{\boldsymbol{\lambda}} \mathcal{L} = \mathbf{0}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\nabla_\mathbf{x} \mathcal{L} = \mathbf{0}$ | Stationarity w.r.t. $\mathbf{x}$ | Gradient of Lagrangian vanishes; optimal $\mathbf{x}$ balances objective and constraints |
+| $\nabla_{\boldsymbol{\lambda}} \mathcal{L} = \mathbf{0}$ | Constraint satisfaction | Recovers original constraints $h_j(\mathbf{x}) = 0$ |
+| $n + p$ equations | System size | $n$ stationarity + $p$ constraint equations for $n$ variables + $p$ multipliers |
 
 This gives $n + p$ equations in $n + p$ unknowns.
 
@@ -88,6 +114,14 @@ print(f"Optimal: x={sol[x]}, y={sol[y]}, lambda={sol[lambda]}")
 $$
 \min f(\mathbf{x}) \quad \text{s.t.} \quad g_i(\mathbf{x}) \le 0, \; i = 1, \dots, m
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\min f(\mathbf{x})$ | Minimize objective $f$ | Find the parameters $\mathbf{x}$ that make $f$ as small as possible |
+| $\mathbf{x}$ | Decision variables | The parameters we optimize (e.g., SVM weights) |
+| $g_i(\mathbf{x}) \le 0$ | $i$-th inequality constraint | Defines a restriction: feasible points must satisfy all $m$ inequalities |
+| $i = 1, \dots, m$ | Constraint index | There are $m$ inequality constraints defining the feasible region |
+| Feasible region $C$ | $\{\mathbf{x} : g_i(\mathbf{x}) \le 0, \forall i\}$ | The set of all points satisfying every constraint |
 
 ### The KKT Conditions
 At a local minimum $\bar{\mathbf{x}}$ (with constraint qualification), there exist **KKT multipliers** $\bar{\lambda}_i \ge 0$ such that:
@@ -157,6 +191,13 @@ print(f"Optimal: x={result.x}, f={result.fun}")
 $$
 \min \frac{1}{2}(x^2 + y^2) \quad \text{s.t.} \quad x + 2y \ge 3
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(x,y) = \frac{1}{2}(x^2 + y^2)$ | Objective function | Quadratic function to minimize — analogous to minimizing $\frac{1}{2}\|\mathbf{w}\|^2$ in SVM |
+| $\min$ | Minimization | We search for the smallest possible value of $f$ |
+| $x + 2y \ge 3$ | Inequality constraint | The solution must lie in the half-plane where $x + 2y \ge 3$ |
+| $\text{s.t.}$ | Subject to | Indicates the constraint that restricts the feasible region |
 
 Rewrite constraint: $g(x,y) = 3 - x - 2y \le 0$.
 

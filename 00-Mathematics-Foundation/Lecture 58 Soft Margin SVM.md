@@ -23,6 +23,13 @@ $$
 \end{aligned}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\xi_i$ | Slack variable for point $i$ | $\xi_i \ge 0$; measures how much point $i$ violates the margin constraint |
+| $C$ | Regularization parameter | Controls trade-off between margin width and violations; $C \to \infty$ recovers hard margin |
+| $C \sum_{i=1}^n \xi_i$ | Penalty for margin violations | Sum of slack variables weighted by $C$; linear penalty — encourages few/mild violations |
+| $1 - \xi_i$ | Relaxed margin target | Allows the functional margin to be less than 1 when $\xi_i > 0$ |
+
 **Parameter $C$ controls the trade-off:**
 
 | $C$ value | Behavior |
@@ -38,6 +45,13 @@ The soft margin objective is equivalent to minimizing **hinge loss** + regulariz
 $$
 \min_{\mathbf{w}, b} \quad \sum_{i=1}^n \max(0, 1 - y_i(\mathbf{w}^T\mathbf{x}_i + b)) + \frac{\lambda}{2}||\mathbf{w}||^2
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\max(0, 1 - y_i(\mathbf{w}^T\mathbf{x}_i + b))$ | Hinge loss for point $i$ | Zero if point is correctly classified with margin $\ge 1$; increases linearly with violation — creates a convex surrogate for 0-1 loss |
+| $\lambda$ | Regularization strength ($\lambda = 1/C$) | Controls the trade-off between margin width and training error; larger $\lambda$ = more regularization (smoother boundary) |
+| $\mathbf{w}, b$ | Weight vector and bias | Same as hard margin SVM; defining the decision hyperplane |
+| $y_i$ | True label of point $i$ | Determines sign of the argument to hinge loss |
 
 where $\lambda = \frac{1}{C}$.
 
@@ -62,6 +76,13 @@ $$
 \text{s.t.} \quad &0 \le \alpha_i \le C \quad \forall i, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $0 \le \alpha_i \le C$ | Box constraint on dual variables | The only difference from hard margin; $C$ upper-bounds $\alpha_i$ — limits influence of any single point |
+| $\alpha_i = C$ | Bounded support vector | Point is inside the margin or misclassified; hits the upper bound |
+| $0 < \alpha_i < C$ | Free support vector | Point lies exactly on the margin boundary |
+| $\alpha_i = 0$ | Non-support vector | Point is correctly classified and outside the margin |
 
 The only change from hard margin: $\alpha_i \le C$ (upper bound).
 

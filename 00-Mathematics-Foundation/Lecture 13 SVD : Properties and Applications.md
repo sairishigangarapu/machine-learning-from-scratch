@@ -40,6 +40,13 @@ $$
 A^+ = V \Sigma^+ U^T
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $A^+$ | The Moore-Penrose pseudo-inverse of $A$ | Generalizes matrix inversion to non-square and singular matrices |
+| $V$ | Right singular vectors from SVD of $A$ | Provides the orthogonal basis for the row space |
+| $\Sigma^+$ | Pseudo-inverse of the diagonal singular value matrix | Inverts non-zero singular values, zeros remain zero |
+| $U^T$ | Transpose of left singular vectors | Provides the orthogonal basis for the column space |
+
 To build $\Sigma^+$, we transpose $\Sigma$ and take the strict reciprocal of all non-zero singular values ($1/\sigma_i$). Critically, if $\sigma_i = 0$, it remains $0$ (preventing catastrophic division errors).
 
 ### Worked Example: Pseudo-Inverse
@@ -50,6 +57,11 @@ $$
 A = \begin{bmatrix} 4 & 11 & 14 \\ 8 & 7 & -2 \end{bmatrix} \text{ (Rank 2)}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Example matrix for pseudo-inverse computation | $2 \times 3$ rank-2 matrix used to demonstrate the Moore-Penrose pseudo-inverse |
+| $4, 11, 14, \dots$ | Entries of $A$ | Coefficients of the linear transformation |
+
 1. **Identify Components:** $U$ is $2 \times 2$, $\Sigma$ is $2 \times 3$, and $V$ is $3 \times 3$.
 2. **Form $\Sigma^+$:** If $\sigma_1, \sigma_2 > 0$, then:
 
@@ -57,11 +69,24 @@ $$
 \Sigma^+ = \begin{bmatrix} 1/\sigma_1 & 0 \\ 0 & 1/\sigma_2 \\ 0 & 0 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\Sigma^+$ | Pseudo-inverse of the singular value matrix ($3 \times 2$) | Reciprocals of non-zero singular values placed on the diagonal; transposed shape |
+| $1/\sigma_1$ | Reciprocal of the first singular value | Inverts the scaling of the dominant direction |
+| $1/\sigma_2$ | Reciprocal of the second singular value | Inverts the scaling of the second direction |
+
 3. **Result:** 
 
 $$
 A^+ = V \Sigma^+ U^T \approx \begin{bmatrix} -0.0056 & 0.0722 \\ 0.0222 & 0.0444 \\ 0.0556 & -0.0556 \end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A^+$ | Moore-Penrose pseudo-inverse of $A$ ($3 \times 2$) | Generalizes the matrix inverse to non-square matrices |
+| $V$ | Right singular vectors from SVD | Orthogonal basis for the row space of $A$ |
+| $\Sigma^+$ | Pseudo-inverse of $\Sigma$ | Contains reciprocals of non-zero singular values |
+| $U^T$ | Transpose of left singular vectors | Orthogonal basis for the column space of $A$ |
 
 ```python
 import numpy as np
@@ -90,6 +115,13 @@ $$
 \|A\|_F = \sqrt{\sum_{i,j} a_{ij}^2} = \sqrt{\text{Tr}(A^T A)} = \sqrt{\sum \sigma_i^2}
 $$
 
+| Term | Definition | Significance |
+|------|------------|--------------|
+| $\|A\|_F$ | The Frobenius norm of matrix $A$ | Measures the overall "size" of the matrix using Euclidean distance |
+| $a_{ij}$ | Individual matrix entries | Each element contributes quadratically to the total norm |
+| $\text{Tr}(A^T A)$ | Trace of $A^T A$ | Equals the sum of squared singular values via SVD |
+| $\sigma_i$ | Singular values of $A$ | Alternative computation: norm is the root sum of squared singular values |
+
 **Deep Learning Connection:** When you use "Weight Decay" in PyTorch (L2 Regularization on the model's weights), the optimizer is actively adding a massive penalty proportional to the **Frobenius Norm** of the weight matrices to force the network to remain simple.
 
 ---
@@ -101,6 +133,11 @@ $$
 $$
 A = \begin{bmatrix} 0 & 1 & 1 \\ \sqrt{2} & 2 & 0 \\ 0 & 1 & 1 \end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Comprehensive example matrix ($3 \times 3$) | Rank-2 matrix used to demonstrate SVD metrics and matrix norms |
+| $0, 1, 1, \sqrt{2}, 2, 0, \dots$ | Entries of $A$ | Contains repeated rows leading to rank deficiency |
 
 **1. SVD Metrics:**
 Running SVD yields $\sigma_1 = 2\sqrt{2}, \sigma_2 = \sqrt{2}, \sigma_3 = 0$.

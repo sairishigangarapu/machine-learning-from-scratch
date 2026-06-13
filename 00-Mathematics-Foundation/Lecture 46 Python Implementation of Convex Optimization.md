@@ -56,6 +56,16 @@ $$
 \min \mathbf{c}^T \mathbf{x} \quad \text{s.t.} \quad G\mathbf{x} \le \mathbf{h}, \quad A\mathbf{x} = \mathbf{b}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{c}$ | Cost coefficient vector | Coefficients of the linear objective function |
+| $\mathbf{x}$ | Decision variable vector | Variables to be optimized |
+| $G$ | Inequality constraint matrix | Encodes $G\mathbf{x} \le \mathbf{h}$ constraints |
+| $\mathbf{h}$ | Inequality constraint bound | Right-hand side of inequality constraints |
+| $A$ | Equality constraint matrix | Encodes $A\mathbf{x} = \mathbf{b}$ constraints |
+| $\mathbf{b}$ | Equality constraint bound | Right-hand side of equality constraints |
+| $\text{s.t.}$ | Subject to | Separates the objective from its constraints |
+
 ### Example: Portfolio Allocation
 
 ```python
@@ -89,11 +99,31 @@ $$
 \min \frac{1}{2}\mathbf{x}^T P \mathbf{x} + \mathbf{q}^T \mathbf{x} \quad \text{s.t.} \quad G\mathbf{x} \le \mathbf{h}, \quad A\mathbf{x} = \mathbf{b}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{x}$ | Decision variable vector | Variables to be optimized |
+| $P$ | Quadratic cost matrix | Encodes curvature and variable interactions in the objective |
+| $\mathbf{q}$ | Linear cost vector | Encodes the linear part of the objective |
+| $G$ | Inequality constraint matrix | Left-hand side of $G\mathbf{x} \le \mathbf{h}$ |
+| $\mathbf{h}$ | Inequality constraint bound | Right-hand side of inequality constraints |
+| $A$ | Equality constraint matrix | Left-hand side of $A\mathbf{x} = \mathbf{b}$ |
+| $\mathbf{b}$ | Equality constraint bound | Right-hand side of equality constraints |
+
+Unlike LP (which only has a linear term $\mathbf{c}^T \mathbf{x}$), QP adds a quadratic term $\frac{1}{2}\mathbf{x}^T P \mathbf{x}$, enabling curvature and interactions between variables.
+
 ### Example: Ridge Regression as QP
 
 $$
 \min_\mathbf{w} \frac{1}{2}\|X\mathbf{w} - \mathbf{y}\|^2 + \lambda\|\mathbf{w}\|^2
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{w}$ | Weight/parameter vector | Model coefficients being optimized |
+| $X$ | Feature matrix (design matrix) | Training examples as rows, features as columns |
+| $\mathbf{y}$ | Target vector | Observed outcomes to predict |
+| $\lambda$ | Regularization strength | Controls trade-off between data fit and coefficient penalty |
+| $\|\cdot\|^2$ | Squared Euclidean norm | $\|\mathbf{w}\|^2 = \mathbf{w}^T\mathbf{w} = \sum_i w_i^2$ |
 
 Expanding: $\frac{1}{2}\mathbf{w}^T(X^TX + 2\lambda I)\mathbf{w} - (X^T\mathbf{y})^T\mathbf{w} + \text{const}$
 
@@ -138,9 +168,22 @@ $$$
 \min_{\alpha} \frac{1}{2}\boldsymbol{\alpha}^T (y_i y_j \mathbf{x}_i^T \mathbf{x}_j) \boldsymbol{\alpha} - \mathbf{1}^T \boldsymbol{\alpha}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\boldsymbol{\alpha}$ | Dual variable vector | Lagrange multipliers; nonzero entries identify support vectors |
+| $y_i, y_j$ | Class labels for samples $i$ and $j$ | Encode class sign into the kernel matrix |
+| $\mathbf{x}_i, \mathbf{x}_j$ | Feature vectors for samples $i$ and $j$ | Input data points whose dot product forms the kernel |
+| $\mathbf{1}$ | Vector of all ones | Makes $\mathbf{1}^T\boldsymbol{\alpha} = \sum_i \alpha_i$ the linear term |
+
 $$
 \text{s.t.} \quad 0 \le \alpha_i \le C, \quad \sum \alpha_i y_i = 0
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\alpha_i$ | Dual variable for sample $i$ | Support vector weight for the $i$-th training point |
+| $C$ | Regularization parameter | Upper bound on $\alpha_i$; penalizes misclassifications |
+| $y_i$ | Class label for sample $i$ | Weighted sum $\sum \alpha_i y_i$ must equal zero |
 
 ```pythonpython
 import numpy as np

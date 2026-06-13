@@ -14,6 +14,11 @@ $$
 (A - \lambda I)^p x = 0 \quad \text{for some } p \ge 1
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x$ | Generalized eigenvector | Killed by $(A-\lambda I)^p$ but not by $(A-\lambda I)^{p-1}$ |
+| $p$ | Rank of generalized eigenvector | Number of $(A-\lambda I)$ applications needed |
 but $(A - \lambda I)^{p-1} x \neq 0$. An ordinary eigenvector is the special case where $p = 1$.
 
 *Think of it as*: An eigenvector is killed in one blow by $(A - \lambda I)$. A generalized eigenvector takes $p$ blows. You need them when you don't have enough ordinary eigenvectors to fill out the transformation matrix $S$.
@@ -45,6 +50,11 @@ $$
 f(A) = S f(J) S^{-1}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(A)$ | Matrix function of $A$ | Result of applying function $f$ to matrix $A$ |
+| $f(J)$ | Function applied to Jordan form | Computed block-by-block with closed forms |
 For Jordan blocks, $f(J_k(\lambda))$ has a closed form involving $f(\lambda)$, $f'(\lambda)$, $f''(\lambda)$, etc., on the super-diagonals.
 
 ---
@@ -57,6 +67,12 @@ $$
 A = S J S^{-1}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $S$ | Similarity transformation matrix | Columns: eigenvectors / generalized eigenvectors |
+| $J$ | Jordan canonical form | Block diagonal of Jordan blocks |
+| $S^{-1}$ | Inverse of $S$ | Converts from Jordan basis back to original |
 The columns of $S$ are the **eigenvectors** and **generalized eigenvectors** of $A$. This lecture shows you how to find them.
 
 We'll also connect the dots between the **minimal polynomial** and the **Jordan structure**, and show you why this matters for real computations — like raising matrices to high powers or computing matrix exponentials.
@@ -79,12 +95,20 @@ $$
 (A - \lambda I)^p x = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| Expression | Algebraic relation | Part of the current solution step |
 but
 
 $$
 (A - \lambda I)^{p-1} x \neq 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $(A-\lambda I)^{p-1}x$ | Previous power applied | Non-zero; confirms rank exactly $p$ |
 An ordinary eigenvector is a generalized eigenvector of rank $1$.
 
 ### The Jordan Chain
@@ -101,6 +125,11 @@ $$
 \end{aligned}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $(A - \lambda I) x_1 = 0$ | Ordinary eigenvector | Starts the Jordan chain |
+| $(A - \lambda I) x_j = x_{j-1}$ | Generalized eigenvector | Extends chain; solved as non-homogeneous system |
 Each equation $(A - \lambda I) x_{j} = x_{j-1}$ is a **non-homogeneous system**. You solve it to get each generalized eigenvector.
 
 ---
@@ -131,6 +160,11 @@ A = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Matrix result | Numerical value of the computation |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
 Find $S$ and $J$ such that $A = S J S^{-1}$.
 
 ### Solution
@@ -152,12 +186,26 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix}
+-2 & 1 & 1 \\
+0 & -1 & 1 \\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 $x_2 = x_3$, $-2x_1 + x_2 + x_3 = -2x_1 + 2x_3 = 0 \implies x_1 = x_3$. So:
 
 $$
 x_3 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x_3$ | Eigenvector for $\lambda=3$ | $[1,1,1]^T$ |
 For $\lambda = 1$: solve $(A - I)x = 0$.
 
 $$
@@ -169,12 +217,26 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix}
+0 & 1 & 1 \\
+0 & 1 & 1 \\
+0 & 0 & 2
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 $x_3 = 0$, $x_2 = 0$, $x_1$ free. So:
 
 $$
 x_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x_1$ | Eigenvector for $\lambda=1$ | $[1,0,0]^T$ |
 For $\lambda = 2$: solve $(A - 2I)x = 0$.
 
 $$
@@ -186,12 +248,26 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix}
+-1 & 1 & 1 \\
+0 & 0 & 1 \\
+0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 $x_3 = 0$, $-x_1 + x_2 = 0 \implies x_1 = x_2$. So:
 
 $$
 x_2 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x_2$ | Eigenvector for $\lambda=2$ | $[1,1,0]^T$ |
 **Step 4:** Assemble $S$ and $J$.
 
 $$
@@ -207,6 +283,11 @@ J = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $S$ | Transformation matrix | Columns: eigenvectors for $\lambda=1,2,3$ |
+| $J$ | Jordan form (diagonal) | Eigenvalues on diagonal since all distinct |
 Since all eigenvalues are distinct, $J$ is diagonal. Check $A = S J S^{-1}$.
 
 ---
@@ -223,6 +304,11 @@ B = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $B$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 Find $S$ and $J$.
 
 ### Solution
@@ -240,6 +326,16 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 $x_2 = 0$, $x_1$ and $x_3$ free. So geometric multiplicity = 2 (two ordinary eigenvectors).
 
 $$
@@ -247,6 +343,10 @@ v_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \quad
 v_2 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $v_1, v_2$ | Ordinary eigenvectors | Start two Jordan chains |
 **Step 3:** Determine Jordan block structure.
 - Algebraic mult = 3, geometric mult = 2 $\implies$ two Jordan blocks, total size 3.
 - Possibilities: size 2 + size 1 (or size 1 + size 2).
@@ -264,12 +364,26 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 This gives $x_2 = 1$, $x_1$ and $x_3$ free. Pick $x_1 = 0$, $x_3 = 0$:
 
 $$
 x_3 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x_3$ | Generalized eigenvector | Completes size-2 Jordan block |
 **Step 5:** Assemble $S$ and $J$.
 
 The first chain (size 2) gives columns $v_1$ and $x_3$. The second chain (size 1) gives $v_2$.
@@ -287,6 +401,11 @@ J = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $S = I$ | Identity transformation | Chains align with standard basis |
+| $J$ | Jordan form | Block diag$(J_2(1), J_1(1))$ |
 Notice that $S = I$ in this case because the Jordan chains already align with the standard basis.
 
 ---
@@ -303,6 +422,11 @@ A = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Matrix result | Numerical value of the computation |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
 Find $S$ and $J$.
 
 ### Solution
@@ -317,6 +441,11 @@ $$
 (A - 3I) x = 0 \implies x_1 = \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x_1$ | Eigenvector for $\lambda=3$ | $[1,2,2]^T$ |
+| $(A - 3I)x = 0$ | Eigenvector system for $\lambda=3$ | Solving yields eigenvector |
 For $\lambda = 1$: solve $(A - I) x = 0$.
 
 $$
@@ -328,12 +457,26 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix}
+0 & 1 & 1 \\
+0 & 0 & 1 \\
+0 & 0 & 2
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 $x_3 = 0$, $x_2 = 0$, $x_1$ free. So **one** eigenvector:
 
 $$
 x_2 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x_2$ | Eigenvector for $\lambda=1$ | Only one; need generalized vector for size-2 block |
 Geometric multiplicity of $\lambda = 1$ is 1, algebraic is 2 $\implies$ one Jordan block of size 2.
 
 **Step 3:** Find generalized eigenvector for $\lambda = 1$.
@@ -349,6 +492,16 @@ $$
 \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix}
+0 & 1 & 1 \\
+0 & 0 & 1 \\
+0 & 0 & 2
+\end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 From row 2: $x_3 = 0$. From row 3: $2x_3 = 0$ (consistent). From row 1: $x_2 + x_3 = 1 \implies x_2 = 1$.
 
 So $x_1$ is free. Pick $x_1 = 0$:
@@ -357,6 +510,10 @@ $$
 x_3 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x_3$ | Generalized eigenvector | Completes size-2 Jordan block |
 **Step 4:** Assemble $S$ and $J$.
 
 Order: $\lambda = 3$ block first, then $\lambda = 1$ block.
@@ -374,6 +531,11 @@ J = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $S$ | Transformation matrix | Columns: eigenvector for $\lambda=3$, eigen + generalized for $\lambda=1$ |
+| $J$ | Jordan form | Block diag$(J_1(3), J_2(1))$ |
 You can verify $A = S J S^{-1}$.
 
 ---
@@ -388,12 +550,22 @@ $$
 m_A(\lambda) = (\lambda - \lambda_1)^{s_1} (\lambda - \lambda_2)^{s_2} \dots (\lambda - \lambda_k)^{s_k}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $m_A(\lambda)$ | Minimal polynomial | Smallest degree monic polynomial annihilating $A$ |
+| $s_i$ | Exponent for $\lambda_i$ | Size of largest Jordan block for $\lambda_i$ |
 where $s_i$ is the size of the **largest Jordan block** for eigenvalue $\lambda_i$.
 
 $$
 c_A(\lambda) = (\lambda - \lambda_1)^{r_1} (\lambda - \lambda_2)^{r_2} \dots (\lambda - \lambda_k)^{r_k}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $c_A(\lambda)$ | Characteristic polynomial | Degree $n$; roots are eigenvalues |
+| $r_i$ | Algebraic multiplicity of $\lambda_i$ | Total size of all Jordan blocks for $\lambda_i$ |
 where $r_i$ is the **algebraic multiplicity** of $\lambda_i$ (total size of all Jordan blocks for $\lambda_i$).
 
 And the **geometric multiplicity** $g_i$ of $\lambda_i$ is the **number of Jordan blocks** for $\lambda_i$.
@@ -410,10 +582,18 @@ $$
 c_A(\lambda) = (\lambda - 3)^4 (\lambda - 4)^2
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $c_A(\lambda)$ | Characteristic polynomial example | Degree 6; eigenvalues 3 (mult 4) and 4 (mult 2) |
 $$
 m_A(\lambda) = (\lambda - 3)^3 (\lambda - 4)^2
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $m_A(\lambda)$ | Minimal polynomial example | Largest blocks: size 3 for $\lambda=3$, size 2 for $\lambda=4$ |
 What is $J$?
 
 **For $\lambda = 3$:**
@@ -441,6 +621,11 @@ J = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $J$ | Matrix expression | Result of the matrix computation |
+| Result | Computed matrix | Matrix with specific numerical entries |
 ### When There Are Multiple Possibilities
 
 If the minimal polynomial is $m_A(\lambda) = (\lambda - 3)^2 (\lambda - 4)^2$ instead, then for $\lambda = 3$:
@@ -462,6 +647,11 @@ $$
 A^{100} = S J^{100} S^{-1}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A^{100}$ | Matrix power via Jordan | Efficient: apply power block-by-block on $J$ |
+| $J^{100}$ | Jordan form raised to power | Closed-form using binomial coefficients |
 Raising a Jordan block to a power has a closed form:
 
 $$
@@ -473,6 +663,11 @@ J_k(\lambda)^n = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $J_k(\lambda)^n$ | Jordan block power | Closed-form with binomial coefficients on super-diagonals |
+| $\binom{n}{m}\lambda^{n-m}$ | Binomial term | Appears on $m$-th super-diagonal |
 This is vastly cheaper than dense exponentiation.
 
 ### Computing Matrix Exponentials
@@ -483,6 +678,11 @@ $$
 e^{A} = S e^{J} S^{-1}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $e^A$ | Matrix exponential | Used in ODEs and neural ODEs |
+| $e^J$ | Exponential of Jordan form | Block-by-block using Taylor series |
 For a Jordan block, the exponential has a beautiful closed form:
 
 $$
@@ -494,6 +694,10 @@ e^{J_k(\lambda)} = e^{\lambda} \begin{bmatrix}
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $e^{J_k(\lambda)}$ | Jordan block exponential | Closed form: $e^\lambda$ times Taylor coefficients on super-diagonals |
 The super-diagonals fill with $e^{\lambda}$ times the Taylor series coefficients.
 
 ### Sparsity and Compression
@@ -514,6 +718,10 @@ $$
 \sin(A) = S \sin(J) S^{-1}, \quad \cos(A) = S \cos(J) S^{-1}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\sin(A), \cos(A)$ | Matrix trigonometric functions | Defined via Taylor series; computed via Jordan form |
 ---
 
 ## 9. Python Implementation

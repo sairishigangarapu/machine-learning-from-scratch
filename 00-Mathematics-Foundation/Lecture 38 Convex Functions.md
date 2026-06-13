@@ -16,6 +16,16 @@ $$
 f(\lambda \mathbf{x}_1 + (1 - \lambda)\mathbf{x}_2) \le \lambda f(\mathbf{x}_1) + (1 - \lambda) f(\mathbf{x}_2)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f$ | Convex function | A function where the line segment between any two points on the graph lies above the graph |
+| $\mathbf{x}_1, \mathbf{x}_2 \in S$ | Two points in the domain | The inequality must hold for ALL pairs in the convex set $S$ |
+| $\lambda \in [0, 1]$ | Convex combination weight | Interpolates between the two points — $\lambda=0$ gives $\mathbf{x}_2$, $\lambda=1$ gives $\mathbf{x}_1$ |
+| $\lambda \mathbf{x}_1 + (1 - \lambda)\mathbf{x}_2$ | Point on line segment | A point between $\mathbf{x}_1$ and $\mathbf{x}_2$ |
+| $f(\lambda \mathbf{x}_1 + (1 - \lambda)\mathbf{x}_2)$ | Function value at interpolated point | The actual function value at the interpolated point |
+| $\lambda f(\mathbf{x}_1) + (1 - \lambda) f(\mathbf{x}_2)$ | Interpolated function values | The weighted average of the function values at the endpoints |
+| $\le$ | Inequality direction | The function value at the interpolated point is ≤ the interpolated function values — "curves upward" |
+
 **Geometric meaning:** The line segment connecting any two points on the graph of $f$ lies **above** or on the graph. The function "curves upward" everywhere.
 
 ### Strict Convexity
@@ -23,6 +33,12 @@ $$
 $$
 f(\lambda \mathbf{x}_1 + (1 - \lambda)\mathbf{x}_2) < \lambda f(\mathbf{x}_1) + (1 - \lambda) f(\mathbf{x}_2) \quad \text{for } \lambda \in (0,1), \; \mathbf{x}_1 \neq \mathbf{x}_2
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $<$ | Strict inequality | The function value is strictly less than the chord — no flat linear segments |
+| $\lambda \in (0,1)$ | Open interval | Excludes endpoints — strict convexity only required for interior points |
+| $\mathbf{x}_1 \neq \mathbf{x}_2$ | Distinct points | Only applies when the two points are different |
 
 Strict convexity guarantees a **unique** global minimum.
 
@@ -35,6 +51,14 @@ If $f$ is differentiable, $f$ is convex if and only if for all $\mathbf{x}, \mat
 $$
 f(\mathbf{y}) \ge f(\mathbf{x}) + \nabla f(\mathbf{x})^T (\mathbf{y} - \mathbf{x})
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(\mathbf{y})$ | Function value at $\mathbf{y}$ | The value we're lower-bounding |
+| $f(\mathbf{x})$ | Function value at $\mathbf{x}$ | The point where we construct the tangent |
+| $\nabla f(\mathbf{x})$ | Gradient at $\mathbf{x}$ | The vector of partial derivatives — the slope of the tangent hyperplane |
+| $\nabla f(\mathbf{x})^T (\mathbf{y} - \mathbf{x})$ | Linear approximation | The directional derivative — how much the tangent predicts the function will increase |
+| $f(\mathbf{x}) + \nabla f(\mathbf{x})^T (\mathbf{y} - \mathbf{x})$ | Tangent hyperplane | The first-order Taylor approximation at $\mathbf{x}$ |
 
 **Geometric meaning:** The tangent hyperplane at any point lies **below** the function everywhere. The function never dips below its own linear approximation.
 
@@ -49,6 +73,13 @@ If $f$ is twice differentiable, $f$ is convex if and only if the **Hessian** is 
 $$
 \nabla^2 f(\mathbf{x}) \succeq 0 \quad \forall \mathbf{x}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\nabla^2 f(\mathbf{x})$ | Hessian matrix of $f$ at $\mathbf{x}$ | Matrix of second partial derivatives — measures curvature of $f$ at $\mathbf{x}$ |
+| $\succeq 0$ | Positive semi-definite | All eigenvalues are $\ge 0$; the function curves upward or is flat in every direction |
+| $\forall \mathbf{x}$ | For all points in the domain | The condition must hold at EVERY point for $f$ to be convex |
+| $\succ 0$ (strict) | Positive definite | All eigenvalues $> 0$; the function curves strictly upward everywhere |
 
 For **strict** convexity: $\nabla^2 f(\mathbf{x}) \succ 0$ (positive definite).
 
@@ -92,6 +123,14 @@ $$
 f(\lambda \mathbf{x}^* + (1-\lambda)\bar{x}) \le \lambda f(\mathbf{x}^*) + (1-\lambda) f(\bar{x}) < \lambda f(\bar{x}) + (1-\lambda) f(\bar{x}) = f(\bar{x})
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\lambda \mathbf{x}^* + (1-\lambda)\bar{x}$ | Convex combination of $\mathbf{x}^*$ and $\bar{x}$ | A point on the line segment connecting the two points |
+| $f(\lambda \mathbf{x}^* + (1-\lambda)\bar{x})$ | Function at interpolated point | Convexity says this is $\le$ the interpolated function values |
+| $\lambda f(\mathbf{x}^*) + (1-\lambda) f(\bar{x})$ | Interpolated function values | The convex combination of the two function values |
+| $< f(\bar{x})$ | Strict inequality | Since $f(\mathbf{x}^*) < f(\bar{x})$, interpolated value is below $f(\bar{x})$ |
+| Local = Global | Contradiction proof | Points arbitrarily close to $\bar{x}$ have lower $f$, contradicting local minimality |
+
 This means points arbitrarily close to $\bar{x}$ (for small $\lambda$) have **lower** function values, contradicting that $\bar{x}$ is a local minimum. $\blacksquare$
 
 **Deep Learning Connection:** This is why convex optimization problems (linear regression, logistic regression, SVM) are "easy" — you can start gradient descent anywhere and are guaranteed to find the global optimum. Neural network loss functions are **non-convex**, so this guarantee vanishes. Different random initializations can lead to wildly different solutions.
@@ -125,6 +164,15 @@ $$
 \mathcal{L}(\mathbf{w}) = \frac{1}{n}\|X\mathbf{w} - \mathbf{y}\|^2
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathcal{L}(\mathbf{w})$ | Mean Squared Error loss | Average squared residual between predictions and targets |
+| $\mathbf{w}$ | Weight vector | Model parameters to be learned |
+| $X$ | Design matrix ($n$ samples $\times$ $d$ features) | Each row is a training example |
+| $\mathbf{y}$ | Target vector | Ground-truth values for all $n$ samples |
+| $\|X\mathbf{w} - \mathbf{y}\|^2$ | Squared residual norm | Sum of squared differences: $\sum_{i=1}^n (\mathbf{w}^T\mathbf{x}_i - y_i)^2$ |
+| $\frac{1}{n}$ | Normalization by sample count | Gives average (mean) squared error |
+
 * **Hessian:** $H = \frac{2}{n}X^TX$ — always positive semi-definite.
 * **Convex?** Yes. Strictly convex if $X$ has full column rank.
 * **Implication:** Linear regression always has a unique global minimum (the Normal Equation).
@@ -133,6 +181,15 @@ $$
 $$
 \mathcal{L}(\mathbf{w}) = -\frac{1}{n}\sum_{i=1}^n [y_i \log \hat{y}_i + (1-y_i)\log(1-\hat{y}_i)]
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathcal{L}(\mathbf{w})$ | Cross-entropy loss | Standard loss for binary classification tasks |
+| $n$ | Number of training samples | Loss is averaged over all samples |
+| $y_i \in \{0, 1\}$ | True binary label | Ground-truth class for sample $i$ |
+| $\hat{y}_i = \sigma(\mathbf{w}^T\mathbf{x}_i)$ | Predicted probability | Model's output after sigmoid — $\hat{y}_i \in (0, 1)$ |
+| $y_i \log \hat{y}_i$ | Positive class contribution | Only active when $y_i = 1$ (since $y_i = 0$ zeroes this term) |
+| $(1-y_i)\log(1-\hat{y}_i)$ | Negative class contribution | Only active when $y_i = 0$ |
 
 * **Convex?** Yes in the logits (before sigmoid). After sigmoid, the composition can be non-convex in the parameters.
 * **Implication:** Logistic regression training converges to the global optimum.

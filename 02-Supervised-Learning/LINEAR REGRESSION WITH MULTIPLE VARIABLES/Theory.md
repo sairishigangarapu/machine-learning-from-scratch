@@ -16,11 +16,26 @@ $$
 y = m_1x_1 + m_2x_2 + m_3x_3 + \dots + m_nx_n + b
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $y$ | **Predicted target** value | The output of the multivariate regression model; a linear combination of all weighted features plus bias |
+| $m_i$ | **Coefficient** (weight) for the $i$-th feature | Captures the marginal effect of feature $x_i$ on $y$, holding all other features constant |
+| $x_i$ | The $i$-th input feature | One of $n$ independent variables used to predict $y$ |
+| $n$ | Total number of features | The dimensionality of the input space |
+| $b$ | **Bias** (intercept) term | The predicted $y$ when all features are zero; the baseline prediction |
+
 Or in vector notation:
 
 $$
 h_\theta(x) = \theta^T x
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $h_\theta(x)$ | **Hypothesis function** — predicted output in vector form | The linear model's prediction expressed as a compact dot product; the standard notation for multivariate regression |
+| $\theta$ | Parameter vector $[\theta_0, \theta_1, \dots, \theta_n]^T$ | Contains all model parameters including bias $\theta_0$ and feature weights $\theta_1, \dots, \theta_n$ |
+| $x$ | Feature vector augmented with 1 for bias | Typically $[1, x_1, x_2, \dots, x_n]^T$ so that $\theta^T x = \theta_0 + \theta_1 x_1 + \dots + \theta_n x_n$ |
+| $\theta^T x$ | **Dot product** of parameter and feature vectors | Computes the weighted sum efficiently using linear algebra |
 
 ### Variable Definitions
 

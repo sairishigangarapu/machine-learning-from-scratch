@@ -29,6 +29,11 @@ $$
 \nabla f(\mathbf{x}^*) = \mathbf{0}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\nabla f(\mathbf{x}^*)$ | Gradient of $f$ evaluated at candidate point $\mathbf{x}^*$ | The gradient vector contains all first-order partial derivatives; at an extremum, it must be zero in every direction |
+| $\mathbf{x}^*$ | Candidate optimal point | A point satisfying $\nabla f(\mathbf{0})$ is a **critical point** — it could be a minimum, maximum, or saddle point |
+
 Points satisfying this are called **critical points** (or stationary points).
 
 **Intuition:** At a minimum, the gradient must be zero — the function is "flat" in every direction. No direction of steepest descent exists.
@@ -60,6 +65,15 @@ At a critical point ($\nabla f = \mathbf{0}$), the **Hessian matrix** determines
 $$
 H = \begin{bmatrix} \frac{\partial^2 f}{\partial x_1^2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\ \vdots & \ddots & \vdots \\ \frac{\partial^2 f}{\partial x_n \partial x_1} & \cdots & \frac{\partial^2 f}{\partial x_n^2} \end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H$ | Hessian matrix | Square symmetric matrix of all second-order partial derivatives |
+| $\frac{\partial^2 f}{\partial x_i^2}$ | Pure second derivative along $x_i$ | Diagonal entries — curvature in each coordinate direction |
+| $\frac{\partial^2 f}{\partial x_i \partial x_j}$ | Mixed partial derivative | Off-diagonal entries — how $x_i$ and $x_j$ interact in curvature |
+| $H \succ 0$ | Positive definite Hessian | All eigenvalues $> 0$ — strict local minimum |
+| $H \prec 0$ | Negative definite Hessian | All eigenvalues $< 0$ — strict local maximum |
+| $H$ indefinite | Mixed eigenvalues | Some positive, some negative — saddle point |
 
 | Hessian at Critical Point | Type |
 |:---|:---|
@@ -94,6 +108,13 @@ The gradient $\nabla f(\mathbf{x})$ points in the direction of **maximum increas
 $$
 \mathbf{x}_{k+1} = \mathbf{x}_k - \alpha \nabla f(\mathbf{x}_k)
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $\mathbf{x}_k$ | Current point at iteration $k$ | The parameter vector at step $k$ of the descent process |
+| $\mathbf{x}_{k+1}$ | Updated point at iteration $k+1$ | The next parameter vector after moving in the descent direction |
+| $\alpha$ | Step size / learning rate | Controls how far to move along the negative gradient; too large causes divergence, too small causes slow convergence |
+| $\nabla f(\mathbf{x}_k)$ | Gradient of $f$ at $\mathbf{x}_k$ | Points in the direction of steepest ascent; the negative gradient gives the direction of steepest descent |
 
 This is the foundation of gradient descent (Lecture 44).
 

@@ -16,6 +16,12 @@ $$
 A = \{1, 2, 3, 4, 5\}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | A set containing elements 1, 2, 3, 4, 5 | Represents a well-defined collection of distinct objects; foundational concept in ML for defining datasets, feature spaces, and hypothesis spaces |
+| $\{1, 2, 3, 4, 5\}$ | Explicit enumeration of the set elements | Each element is listed individually within curly braces — the simplest way to define a finite set |
+| $\{\}$ | Curly braces denote set notation | Standard mathematical notation for defining sets; universally used in probability and ML |
+
 We write $x \in A$ to say "$x$ is an element of $A$."
 
 ### Notation
@@ -39,12 +45,25 @@ $$
 A \cup B = \{x : x \in A \text{ or } x \in B\}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $A \cup B$ | **Union** — set of elements in $A$ or $B$ | Combines two sets into one; used to define the event that **any** of several outcomes occurs in probability |
+| $A$ | First set, typically a subset of the sample space | Represents a collection of elements under consideration |
+| $B$ | Second set, typically another subset | Compared or combined with $A$ to analyze relationships between collections |
+| $\{x : \text{condition}\}$ | **Set-builder notation** — all $x$ satisfying the condition | Compact way to define a set by a property rather than by listing elements |
+
 ### Intersection ($A \cap B$)
 Elements in both $A$ **and** $B$:
 
 $$
 A \cap B = \{x : x \in A \text{ and } x \in B\}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $A \cap B$ | **Intersection** — elements common to both $A$ and $B$ | Defines the overlap between sets; corresponds to the probability that **both** events occur simultaneously |
+| $A$ | First event or set | Reference set for identifying common elements |
+| $B$ | Second event or set | Compared with $A$ to find shared elements |
 
 ### Difference ($A \setminus B$)
 Elements in $A$ but **not** in $B$:
@@ -53,12 +72,25 @@ $$
 A \setminus B = \{x : x \in A \text{ and } x \notin B\}
 $$
 
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $A \setminus B$ | **Set difference** — elements in $A$ but not in $B$ | Captures what is unique to $A$ relative to $B$; essential for defining false positives and exclusive events |
+| $A$ | Original set | The set from which elements are taken |
+| $B$ | Set to subtract | Elements in $B$ are excluded from the result |
+| $x \notin B$ | **Not an element** of $B$ | Negation of set membership; fundamental for defining complements and differences |
+
 ### Complement ($A^c$)
 Elements not in $A$:
 
 $$
 A^c = \{x : x \notin A\}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $A^c$ | **Complement** of $A$ — all elements **not** in $A$ | Defines the negation of an event; $P(A^c) = 1 - P(A)$ is a core probability identity used to simplify calculations |
+| $A$ | The set whose complement is taken | Reference set within the universal set |
+| $x \notin A$ | Element not belonging to $A$ | Captures everything outside $A$; fundamental for defining "not" in logical and probabilistic reasoning |
 
 ```python
 A = {1, 2, 3, 4, 5}
@@ -116,6 +148,13 @@ print(f"|P(A)| = {len(power_set(A))}")  # 8 = 2^3
 $$
 A \times B = \{(a, b) : a \in A, \; b \in B\}
 $$
+
+| Term | Definition | Significance |
+|:---|:---|:---|
+| $A \times B$ | **Cartesian product** — set of all ordered pairs $(a, b)$ | Defines the **feature space** in ML; a dataset with $n$ features is a subset of the Cartesian product of each feature's domain |
+| $(a, b)$ | Ordered pair — first element from $A$, second from $B$ | Order matters; distinguishes $(a, b)$ from $(b, a)$ unless $a = b$ |
+| $a \in A$ | $a$ is an element of $A$ | First coordinate ranges over all elements of $A$ |
+| $b \in B$ | $b$ is an element of $B$ | Second coordinate ranges over all elements of $B$ |
 
 If $|A| = m$ and $|B| = n$, then $|A \times B| = mn$.
 

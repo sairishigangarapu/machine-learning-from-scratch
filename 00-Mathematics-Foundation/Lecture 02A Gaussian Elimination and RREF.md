@@ -24,15 +24,28 @@ $$
 A = \begin{bmatrix} 2 & 4 & -2 \\ 4 & 9 & -3 \\ -2 & -3 & 7 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Coefficient matrix | Represents the linear system to be solved via elimination |
+| $2, 4, -2, \dots$ | Matrix entries | Coefficients of the variables in each equation |
+
 **Step 1:** Use Row 1 as the pivot row. Multiply R1 by 2 and subtract from R2.
 $$
 \begin{bmatrix} 2 & 4 & -2 \\ 0 & 1 & 1 \\ -2 & -3 & 7 \end{bmatrix}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix} 2 & 4 & -2 \\ 0 & 1 & 1 \\ -2 & -3 & 7 \end{bmatrix}$ | Matrix after Step 1 elimination | The $(2,1)$ entry is zeroed by subtracting $2 \times R1$ from R2 |
+
 **Step 2:** Add R1 to R3.
 $$
 \begin{bmatrix} 2 & 4 & -2 \\ 0 & 1 & 1 \\ 0 & 1 & 5 \end{bmatrix}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\begin{bmatrix} 2 & 4 & -2 \\ 0 & 1 & 1 \\ 0 & 1 & 5 \end{bmatrix}$ | Matrix after Step 2 elimination | The $(3,1)$ entry is zeroed by adding R1 to R3; upper triangular form emerging |
 
 ---
 

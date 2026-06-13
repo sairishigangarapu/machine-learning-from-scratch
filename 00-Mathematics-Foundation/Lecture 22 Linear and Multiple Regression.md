@@ -16,6 +16,13 @@ $$
 Y = f(X_1, X_2, \ldots, X_n) + \varepsilon
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $Y$ | Dependent variable | Quantity being predicted |
+| $X_j$ | $j$-th predictor | Independent variable used to explain $Y$ |
+| $\varepsilon$ | Error term | Irreducible random noise |
+| $f$ | Regression function | Maps inputs to expected output |
 where $\varepsilon$ represents noise or model error.
 
 | Relationship | Model Type |
@@ -33,6 +40,13 @@ $$
 Y = \beta_0 + \beta_1 X + \varepsilon
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $Y$ | Dependent variable | Quantity being predicted |
+| $\beta_0$ | Intercept (bias) | Expected $Y$ when all predictors are zero |
+| $\beta_1$ | Slope coefficient | Change in $Y$ per unit change in $X$ |
+| $\varepsilon$ | Error term | Irreducible random noise |
 where $\beta_1$ is the **slope** (the "weight" or "annual raise") and $\beta_0$ is the **$Y$-intercept** (the "starting point").
 
 ### Intuition
@@ -50,6 +64,13 @@ $$
 Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $Y$ | Dependent variable | Quantity being predicted |
+| $\beta_0$ | Intercept (bias) | Expected $Y$ when all predictors are zero |
+| $\beta_j$ | Coefficient for $X_j$ | Marginal effect of $j$-th predictor on $Y$ |
+| $X_j$ | $j$-th predictor | Independent variable used to explain $Y$ |
 ### Matrix Formulation
 
 For $n$ data points, each equation becomes one row:
@@ -58,12 +79,25 @@ $$
 y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}, \quad i = 1, 2, \ldots, n
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $y_i$ | Output for $i$-th observation | Dependent variable value |
+| $\beta_0$ | Intercept | Expected $y$ when all $x$ are zero |
+| $\beta_j$ | Coefficient for $j$-th predictor | Marginal effect on $y$ |
+| $x_{ji}$ | $j$-th predictor for $i$-th observation | Input feature value |
 Stacking all $n$ equations:
 
 $$
 A\boldsymbol{\beta} = \mathbf{y}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Design matrix | Contains all input data; each row one observation |
+| $\boldsymbol{\beta}$ | Coefficient vector | Parameters to be estimated |
+| $\mathbf{y}$ | Response vector | All observed outputs stacked |
 where:
 
 $$
@@ -90,12 +124,27 @@ y_n
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Design matrix | Columns correspond to predictors; rows to observations |
+| $\boldsymbol{\beta}$ | Coefficient vector | Parameters to be estimated |
+| $\mathbf{y}$ | Response vector | All observed outputs stacked |
 Since $n \gg k+1$ in practice (many observations, few parameters), this is an **over-determined system**. The least square solution from Lecture 21 applies directly:
 
 $$
 \boxed{\boldsymbol{\beta} = (A^T A)^{-1} A^T \mathbf{y} = A^{+} \mathbf{y}}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A^T A$ | Gram matrix | Product encoding pairwise column dot products; key in normal equations |
+| $(A^T A)^{-1}$ | Inverse Gram matrix | Invertible when $A$ has full column rank |
+| $A^{+}$ | Moore-Penrose pseudoinverse | Generalizes matrix inverse to non-square systems |
+| $A^T \mathbf{b}$ | Cross-product vector | Projects observations into column space of $A$ |
+| $\boldsymbol{\beta}$ | Optimal coefficient vector | Least squares solution for regression |
+| $A^+$ | Pseudoinverse | General solution $\boldsymbol{\beta} = A^+ \mathbf{y}$ |
 ---
 
 ## 4. Calculus Approach
@@ -106,12 +155,23 @@ $$
 E = \sum_{i=1}^{n} \left(y_i - \beta_0 - \beta_1 x_{1i} - \cdots - \beta_k x_{ki}\right)^2
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $y_i$ | Output for $i$-th observation | Dependent variable value |
+| $\beta_0$ | Intercept | Expected $y$ when all $x$ are zero |
+| $\beta_j$ | Coefficient for $j$-th predictor | Marginal effect on $y$ |
+| $x_{ji}$ | $j$-th predictor for $i$-th observation | Input feature value |
 Apply the first-order conditions:
 
 $$
 \frac{\partial E}{\partial \beta_0} = 0, \quad \frac{\partial E}{\partial \beta_1} = 0, \quad \ldots, \quad \frac{\partial E}{\partial \beta_k} = 0
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\frac{\partial E}{\partial \beta_j}$ | Partial derivatives of error | Set to zero for each $j$ to get normal equations |
 This yields $k+1$ linear equations in $k+1$ unknowns — exactly the **Normal Equations** $A^T A \boldsymbol{\beta} = A^T \mathbf{y}$.
 
 ---
@@ -126,18 +186,34 @@ $$
 \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{MSE}$ | Mean Squared Error | Average of squared prediction errors |
+| $\hat{y}_i$ | Predicted value | Model output for $i$-th data point |
 ### Root Mean Squared Error (RMSE)
 
 $$
 \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\text{RMSE}$ | Root Mean Squared Error | Square root of MSE; same units as $Y$ |
+| $\hat{y}_i$ | Predicted value | Model output for $i$-th data point |
 ### $R^2$ Score (Coefficient of Determination)
 
 $$
 R^2 = 1 - \frac{\displaystyle\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\displaystyle\sum_{i=1}^{n}(y_i - \bar{y})^2} = 1 - \frac{SS_{\text{res}}}{SS_{\text{tot}}}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $R^2$ | Coefficient of determination | Proportion of variance explained by model |
+| $SS_{\text{res}}$ | Residual sum of squares | Unexplained variation |
+| $SS_{\text{tot}}$ | Total sum of squares | Total variation in $Y$ |
 where $\bar{y} = \frac{1}{n}\sum y_i$ is the mean of the observed values.
 
 | $R^2$ value | Interpretation |
@@ -158,6 +234,12 @@ $$
 Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \cdots + \beta_d X^d
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $Y$ | Dependent variable | Quantity being predicted |
+| $\beta_0$ | Intercept (bias) | Expected $Y$ when all predictors are zero |
+| $d$ | Polynomial degree | Controls model complexity; higher $d$ fits more curvature |
 The mathematical process is identical to multiple regression — replace the feature columns $X_j$ with powers $X^j$. The design matrix becomes:
 
 $$
@@ -170,6 +252,11 @@ A =
 \end{bmatrix}
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $A$ | Matrix result | Numerical value of the computation |
+| RHS | Computed result | Result of matrix multiplication / arithmetic |
 ### Effect of Degree $d$
 
 | Degree | Behaviour |
@@ -208,6 +295,10 @@ $$
 \min_{\boldsymbol{\beta}} \left[ \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{p} \beta_j^2 \right]
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| Expression | Numerical computation step | Result of arithmetic operation |
 The extra term $\lambda \|\boldsymbol{\beta}\|_2^2$ **shrinks** all $\beta_j$ toward zero but never forces any of them to be exactly zero.
 
 | Parameter | Effect |
@@ -227,6 +318,10 @@ $$
 \min_{\boldsymbol{\beta}} \left[ \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{p} |\beta_j| \right]
 $$
 
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| Expression | Numerical computation step | Result of arithmetic operation |
 The L1 penalty can force some $\beta_j$ to be **exactly zero** when $\lambda$ is sufficiently large.
 
 | Ridge ($\ell_2$) | Lasso ($\ell_1$) |

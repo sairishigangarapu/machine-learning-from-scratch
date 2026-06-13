@@ -193,11 +193,27 @@ $$
 \mathcal{L}(\theta) \approx \mathcal{L}(\theta_t) + \nabla \mathcal{L}^T(\theta - \theta_t) + \frac{1}{2}(\theta - \theta_t)^T H (\theta - \theta_t)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathcal{L}(\theta)$ | Loss at candidate $\theta$ | The function being approximated (e.g., training loss) |
+| $\mathcal{L}(\theta_t)$ | Loss at current point $\theta_t$ | Constant term — the function value at the expansion point |
+| $\nabla \mathcal{L}$ | Gradient at $\theta_t$ | First-order term — linear approximation of the loss |
+| $\theta - \theta_t$ | Displacement from current point | How far we move from the current parameter estimate |
+| $H$ | Hessian matrix at $\theta_t$ | Second-order term — curvature information; $\frac{1}{2}(\theta - \theta_t)^T H (\theta - \theta_t)$ is the quadratic correction |
+
 Minimizing this quadratic approximation gives Newton's update rule:
 
 $$
 \theta_{t+1} = \theta_t - H^{-1} \nabla \mathcal{L}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\theta_{t+1}$ | Updated parameters | Newton's method update — aims to jump directly to the minimum of the quadratic approximation |
+| $\theta_t$ | Current parameters | The starting point of the Newton step |
+| $H^{-1}$ | Inverse of the Hessian matrix | Second-order correction — scales the gradient by curvature; steep directions get smaller steps |
+| $\nabla \mathcal{L}$ | Gradient at $\theta_t$ | First-order direction of steepest descent |
+| $-H^{-1}\nabla \mathcal{L}$ | Newton step | Unlike gradient descent ($-\alpha \nabla \mathcal{L}$), Newton's method accounts for curvature |
 
 where $H$ is the Hessian matrix. This converges faster than gradient descent but requires computing and inverting $H$ — which is $O(n^3)$ and impractical for large models.
 

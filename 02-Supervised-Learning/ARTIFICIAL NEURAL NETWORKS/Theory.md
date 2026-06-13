@@ -47,6 +47,14 @@ $$
 y = \begin{cases} 1 & \text{if } \mathbf{w}^T\mathbf{x} + b \geq 0 \\ 0 & \text{otherwise} \end{cases}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $y$ | **Binary output** of the perceptron | 1 if the weighted sum + bias is non-negative, 0 otherwise; the final prediction for the input |
+| $\mathbf{w}^T\mathbf{x} + b$ | **Decision boundary** — a hyperplane in feature space | Linear combination of weighted inputs plus bias; the sign determines the predicted class |
+| $\mathbf{w}$ | **Weight vector** — learned parameters | Each $w_i$ controls the importance of feature $x_i$; unlike the MP neuron, weights are learned from data |
+| $\mathbf{x}$ | Input feature vector | The data point being classified; can be real-valued (unlike MP neuron which requires binary inputs) |
+| $b$ | **Bias** term (equivalent to $-\theta$) | Allows the decision boundary to shift away from the origin; learned alongside the weights |
+
 | Component | Role |
 | :--- | :--- |
 | $w_i$ | Weight for feature $x_i$ — learned from data |

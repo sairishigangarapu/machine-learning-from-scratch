@@ -18,6 +18,12 @@ $$
 y_{k+1} = y_k - \frac{g(y_k)}{g'(y_k)}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $y_{k+1}$ | Next iterate | Updated root approximation after Newton-Raphson step |
+| $y_k$ | Current iterate | Previous root approximation |
+| $g(y_k)$ | Function value at $y_k$ | Measures residual; how far current iterate is from a root |
+| $g'(y_k)$ | Derivative at $y_k$ | Slope of tangent line; determines step direction and magnitude |
 **Geometric meaning:** At each step, approximate $g$ by its tangent line at $y_k$, and find where the tangent crosses zero.
 
 ```python
@@ -49,6 +55,12 @@ $$
 \mathbf{x}_{k+1} = \mathbf{x}_k - [\nabla^2 f(\mathbf{x}_k)]^{-1} \nabla f(\mathbf{x}_k)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{x}_{k+1}$ | Next iterate | Updated parameter vector after full Newton step |
+| $\mathbf{x}_k$ | Current iterate | Parameter vector at current iteration |
+| $\nabla^2 f(\mathbf{x}_k)$ | Hessian matrix at $\mathbf{x}_k$ | Matrix of second partial derivatives; encodes curvature |
+| $\nabla f(\mathbf{x}_k)$ | Gradient at $\mathbf{x}_k$ | Vector of first partial derivatives; direction of steepest ascent |
 where $\nabla^2 f$ is the **Hessian matrix** (Lecture 34, 39).
 
 ### Quadratic Model Interpretation
@@ -58,6 +70,12 @@ $$
 m_k(\mathbf{x}) = f(\mathbf{x}_k) + \nabla f(\mathbf{x}_k)^T(\mathbf{x} - \mathbf{x}_k) + \frac{1}{2}(\mathbf{x} - \mathbf{x}_k)^T \nabla^2 f(\mathbf{x}_k)(\mathbf{x} - \mathbf{x}_k)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $m_k(\mathbf{x})$ | Quadratic model at iteration $k$ | Second-order Taylor approximation of $f$ near $\mathbf{x}_k$ |
+| $f(\mathbf{x}_k)$ | Function value at $\mathbf{x}_k$ | Current objective value; constant term in the model |
+| $\nabla f(\mathbf{x}_k)$ | Gradient at $\mathbf{x}_k$ | First-order term; linear approximation of $f$ |
+| $\nabla^2 f(\mathbf{x}_k)$ | Hessian matrix at $\mathbf{x}_k$ | Second-order term; captures curvature of $f$ |
 and jumps directly to the minimum of this quadratic model.
 
 ```python
@@ -115,6 +133,12 @@ $$
 \mathbf{x}_{k+1} = \mathbf{x}_k + \alpha_k \mathbf{d}_k
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mathbf{x}_{k+1}$ | Next iterate | Updated parameter vector after damped Newton step |
+| $\mathbf{x}_k$ | Current iterate | Parameter vector at current iteration |
+| $\alpha_k$ | Step size | Controls step length along Newton direction (found via line search) |
+| $\mathbf{d}_k$ | Newton direction | $-\nabla^2 f(\mathbf{x}_k)^{-1} \nabla f(\mathbf{x}_k)$; Hessian-scaled descent direction |
 where $\mathbf{d}_k = -[\nabla^2 f(\mathbf{x}_k)]^{-1} \nabla f(\mathbf{x}_k)$ and $\alpha_k$ is determined by line search.
 
 This preserves the fast convergence near the solution while being more robust far from it.
@@ -132,6 +156,12 @@ $$
 B_{k+1} = B_k + \text{rank-2 update based on } \mathbf{s}_k, \mathbf{y}_k
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $B_{k+1}$ | Updated Hessian approximation | Next quasi-Newton estimate of the Hessian |
+| $B_k$ | Current Hessian approximation | Previous quasi-Newton estimate being updated |
+| $\mathbf{s}_k$ | Step in parameter space | $\mathbf{x}_{k+1} - \mathbf{x}_k$; change in parameters between iterates |
+| $\mathbf{y}_k$ | Step in gradient space | $\nabla f(\mathbf{x}_{k+1}) - \nabla f(\mathbf{x}_k)$; change in gradients |
 where $\mathbf{s}_k = \mathbf{x}_{k+1} - \mathbf{x}_k$ and $\mathbf{y}_k = \nabla f(\mathbf{x}_{k+1}) - \nabla f(\mathbf{x}_k)$.
 
 * Per-iteration cost: $O(n^2)$ (vs $O(n^3)$ for full Newton)
@@ -232,12 +262,24 @@ $$
 \min f(\mathbf{x}) \quad \text{s.t.} \quad g_i(\mathbf{x}) \le 0
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(\mathbf{x})$ | Objective function | Quantity to be minimized |
+| $\mathbf{x}$ | Decision variable vector | Parameters to optimize over |
+| $g_i(\mathbf{x})$ | $i$-th inequality constraint | Must be $\le 0$ for feasibility; defines the feasible region |
 into a sequence of unconstrained problems:
 
 $$
 \min \; P(\mathbf{x}, \mu) = f(\mathbf{x}) + \mu \sum_{i=1}^{m} \left[\max(0, g_i(\mathbf{x}))\right]^2
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $P(\mathbf{x}, \mu)$ | Penalized objective | Unconstrained surrogate combining original objective and penalty |
+| $f(\mathbf{x})$ | Original objective | Function to be minimized |
+| $\mu$ | Penalty parameter | Weight on constraint violations; increased over iterations |
+| $\max(0, g_i(\mathbf{x}))$ | $i$-th constraint violation | Zero when feasible, positive when $g_i$ is violated |
+| $[\cdot]^2$ | Squared penalty operator | Ensures differentiability at $g_i = 0$ |
 where $\mu > 0$ is the **penalty parameter**. As $\mu \to \infty$, any constraint violation is heavily penalized, so the minimizer of $P$ approaches the minimizer of the original constrained problem.
 
 ### Why Squared?
@@ -294,6 +336,11 @@ $$
 \min x^2 + y^2 \quad \text{s.t.} \quad x + y \ge 1
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $x^2 + y^2$ | Objective function | Euclidean distance squared from origin (to be minimized) |
+| $x + y \ge 1$ | Inequality constraint | Requires solution to lie above or on the line $x + y = 1$ |
+| $x, y$ | Decision variables | Two-dimensional parameters to optimize over |
 Rewrite constraint: $g(x,y) = 1 - x - y \le 0$.
 
 ```python

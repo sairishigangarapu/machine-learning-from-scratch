@@ -13,6 +13,12 @@ $$
 p(x) = P(X = x)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $p(x)$ | Probability mass function | Defines probability for discrete outcomes |
+| $P(X = x)$ | Probability that $X$ equals $x$ | Notation for exact point probability |
+| $\sum_x p(x) = 1$ | Normalization condition | Total probability sums to 1 |
+
 **Properties:**
 * $p(x) \ge 0$ for all $x$
 * $\sum_x p(x) = 1$
@@ -21,6 +27,11 @@ $$
 $$
 p(x) = \frac{1}{6}, \quad x \in \{1, 2, 3, 4, 5, 6\}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $p(x) = \frac{1}{6}$ | Uniform PMF for fair die | Each face equally likely |
+| $x \in \{1,2,3,4,5,6\}$ | Support of the die | Set of all possible outcomes |
 
 ```python
 import numpy as np
@@ -46,6 +57,13 @@ $$
 P(a \le X \le b) = \int_a^b f(x) \, dx
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $f(x)$ | Probability density function | Density of probability at $x$ |
+| $P(a \le X \le b)$ | Interval probability | Area under PDF from $a$ to $b$ |
+| $\int_a^b f(x) \, dx$ | Integral of PDF | Computes probability over interval |
+| $\int_{-\infty}^{\infty} f(x) \, dx = 1$ | Normalization condition | Total area under PDF equals 1 |
+
 **Properties:**
 * $f(x) \ge 0$
 * $\int_{-\infty}^{\infty} f(x) \, dx = 1$
@@ -56,6 +74,12 @@ Note: $f(x)$ can be greater than 1 — it's a density, not a probability.
 $$
 f(x) = \frac{dF(x)}{dx}, \quad F(x) = \int_{-\infty}^{x} f(t) \, dt
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $F(x)$ | Cumulative distribution function | Probability $P(X \le x)$ |
+| $f(x) = \frac{dF(x)}{dx}$ | PDF as derivative of CDF | Density equals rate of change of CDF |
+| $F(x) = \int_{-\infty}^x f(t) \, dt$ | CDF as integral of PDF | Cumulative probability from $-\infty$ |
 
 ```python
 import numpy as np
@@ -85,6 +109,12 @@ $$
 f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\mu$ | Mean (location) parameter | Center of the normal distribution |
+| $\sigma^2$ | Variance (spread) parameter | Width of the bell curve |
+| $\frac{1}{\sqrt{2\pi\sigma^2}}$ | Normalization constant | Ensures total area integrates to 1 |
+
 The most important distribution in ML. Appears in:
 * Feature modeling (Gaussian Naive Bayes)
 * Weight initialization (Xavier/He)
@@ -96,12 +126,24 @@ $$
 f(x) = \lambda e^{-\lambda x}, \quad x \ge 0
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $\lambda$ | Rate parameter | Average event rate |
+| $e^{-\lambda x}$ | Exponential decay factor | Shapes the decay |
+| $x \ge 0$ | Support constraint | Non-negative values only |
+
 Used in: survival analysis, modeling time between events.
 
 ### Uniform Distribution
 $$
 f(x) = \frac{1}{b - a}, \quad a \le x \le b
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $a$ | Lower bound | Minimum value of support |
+| $b$ | Upper bound | Maximum value of support |
+| $\frac{1}{b - a}$ | Constant density | Equal weight across $[a, b]$ |
 
 Used in: random initialization, Monte Carlo sampling.
 
@@ -141,9 +183,19 @@ $$
 H(X) = -\sum_x p(x) \log p(x) \quad \text{(discrete)}
 $$
 
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H(X)$ | Shannon entropy | Measures uncertainty of $X$ |
+| $-\sum_x p(x) \log p(x)$ | Discrete entropy formula | Expected log-probability |
+
 $$
 H(X) = -\int f(x) \log f(x) \, dx \quad \text{(continuous, differential entropy)}
 $$
+
+| Term | Definition | Significance |
+| :--- | :--- | :--- |
+| $H(X)$ | Differential entropy | Continuous analogue of Shannon entropy |
+| $-\int f(x) \log f(x) \, dx$ | Differential entropy formula | Extension of entropy to continuous variables |
 
 **ML Connection:** Decision trees split on features that maximize **information gain** (reduction in entropy). Cross-entropy loss measures the difference between predicted and true distributions.
 
