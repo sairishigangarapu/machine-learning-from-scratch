@@ -27,7 +27,7 @@ A **word embedding** maps each word to a **dense, low-dimensional vector** (e.g.
 | Property | One-Hot | Embedding |
 | :--- | :--- | :--- |
 | Representation | Sparse (mostly zeros) | Dense (all non-zero) |
-| Dimensions | |V| (e.g., 50,000) | 100-300 |
+| Dimensions | $\vert V\vert$ (e.g., 50,000) | 100-300 |
 | Origin | Hand-designed | Learned from data |
 | Semantic structure | None — all words orthogonal | Emerges from co-occurrence patterns |
 | Memory for 50K words | 50,000 x 50,000 = 2.5B entries | 50,000 x 300 = 15M entries (~167x smaller) |
@@ -123,9 +123,9 @@ Raising the unigram distribution to the 3/4 power is a heuristic: it increases t
 
 | Method | Approach | Complexity | When to Use |
 | :--- | :--- | :--- | :--- |
-| Full Softmax | exp over all | O(|V|) | Small vocabularies |
-| Hierarchical Softmax | Binary tree | O(log |V|) | Large vocabularies, rare words |
-| Negative Sampling | Binary classification | O(k) where k << |V| | Default in Word2Vec |
+| Full Softmax | exp over all | $O(\vert V\vert)$ | Small vocabularies |
+| Hierarchical Softmax | Binary tree | $O(\log \vert V\vert)$ | Large vocabularies, rare words |
+| Negative Sampling | Binary classification | $O(k)$ where $k \ll \vert V\vert$ | Default in Word2Vec |
 
 ---
 

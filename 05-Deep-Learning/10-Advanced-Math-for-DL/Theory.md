@@ -112,7 +112,11 @@ $$
 
 ### Worked Numerical Example
 
-Input $\mathbf{x} = \begin{bmatrix} 0.5 & -0.2 & 0.1 \end{bmatrix}$, $\mathbf{W} = \begin{bmatrix} 0.4 & -0.3 \\ 0.2 & 0.5 \\ -0.1 & 0.6 \end{bmatrix}$, $\mathbf{b} = \begin{bmatrix} 0.1 & -0.2 \end{bmatrix}$
+$$
+\mathbf{x} = \begin{bmatrix} 0.5 & -0.2 & 0.1 \end{bmatrix},\quad
+\mathbf{W} = \begin{bmatrix} 0.4 & -0.3 \\ 0.2 & 0.5 \\ -0.1 & 0.6 \end{bmatrix},\quad
+\mathbf{b} = \begin{bmatrix} 0.1 & -0.2 \end{bmatrix}
+$$
 
 $$
 \mathbf{x}\mathbf{W} = \begin{bmatrix} 0.5(-0.3) + (-0.2)(0.2) + 0.1(-0.1) \\ 0.5(-0.3) + (-0.2)(0.5) + 0.1(0.6) \end{bmatrix}^\top = \begin{bmatrix} 0.5(0.4) + (-0.2)(0.2) + 0.1(-0.1) & 0.5(-0.3) + (-0.2)(0.5) + 0.1(0.6) \end{bmatrix}
