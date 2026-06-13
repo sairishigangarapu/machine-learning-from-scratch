@@ -22,8 +22,9 @@ A **tensor** is a multi-dimensional array of numerical values. The number of axe
 | 3 | 3-Tensor | `(B, H, W)` | Batch of grayscale images, sequence of embeddings |
 | 4 | 4-Tensor | `(B, C, H, W)` | Batch of color images, batch of multi-head attention states |
 
-$$ \text{Numel} = \prod_{i=0}^{r-1} \text{shape}[i] \qquad \text{Strides}[i] = \prod_{j=i+1}^{r-1} \text{shape}[j] $$
-
+$$
+\text{Numel} = \prod_{i=0}^{r-1} \text{shape}[i] \qquad \text{Strides}[i] = \prod_{j=i+1}^{r-1} \text{shape}[j]
+$$
 where **numel** is the total number of elements and **strides** define the memory offset for each dimension.
 
 | Term | Definition | Significance |
@@ -38,8 +39,9 @@ where **numel** is the total number of elements and **strides** define the memor
 
 Consider a 2x3 matrix:
 
-$$ \mathbf{T} = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} $$
-
+$$
+\mathbf{T} = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}
+$$
 - Shape: `(2, 3)`  -- 2 rows, 3 columns
 - Rank: 2
 - Numel: `2 * 3 = 6`
@@ -85,14 +87,16 @@ Every fully connected layer computes a linear transformation: multiply the input
 
 For a single input vector $\mathbf{x} \in \mathbb{R}^{n}$ going into a layer with $m$ output units:
 
-$$ \mathbf{h} = \mathbf{W}^\top \mathbf{x} + \mathbf{b} \quad \text{or} \quad \mathbf{h} = \mathbf{x} \mathbf{W} + \mathbf{b} $$
-
+$$
+\mathbf{h} = \mathbf{W}^\top \mathbf{x} + \mathbf{b} \quad \text{or} \quad \mathbf{h} = \mathbf{x} \mathbf{W} + \mathbf{b}
+$$
 depending on convention. In PyTorch, `nn.Linear(in_features=n, out_features=m)` stores $\mathbf{W} \in \mathbb{R}^{m \times n}$ and computes $\mathbf{y} = \mathbf{x} \mathbf{W}^\top + \mathbf{b}$.
 
 We adopt the convention: weight matrix $\mathbf{W} \in \mathbb{R}^{n \times m}$ (input_dim x output_dim), input row vector $\mathbf{x} \in \mathbb{R}^{1 \times n}$:
 
-$$ \mathbf{h} = \mathbf{x} \mathbf{W} + \mathbf{b} $$
-
+$$
+\mathbf{h} = \mathbf{x} \mathbf{W} + \mathbf{b}
+$$
 - $\mathbf{x} \in \mathbb{R}^{1 \times n}$ -- input row vector
 - $\mathbf{W} \in \mathbb{R}^{n \times m}$ -- weight matrix
 - $\mathbf{b} \in \mathbb{R}^{1 \times m}$ -- bias row vector
@@ -110,14 +114,17 @@ $$ \mathbf{h} = \mathbf{x} \mathbf{W} + \mathbf{b} $$
 
 Input $\mathbf{x} = \begin{bmatrix} 0.5 & -0.2 & 0.1 \end{bmatrix}$, $\mathbf{W} = \begin{bmatrix} 0.4 & -0.3 \\ 0.2 & 0.5 \\ -0.1 & 0.6 \end{bmatrix}$, $\mathbf{b} = \begin{bmatrix} 0.1 & -0.2 \end{bmatrix}$
 
-$$ \mathbf{x}\mathbf{W} = \begin{bmatrix} 0.5(-0.3) + (-0.2)(0.2) + 0.1(-0.1) \\ 0.5(-0.3) + (-0.2)(0.5) + 0.1(0.6) \end{bmatrix}^\top = \begin{bmatrix} 0.5(0.4) + (-0.2)(0.2) + 0.1(-0.1) & 0.5(-0.3) + (-0.2)(0.5) + 0.1(0.6) \end{bmatrix} $$
-
+$$
+\mathbf{x}\mathbf{W} = \begin{bmatrix} 0.5(-0.3) + (-0.2)(0.2) + 0.1(-0.1) \\ 0.5(-0.3) + (-0.2)(0.5) + 0.1(0.6) \end{bmatrix}^\top = \begin{bmatrix} 0.5(0.4) + (-0.2)(0.2) + 0.1(-0.1) & 0.5(-0.3) + (-0.2)(0.5) + 0.1(0.6) \end{bmatrix}
+$$
 Wait, let's do this carefully. $\mathbf{x} \in \mathbb{R}^{1 \times 3}$, $\mathbf{W} \in \mathbb{R}^{3 \times 2}$:
 
-$$ \mathbf{x}\mathbf{W} = \begin{bmatrix} 0.5 & -0.2 & 0.1 \end{bmatrix} \begin{bmatrix} 0.4 & -0.3 \\ 0.2 & 0.5 \\ -0.1 & 0.6 \end{bmatrix} = \begin{bmatrix} 0.5 \times 0.4 + (-0.2) \times 0.2 + 0.1 \times (-0.1) & 0.5 \times (-0.3) + (-0.2) \times 0.5 + 0.1 \times 0.6 \end{bmatrix} $$
-
-$$ = \begin{bmatrix} 0.20 - 0.04 - 0.01 & -0.15 - 0.10 + 0.06 \end{bmatrix} = \begin{bmatrix} 0.15 & -0.19 \end{bmatrix} $$
-
+$$
+\mathbf{x}\mathbf{W} = \begin{bmatrix} 0.5 & -0.2 & 0.1 \end{bmatrix} \begin{bmatrix} 0.4 & -0.3 \\ 0.2 & 0.5 \\ -0.1 & 0.6 \end{bmatrix} = \begin{bmatrix} 0.5 \times 0.4 + (-0.2) \times 0.2 + 0.1 \times (-0.1) & 0.5 \times (-0.3) + (-0.2) \times 0.5 + 0.1 \times 0.6 \end{bmatrix}
+$$
+$$
+= \begin{bmatrix} 0.20 - 0.04 - 0.01 & -0.15 - 0.10 + 0.06 \end{bmatrix} = \begin{bmatrix} 0.15 & -0.19 \end{bmatrix}
+$$
 Then $\mathbf{h} = \mathbf{xW} + \mathbf{b} = \begin{bmatrix} 0.15 & -0.19 \end{bmatrix} + \begin{bmatrix} 0.1 & -0.2 \end{bmatrix} = \begin{bmatrix} 0.25 & -0.39 \end{bmatrix}$.
 
 ```python
@@ -148,8 +155,9 @@ Two tensors are "broadcastable" if the following rules hold (compared from the *
 2. For each dimension, the sizes must either be **equal** or one of them must be **1**.
 3. If a dimension is 1, it is "stretched" to match the other dimension (no memory copy in the optimized implementation).
 
-$$ (3, 1) + (1, 4) \rightarrow (3, 1) \text{ padded to } (3, 4) \;+\; (1, 4) \text{ padded to } (3, 4) \rightarrow (3, 4) $$
-
+$$
+(3, 1) + (1, 4) \rightarrow (3, 1) \text{ padded to } (3, 4) \;+\; (1, 4) \text{ padded to } (3, 4) \rightarrow (3, 4)
+$$
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
 | Broadcasting | Automatic dimension expansion for element-wise ops | Eliminates manual tiling, saves memory |
@@ -166,8 +174,9 @@ c = a + b                             # (3, 1) + (3,) -> (3, 1) + (1, 3) -> (3, 
 print(c)
 ```
 
-$$ \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}_{3\times1} + \begin{bmatrix} 10 & 20 & 30 \end{bmatrix}_{1\times3} = \begin{bmatrix} 11 & 21 & 31 \\ 12 & 22 & 32 \\ 13 & 23 & 33 \end{bmatrix}_{3\times3} $$
-
+$$
+\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}_{3\times1} + \begin{bmatrix} 10 & 20 & 30 \end{bmatrix}_{1\times3} = \begin{bmatrix} 11 & 21 & 31 \\ 12 & 22 & 32 \\ 13 & 23 & 33 \end{bmatrix}_{3\times3}
+$$
 **Why this matters for batching:** The bias $\mathbf{b}$ has shape `(1, m)` and the batch output $\mathbf{H} = \mathbf{XW}$ has shape `(B, m)`. Broadcasting adds the same bias to every row without a loop.
 
 | Shape Pair | Compatible? | Result Shape | Reason |
@@ -192,10 +201,12 @@ Real neural networks process **batches** of multiple samples simultaneously. Ins
 
 Given a batch of $B$ input samples, each with $D$ features:
 
-$$ \mathbf{X} \in \mathbb{R}^{B \times D}, \quad \mathbf{W} \in \mathbb{R}^{D \times H}, \quad \mathbf{b} \in \mathbb{R}^{1 \times H} $$
-
-$$ \mathbf{H} = \mathbf{X} \mathbf{W} + \mathbf{b} \in \mathbb{R}^{B \times H} $$
-
+$$
+\mathbf{X} \in \mathbb{R}^{B \times D}, \quad \mathbf{W} \in \mathbb{R}^{D \times H}, \quad \mathbf{b} \in \mathbb{R}^{1 \times H}
+$$
+$$
+\mathbf{H} = \mathbf{X} \mathbf{W} + \mathbf{b} \in \mathbb{R}^{B \times H}
+$$
 Each row $i$ of $\mathbf{H}$ is the output for sample $i$: $\mathbf{H}_{i,:} = \mathbf{X}_{i,:} \mathbf{W} + \mathbf{b}$.
 
 | Term | Definition | Significance |
@@ -210,12 +221,15 @@ Each row $i$ of $\mathbf{H}$ is the output for sample $i$: $\mathbf{H}_{i,:} = \
 
 With $B=3$, $D=4$, $H=2$:
 
-$$ \mathbf{X} = \begin{bmatrix} 1 & 0 & 2 & -1 \\ -1 & 2 & 0 & 1 \\ 0 & 1 & -1 & 2 \end{bmatrix}_{3\times4}, \quad \mathbf{W} = \begin{bmatrix} 0.2 & -0.1 \\ 0.3 & 0.0 \\ -0.2 & 0.4 \\ 0.1 & 0.5 \end{bmatrix}_{4\times2} $$
-
-$$ \mathbf{XW} = \begin{bmatrix} 1(0.2)+0(0.3)+2(-0.2)+(-1)(0.1) & 1(-0.1)+0(0.0)+2(0.4)+(-1)(0.5) \\ -1(0.2)+2(0.3)+0(-0.2)+1(0.1) & -1(-0.1)+2(0.0)+0(0.4)+1(0.5) \\ 0(0.2)+1(0.3)+(-1)(-0.2)+2(0.1) & 0(-0.1)+1(0.0)+(-1)(0.4)+2(0.5) \end{bmatrix} $$
-
-$$ = \begin{bmatrix} 0.2+0-0.4-0.1 & -0.1+0+0.8-0.5 \\ -0.2+0.6+0+0.1 & 0.1+0+0+0.5 \\ 0+0.3+0.2+0.2 & 0+0-0.4+1.0 \end{bmatrix} = \begin{bmatrix} -0.3 & 0.2 \\ 0.5 & 0.6 \\ 0.7 & 0.6 \end{bmatrix} $$
-
+$$
+\mathbf{X} = \begin{bmatrix} 1 & 0 & 2 & -1 \\ -1 & 2 & 0 & 1 \\ 0 & 1 & -1 & 2 \end{bmatrix}_{3\times4}, \quad \mathbf{W} = \begin{bmatrix} 0.2 & -0.1 \\ 0.3 & 0.0 \\ -0.2 & 0.4 \\ 0.1 & 0.5 \end{bmatrix}_{4\times2}
+$$
+$$
+\mathbf{XW} = \begin{bmatrix} 1(0.2)+0(0.3)+2(-0.2)+(-1)(0.1) & 1(-0.1)+0(0.0)+2(0.4)+(-1)(0.5) \\ -1(0.2)+2(0.3)+0(-0.2)+1(0.1) & -1(-0.1)+2(0.0)+0(0.4)+1(0.5) \\ 0(0.2)+1(0.3)+(-1)(-0.2)+2(0.1) & 0(-0.1)+1(0.0)+(-1)(0.4)+2(0.5) \end{bmatrix}
+$$
+$$
+= \begin{bmatrix} 0.2+0-0.4-0.1 & -0.1+0+0.8-0.5 \\ -0.2+0.6+0+0.1 & 0.1+0+0+0.5 \\ 0+0.3+0.2+0.2 & 0+0-0.4+1.0 \end{bmatrix} = \begin{bmatrix} -0.3 & 0.2 \\ 0.5 & 0.6 \\ 0.7 & 0.6 \end{bmatrix}
+$$
 ```python
 X = torch.tensor([[1., 0., 2., -1.],
                   [-1., 2., 0., 1.],
@@ -243,14 +257,16 @@ Matrix multiplication requires the inner dimensions to match. In the attention m
 
 The transpose of a matrix $\mathbf{A} \in \mathbb{R}^{m \times n}$ is $\mathbf{A}^\top \in \mathbb{R}^{n \times m}$ where:
 
-$$ (\mathbf{A}^\top)_{ij} = \mathbf{A}_{ji} $$
-
+$$
+(\mathbf{A}^\top)_{ij} = \mathbf{A}_{ji}
+$$
 For batched tensors, we transpose only the last two dimensions using `.transpose(-2, -1)` or `.permute()`.
 
 In attention, the score computation is:
 
-$$ \text{Scores} = \mathbf{Q} \mathbf{K}^\top \in \mathbb{R}^{N \times N} $$
-
+$$
+\text{Scores} = \mathbf{Q} \mathbf{K}^\top \in \mathbb{R}^{N \times N}
+$$
 where $\mathbf{Q} \in \mathbb{R}^{N \times d_k}$, $\mathbf{K} \in \mathbb{R}^{N \times d_k}$, so $\mathbf{K}^\top \in \mathbb{R}^{d_k \times N}$.
 
 | Term | Definition | Significance |
@@ -262,12 +278,15 @@ where $\mathbf{Q} \in \mathbb{R}^{N \times d_k}$, $\mathbf{K} \in \mathbb{R}^{N 
 
 ### Worked Numerical Example
 
-$$ \mathbf{Q} = \begin{bmatrix} 0.1 & 0.2 \\ 0.3 & 0.4 \\ 0.5 & 0.6 \end{bmatrix}_{3\times2}, \quad \mathbf{K} = \begin{bmatrix} 0.7 & 0.8 \\ 0.9 & 1.0 \\ 1.1 & 1.2 \end{bmatrix}_{3\times2} $$
-
-$$ \mathbf{K}^\top = \begin{bmatrix} 0.7 & 0.9 & 1.1 \\ 0.8 & 1.0 & 1.2 \end{bmatrix}_{2\times3} $$
-
-$$ \mathbf{QK}^\top = \begin{bmatrix} 0.1(0.7)+0.2(0.8) & 0.1(0.9)+0.2(1.0) & 0.1(1.1)+0.2(1.2) \\ 0.3(0.7)+0.4(0.8) & 0.3(0.9)+0.4(1.0) & 0.3(1.1)+0.4(1.2) \\ 0.5(0.7)+0.6(0.8) & 0.5(0.9)+0.6(1.0) & 0.5(1.1)+0.6(1.2) \end{bmatrix} = \begin{bmatrix} 0.23 & 0.29 & 0.35 \\ 0.53 & 0.67 & 0.81 \\ 0.83 & 1.05 & 1.27 \end{bmatrix}_{3\times3} $$
-
+$$
+\mathbf{Q} = \begin{bmatrix} 0.1 & 0.2 \\ 0.3 & 0.4 \\ 0.5 & 0.6 \end{bmatrix}_{3\times2}, \quad \mathbf{K} = \begin{bmatrix} 0.7 & 0.8 \\ 0.9 & 1.0 \\ 1.1 & 1.2 \end{bmatrix}_{3\times2}
+$$
+$$
+\mathbf{K}^\top = \begin{bmatrix} 0.7 & 0.9 & 1.1 \\ 0.8 & 1.0 & 1.2 \end{bmatrix}_{2\times3}
+$$
+$$
+\mathbf{QK}^\top = \begin{bmatrix} 0.1(0.7)+0.2(0.8) & 0.1(0.9)+0.2(1.0) & 0.1(1.1)+0.2(1.2) \\ 0.3(0.7)+0.4(0.8) & 0.3(0.9)+0.4(1.0) & 0.3(1.1)+0.4(1.2) \\ 0.5(0.7)+0.6(0.8) & 0.5(0.9)+0.6(1.0) & 0.5(1.1)+0.6(1.2) \end{bmatrix} = \begin{bmatrix} 0.23 & 0.29 & 0.35 \\ 0.53 & 0.67 & 0.81 \\ 0.83 & 1.05 & 1.27 \end{bmatrix}_{3\times3}
+$$
 ```python
 Q = torch.tensor([[0.1, 0.2],
                   [0.3, 0.4],
@@ -508,16 +527,18 @@ Forward: $\mathbf{Y} = \mathbf{XW}$
 
 Backward (given upstream gradient $\mathbf{dL/dY} \in \mathbb{R}^{B \times H}$):
 
-$$ \frac{\partial \text{Loss}}{\partial \mathbf{W}} = \mathbf{X}^\top \frac{\partial \text{Loss}}{\partial \mathbf{Y}} \in \mathbb{R}^{D \times H} $$
-
+$$
+\frac{\partial \text{Loss}}{\partial \mathbf{W}} = \mathbf{X}^\top \frac{\partial \text{Loss}}{\partial \mathbf{Y}} \in \mathbb{R}^{D \times H}
+$$
 This is the **outer product** of $\mathbf{X}$'s columns with $\mathbf{dL/dY}$'s rows.
 
 For the bias: $\frac{\partial \text{Loss}}{\partial \mathbf{b}} = \text{sum}\left( \frac{\partial \text{Loss}}{\partial \mathbf{Y}}, \text{dim}=0 \right) \in \mathbb{R}^{H}$
 
 And the gradient that flows back to the input:
 
-$$ \frac{\partial \text{Loss}}{\partial \mathbf{X}} = \frac{\partial \text{Loss}}{\partial \mathbf{Y}} \mathbf{W}^\top \in \mathbb{R}^{B \times D} $$
-
+$$
+\frac{\partial \text{Loss}}{\partial \mathbf{X}} = \frac{\partial \text{Loss}}{\partial \mathbf{Y}} \mathbf{W}^\top \in \mathbb{R}^{B \times D}
+$$
 | Term | Definition | Significance |
 | :--- | :--- | :--- |
 | $\partial \text{Loss} / \partial \mathbf{W}$ | Weight gradient | Used to update weights via SGD/Adam |

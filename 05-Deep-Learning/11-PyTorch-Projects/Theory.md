@@ -406,12 +406,14 @@ A decoder-only transformer (the architecture behind GPT, ChatGPT, Claude) genera
 
 **Positional Encoding:** Adds position information since self-attention is permutation-invariant.
 
-$$ PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right), \quad PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right) $$
-
+$$
+PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right), \quad PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)
+$$
 **Causal Self-Attention:** Each token queries previous tokens (including itself) to gather context.
 
-$$ \text{head} = \text{softmax}\left( \frac{\mathbf{Q} \mathbf{K}^\top}{\sqrt{d_k}} + \text{mask} \right) \mathbf{V} $$
-
+$$
+\text{head} = \text{softmax}\left( \frac{\mathbf{Q} \mathbf{K}^\top}{\sqrt{d_k}} + \text{mask} \right) \mathbf{V}
+$$
 **Decoder Block:** Causal attention -> residual + layer norm -> MLP -> residual + layer norm.
 
 **Generation:** Feed prompt, sample next token, append, repeat.
